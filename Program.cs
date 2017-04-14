@@ -18,6 +18,7 @@ namespace birds
 				.Where(x => x.title.StartsWith("B: "))
 				.GroupBy(x => x.id)
 				.Select(x => x.First())
+				.OrderBy(x => x.title)
 				.ToList();
 
 
@@ -47,10 +48,7 @@ namespace birds
 				request.AddParameter("page", page.ToString());
 
 			var response = client.Execute<PhotosResponse>(request);
-			if (response.ErrorException != null)
-				throw response.ErrorException;
-
-			return response.Data;
+			return HandleExceptions(response);	
 		}
 
 		public static PhotoResponse GetPhoto(RestClient client, string id)
@@ -59,22 +57,25 @@ namespace birds
 				.AddParameter("photo_id", id);
 
 			var response = client.Execute<PhotoResponse>(request);
+			return HandleExceptions(response);		
+		}
+
+		public static T HandleExceptions<T>(IRestResponse<T> response)
+		{
 			if (response.ErrorException != null)
 				throw response.ErrorException;
 
 			return response.Data;
 		}
 
-		public static RestRequest CreateDefaultRequest(string method, Method verb)
+		public static IRestRequest CreateDefaultRequest(string method, Method verb)
 		{
-			var request = new RestRequest("services/rest", verb);
-			request.AddParameter("method", method);
-			request.AddParameter("api_key", "0bc2f0f2743df78c0764103b16222110");
-			request.AddParameter("format", "json");
-			request.AddParameter("nojsoncallback", "1");
-
-			request.AddHeader("Cache-Control", "no-cache");
-			return request;
+			return new RestRequest("services/rest", verb)
+				.AddParameter("method", method)
+				.AddParameter("api_key", "0bc2f0f2743df78c0764103b16222110")
+				.AddParameter("format", "json")
+				.AddParameter("nojsoncallback", "1")
+				.AddHeader("Cache-Control", "no-cache");
 		}
     }
 }
