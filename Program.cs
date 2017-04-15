@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using RestSharp;
+using System.Collections.Generic;
 
 namespace birds
 {
@@ -24,10 +25,15 @@ namespace birds
 
             var grouped = birds.GroupBy(x => x.title).ToDictionary(gdc => gdc.Key, gdc => gdc.ToList());
 
+            Log(grouped, client);
+        }
 
+        private static void Log(Dictionary<string, List<PhotosResponse.Photo>> grouped, RestClient client)
+        {
+            Console.WriteLine($"Found: {grouped.Count} species");
             foreach (var group in grouped)
             {
-                Console.WriteLine("\n" + group.Key);
+                Console.WriteLine($"\n {group.Key} ({group.Value.Count} items)");
                 foreach (var image in group.Value)
                 {
                     var photo = GetPhoto(client, image.id);
@@ -48,11 +54,11 @@ namespace birds
 
                         var country = location?.country?._content;
                         if (country == null) country = string.Empty;
-                        Console.WriteLine($"taken: {photo.photo.dates.taken} at {neighbourhood}{region}{country}");
+                        Console.WriteLine($"Photo {photo.photo.urls.url[0]._content} - taken: {photo.photo.dates.taken} at {neighbourhood}{region}{country}");
                     }
                     else
                     {
-                        Console.WriteLine($"taken: {photo.photo.dates.taken} at the unspecified or unavailable location");
+                        Console.WriteLine($"Photo {photo.photo.urls.url[0]._content} - taken: {photo.photo.dates.taken} at the unspecified or unavailable location");
                     }
                 }
             }
