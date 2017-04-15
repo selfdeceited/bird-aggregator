@@ -2,7 +2,7 @@
 
 namespace birds
 {
-	public class PhotosResponse
+	public class PhotosResponse: IStateResponse
 	{
 		public Photos photos { get; set; }
 		public string stat { get; set; }
