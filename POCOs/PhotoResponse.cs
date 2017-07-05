@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace birds
+namespace birds.POCOs
 {
-	
-
 	public class PhotoResponse: IStateResponse
 	{
 		public Photo photo { get; set; }
