@@ -1,5 +1,3 @@
-using System.Collections.Generic;
- 
 namespace birds.Domain
 {
     public class Photo
