@@ -40,12 +40,12 @@ namespace birds.Services
             return HandleExceptions(response);
         }
 
-        public LocationResponse GetLocation(RestClient client, string id)
+        public LocationResponse GetLocation(string flickrPhotoId)
         {
             var request = CreateDefaultRequest("flickr.photos.geo.getLocation", Method.GET)
-                .AddParameter("photo_id", id);
+                .AddParameter("photo_id", flickrPhotoId);
 
-            var response = client.Execute<LocationResponse>(request);
+            var response = _client.Execute<LocationResponse>(request);
             return HandleExceptions(response);
         }
 

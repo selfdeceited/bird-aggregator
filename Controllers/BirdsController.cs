@@ -30,9 +30,15 @@ namespace birds.Controllers
         [HttpGet("{id}/photos")]
         public IEnumerable<object> GetPhotos(int id)
         {
-            var bird = _context.Birds.SingleOrDefault(x => x.Id == id);
-            return bird?.Photos?.Select(_ => 
+            return _context.Photos.Where(_ => _.BirdId == id).Select(_ => 
                 $"https://www.flickr.com/photos/{_settings.FlickrUserId}/{_.FlickrId}");
+        }
+
+        [HttpGet("{id}/locations")]
+        public IEnumerable<object> GetLocations(int id)
+        {
+            var photos = _context.Birds.SingleOrDefault(x => x.Id == id)?.Photos.Select(x => x.Id);
+            return _context.Locations.Where(_ => photos.Contains(_.PhotoId));
         }
     }
 }

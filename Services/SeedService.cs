@@ -1,4 +1,3 @@
-using birds.POCOs;
 using System.Collections.Generic;
 using System.Linq;
 using birds.Domain;
@@ -28,7 +27,47 @@ namespace birds.Services
                 .Where(x => x.title.StartsWith("B: ")).ToList();
 
             var birdNames = allPhotos.GroupBy(x => x.title).Select(x => x.First().title);
+            PopulateBirds(birdNames);
+            PopulatePhotos(allPhotos);
+        }
+        public void PopulatePhotos(List<POCOs.PhotosResponse.Photo> allPhotos)
+        {
+            foreach (var photo in allPhotos)
+            {
+                var bird = _context.Birds.SingleOrDefault(_ => _.ApiName == photo.title);
+                var domainPhoto = new Photo
+                {
+                    FlickrId = photo.id,
+                };
 
+                if (bird != null)
+                    domainPhoto.BirdId = bird.Id;
+
+                var locationResponse = _flickrConnectionService.GetLocation(photo.id);
+                var location = locationResponse?.photo?.location;
+                if (location != null)
+                {
+                    var domainLocation = _context.Locations.SingleOrDefault(x => x.GeoTag == location.place_id);
+                    if (domainLocation == null)
+                    {
+                        domainPhoto.Location = new Location
+                        {
+                            GeoTag = location.place_id,
+                            Neighbourhood = location?.neighbourhood?._content,
+                            Region = location?.region?._content,
+                            Country = location?.country?._content
+                        };
+                    }
+                    else
+                        domainPhoto.Location = domainLocation;
+                }
+
+                _context.Photos.Add(domainPhoto);
+                _context.SaveChanges();
+            }
+        }
+        public void PopulateBirds(IEnumerable<string> birdNames)
+        {
             foreach(var bird in birdNames)
             {
                 if (bird.Contains("undefined")) continue;
@@ -40,22 +79,8 @@ namespace birds.Services
                     ApiName = bird,
                     EnglishName = engName,
                     LatinName = latinName,
-                    Photos = new List<Domain.Photo>()
+                    Photos = new List<Photo>()
                 });
-                _context.SaveChanges();
-            }
-
-            foreach (var photo in allPhotos)
-            {
-                var bird = _context.Birds.SingleOrDefault(_ => _.ApiName == photo.title);
-                var domainPhoto = new Domain.Photo
-                {
-                    FlickrId = photo.id
-                };
-                if (bird!=null)
-                    domainPhoto.BirdId = bird.Id;
-                    
-                _context.Photos.Add(domainPhoto);
                 _context.SaveChanges();
             }
         }
