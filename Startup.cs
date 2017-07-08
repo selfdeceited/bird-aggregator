@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using birds.Services;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace birds
 {
@@ -30,18 +31,19 @@ namespace birds
         {
             // Add framework services.
             services.AddMvc();
+            services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase("birds"));
             
-            
-            var settings = Configuration.GetSection("AppSettings");           
+            var settings = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(options => settings.Bind(options));
-            services.AddSingleton<BirdsService>();
             services.AddSingleton<FlickrConnectionService>();
+            services.AddSingleton<SeedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseMvc();
+            app.ApplicationServices.GetService<SeedService>().Seed();
         }
     }
 }
