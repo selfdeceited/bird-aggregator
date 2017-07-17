@@ -1,4 +1,7 @@
 bin
 obj
+publish
+node_modules
 *.swp
 *.user
+dist

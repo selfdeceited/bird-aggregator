@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using birds.Domain;
@@ -28,27 +29,37 @@ namespace birds.Services
 
             var birdNames = allPhotos.GroupBy(x => x.title).Select(x => x.First().title);
             PopulateBirds(birdNames);
-            PopulatePhotos(allPhotos);
+            PopulatePhotos(allPhotos, false);
         }
-        public void PopulatePhotos(List<POCOs.PhotosResponse.Photo> allPhotos)
+        public void PopulatePhotos(List<POCOs.PhotosResponse.Photo> allPhotos, bool populateLocations = true)
         {
             foreach (var photo in allPhotos)
             {
                 var bird = _context.Birds.SingleOrDefault(_ => _.ApiName == photo.title);
                 var domainPhoto = new Photo
                 {
-                    FlickrId = photo.id,
+                    FlickrId = photo.id
                 };
 
                 if (bird != null)
                     domainPhoto.BirdId = bird.Id;
 
-                var locationResponse = _flickrConnectionService.GetLocation(photo.id);
-                var location = locationResponse?.photo?.location;
-                if (location != null)
-                {
-                    var domainLocation = _context.Locations.SingleOrDefault(x => x.GeoTag == location.place_id);
-                    if (domainLocation == null)
+                if (populateLocations)
+                    domainPhoto = PopulateLocation(domainPhoto);
+                
+                _context.Photos.Add(domainPhoto);
+                _context.SaveChanges();
+            }
+        }
+
+        private Photo PopulateLocation(Photo domainPhoto)
+        {
+            var locationResponse = _flickrConnectionService.GetLocation(domainPhoto.FlickrId);
+            var location = locationResponse?.photo?.location;
+            if (location != null)
+            {
+                var domainLocation = _context.Locations.SingleOrDefault(x => x.GeoTag == location.place_id);
+                if (domainLocation == null)
                     {
                         domainPhoto.Location = new Location
                         {
@@ -60,12 +71,10 @@ namespace birds.Services
                     }
                     else
                         domainPhoto.Location = domainLocation;
-                }
-
-                _context.Photos.Add(domainPhoto);
-                _context.SaveChanges();
             }
+            return domainPhoto;
         }
+
         public void PopulateBirds(IEnumerable<string> birdNames)
         {
             foreach(var bird in birdNames)

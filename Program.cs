@@ -17,15 +17,11 @@ namespace birds
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
-                .ConfigureAppConfiguration((context, configBuilder) => {
-                    configBuilder
-                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                        .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true)
-                        .AddEnvironmentVariables();
+                .ConfigureLogging(factory =>
+                {
+                    factory.AddConsole();
+                    factory.AddDebug();
                 })
-                .ConfigureLogging(loggerFactory => loggerFactory
-                    .AddConsole()
-                    .AddDebug())
                 .UseStartup<Startup>()
                 .Build();
 
