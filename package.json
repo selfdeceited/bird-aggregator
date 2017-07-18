@@ -16,5 +16,8 @@
     "ts-loader": "^0.8.1",
     "typescript": "^2.0.0",
     "webpack": "^1.13.3"
+  },
+  "scripts": {
+    "webpack": "webpack"
   }
 }
