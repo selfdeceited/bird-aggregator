@@ -46,15 +46,17 @@ namespace birds
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.UseDeveloperExceptionPage();
-
-            // For real apps, you should only use Webpack Dev Middleware at development time. For production,
-            // you'll get better performance and reliability if you precompile the webpack output and simply
-            // serve the resulting static files. For examples of setting up this automatic switch between
-            // development-style and production-style webpack usage, see the 'templates' dir in this repo.
-            app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
-                HotModuleReplacement = true
-            });
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
+                    HotModuleReplacement = true
+                });
+            } 
+            else
+            {
+                app.UseExceptionHandler("/Shared/Error");
+            }
 
             app.UseStaticFiles();
             app.UseMvc(routes =>

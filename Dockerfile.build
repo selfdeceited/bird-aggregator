@@ -22,4 +22,4 @@
  WORKDIR /app
  COPY --from=builder /app .
 
- CMD ASPNETCORE_URLS=http://*:5002 dotnet birds.dll
+ CMD ASPNETCORE_URLS=http://*:$PORT dotnet birds.dll
