@@ -1,13 +1,17 @@
 {
   "compilerOptions": {
+    "outDir": "./dist/",
     "moduleResolution": "node",
     "module": "commonjs",
     "target": "es5",
-    "jsx": "preserve",
+    "jsx": "react",
     "sourceMap": true,
     "lib": ["es6", "dom"]
   },
   "exclude": [
-      "node_modules"
+    "node_modules"
+  ],
+  "include": [
+     "./src/js/**/*"
   ]
 }
