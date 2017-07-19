@@ -6,21 +6,28 @@
     "css-loader": "^0.23.1",
     "extendify": "^1.0.0",
     "extract-text-webpack-plugin": "^1.0.1",
-    "less": "^2.6.0",
-    "less-loader": "^2.2.2",
+    "file-loader": "^0.11.2",
+    "node-sass": "^3.4.2",
+    "resolve-url-loader": "^2.1.0",
+    "sass-loader": "^3.2.0",
     "source-map-loader": "^0.2.1",
     "style-loader": "^0.13.0",
     "typescript": "^2.4.1",
-    "webpack-hot-middleware": "^2.7.1",
-    "ts-loader": "^0.8.1",
-    "webpack": "^1.13.3"
+    "url-loader": "^0.5.9",
+    "webpack": "^1.15.0",
+    "webpack-hot-middleware": "^2.7.1"
   },
   "dependencies": {
+    "@blueprintjs/core": "^1.23.1",
+    "@types/pure-render-decorator": "^0.2.27",
     "@types/react": "^15.0.38",
+    "@types/react-addons-css-transition-group": "^15.0.3",
     "@types/react-dom": "^15.5.1",
     "aspnet-prerendering": "^1.0.4",
     "aspnet-webpack": "^1.0.3",
+    "bourbon": "^4.3.4",
     "react": "^15.6.1",
+    "react-addons-css-transition-group": "^15.6.0",
     "react-dom": "^15.6.1"
   },
   "scripts": {

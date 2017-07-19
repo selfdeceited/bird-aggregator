@@ -6,7 +6,7 @@ var isDevelopment = process.env.ASPNETCORE_ENVIRONMENT === 'Development';
 
 module.exports = merge({
     resolve: {
-        extensions: ['', '.js', '.jsx', '.ts', '.tsx']
+        extensions: ['', '.js', '.jsx', '.ts', '.tsx', '.scss']
     },
     module: {
         loaders: [
