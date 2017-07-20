@@ -3,7 +3,7 @@ import * as Blueprint from "@blueprintjs/core";
 
 export interface NavbarProps { }
 
-export class Navbar extends React.Component<NavbarProps, undefined>  {
+export default class Navbar extends React.Component<NavbarProps, undefined>  {
     render() {
         return  (
 <nav className="pt-navbar .modifier">

@@ -1,18 +1,22 @@
 import * as React from "react"
 import * as Blueprint from "@blueprintjs/core";
-import {Navbar} from './Navbar'
+import Navbar from './Navbar'
+import UnderConstructionState from './UnderConstructionState'
 
 export interface AppProps { compiler: string; framework: string; }
-
-// 'HelloProps' describes the shape of props.
-// State is never set so we use the 'undefined' type.
+const footerStyle ={
+    flex: '0 0 auto'
+}
 export class App extends React.Component<AppProps, undefined> {
     render() {
         return  <div>
                     <Navbar></Navbar>
-                    <br/>
-                    <h4>Hello from {this.props.compiler} and {this.props.framework}!</h4>
-                    <Blueprint.Spinner className="pt-intent-primary pt-small" />
+                    
+                    <div className="body">
+                        <UnderConstructionState></UnderConstructionState>
+                    </div>
+                    
+                    <footer>Done with love and pain by using {this.props.compiler} and {this.props.framework}, 2017</footer>
                 </div>;
     }
 }
