@@ -1,7 +1,7 @@
 @import "~@blueprintjs/core/dist/blueprint.css";
-
+@import "~@blueprintjs/core/dist/variables";
 $headerColor: blue;
 
 h1 {
-    color: $headerColor
+    color: $pt-heading-color
 }
