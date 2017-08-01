@@ -11,8 +11,8 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NetCore.App" Version="2.0.0-preview2-*"  />
-    <PackageReference Include="NETStandard.Library" Version="2.0.0-preview2-*"  />
+    <!--<PackageReference Include="Microsoft.NetCore.App" Version="2.0.0-preview2-*"  />-->
+    <!--<PackageReference Include="NETStandard.Library" Version="2.0.0-preview2-*"  />-->
     <PackageReference Include="Microsoft.AspNetCore" Version="2.0.0-preview2-*"  />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0-preview2-*"  />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.0.0-preview2-*"  />
