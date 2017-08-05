@@ -37,9 +37,13 @@ export class App extends React.Component<AppProps, AppState> {
 
     render() {
         return <div>
-                    <Navbar></Navbar>
+                    <Navbar/>
                     <div className="body">
-                        <Gallery images={this.state.images} backdropClosesModal={true} preloadNextImage={true}/>
+                        <Gallery 
+                         images={this.state.images}
+                         backdropClosesModal={true}
+                         preloadNextImage={true}
+                         enableImageSelection={false}/>
                     </div>
                </div>;
     }

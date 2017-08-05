@@ -31,6 +31,7 @@ namespace birds.Services
             PopulateBirds(birdNames);
             PopulatePhotos(allPhotos, false);
         }
+
         public void PopulatePhotos(List<POCOs.PhotosResponse.Photo> allPhotos, bool populateLocations = true)
         {
             foreach (var photo in allPhotos)
