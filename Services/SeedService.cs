@@ -38,7 +38,10 @@ namespace birds.Services
                 var bird = _context.Birds.SingleOrDefault(_ => _.ApiName == photo.title);
                 var domainPhoto = new Photo
                 {
-                    FlickrId = photo.id
+                    FlickrId = photo.id,
+                    FarmId = photo.farm,
+                    ServerId = photo.server,
+                    Secret = photo.secret
                 };
 
                 if (bird != null)

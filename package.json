@@ -25,6 +25,7 @@
     "@types/react-dom": "^15.5.1",
     "aspnet-prerendering": "^1.0.4",
     "aspnet-webpack": "^1.0.3",
+    "axios": "^0.16.2",
     "bourbon": "^4.3.4",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.0",

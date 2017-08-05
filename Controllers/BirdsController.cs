@@ -7,6 +7,7 @@ using birds.POCOs;
 using birds.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using birds.Dtos;
 
 namespace birds.Controllers
 {
@@ -27,6 +28,18 @@ namespace birds.Controllers
             return _context.Birds.Select(_ => new { Id = _.Id, Name = _.EnglishName }).ToList();
         }
 
+
+        [HttpGet("gallery")]
+        public IEnumerable<PhotoDto> GetGallery()
+        {
+            return _context.Photos.ToList().Select(x => 
+                new PhotoDto {
+                    Thumbnail = GetThumbnailUrl(x),
+                    Src = GetImageUrl(x),
+                    Caption = GetBirdName(x)
+                });
+        }
+
         [HttpGet("{id}/photos")]
         public IEnumerable<object> GetPhotos(int id)
         {
@@ -39,6 +52,19 @@ namespace birds.Controllers
         {
             var photos = _context.Birds.SingleOrDefault(x => x.Id == id)?.Photos.Select(x => x.Id);
             return _context.Locations.Where(_ => photos.Contains(_.PhotoId));
+        }
+
+        private string GetThumbnailUrl(Domain.Photo photo){
+            return $"https://farm{photo.FarmId}.staticflickr.com/{photo.ServerId}/{photo.FlickrId}_{photo.Secret}_n.jpg";
+        }
+
+        private string GetImageUrl(Domain.Photo photo){
+            return $"https://farm{photo.FarmId}.staticflickr.com/{photo.ServerId}/{photo.FlickrId}_{photo.Secret}_b.jpg";
+        }
+
+        private string GetBirdName(Domain.Photo x){
+            var bird = _context.Birds.Find(x.BirdId);
+            return bird == null ? string.Empty : bird.EnglishName;
         }
     }
 }
