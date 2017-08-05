@@ -68,9 +68,9 @@ export default class Navbar extends React.Component<NavbarProps, NavbarState>  {
     <div className="pt-navbar-group pt-align-left">
     <div className="pt-navbar-heading"><b>{this.state.owner}</b></div>
     <span className="pt-navbar-divider"></span>
-    <a role="button" className="pt-button pt-minimal pt-icon-globe">Map</a>
-    <a role="button" className="pt-button pt-minimal pt-icon-camera">Bird Gallery</a>
-    <a role="button" className="pt-button pt-minimal pt-icon-align-justify">Life List</a>
+    <a role="button" className="pt-button pt-minimal pt-icon-globe" disabled >Map</a>
+    <a role="button" className="pt-button pt-minimal pt-icon-camera" disabled>Bird Gallery</a>
+    <a role="button" className="pt-button pt-minimal pt-icon-align-justify" disabled>Life List</a>
     
     <span className="pt-navbar-divider"></span>
     <div>Find specific bird: &nbsp;</div>
