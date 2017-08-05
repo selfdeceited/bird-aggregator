@@ -6,13 +6,17 @@ import axios from 'axios';
 
 export interface AppProps { compiler: string; framework: string; }
 
+interface Tag {
+    value: string,
+    title: string
+}
 interface Image {
     src: string,
     thumbnail: string,
     thumbnailWidth: number,
     thumbnailHeight: number,
     caption: string,
-    tags: string[]
+    tags: Tag[]
 }
 
 interface AppState {
@@ -30,7 +34,11 @@ export class App extends React.Component<AppProps, AppState> {
 
     componentDidMount() {
         axios.get(`/api/birds/gallery`).then(res => {
-            const images = res.data;
+            const images = res.data.map(x => {
+                x.tags = [{title: x.caption, value: x.caption}];
+                return x;
+            });
+
             this.setState({ images });
         });
     }

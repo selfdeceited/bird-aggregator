@@ -25,7 +25,10 @@ namespace birds.Controllers
         [HttpGet]
         public IEnumerable<object> Get()
         {
-            return _context.Birds.Select(_ => new { Id = _.Id, Name = _.EnglishName, Latin = _.LatinName }).ToList();
+            return _context.Birds
+                .Select(_ => new { Id = _.Id, Name = _.EnglishName, Latin = _.LatinName })
+                .OrderBy(_ => _.Name)
+                .ToList();
         }
 
 

@@ -12,13 +12,10 @@ export interface NavbarState {
     github: string,
     owner: string,
     birds: Bird[],
-    selectedBird: Bird,
-    onSelect: (Bird) => void
+    selectedBird: Bird
  }
 
 const BirdSelect = Select.ofType<Bird>()
-
-
 
 export default class Navbar extends React.Component<NavbarProps, NavbarState>  {
     constructor(props) {
@@ -29,11 +26,7 @@ export default class Navbar extends React.Component<NavbarProps, NavbarState>  {
             github: "",
             owner: "",
             birds: [],
-            selectedBird: { id: 0, name: "", latin: "" },
-            onSelect: (bird) => {
-                const selectedBird = bird;
-                this.setState({selectedBird});
-            }
+            selectedBird: { id: 0, name: "", latin: "" }
         };
     }
 
@@ -68,9 +61,10 @@ export default class Navbar extends React.Component<NavbarProps, NavbarState>  {
     <div className="pt-navbar-group pt-align-left">
     <div className="pt-navbar-heading"><b>{this.state.owner}</b></div>
     <span className="pt-navbar-divider"></span>
-    <a role="button" className="pt-button pt-minimal pt-icon-globe" disabled >Map</a>
-    <a role="button" className="pt-button pt-minimal pt-icon-camera" disabled>Bird Gallery</a>
-    <a role="button" className="pt-button pt-minimal pt-icon-align-justify" disabled>Life List</a>
+    <a role="button" className="pt-button pt-minimal pt-icon-globe">Map</a>
+    <a role="button" className="pt-button pt-minimal pt-icon-camera">Bird Gallery</a>
+    <a role="button" className="pt-button pt-minimal pt-icon-torch">Trips</a>
+    <a role="button" className="pt-button pt-minimal pt-icon-align-justify">Life List</a>
     
     <span className="pt-navbar-divider"></span>
     <div>Find specific bird: &nbsp;</div>
@@ -79,7 +73,7 @@ export default class Navbar extends React.Component<NavbarProps, NavbarState>  {
         noResults={<Blueprint.MenuItem disabled text="No results." />}
         itemPredicate={this.filterBird}
         itemRenderer={this.renderBird}
-        onItemSelect={this.state.onSelect}
+        onItemSelect={this.onSelect}
     >
         {/* children become the popover target; render value here */}
         <Blueprint.Button text={this.state.selectedBird.name} rightIconName="double-caret-vertical" />
@@ -90,14 +84,12 @@ export default class Navbar extends React.Component<NavbarProps, NavbarState>  {
   <div className="pt-navbar-group pt-align-right">
     <a role="button" className="pt-button pt-minimal pt-icon-git-repo" href={this.state.github}>GitHub</a>
     <a role="button" className="pt-button pt-minimal pt-icon-group-objects" href={this.state.flickr}>Flickr</a>
-    <span className="pt-navbar-divider"></span>
-    <button className="pt-button pt-minimal pt-icon-cog"></button>
   </div>
 </nav>)
     }
 
     private filterBird(query: string, bird: Bird, index: number) {
-        return `${index + 1}. ${bird.name.toLowerCase()} ${bird.latin.toLowerCase()}`.indexOf(query.toLowerCase()) >= 0;
+        return `${bird.name.toLowerCase()} ${bird.latin.toLowerCase()}`.indexOf(query.toLowerCase()) >= 0;
     }
 
     private renderBird = ({ handleClick, item: bird, isActive }: ISelectItemRendererProps<Bird>) => (
@@ -109,4 +101,9 @@ export default class Navbar extends React.Component<NavbarProps, NavbarState>  {
         text={bird.name}
     />
     );
+
+    private onSelect = (bird: Bird) => {
+        const selectedBird = bird; 
+        this.setState({selectedBird});
+    }
 }
