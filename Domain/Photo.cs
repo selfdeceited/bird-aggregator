@@ -1,3 +1,6 @@
+using System;
+using birds.POCOs;
+
 namespace birds.Domain
 {
     public class Photo
@@ -9,5 +12,7 @@ namespace birds.Domain
         public int FarmId { get; set; }
         public string ServerId { get; set; }
         public string Secret { get; set; }
+        public DateTime DateTaken { get; set; }
+        public string Description { get; set; }
     }
 }

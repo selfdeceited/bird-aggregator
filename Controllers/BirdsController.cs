@@ -32,15 +32,20 @@ namespace birds.Controllers
         }
 
 
-        [HttpGet("gallery")]
-        public IEnumerable<PhotoDto> GetGallery()
+        [HttpGet("gallery/{count}")]
+        public IEnumerable<PhotoDto> GetGallery(int count)
         {
-            return _context.Photos.ToList().Select(x => 
-                new PhotoDto {
-                    Thumbnail = GetThumbnailUrl(x),
-                    Src = GetImageUrl(x),
-                    Caption = GetBirdName(x)
-                });
+             var top = _context.Photos.ToList()
+                .OrderByDescending(x => x.DateTaken)
+                .Take(count);
+
+            var mapped =  top.Select(x => 
+                    new PhotoDto {
+                        Thumbnail = GetThumbnailUrl(x),
+                        Src = GetImageUrl(x),
+                        Caption = GetBirdName(x)
+                    });
+            return mapped;
         }
 
         [HttpGet("{id}/photos")]
@@ -56,7 +61,7 @@ namespace birds.Controllers
             var photos = _context.Birds.SingleOrDefault(x => x.Id == id)?.Photos.Select(x => x.Id);
             return _context.Locations.Where(_ => photos.Contains(_.PhotoId));
         }
-
+        
         private string GetThumbnailUrl(Domain.Photo photo){
             return $"https://farm{photo.FarmId}.staticflickr.com/{photo.ServerId}/{photo.FlickrId}_{photo.Secret}_n.jpg";
         }

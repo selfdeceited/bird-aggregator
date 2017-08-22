@@ -37,12 +37,15 @@ namespace birds.Services
             foreach (var photo in allPhotos)
             {
                 var bird = _context.Birds.SingleOrDefault(_ => _.ApiName == photo.title);
+                var extraPhotoInfo = _flickrConnectionService.GetPhoto(photo.id);
                 var domainPhoto = new Photo
                 {
                     FlickrId = photo.id,
                     FarmId = photo.farm,
                     ServerId = photo.server,
-                    Secret = photo.secret
+                    Secret = photo.secret,
+                    DateTaken = DateTime.Parse(extraPhotoInfo.photo.dates.taken),
+                    Description = extraPhotoInfo.photo.description._content,
                 };
 
                 if (bird != null)

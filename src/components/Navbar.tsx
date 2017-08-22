@@ -2,6 +2,7 @@ import * as React from "react"
 import * as Blueprint from "@blueprintjs/core";
 import { Select, ISelectItemRendererProps  } from "@blueprintjs/labs";
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
 const tempBird = {id: 42, name: "some bird", latin: "some latin text"};
 export type Bird = typeof tempBird;
@@ -59,12 +60,12 @@ export default class Navbar extends React.Component<NavbarProps, NavbarState>  {
         return  (
 <nav className="pt-navbar pt-fixed-top">
     <div className="pt-navbar-group pt-align-left">
-    <div className="pt-navbar-heading"><b>{this.state.owner}</b></div>
+    <Link to="/" className="pt-navbar-heading"><b>{this.state.owner}</b></Link>
     <span className="pt-navbar-divider"></span>
     <a role="button" className="pt-button pt-minimal pt-icon-globe">Map</a>
     <a role="button" className="pt-button pt-minimal pt-icon-camera">Bird Gallery</a>
     <a role="button" className="pt-button pt-minimal pt-icon-torch">Trips</a>
-    <a role="button" className="pt-button pt-minimal pt-icon-align-justify">Life List</a>
+    <Link to="/lifelist" role="button" className="pt-button pt-minimal pt-icon-align-justify">Life List</Link>
     
     <span className="pt-navbar-divider"></span>
     <div>Find specific bird: &nbsp;</div>
