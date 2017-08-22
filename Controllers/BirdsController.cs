@@ -55,6 +55,18 @@ namespace birds.Controllers
                 $"https://www.flickr.com/photos/{_settings.FlickrUserId}/{_.FlickrId}");
         }
 
+        [HttpGet("lifelist")]
+        public IEnumerable<object> GetLifeList(){
+            var photos = _context.Photos.GroupBy(x => x.BirdId);
+            foreach (var item in photos)
+            {
+                var minDate = item.Min(x => x.DateTaken);
+                // todo: add location
+                var birdName = GetBirdName(item.First());
+                yield return new { BirdId = item.Key, Name = birdName, DateMet = minDate };
+            }
+        }
+
         [HttpGet("{id}/locations")]
         public IEnumerable<object> GetLocations(int id)
         {
@@ -74,5 +86,8 @@ namespace birds.Controllers
             var bird = _context.Birds.Find(x.BirdId);
             return bird == null ? string.Empty : bird.EnglishName;
         }
+
+
+        
     }
 }
