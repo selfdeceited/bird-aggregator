@@ -1,4 +1,4 @@
- FROM microsoft/aspnetcore-build:2.0.0-preview2-jessie AS builder
+ FROM microsoft/aspnetcore-build:2-jessie AS builder
  WORKDIR /source
 
  # caches restore result by copying csproj file separately
@@ -18,7 +18,7 @@
  RUN dotnet publish --output /app/ --configuration Release
 
  # Stage 2
- FROM microsoft/aspnetcore:2.0.0-preview2-jessie
+ FROM microsoft/aspnetcore:2-jessie
  WORKDIR /app
  COPY --from=builder /app .
 
