@@ -1,6 +1,6 @@
 import * as React from "react"
 import Navbar from './Navbar'
-import MainRouter from './MainRouter'
+import MainRouter from './routing/MainRouter'
 
 interface AppProps {}
 interface AppState {}

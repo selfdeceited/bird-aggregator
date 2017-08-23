@@ -27,13 +27,30 @@ export class LifeList extends React.Component<LifeListProps, LifeListState> {
     
     render() {
         return (
-        <div className="body">
-            <ol>
+<div className="body">
+    <table className="pt-table pt-striped pt-interactive">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Species</th>
+                <th>Date</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
             {
-                this.state.lifeList.map(x => 
-            <li key={x.birdid}><b>{x.name}</b> - first discovered at {new Date(Date.parse(x.dateMet)).toDateString()} near {x.location}</li>)
+                this.state.lifeList.map((x, i) => 
+                (
+                    <tr>
+                        <td>{i}</td>
+                        <td>{x.name}</td>
+                        <td>{new Date(Date.parse(x.dateMet)).toDateString()}</td>
+                        <td>{x.location}</td>
+                    </tr>
+                ))
             }
-            </ol>
-        </div>);
+        </tbody>
+    </table>
+</div>);
     }
 }

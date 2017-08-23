@@ -65,13 +65,14 @@ namespace birds.Controllers
             {
                 var firstOccurence = item.Aggregate(
                     (c1, c2) => c1.DateTaken < c2.DateTaken ? c1 : c2);
-
-                localList.Add(new LifeListDto(){ 
-                    BirdId = item.Key, 
-                    Name = GetBirdName(firstOccurence), 
-                    DateMet = firstOccurence.DateTaken,
-                    Location = ShowLocation(firstOccurence.LocationId)
-                });
+                    
+                if (item.Key != 0)
+                    localList.Add(new LifeListDto(){ 
+                        BirdId = item.Key, 
+                        Name = GetBirdName(firstOccurence), 
+                        DateMet = firstOccurence.DateTaken,
+                        Location = ShowLocation(firstOccurence.LocationId)
+                    });
             }
             return localList.OrderByDescending(x => x.DateMet);
         }
