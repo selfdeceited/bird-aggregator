@@ -59,18 +59,21 @@ namespace birds.Controllers
         [HttpGet("lifelist")]
         public IEnumerable<object> GetLifeList(){
             var photos = _context.Photos.GroupBy(x => x.BirdId);
+
+            var localList = new List<LifeListDto>();
             foreach (var item in photos)
             {
                 var firstOccurence = item.Aggregate(
                     (c1, c2) => c1.DateTaken < c2.DateTaken ? c1 : c2);
 
-                yield return new { 
+                localList.Add(new LifeListDto(){ 
                     BirdId = item.Key, 
                     Name = GetBirdName(firstOccurence), 
                     DateMet = firstOccurence.DateTaken,
                     Location = ShowLocation(firstOccurence.LocationId)
-                };
+                });
             }
+            return localList.OrderByDescending(x => x.DateMet);
         }
 
         private string GetThumbnailUrl(Domain.Photo photo){
@@ -94,7 +97,7 @@ namespace birds.Controllers
             Func<string, string> addComma = s => 
                 string.IsNullOrEmpty(s) ? string.Empty : s + ",";
 
-            return $"{addComma(location.Neighbourhood)} {addComma(location.Region)} {addComma(location.Country)}";
+            return $"{addComma(location.Neighbourhood)} {addComma(location.Region)} {location.Country}";
         }
     }
 }
