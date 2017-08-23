@@ -66,7 +66,8 @@ namespace birds
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
             
-            app.ApplicationServices.GetService<SeedService>().Seed();
+            new TaskFactory().StartNew(() =>
+                app.ApplicationServices.GetService<SeedService>().Seed());
         }
     }
 }
