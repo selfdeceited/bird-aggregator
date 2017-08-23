@@ -42,7 +42,7 @@ export class LifeList extends React.Component<LifeListProps, LifeListState> {
                 this.state.lifeList.map((x, i) => 
                 (
                     <tr>
-                        <td>{i}</td>
+                        <td>{i + 1}</td>
                         <td>{x.name}</td>
                         <td>{new Date(Date.parse(x.dateMet)).toDateString()}</td>
                         <td>{x.location}</td>
