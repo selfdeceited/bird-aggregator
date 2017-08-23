@@ -13,7 +13,9 @@
  COPY . .
 
  RUN npm install
- RUN npm run webpack -p
+ RUN npm rebuild node-sass
+ RUN npm run webpack-more
+
 
  RUN dotnet publish --output /app/ --configuration Release
 
