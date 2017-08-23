@@ -29,10 +29,10 @@ namespace birds.Services
 
             var birdNames = allPhotos.GroupBy(x => x.title).Select(x => x.First().title);
             PopulateBirds(birdNames);
-            PopulatePhotos(allPhotos, false);
+            PopulatePhotos(allPhotos);
         }
 
-        public void PopulatePhotos(List<POCOs.PhotosResponse.Photo> allPhotos, bool populateLocations = true)
+        private void PopulatePhotos(List<POCOs.PhotosResponse.Photo> allPhotos, bool populateLocations = true)
         {
             foreach (var photo in allPhotos)
             {
@@ -63,26 +63,33 @@ namespace birds.Services
         {
             var locationResponse = _flickrConnectionService.GetLocation(domainPhoto.FlickrId);
             var location = locationResponse?.photo?.location;
-            if (location != null)
+
+            if (location == null)
+                return domainPhoto;
+
+            var domainLocation = _context.Locations.SingleOrDefault(x => x.GeoTag == location.place_id);
+            if (domainLocation == null)
             {
-                var domainLocation = _context.Locations.SingleOrDefault(x => x.GeoTag == location.place_id);
-                if (domainLocation == null)
-                    {
-                        domainPhoto.Location = new Location
-                        {
-                            GeoTag = location.place_id,
-                            Neighbourhood = location?.neighbourhood?._content,
-                            Region = location?.region?._content,
-                            Country = location?.country?._content
-                        };
-                    }
-                    else
-                        domainPhoto.Location = domainLocation;
+                var newLocation = new Location
+                {
+                    GeoTag = location.place_id,
+                    Neighbourhood = location?.neighbourhood?._content,
+                    Region = location?.region?._content,
+                    Country = location?.country?._content
+                };
+
+                _context.Locations.Add(newLocation);
+                _context.SaveChanges();
+
+                domainPhoto.LocationId = newLocation.Id;
             }
+            else
+                domainPhoto.LocationId = domainLocation.Id;
+
             return domainPhoto;
         }
 
-        public void PopulateBirds(IEnumerable<string> birdNames)
+        private void PopulateBirds(IEnumerable<string> birdNames)
         {
             foreach(var bird in birdNames)
             {
@@ -94,8 +101,7 @@ namespace birds.Services
                 {
                     ApiName = bird,
                     EnglishName = engName,
-                    LatinName = latinName,
-                    Photos = new List<Photo>()
+                    LatinName = latinName
                 });
                 _context.SaveChanges();
             }

@@ -8,7 +8,8 @@ interface LifeListState {
 interface LifeListDto {
     birdid: number,
     name: string,
-    dateMet: string
+    dateMet: string,
+    location: string
 }
 export class LifeList extends React.Component<LifeListProps, LifeListState> {
     constructor(props) {
@@ -30,7 +31,7 @@ export class LifeList extends React.Component<LifeListProps, LifeListState> {
             <ol>
             {
                 this.state.lifeList.map(x => 
-            <li key={x.birdid}><b>{x.name}</b> - first discovered at {new Date(Date.parse(x.dateMet)).toDateString()}</li>)
+            <li key={x.birdid}><b>{x.name}</b> - first discovered at {new Date(Date.parse(x.dateMet)).toDateString()} near {x.location}</li>)
             }
             </ol>
         </div>);

@@ -8,6 +8,7 @@ using birds.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using birds.Dtos;
+using birds.Domain;
 
 namespace birds.Controllers
 {
@@ -60,20 +61,18 @@ namespace birds.Controllers
             var photos = _context.Photos.GroupBy(x => x.BirdId);
             foreach (var item in photos)
             {
-                var minDate = item.Min(x => x.DateTaken);
-                // todo: add location
-                var birdName = GetBirdName(item.First());
-                yield return new { BirdId = item.Key, Name = birdName, DateMet = minDate };
+                var firstOccurence = item.Aggregate(
+                    (c1, c2) => c1.DateTaken < c2.DateTaken ? c1 : c2);
+
+                yield return new { 
+                    BirdId = item.Key, 
+                    Name = GetBirdName(firstOccurence), 
+                    DateMet = firstOccurence.DateTaken,
+                    Location = ShowLocation(firstOccurence.LocationId)
+                };
             }
         }
 
-        [HttpGet("{id}/locations")]
-        public IEnumerable<object> GetLocations(int id)
-        {
-            var photos = _context.Birds.SingleOrDefault(x => x.Id == id)?.Photos.Select(x => x.Id);
-            return _context.Locations.Where(_ => photos.Contains(_.PhotoId));
-        }
-        
         private string GetThumbnailUrl(Domain.Photo photo){
             return $"https://farm{photo.FarmId}.staticflickr.com/{photo.ServerId}/{photo.FlickrId}_{photo.Secret}_n.jpg";
         }
@@ -86,8 +85,16 @@ namespace birds.Controllers
             var bird = _context.Birds.Find(x.BirdId);
             return bird == null ? string.Empty : bird.EnglishName;
         }
+        private string ShowLocation(int locationId)
+        {
+            var location = _context.Locations.Find(locationId);
+            if (location == null)
+                return "unspecified location";
 
+            Func<string, string> addComma = s => 
+                string.IsNullOrEmpty(s) ? string.Empty : s + ",";
 
-        
+            return $"{addComma(location.Neighbourhood)} {addComma(location.Region)} {addComma(location.Country)}";
+        }
     }
 }
