@@ -36,6 +36,9 @@ namespace birds.Services
         {
             foreach (var photo in allPhotos)
             {
+                if (_context.Photos.Any(x => x.FlickrId == photo.id))
+                    continue;
+
                 var bird = _context.Birds.SingleOrDefault(_ => _.ApiName == photo.title);
                 var extraPhotoInfo = _flickrConnectionService.GetPhoto(photo.id);
                 var domainPhoto = new Photo

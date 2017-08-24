@@ -36,17 +36,19 @@ namespace birds.Controllers
         [HttpGet("gallery/{count}")]
         public IEnumerable<PhotoDto> GetGallery(int count)
         {
-             var top = _context.Photos.ToList()
+             var photos = _context.Photos.ToList()
                 .OrderByDescending(x => x.DateTaken)
                 .Take(count);
 
-            var mapped =  top.Select(x => 
-                    new PhotoDto {
-                        Thumbnail = GetThumbnailUrl(x),
-                        Src = GetImageUrl(x),
-                        Caption = GetBirdName(x)
-                    });
-            return mapped;
+            foreach (var photo in photos)
+            {
+                yield return new PhotoDto {
+                        Thumbnail = GetThumbnailUrl(photo),
+                        Src = GetImageUrl(photo),
+                        Caption = GetBirdName(photo),
+                        Id = photo.Id
+                    };
+            }
         }
 
         [HttpGet("{id}/photos")]
