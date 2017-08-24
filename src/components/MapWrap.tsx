@@ -41,18 +41,18 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
         })
     }
     render() {
-        var onMarkerClick= function(component, d, i) {
+        const onMarkerClick = function(component, d, i) {
             component.showPopup();
-          }
-          var onMarkerCloseClick= function(component, id) {
+        }
+        const onMarkerCloseClick = function(component, id) {
             component.hidePopup();
-          }
+        }
 
         return (
 <div className="body">
     <Map
-        width= {900}
-        height= {600}
+        width= {window.innerWidth}
+        height= {window.innerHeight}
         zoomScale= {this.state.scale}
         scale= { 1 << 14 }
         scaleExtent= {[1 << 10, 1 << 24]}

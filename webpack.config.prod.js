@@ -21,6 +21,11 @@ module.exports = {
     },
     plugins: [
         extractSass,
+        new webpack.DefinePlugin({
+            'process.env': {
+              NODE_ENV: JSON.stringify('production')
+            }
+        }),
         new webpack.optimize.UglifyJsPlugin({ minimize: true, compressor: { warnings: false } })
     ]
 };

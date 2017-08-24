@@ -2,8 +2,12 @@ import * as React from "react"
 import * as Blueprint from "@blueprintjs/core";
 import * as Gallery from "react-grid-gallery"
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
-export interface GalleryProps { }
+export interface GalleryProps {
+    count: number,
+    seeFullGalleryLink: boolean
+ }
 
 interface Tag {
     value: string,
@@ -20,25 +24,26 @@ interface Image {
 
 interface GalleryState {
     images: Image[],
-    count: number
+    count: number,
+    fullGallery: boolean
 }
 
 export class GalleryWrap extends React.Component<GalleryProps, GalleryState> {
-    constructor(props) {
+    constructor(props: GalleryProps) {
         super(props);
 
         this.state = {
             images: [],
-            count: 20
+            count: props.count,
+            fullGallery: !props.seeFullGalleryLink
         };
     }
 
     componentDidMount() {
         axios.get(`/api/birds/gallery/${this.state.count}`).then(res => {
-            const images = res.data.map(x => {
+            const images = res.data.map((x: Image) => {
                 x.tags = [{title: x.caption, value: x.caption}];
-                x.thumbnailWidth = 400;
-                x.thumbnailHeight = 400;
+                x.thumbnailWidth = 500;
                 return x;
             });
 
@@ -47,9 +52,17 @@ export class GalleryWrap extends React.Component<GalleryProps, GalleryState> {
     }
 
     render() {
+
+        const latestShotsLink = this.state.fullGallery ? (<div></div>) : (
+            <div>
+                <h2 className="latest-shots">Latest {this.state.count} photos</h2>
+                <Link to="/gallery" role="button" className="pt-button pt-minimal pt-icon-camera small-margin">Check Out Full Gallery</Link>
+            </div>
+        );
+
         return <div>
                     <div className="body">
-                        <h2 className="latest-shots">Latest {this.state.count} photos</h2>
+                        <div>{latestShotsLink}</div>
                         <Gallery 
                          images={this.state.images}
                          backdropClosesModal={true}

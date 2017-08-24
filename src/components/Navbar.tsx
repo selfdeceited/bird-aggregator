@@ -62,7 +62,7 @@ export default class Navbar extends React.Component<NavbarProps, NavbarState>  {
     <div className="pt-navbar-group pt-align-left">
     <Link to="/" className="pt-navbar-heading"><b>{this.state.owner}</b></Link>
     <span className="pt-navbar-divider"></span>
-    <Link to="/map" role="button" className="pt-button pt-minimal pt-icon-globe small-margin">Map</Link>
+    <Link to="/map" role="button" className="pt-button pt-minimal pt-icon-map small-margin">Map</Link>
     <Link to="/triplist" role="button" className="pt-button pt-minimal pt-icon-torch small-margin">Trips</Link>
     <Link to="/lifelist" role="button" className="pt-button pt-minimal pt-icon-align-justify small-margin">Life List</Link>
     

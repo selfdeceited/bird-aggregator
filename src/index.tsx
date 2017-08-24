@@ -2,7 +2,7 @@ import * as React from "react"
 import * as ReactDOM from "react-dom"
 import './css/main.scss'
 
-import { BrowserRouter, Route, IndexRoute, browserHistory } from 'react-router-dom'
+import { BrowserRouter, browserHistory } from 'react-router-dom'
 import { App } from "./components/App"
 
 
