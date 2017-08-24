@@ -6,6 +6,5 @@ namespace birds.Dtos
         public string Thumbnail { get; set; }
         public string Caption { get; set; }
         public string ImageUrl { get; set; }
-        public int ThumbnailWidth { get {return 320;} }
     }
 }

@@ -37,6 +37,8 @@ export class GalleryWrap extends React.Component<GalleryProps, GalleryState> {
         axios.get(`/api/birds/gallery/${this.state.count}`).then(res => {
             const images = res.data.map(x => {
                 x.tags = [{title: x.caption, value: x.caption}];
+                x.thumbnailWidth = 400;
+                x.thumbnailHeight = 400;
                 return x;
             });
 

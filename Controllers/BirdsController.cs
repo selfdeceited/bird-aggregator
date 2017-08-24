@@ -57,7 +57,8 @@ namespace birds.Controllers
         }
 
         [HttpGet("lifelist")]
-        public IEnumerable<object> GetLifeList(){
+        public IEnumerable<object> GetLifeList()
+        {
             var photos = _context.Photos.GroupBy(x => x.BirdId);
 
             var localList = new List<LifeListDto>();
@@ -77,15 +78,40 @@ namespace birds.Controllers
             return localList.OrderByDescending(x => x.DateMet);
         }
 
-        private string GetThumbnailUrl(Domain.Photo photo){
+        [HttpGet("map/markers")]
+        public IEnumerable<object> GetMapMarkers()
+        {
+            foreach (var location in _context.Locations)
+            {
+                var entry = new {
+                    X = location.X,
+                    Y = location.Y,
+                    BirdNames = string.Join(", ", GetBirdNamesByLocation(location.Id)),
+                    Id = location.Id
+                };
+                yield return entry;
+            }
+        }
+
+        private string GetThumbnailUrl(Domain.Photo photo)
+        {
             return $"https://farm{photo.FarmId}.staticflickr.com/{photo.ServerId}/{photo.FlickrId}_{photo.Secret}_n.jpg";
         }
 
-        private string GetImageUrl(Domain.Photo photo){
+        private string GetImageUrl(Domain.Photo photo)
+        {
             return $"https://farm{photo.FarmId}.staticflickr.com/{photo.ServerId}/{photo.FlickrId}_{photo.Secret}_b.jpg";
         }
 
-        private string GetBirdName(Domain.Photo x){
+        private IEnumerable<string> GetBirdNamesByLocation(int id)
+        {
+            var names = _context.Photos.Where(x => x.LocationId == id)
+                .Select(GetBirdName).Distinct();
+            return names;
+        }
+
+        private string GetBirdName(Domain.Photo x)
+        {
             var bird = _context.Birds.Find(x.BirdId);
             return bird == null ? string.Empty : bird.EnglishName;
         }

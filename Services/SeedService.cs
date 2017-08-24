@@ -75,7 +75,9 @@ namespace birds.Services
                     GeoTag = location.place_id,
                     Neighbourhood = location?.neighbourhood?._content,
                     Region = location?.region?._content,
-                    Country = location?.country?._content
+                    Country = location?.country?._content,
+                    X = location?.longitude,
+                    Y = location?.latitude
                 };
 
                 _context.Locations.Add(newLocation);

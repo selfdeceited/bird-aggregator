@@ -7,5 +7,7 @@ namespace birds.Domain
         public string Region { get; set; }
         public string GeoTag { get; set; }
         public string Country { get; set; }
+        public double? X { get; set; }
+        public double? Y { get; set; }
     }
 }

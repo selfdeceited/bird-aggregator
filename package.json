@@ -30,6 +30,8 @@
     "bourbon": "^4.3.4",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.0",
+    "react-d3-map": "^0.8.3",
+    "react-d3-map-core": "^0.13.7",
     "react-dom": "^15.6.1",
     "react-grid-gallery": "^0.4.2",
     "react-router": "^4.1.2",
