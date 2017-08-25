@@ -24,7 +24,7 @@ namespace birds.Services
         
         public PhotosResponse GetPhotos(int page = 0)
         {
-            var loadPerPage = _settings.IsTestRun ? 30 : 500;
+            var loadPerPage = _settings.IsTestRun ? 30 : 100;
             var request = CreateDefaultRequest("flickr.people.getPhotos", Method.GET)
                 .AddParameter("user_id", _settings.FlickrUserId)
                 .AddParameter("per_page", loadPerPage);
