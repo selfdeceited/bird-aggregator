@@ -33,30 +33,13 @@ namespace birds.Controllers
         }
 
 
-        [HttpGet("gallery/{count}")]
-        public IEnumerable<PhotoDto> GetGallery(int count)
+        [HttpGet("gallery/{id}")]
+        public IEnumerable<PhotoDto> GetGallery(int id)
         {
-             var photos = _context.Photos.ToList()
-                .OrderByDescending(x => x.DateTaken)
-                .Take(count);
-
-            foreach (var photo in photos)
-            {
-                yield return new PhotoDto {
-                        Thumbnail = GetThumbnailUrl(photo),
-                        Src = GetImageUrl(photo),
-                        Caption = GetBirdName(photo),
-                        Id = photo.Id
-                    };
-            }
+             //todo: get gallery for one bird specifically
+             throw new NotImplementedException();
         }
 
-        [HttpGet("{id}/photos")]
-        public IEnumerable<object> GetPhotos(int id)
-        {
-            return _context.Photos.Where(_ => _.BirdId == id).Select(_ => 
-                $"https://www.flickr.com/photos/{_settings.FlickrUserId}/{_.FlickrId}");
-        }
 
         [HttpGet("lifelist")]
         public IEnumerable<object> GetLifeList()
@@ -95,16 +78,6 @@ namespace birds.Controllers
             }
         }
 
-        private string GetThumbnailUrl(Domain.Photo photo)
-        {
-            return $"https://farm{photo.FarmId}.staticflickr.com/{photo.ServerId}/{photo.FlickrId}_{photo.Secret}_n.jpg";
-        }
-
-        private string GetImageUrl(Domain.Photo photo)
-        {
-            return $"https://farm{photo.FarmId}.staticflickr.com/{photo.ServerId}/{photo.FlickrId}_{photo.Secret}_b.jpg";
-        }
-
         private IEnumerable<string> GetBirdNamesByLocation(int id)
         {
             var names = _context.Photos.Where(x => x.LocationId == id)
@@ -112,7 +85,7 @@ namespace birds.Controllers
             return names;
         }
 
-        private string GetBirdName(Domain.Photo x)
+        private string GetBirdName(Domain.Photo x) // todo: remove duplication in BirdService
         {
             var bird = _context.Birds.Find(x.BirdId);
             return bird == null ? string.Empty : bird.EnglishName;

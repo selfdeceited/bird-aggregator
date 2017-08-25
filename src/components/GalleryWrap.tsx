@@ -5,8 +5,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom'
 
 export interface GalleryProps {
-    count: number,
-    seeFullGalleryLink: boolean
+    seeFullGalleryLink: boolean,
+    urlToFetch: string
  }
 
 interface Tag {
@@ -24,7 +24,6 @@ interface Image {
 
 interface GalleryState {
     images: Image[],
-    count: number,
     fullGallery: boolean
 }
 
@@ -34,13 +33,12 @@ export class GalleryWrap extends React.Component<GalleryProps, GalleryState> {
 
         this.state = {
             images: [],
-            count: props.count,
             fullGallery: !props.seeFullGalleryLink
         };
     }
 
     componentDidMount() {
-        axios.get(`/api/birds/gallery/${this.state.count}`).then(res => {
+        axios.get(this.props.urlToFetch).then(res => {
             const images = res.data.map((x: Image) => {
                 x.tags = [{title: x.caption, value: x.caption}];
                 x.thumbnailWidth = 500;
@@ -55,7 +53,7 @@ export class GalleryWrap extends React.Component<GalleryProps, GalleryState> {
 
         const latestShotsLink = this.state.fullGallery ? (<div></div>) : (
             <div>
-                <h2 className="latest-shots">Latest {this.state.count} photos</h2>
+                <h2 className="latest-shots">Latest photos</h2>
                 <Link to="/gallery" role="button" className="pt-button pt-minimal pt-icon-camera small-margin">Check Out Full Gallery</Link>
             </div>
         );
@@ -69,7 +67,7 @@ export class GalleryWrap extends React.Component<GalleryProps, GalleryState> {
                          preloadNextImage={true}
                          enableImageSelection={false}
                          showLightboxThumbnails={true}
-                         maxRows={this.state.count}/>
+                         maxRows={9000}/>
                     </div>
                </div>;
     }
