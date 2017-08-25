@@ -10,18 +10,24 @@ h1 {
     padding-top: $pt-navbar-height
 }
 
-.pt-select-popover .pt-menu {
-    max-width: 400px;
-    max-height: 300px;
-    overflow: auto;
-    padding: 0;
-}
+nav {
+    .pt-select-popover .pt-menu {
+        max-width: 400px;
+        max-height: 300px;
+        overflow: auto;
+        padding: 0;
+    }
 
-.small-space {
-    display: inline-block;
-    width: 4px;
+    .small-space {
+        display: inline-block;
+        width: 4px;
+    }
+    .bird-info-select {
+        div.inline-block {
+            display: inline-block;
+        }
+    }
 }
-
 .latest-shots{
     margin: 15px;
 }
@@ -35,4 +41,54 @@ h1 {
 .react-d3-map-core__popup__close-button{
     z-index:42;
     opacity: .99;
+}
+
+@media screen and (max-width: 960px) {
+    #root {
+        nav > div.pt-navbar-group > a.pt-button.pt-minimal.pt-icon-arrow-right{
+            line-height: 0;
+            font-size: 0;
+            color: transparent;
+            margin-top: 15px;
+        }
+    }
+}
+
+@mixin hide-text-for-icon {
+    line-height: 0;
+    font-size: 0;
+    color: transparent;
+    margin-top: 15px;
+}
+
+
+@media screen and (max-width: 960px) {
+    #root {
+        nav > div.pt-navbar-group.pt-align-right > a.pt-button.pt-minimal{
+            @include hide-text-for-icon;
+        }
+    }
+}
+
+@media screen and (max-width: 880px) {
+    #root {
+        nav > div.pt-navbar-group.pt-align-left > a.pt-button.pt-minimal{
+            @include hide-text-for-icon;
+        }
+    }
+}
+
+@media screen and (max-width: 780px) {
+    #root {
+        nav .bird-info-select{
+            display: none;
+        }
+    }
+}
+@media screen and (max-width: 460px) {
+    #root {
+        nav > div.pt-navbar-group.pt-align-right > a.pt-button.pt-minimal{
+            display: none;
+        }
+    }
 }

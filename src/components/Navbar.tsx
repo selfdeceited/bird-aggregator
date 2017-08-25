@@ -67,19 +67,20 @@ export default class Navbar extends React.Component<NavbarProps, NavbarState>  {
     <Link to="/lifelist" role="button" className="pt-button pt-minimal pt-icon-align-justify small-margin">Life List</Link>
     
     <span className="pt-navbar-divider"></span>
-    <div>Find specific bird: &nbsp;</div>
-    <BirdSelect
-        items={this.state.birds}
-        noResults={<Blueprint.MenuItem disabled text="No results." />}
-        itemPredicate={this.filterBird}
-        itemRenderer={this.renderBird}
-        onItemSelect={this.onSelect}
-    >
-        {/* children become the popover target; render value here */}
-        <Blueprint.Button text={this.state.selectedBird.name} rightIconName="double-caret-vertical" />
-    </BirdSelect>
-    <span className="small-space"></span>
-    <a role="button" className="pt-button pt-minimal pt-icon-arrow-right" href={`/api/birds/${this.state.selectedBird.id}/photos`}></a>
+    <div className="bird-info-select">
+        <div className="inline-block">Find specific bird: &nbsp;</div>
+        <BirdSelect
+            items={this.state.birds}
+            noResults={<Blueprint.MenuItem disabled text="No results." />}
+            itemPredicate={this.filterBird}
+            itemRenderer={this.renderBird}
+            onItemSelect={this.onSelect}
+        >
+            <Blueprint.Button text={this.state.selectedBird.name} rightIconName="double-caret-vertical" />
+        </BirdSelect>
+        <span className="small-space"></span>
+        <a role="button" className="pt-button pt-minimal pt-icon-arrow-right" href={`/api/birds/${this.state.selectedBird.id}/photos`}></a>
+    </div>
   </div>
   <div className="pt-navbar-group pt-align-right">
     <a role="button" className="pt-button pt-minimal pt-icon-git-repo" href={this.state.github}>GitHub</a>
@@ -105,5 +106,6 @@ export default class Navbar extends React.Component<NavbarProps, NavbarState>  {
     private onSelect = (bird: Bird) => {
         const selectedBird = bird; 
         this.setState({selectedBird});
+        const a = 1;
     }
 }
