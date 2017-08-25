@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using birds.POCOs;
 using birds.Services;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using birds.Dtos;
-using birds.Domain;
 
 namespace birds.Controllers
 {
@@ -18,9 +14,12 @@ namespace birds.Controllers
         private readonly AppSettings _settings;
         private readonly ApiContext _context;
 
-        public BirdsController(IOptions<AppSettings> settings, ApiContext context){
+        private readonly GalleryService _galleryService;
+
+        public BirdsController(IOptions<AppSettings> settings, ApiContext context, GalleryService galleryService){
             _settings = settings.Value;
             _context = context;
+            _galleryService = galleryService;
         }
 
         [HttpGet]
@@ -36,8 +35,10 @@ namespace birds.Controllers
         [HttpGet("gallery/{id}")]
         public IEnumerable<PhotoDto> GetGallery(int id)
         {
-             //todo: get gallery for one bird specifically
-             throw new NotImplementedException();
+             var photos = _context.Photos.Where(x => x.BirdId == id).ToList()
+                .OrderByDescending(x => x.DateTaken);
+
+            return _galleryService.GetGallery(photos);
         }
 
 
@@ -55,7 +56,7 @@ namespace birds.Controllers
                 if (item.Key != 0)
                     localList.Add(new LifeListDto(){ 
                         BirdId = item.Key, 
-                        Name = GetBirdName(firstOccurence), 
+                        Name = _galleryService.GetBirdName(firstOccurence), 
                         DateMet = firstOccurence.DateTaken,
                         Location = ShowLocation(firstOccurence.LocationId)
                     });
@@ -81,14 +82,8 @@ namespace birds.Controllers
         private IEnumerable<string> GetBirdNamesByLocation(int id)
         {
             var names = _context.Photos.Where(x => x.LocationId == id)
-                .Select(GetBirdName).Distinct();
+                .Select(_galleryService.GetBirdName).Distinct();
             return names;
-        }
-
-        private string GetBirdName(Domain.Photo x) // todo: remove duplication in BirdService
-        {
-            var bird = _context.Birds.Find(x.BirdId);
-            return bird == null ? string.Empty : bird.EnglishName;
         }
         private string ShowLocation(int locationId)
         {

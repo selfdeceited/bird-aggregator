@@ -5,9 +5,10 @@ export interface BirdGalleryState { }
 
 export class BirdGallery extends React.Component<any, BirdGalleryState>  {
     render() {
-        return  (<GalleryWrap
+        return  (<div className={'' + this.props.match.params.id}>
+                <GalleryWrap
                     seeFullGalleryLink={false}
                     urlToFetch={`/api/birds/gallery/` + this.props.match.params.id}
-                />)
+                /></div>)
     }
 }

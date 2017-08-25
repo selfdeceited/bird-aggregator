@@ -41,6 +41,7 @@ namespace birds
             services.Configure<AppSettings>(options => settings.Bind(options));
             services.AddSingleton<FlickrConnectionService>();
             services.AddSingleton<SeedService>();
+            services.AddSingleton<GalleryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

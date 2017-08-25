@@ -35,7 +35,7 @@ const fullGalleryRoute = (
           <Route path='/map' component={MapWrap}/>
           <Route path='/triplist' component={TripList}/>
           <Route path='/gallery' render={() => fullGalleryRoute}/>
-          <Route path="/birds/:id" component={BirdGallery}/>
+          <Route path="/birds/:id" component={BirdGallery} />
         </Switch>
     </main>);
     }

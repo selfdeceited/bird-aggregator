@@ -37,7 +37,7 @@ export class GalleryWrap extends React.Component<GalleryProps, GalleryState> {
         };
     }
 
-    componentDidMount() {
+    fetchTheUrl(url, callback){
         axios.get(this.props.urlToFetch).then(res => {
             const images = res.data.map((x: Image) => {
                 x.tags = [{title: x.caption, value: x.caption}];
@@ -45,8 +45,16 @@ export class GalleryWrap extends React.Component<GalleryProps, GalleryState> {
                 return x;
             });
 
-            this.setState({ images });
+            callback(images);
         });
+    }
+
+    componentDidMount() {
+        this.fetchTheUrl(this.props.urlToFetch, images => this.setState({ images }));
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.fetchTheUrl(nextProps.urlToFetch, images => this.setState({ images }));
     }
 
     render() {
