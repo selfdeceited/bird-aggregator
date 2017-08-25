@@ -10,14 +10,14 @@ h1 {
     padding-top: $pt-navbar-height
 }
 
-nav {
-    .pt-select-popover .pt-menu {
-        max-width: 400px;
-        max-height: 300px;
-        overflow: auto;
-        padding: 0;
-    }
+.pt-select-popover .pt-menu {
+    max-width: 400px;
+    max-height: 300px;
+    overflow: auto;
+    padding: 0;
+}
 
+nav {
     .small-space {
         display: inline-block;
         width: 4px;
@@ -58,7 +58,7 @@ nav {
     line-height: 0;
     font-size: 0;
     color: transparent;
-    margin-top: 15px;
+    padding-top: 6px;
 }
 
 
