@@ -48,6 +48,12 @@ nav {
     display: block;
 }
 
+.small-reference {
+    font-size: 8px;
+    min-height: 0;
+    line-height: 0;
+    text-align: left !important;
+}
 
 @media screen and (max-width: 960px) {
     #root {
