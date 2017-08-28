@@ -19,18 +19,16 @@ export class BirdPopup extends React.Component<BirdPopupProps, BirdPopupState> {
     render() {
         return (<div>
                     <p>Birds found:</p>
-                    <div>
                     {
                         this.props.birds.map(x => (<Link 
                                 key={x.id}
                                 to={"/birds/" + x.id}
                                 role="button"
-                                className="pt-button pt-minimal pt-icon-arrow-right">
+                                className="pt-button pt-minimal pt-icon-arrow-right display-block">
                                     {x.name}
                             </Link>
                         ))
                     }
-                    </div>
                 </div>);
     }
 }

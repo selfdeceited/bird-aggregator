@@ -11,6 +11,7 @@ const Map = ReactMapboxGl({
 
 // todo: fix https://github.com/mapbox/mapbox-gl-js/issues/2440
 // enhance according to: http://alex3165.github.io/react-mapbox-gl/demos
+// add clusterisation
 
 interface MapWrapProps {}
 interface MapWrapState {

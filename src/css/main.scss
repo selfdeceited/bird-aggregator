@@ -44,6 +44,11 @@ nav {
     border-radius: 2px;
 }
 
+.display-block {
+    display: block;
+}
+
+
 @media screen and (max-width: 960px) {
     #root {
         nav > div.pt-navbar-group > a.pt-button.pt-minimal.pt-icon-arrow-right{
