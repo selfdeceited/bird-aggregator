@@ -55,7 +55,9 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
             center: feature.geometry.coordinates,
             zoomLevel: this.state.zoomLevel, });
     }
-
+    removePopup(){
+        this.setState({ selectedMarker: undefined });
+    }
     render() {
         return (
 <div className="body">
@@ -90,7 +92,8 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
                 coordinates={[this.state.selectedMarker.x, this.state.selectedMarker.y]}
               >
                   <div className="map-popup">
-                      <BirdPopup birds={this.state.selectedMarker.birds}></BirdPopup>
+                        <a className="pt-button pt-minimal small-reference pt-icon-cross" onClick={() => this.removePopup()}></a>
+                        <BirdPopup birds={this.state.selectedMarker.birds}></BirdPopup>
                   </div>
               </Popup>
             )
