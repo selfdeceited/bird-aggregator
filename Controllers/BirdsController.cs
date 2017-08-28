@@ -72,17 +72,20 @@ namespace birds.Controllers
                 var entry = new {
                     X = location.X,
                     Y = location.Y,
-                    BirdNames = string.Join(", ", GetBirdNamesByLocation(location.Id)),
+                    Birds = GetBirdsByLocation(location.Id),
                     Id = location.Id
                 };
                 yield return entry;
             }
         }
 
-        private IEnumerable<string> GetBirdNamesByLocation(int id)
+        private IEnumerable<object> GetBirdsByLocation(int id)
         {
             var names = _context.Photos.Where(x => x.LocationId == id)
-                .Select(_galleryService.GetBirdName).Distinct();
+                .Select(x => new {
+                    Name = _galleryService.GetBirdName(x),
+                    Id = x.BirdId
+                }).GroupBy(x => x.Id).Select(x => x.First());
             return names;
         }
         private string ShowLocation(int locationId)

@@ -2,6 +2,8 @@ import * as React from "react"
 import UnderConstructionState from './UnderConstructionState'
 import axios from 'axios';
 import ReactMapboxGl, { Layer, Feature, ZoomControl, Popup } from "react-mapbox-gl"
+import { Link } from 'react-router-dom'
+import {BirdPopup} from './BirdPopup'
 
 const Map = ReactMapboxGl({
     accessToken: "pk.eyJ1IjoidG9ueXJ5emhpa292IiwiYSI6ImNpbHhvYTY0MDA4MTF0bWtyaW9xbjAyaWsifQ.ih-8rDMRiBmDPqdeyyrHNg"
@@ -21,7 +23,12 @@ interface MapMarkerDto {
     id: number,
     x: number,
     y: number,
-    birdNames: string
+    birds: BirdDto[]
+}
+
+export interface BirdDto{
+    id: number,
+    name: string
 }
 
 export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
@@ -82,7 +89,7 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
                 coordinates={[this.state.selectedMarker.x, this.state.selectedMarker.y]}
               >
                   <div className="map-popup">
-                    {this.state.selectedMarker.birdNames}
+                      <BirdPopup birds={this.state.selectedMarker.birds}></BirdPopup>
                   </div>
               </Popup>
             )
