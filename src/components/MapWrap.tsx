@@ -12,7 +12,10 @@ const Map = ReactMapboxGl({
 
 interface MapWrapProps {}
 interface MapWrapState {
-    markers: MapMarkerDto[]
+    markers: MapMarkerDto[],
+    selectedMarker: MapMarkerDto,
+    zoomLevel: number[],
+    center: number[]
 }
 interface MapMarkerDto {
     id: number,
@@ -25,7 +28,10 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
     constructor(props) {
         super(props);
         this.state = {
-            markers: []
+            markers: [],
+            selectedMarker: undefined,
+            zoomLevel: [6],
+            center: [35.5, 55.6]
         };
     }
 
@@ -34,6 +40,12 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
             const markers = res.data as MapMarkerDto[];
             this.setState({ markers });
         });
+    }
+
+    markerClick(selectedMarker: MapMarkerDto, { feature }: { feature: any }){
+        this.setState({ selectedMarker: selectedMarker,
+            center: feature.geometry.coordinates,
+            zoomLevel: this.state.zoomLevel, });
     }
 
     render() {
@@ -45,8 +57,8 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
     height: "100vh",
     width: "100vw"
   }}
-  center={[35.5, 55.6]}
-  zoom={[6]}
+  center={this.state.center}
+  zoom={this.state.zoomLevel}
   >
     <Layer
       type="symbol"
@@ -58,9 +70,23 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
         <Feature
             key= {x.id}
             coordinates={[x.x, x.y]} properties={x}
+            onClick={this.markerClick.bind(this, x)}
         />
     ))}
     </Layer>
+    {
+            this.state.selectedMarker && (
+              <Popup
+                key={this.state.selectedMarker.id}
+                offset={[0, -50]}
+                coordinates={[this.state.selectedMarker.x, this.state.selectedMarker.y]}
+              >
+                  <div className="map-popup">
+                    {this.state.selectedMarker.birdNames}
+                  </div>
+              </Popup>
+            )
+          }
     <ZoomControl/>
 </Map>
 </div>);

@@ -36,11 +36,12 @@ nav {
     margin: 1px;
 }
 
-.react-d3-map-core__popup__tip, 
-.react-d3-map-core__popup__content-wrapper, 
-.react-d3-map-core__popup__close-button{
-    z-index:42;
-    opacity: .99;
+.map-popup {
+    background: white;
+    color: #3F618C;
+    font-weight: 400;
+    padding: 5px;
+    border-radius: 2px;
 }
 
 @media screen and (max-width: 960px) {
