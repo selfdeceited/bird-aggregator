@@ -34,7 +34,7 @@ export class LifeList extends React.Component<LifeListProps, LifeListState> {
     render() {
         const popover = x => (x.locationId > 0) ?
             (<Blueprint.Popover
-                target={<Blueprint.Button className="pt-button pt-minimal pt-icon-map-marker display-block small-reference"/>}
+                target={<Blueprint.Button className="pt-button pt-minimal pt-icon-map-marker display-block"/>}
                 content={<MapWrap asPopup={true} locationIdToShow={x.locationId}/>}/>): <div></div>
 
 

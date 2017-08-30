@@ -67,6 +67,10 @@ nav {
     text-align: left !important;
 }
 
+div.body > table td {
+    line-height: 30px;
+}
+
 @media screen and (max-width: 960px) {
     #root {
         nav > div.pt-navbar-group > a.pt-button.pt-minimal.pt-icon-arrow-right{

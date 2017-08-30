@@ -70,7 +70,9 @@ namespace birds.Services
             if (location == null)
                 return domainPhoto;
 
-            var domainLocation = _context.Locations.SingleOrDefault(x => x.GeoTag == location.place_id);
+            var domainLocation = _context.Locations.SingleOrDefault(_ =>
+                _.Y == location.latitude && _.X == location.longitude);
+
             if (domainLocation == null)
             {
                 var newLocation = new Location
