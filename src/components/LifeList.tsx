@@ -1,16 +1,19 @@
 import * as React from "react"
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
 interface LifeListProps {}
 interface LifeListState {
     lifeList: LifeListDto[]
 }
+
 interface LifeListDto {
-    birdid: number,
+    birdId: number,
     name: string,
     dateMet: string,
     location: string
 }
+
 export class LifeList extends React.Component<LifeListProps, LifeListState> {
     constructor(props) {
         super(props);
@@ -28,7 +31,7 @@ export class LifeList extends React.Component<LifeListProps, LifeListState> {
     render() {
         return (
 <div className="body">
-    <table className="pt-table pt-striped pt-interactive">
+    <table className="pt-table pt-striped">
         <thead>
             <tr>
                 <th>#</th>
@@ -39,11 +42,19 @@ export class LifeList extends React.Component<LifeListProps, LifeListState> {
         </thead>
         <tbody>
             {
-                this.state.lifeList.map((x, i) => 
+                this.state.lifeList.map((x: LifeListDto, i: number) => 
                 (
                     <tr>
                         <td>{i + 1}</td>
-                        <td>{x.name}</td>
+                        <td className="bird-column">
+                            {x.name}
+                            <Link 
+                                key={x.birdId}
+                                to={"/birds/" + x.birdId}
+                                role="button"
+                                className="pt-button pt-minimal pt-icon-arrow-right">
+                            </Link>
+                        </td>
                         <td>{new Date(Date.parse(x.dateMet)).toDateString()}</td>
                         <td>{x.location}</td>
                     </tr>
