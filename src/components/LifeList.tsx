@@ -1,6 +1,8 @@
 import * as React from "react"
+import * as Blueprint from "@blueprintjs/core";
 import axios from 'axios';
 import { Link } from 'react-router-dom'
+import { MapWrap } from './MapWrap'
 
 interface LifeListProps {}
 interface LifeListState {
@@ -11,7 +13,8 @@ interface LifeListDto {
     birdId: number,
     name: string,
     dateMet: string,
-    location: string
+    location: string,
+    locationId: number
 }
 
 export class LifeList extends React.Component<LifeListProps, LifeListState> {
@@ -29,6 +32,12 @@ export class LifeList extends React.Component<LifeListProps, LifeListState> {
     }
     
     render() {
+        const popover = x => (x.locationId > 0) ?
+            (<Blueprint.Popover
+                target={<Blueprint.Button className="pt-button pt-minimal pt-icon-map-marker display-block small-reference"/>}
+                content={<MapWrap asPopup={true} locationIdToShow={x.locationId}/>}/>): <div></div>
+
+
         return (
 <div className="body">
     <table className="pt-table pt-striped">
@@ -56,7 +65,10 @@ export class LifeList extends React.Component<LifeListProps, LifeListState> {
                             </Link>
                         </td>
                         <td>{new Date(Date.parse(x.dateMet)).toDateString()}</td>
-                        <td>{x.location}</td>
+                        <td>
+                            {x.location}&nbsp;&nbsp;
+                            {popover(x)}
+                        </td>
                     </tr>
                 ))
             }

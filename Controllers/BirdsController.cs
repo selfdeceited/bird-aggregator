@@ -58,7 +58,8 @@ namespace birds.Controllers
                         BirdId = item.Key, 
                         Name = _galleryService.GetBirdName(firstOccurence), 
                         DateMet = firstOccurence.DateTaken,
-                        Location = ShowLocation(firstOccurence.LocationId)
+                        Location = ShowLocation(firstOccurence.LocationId),
+                        LocationId = firstOccurence.LocationId
                     });
             }
             return localList.OrderByDescending(x => x.DateMet);
@@ -77,6 +78,24 @@ namespace birds.Controllers
                 };
                 yield return entry;
             }
+        }
+
+        [HttpGet("map/markers/{id}")]
+        public IEnumerable<object> GetMapMarkerByLocationId(int id)
+        {
+            // TODO: refactor & remove code duplication at object init
+            var list = new List<object>();
+
+            var location = _context.Locations.Find(id);
+            if (location != null)
+                list.Add(new {
+                    X = location.X,
+                    Y = location.Y,
+                    Birds = GetBirdsByLocation(location.Id),
+                    Id = location.Id
+                });
+
+            return list;
         }
 
         private IEnumerable<object> GetBirdsByLocation(int id)

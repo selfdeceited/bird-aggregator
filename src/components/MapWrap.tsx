@@ -13,13 +13,20 @@ const Map = ReactMapboxGl({
 // enhance according to: http://alex3165.github.io/react-mapbox-gl/demos
 // add clusterisation
 
-interface MapWrapProps {}
+interface MapWrapProps {
+    asPopup: boolean,
+    locationIdToShow: number
+}
+
 interface MapWrapState {
     markers: MapMarkerDto[],
     selectedMarker: MapMarkerDto,
     zoomLevel: number[],
-    center: number[]
+    center: number[],
+    mapHeight: string,
+    mapWidth: string
 }
+
 interface MapMarkerDto {
     id: number,
     x: number,
@@ -36,6 +43,8 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
     constructor(props) {
         super(props);
         this.state = {
+            mapHeight: props.asPopup ? '220px' : '100vh',
+            mapWidth: props.asPopup ? '220px' : '100vw',
             markers: [],
             selectedMarker: undefined,
             zoomLevel: [6],
@@ -44,9 +53,17 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
     }
 
     componentDidMount() {
-        axios.get(`/api/birds/map/markers`).then(res => {
+        let urlToFetch = `/api/birds/map/markers`;
+        if (this.props.locationIdToShow) {
+            urlToFetch = urlToFetch + '/' + this.props.locationIdToShow;
+        }
+
+        axios.get(urlToFetch).then(res => {
             const markers = res.data as MapMarkerDto[];
             this.setState({ markers });
+            if (this.props.locationIdToShow){
+                this.setState({ center: [markers[0].x, markers[0].y] });
+            }
         });
     }
 
@@ -58,14 +75,15 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
     removePopup(){
         this.setState({ selectedMarker: undefined });
     }
+    
     render() {
         return (
-<div className="body">
+<div className={this.props.asPopup ? "" : "body"}>
 <Map
   style="mapbox://styles/mapbox/outdoors-v10"
   containerStyle={{
-    height: "100vh",
-    width: "100vw"
+    height: this.state.mapHeight,
+    width: this.state.mapWidth
   }}
   center={this.state.center}
   zoom={this.state.zoomLevel}
@@ -85,7 +103,7 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
     ))}
     </Layer>
     {
-            this.state.selectedMarker && (
+            (this.state.selectedMarker && !this.props.asPopup) && (
               <Popup
                 key={this.state.selectedMarker.id}
                 offset={[0, -50]}

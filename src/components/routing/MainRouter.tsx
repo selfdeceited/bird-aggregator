@@ -27,12 +27,14 @@ const fullGalleryRoute = (
 // fullGalleryRoute is wrapped in div as a workaround to avoid the situation in 
 // https://github.com/ReactTraining/react-router/issues/4105#issuecomment-310048346
 
+const defaultMapWrap = (<MapWrap asPopup={false} locationIdToShow={undefined}/>);
+
         return (
     <main>
         <Switch>
           <Route exact path='/' render={() => previewGalleryRoute }/>
           <Route path='/lifelist' component={LifeList}/>
-          <Route path='/map' component={MapWrap}/>
+          <Route path='/map' render={() => defaultMapWrap}/>
           <Route path='/triplist' component={TripList}/>
           <Route path='/gallery' render={() => fullGalleryRoute}/>
           <Route path="/birds/:id" component={BirdGallery} />
