@@ -37,28 +37,26 @@ export class GalleryWrap extends React.Component<GalleryProps, GalleryState> {
         };
     }
 
-    fetchTheUrl(url, callback){
-        axios.get(this.props.urlToFetch).then(res => {
+    fetchTheUrl(url){
+        axios.get(url).then(res => {
             const images = res.data.map((x: Image) => {
                 x.tags = [{title: x.caption, value: x.caption}];
                 x.thumbnailWidth = 500;
                 return x;
             });
-
-            callback(images);
+            this.setState({ images });
         });
     }
 
     componentDidMount() {
-        this.fetchTheUrl(this.props.urlToFetch, images => this.setState({ images }));
+        this.fetchTheUrl(this.props.urlToFetch);
     }
 
     componentWillReceiveProps(nextProps){
-        this.fetchTheUrl(nextProps.urlToFetch, images => this.setState({ images }));
+        this.fetchTheUrl(nextProps.urlToFetch);
     }
 
     render() {
-
         const latestShotsLink = this.state.fullGallery ? (<div></div>) : (
             <div>
                 <h2 className="latest-shots">Latest photos</h2>

@@ -91,7 +91,7 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
     <Layer
       type="symbol"
       id="marker"
-      layout={{ "icon-image": "circle-15" }}
+      layout={{ "icon-image": "attraction-15" }}
       >
 
       { this.state.markers.map(x => (
