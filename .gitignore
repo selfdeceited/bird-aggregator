@@ -5,3 +5,5 @@ node_modules
 *.swp
 *.user
 dist
+npm-debug.log
+.DS_Store

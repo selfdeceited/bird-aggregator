@@ -6,17 +6,19 @@ const extractSass = new ExtractTextPlugin("my-styles.css");
 
 module.exports = {
     module: {
-        loaders: [
-            { 
+        rules: [
+            {
                 test: /\.(scss|sass|css)$/i, 
-                loader: extractSass.extract(
-                    [
-                        'css-loader?sourceMap', 
-                        'resolve-url-loader', 
-                        'sass-loader?sourceMap'
-                    ])
+                use: [
+                    { loader: 'css-loader?sourceMap' },
+                    { loader: 'resolve-url-loader' },
+                    { loader: 'sass-loader?sourceMap' }, 
+                   ]
             },
-            { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
+            {
+                test: /\.(png|woff|woff2|eot|ttf|svg)$/, 
+                use: ['url-loader?limit=100000']
+            }
         ]
     },
     plugins: [
@@ -26,6 +28,9 @@ module.exports = {
               NODE_ENV: JSON.stringify('production')
             }
         }),
-        new webpack.optimize.UglifyJsPlugin({ minimize: true, compressor: { warnings: false } })
+        new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }, sourceMap: true }),
+        new webpack.LoaderOptionsPlugin({
+                 minimize: true
+           })
     ]
 };

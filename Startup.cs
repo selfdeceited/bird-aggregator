@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,8 +6,6 @@ using Microsoft.Extensions.Logging;
 using birds.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.SpaServices.Webpack;
-using Microsoft.AspNetCore.NodeServices;
 
 namespace birds
 {
@@ -33,7 +28,6 @@ namespace birds
         {
             // Add framework services.
             services.AddMvc();
-            services.AddNodeServices();
 
             services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase("birds"));
             
@@ -50,9 +44,6 @@ namespace birds
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
-                    HotModuleReplacement = true
-                });
             } 
             else
             {

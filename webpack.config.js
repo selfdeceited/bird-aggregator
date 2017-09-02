@@ -6,18 +6,27 @@ var isDevelopment = process.env.ASPNETCORE_ENVIRONMENT === 'Development';
 
 module.exports = merge({
     resolve: {
-        extensions: ['', '.js', '.jsx', '.ts', '.tsx', '.scss'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.scss'],
         alias: {
             "react": __dirname + '/node_modules/react',
         }
     },
     module: {
-        loaders: [
-            // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-            { test: /\.tsx?$/, loader: "awesome-typescript-loader", exclude: /node_modules/ },
-
-            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+        rules: [
+            {
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
+                use: [
+                    { loader: "awesome-typescript-loader" }
+                ]
+            },
+            {
+                test: /\.js$/,
+                enforce: "pre",
+                use: [
+                    { loader: "source-map-loader" }
+                ]
+            }
         ]
     },
     entry: {
