@@ -1,8 +1,7 @@
 var webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
 const extractSass = new ExtractTextPlugin("my-styles.css");
-
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
     module: {
@@ -30,12 +29,28 @@ module.exports = {
         }),
         new webpack.optimize.UglifyJsPlugin(
             { 
-                compress: { warnings: false, comparisons: false },
+                compress: { 
+                    warnings: false,
+                    comparisons: false,
+                    pure_getters: true,
+                    unsafe: true,
+                    unsafe_comps: true,
+                    screw_ie8: true
+                },
                 sourceMap: true, 
-                parallel: true 
+                parallel: true,
+
             }),
         new webpack.LoaderOptionsPlugin({
                  minimize: true
-           })
+           }),
+        /*new CompressionPlugin({
+			asset: "[path].gz[query]",
+			algorithm: "gzip",
+			test: /\.(js|html)$/,
+			threshold: 10240,
+			minRatio: 0.8
+        }),*/
+        new BundleAnalyzerPlugin({analyzerMode: 'disabled', generateStatsFile: true})
     ]
 };

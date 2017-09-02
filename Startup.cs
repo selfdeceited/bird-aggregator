@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 using birds.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.ResponseCompression;
+using System.IO.Compression;
 
 namespace birds
 {
@@ -28,6 +30,10 @@ namespace birds
         {
             // Add framework services.
             services.AddMvc();
+            
+            services.Configure<GzipCompressionProviderOptions>(options => 
+                options.Level = CompressionLevel.Optimal);
+            services.AddResponseCompression();
 
             services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase("birds"));
             
@@ -49,7 +55,8 @@ namespace birds
             {
                 app.UseExceptionHandler("/Shared/Error");
             }
-
+            
+            app.UseResponseCompression();
             app.UseStaticFiles();
             app.UseMvc(routes =>
             {

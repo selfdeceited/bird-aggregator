@@ -1,8 +1,8 @@
 var path = require('path');
 var merge = require('extendify')({ isDeep: true, arrays: 'concat' });
-var devConfig = require('./webpack.config.dev');
-var prodConfig = require('./webpack.config.prod');
-var isDevelopment = process.env.ASPNETCORE_ENVIRONMENT === 'Development';
+const devConfig = require('./webpack.config.dev');
+const prodConfig = require('./webpack.config.prod');
+const isDevelopment = process.env.ASPNETCORE_ENVIRONMENT === 'Development';
 
 module.exports = merge({
     resolve: {
@@ -37,7 +37,7 @@ module.exports = merge({
         filename: 'bundle.js',
         publicPath: '/dist/'
     },
-    devtool: "source-map",
+    devtool: "cheap-module-source-map",
     plugins: [],
     // When importing a module whose path matches one of the following, just
     // assume a corresponding global variable exists and use that instead.
