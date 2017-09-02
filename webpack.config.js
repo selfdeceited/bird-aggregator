@@ -3,7 +3,9 @@ var merge = require('extendify')({ isDeep: true, arrays: 'concat' });
 const devConfig = require('./webpack.config.dev');
 const prodConfig = require('./webpack.config.prod');
 
-const isDevelopment = process.env.ASPNETCORE_ENVIRONMENT === 'Development';
+const isDevelopment = process.env.NODE_ENV === 'development';
+
+//todo: refactor & extract common config here
 
 module.exports = merge({
     resolve: {

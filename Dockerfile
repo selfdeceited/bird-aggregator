@@ -14,8 +14,7 @@
 
  RUN npm install
  RUN npm rebuild node-sass
- RUN npm run webpack-more
-
+ RUN npm run prod
 
  RUN dotnet publish --output /app/ --configuration Release
 

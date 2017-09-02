@@ -7,11 +7,13 @@ module.exports = {
         rules: [
             {
                 test: /\.(scss|sass|css)$/i, 
-                use: [
-                    { loader: 'css-loader?sourceMap' },
-                    { loader: 'resolve-url-loader' },
-                    { loader: 'sass-loader?sourceMap' }, 
-                   ]
+                use: ExtractTextPlugin.extract({
+                    use: [
+                        { loader: 'css-loader?sourceMap' },
+                        { loader: 'resolve-url-loader' },
+                        { loader: 'sass-loader?sourceMap' }
+                    ]
+                })
             },
             {
                 test: /\.(png|woff|woff2|eot|ttf|svg)$/, 
