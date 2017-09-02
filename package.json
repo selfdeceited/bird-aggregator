@@ -20,7 +20,7 @@
     "resolve-url-loader": "^2.1.0",
     "sass-loader": "^6.0.6",
     "source-map-loader": "^0.2.1",
-    "typescript": "^2.4.1",
+    "typescript": "^2.4.0",
     "url-loader": "^0.5.9",
     "webpack": "^3.5.5",
     "webpack-hot-middleware": "^2.18.2"

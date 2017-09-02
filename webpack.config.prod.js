@@ -28,7 +28,12 @@ module.exports = {
               NODE_ENV: JSON.stringify('production')
             }
         }),
-        new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false }, sourceMap: true }),
+        new webpack.optimize.UglifyJsPlugin(
+            { 
+                compress: { warnings: false, comparisons: false },
+                sourceMap: true, 
+                parallel: true 
+            }),
         new webpack.LoaderOptionsPlugin({
                  minimize: true
            })

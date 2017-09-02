@@ -6,12 +6,13 @@
     "target": "es5",
     "jsx": "react",
     "sourceMap": true,
-    "lib": ["es6", "dom"]
+    "lib": ["es6", "dom"],
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules"
   ],
   "include": [
-     "./src/js/**/*"
+     "./src/**/*"
   ]
 }
