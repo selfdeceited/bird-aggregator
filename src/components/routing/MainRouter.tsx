@@ -14,7 +14,7 @@ export default class MainRouter extends React.Component<MainRouterProps, MainRou
 const previewGalleryRoute = (
 <GalleryWrap 
     seeFullGalleryLink={true}
-    urlToFetch={`/api/photos/gallery/40`}/>);
+    urlToFetch={`/api/photos/gallery/100`}/>);
 
 const fullGalleryRoute = (
 <div>

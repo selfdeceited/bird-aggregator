@@ -60,11 +60,11 @@ export default class Navbar extends React.Component<NavbarProps, NavbarState>  {
         return  (
 <nav className="pt-navbar pt-fixed-top">
     <div className="pt-navbar-group pt-align-left">
-    <Link to="/" className="pt-navbar-heading"><b>{this.state.owner}</b></Link>
+    <Link to="/" title="Main page" className="pt-navbar-heading"><b>{this.state.owner}</b></Link>
     <span className="pt-navbar-divider"></span>
-    <Link to="/map" role="button" className="pt-button pt-minimal pt-icon-map small-margin">Map</Link>
-    <Link to="/triplist" role="button" className="pt-button pt-minimal pt-icon-torch small-margin">Trips</Link>
-    <Link to="/lifelist" role="button" className="pt-button pt-minimal pt-icon-align-justify small-margin">Life List</Link>
+    <Link to="/map" title="Map" role="button" className="pt-button pt-minimal pt-icon-map small-margin">Map</Link>
+    <Link to="/triplist" title="Trips" role="button" className="pt-button pt-minimal pt-icon-torch small-margin">Trips</Link>
+    <Link to="/lifelist" title="Life List" role="button" className="pt-button pt-minimal pt-icon-numbered-list small-margin">Life List</Link>
     
     <span className="pt-navbar-divider"></span>
     <div className="bird-info-select">

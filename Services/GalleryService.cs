@@ -31,7 +31,7 @@ namespace birds.Services
 
         private string GetThumbnailUrl(Domain.Photo photo)
         {
-            return $"https://farm{photo.FarmId}.staticflickr.com/{photo.ServerId}/{photo.FlickrId}_{photo.Secret}_n.jpg";
+            return $"https://farm{photo.FarmId}.staticflickr.com/{photo.ServerId}/{photo.FlickrId}_{photo.Secret}_q.jpg";
         }
 
         private string GetImageUrl(Domain.Photo photo)

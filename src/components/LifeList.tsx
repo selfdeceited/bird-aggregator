@@ -3,6 +3,7 @@ import * as Blueprint from "@blueprintjs/core";
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import { MapWrap } from './MapWrap'
+import * as moment from 'moment';
 
 interface LifeListProps {}
 interface LifeListState {
@@ -40,21 +41,22 @@ export class LifeList extends React.Component<LifeListProps, LifeListState> {
 
         return (
 <div className="body">
+    <h2 className="show-mobile">Life list</h2>
     <table className="pt-table pt-striped">
         <thead>
             <tr>
-                <th>#</th>
+                <th className="hide-mobile">#</th>
                 <th>Species</th>
                 <th>Date</th>
-                <th>Location</th>
+                <th><span className="hide-mobile">Location</span></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody className="life-list-table">
             {
                 this.state.lifeList.map((x: LifeListDto, i: number) => 
                 (
                     <tr>
-                        <td>{i + 1}</td>
+                        <td className="hide-mobile">{i + 1}</td>
                         <td className="bird-column">
                             {x.name}
                             <Link 
@@ -64,9 +66,9 @@ export class LifeList extends React.Component<LifeListProps, LifeListState> {
                                 className="pt-button pt-minimal pt-icon-arrow-right">
                             </Link>
                         </td>
-                        <td>{new Date(Date.parse(x.dateMet)).toDateString()}</td>
+                        <td className="date-column">{moment(x.dateMet).format('YYYY MM DD')}</td>
                         <td>
-                            {x.location}&nbsp;&nbsp;
+                            <span className="hide-mobile">{x.location}&nbsp;&nbsp;</span>
                             {popover(x)}
                         </td>
                     </tr>

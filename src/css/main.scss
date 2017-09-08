@@ -71,6 +71,19 @@ div.body > table td {
     line-height: 30px;
 }
 
+.show-mobile{
+    display: none;
+}
+
+.hide-mobile {
+    &div {
+        display: block;
+    }
+    &span {
+        display: inline
+    }
+}
+
 @media screen and (max-width: 960px) {
     #root {
         nav > div.pt-navbar-group > a.pt-button.pt-minimal.pt-icon-arrow-right{
@@ -111,12 +124,46 @@ div.body > table td {
         nav .bird-info-select{
             display: none;
         }
+        .bird-column{
+            width: 300px;
+        }
+        .date-column {
+            width: 160px;
+        }
     }
 }
 @media screen and (max-width: 460px) {
     #root {
-        nav > div.pt-navbar-group.pt-align-right > a.pt-button.pt-minimal{
-            display: none;
+        nav {
+            div.pt-navbar-group.pt-align-right > a.pt-button.pt-minimal{
+                display: none;
+            }
+            .pt-navbar-heading
+            {
+                font-size: 12px;
+                margin-right: 0
+            }
         }
+    }
+
+    .show-mobile {
+        &h2 {
+            display: block;
+            padding-left: 10px;
+            padding-top: 10px;
+        }
+        &div {
+            display: block;
+        }
+        &span {
+            display: inline
+        }
+    }
+    .hide-mobile {
+        display: none;
+    }
+
+    tbody.life-list-table{
+        font-size: 11px;
     }
 }

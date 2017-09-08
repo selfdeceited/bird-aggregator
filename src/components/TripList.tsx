@@ -7,6 +7,7 @@ interface TripListState {}
 export class TripList extends React.Component<TripListProps, TripListState> {
     render() {
         return (<div className="body">
+                <h2 className="show-mobile">Trips</h2>
                     <UnderConstructionState/>
                 </div>);
     }
