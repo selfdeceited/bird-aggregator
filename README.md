@@ -14,7 +14,7 @@ B: {bird-name-in-English, UpperCamelCased with spaces} ({Latin name})
 _B: Great Tit (Parus major)_
 _B: Common Goldeneye (Bucephala clangula)_
 
-Names should be aligned according to latest [http://www.worldbirdnames.org/](IOC World Bird List)
+Names should be aligned according to latest [IOC World Bird List](http://www.worldbirdnames.org/)
 
 Stay tuned for updates!
-Feel free to suggest features at GitHub's [https://github.com/selfdeceited/bird-aggregator/projects/1](KanBan board)
+Feel free to suggest features at GitHub's [KanBan board](https://github.com/selfdeceited/bird-aggregator/projects/1)
