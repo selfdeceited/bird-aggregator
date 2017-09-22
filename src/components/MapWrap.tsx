@@ -1,9 +1,11 @@
 import * as React from "react"
 import UnderConstructionState from './UnderConstructionState'
 import axios from 'axios';
-import ReactMapboxGl, { Layer, Feature, ZoomControl, Popup } from "react-mapbox-gl"
+import ReactMapboxGl, { Layer, Marker, ZoomControl, Popup, Cluster, Feature } from "react-mapbox-gl-typingfix"
 import { Link } from 'react-router-dom'
 import {BirdPopup} from './BirdPopup'
+import * as GeoJSON from 'geojson';
+import styles from '../styles'
 
 const Map = ReactMapboxGl({
     accessToken: "pk.eyJ1IjoidG9ueXJ5emhpa292IiwiYSI6ImNpbHhvYTY0MDA4MTF0bWtyaW9xbjAyaWsifQ.ih-8rDMRiBmDPqdeyyrHNg"
@@ -69,7 +71,7 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
 
     markerClick(selectedMarker: MapMarkerDto, { feature }: { feature: any }){
         this.setState({ selectedMarker: selectedMarker,
-            center: feature.geometry.coordinates,
+            center: [selectedMarker.x, selectedMarker.y],
             zoomLevel: this.state.zoomLevel, });
     }
     removePopup(){
@@ -77,6 +79,31 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
     }
     
     render() {
+
+        let clusterClick = (
+            coordinates: GeoJSON.Position
+          ) => {
+            this.setState({
+              center: coordinates,
+              zoomLevel: [(this.state.zoomLevel[0] + 1)]
+            });
+          }
+
+        let clusterMarker = (
+            coordinates: GeoJSON.Position,
+            pointCount: number,
+            getLeaves: (limit?: number, offset?: number) => Array<React.ReactElement<any>>
+        ) => (
+              <Marker
+                key={coordinates.toString()}
+                coordinates={coordinates}
+                style={styles.clusterMarker}
+                onClick={clusterClick.bind(this, coordinates)}
+                >
+                <div>{pointCount}</div>
+              </Marker>
+            );
+
         return (
 <div className={this.props.asPopup ? "" : "body"}>
 <Map
@@ -88,20 +115,18 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
   center={this.state.center}
   zoom={this.state.zoomLevel}
   >
-    <Layer
-      type="symbol"
-      id="marker"
-      layout={{ "icon-image": "attraction-15" }}
-      >
 
+      <Cluster ClusterMarkerFactory={clusterMarker}>
+          {/* Array<React.Component<MarkerProps, {}>> */}
       { this.state.markers.map(x => (
-        <Feature
+        <Marker
             key= {x.id}
-            coordinates={[x.x, x.y]} properties={x}
+            coordinates={[x.x, x.y] as GeoJSON.Position}
             onClick={this.markerClick.bind(this, x)}
+            style={styles.marker}
         />
     ))}
-    </Layer>
+        </Cluster>
     {
             (this.state.selectedMarker && !this.props.asPopup) && (
               <Popup
