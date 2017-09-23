@@ -65,6 +65,12 @@ namespace birds
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
             
+            app.Run(context =>
+            {
+                context.Response.Redirect("/");
+                return Task.FromResult<object>(null);
+            });
+
             new TaskFactory().StartNew(() =>
                 app.ApplicationServices.GetService<SeedService>().Seed());
         }
