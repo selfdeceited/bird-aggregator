@@ -38,7 +38,6 @@ export class LifeList extends React.Component<LifeListProps, LifeListState> {
                 target={<Blueprint.Button className="pt-button pt-minimal pt-icon-map-marker display-block"/>}
                 content={<MapWrap asPopup={true} locationIdToShow={x.locationId}/>}/>): <div></div>
 
-
         return (
 <div className="body">
     <h2 className="show-mobile">Life list</h2>
