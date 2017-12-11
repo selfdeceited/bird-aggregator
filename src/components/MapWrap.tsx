@@ -103,7 +103,10 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
                 <div>{pointCount}</div>
               </Marker>
             );
-
+            
+            const onZoom = (map: any, event: Event) => {
+                this.setState({ zoomLevel: [...[map.getZoom()]] })
+            }
         return (
 <div className={this.props.asPopup ? "" : "body"}>
 <Map
@@ -114,6 +117,7 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
   }}
   center={this.state.center}
   zoom={this.state.zoomLevel}
+  onZoomEnd={onZoom}
   >
 
       <Cluster ClusterMarkerFactory={clusterMarker}>
