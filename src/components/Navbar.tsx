@@ -60,6 +60,7 @@ export default class Navbar extends React.Component<NavbarProps, NavbarState>  {
         return  (
 <nav className="pt-navbar pt-fixed-top">
     <div className="pt-navbar-group pt-align-left">
+    <div className="logo"></div>
     <Link to="/" title="Main page" className="pt-navbar-heading"><b>{this.state.owner}</b></Link>
     <span className="pt-navbar-divider"></span>
     <Link to="/map" title="Map" role="button" className="pt-button pt-minimal pt-icon-map small-margin">Map</Link>

@@ -29,7 +29,8 @@ interface MapMarkerDto {
     id: number,
     x: number,
     y: number,
-    birds: BirdDto[]
+    birds: BirdDto[],
+    firstPhotoUrl: string
 }
 
 export interface BirdDto{
@@ -75,7 +76,6 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
     }
     
     render() {
-
         let clusterClick = (
             coordinates: GeoJSON.Position
           ) => {
@@ -136,7 +136,7 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
               >
                   <div className="map-popup">
                         <a className="pt-button pt-minimal small-reference pt-icon-cross" onClick={() => this.removePopup()}></a>
-                        <BirdPopup birds={this.state.selectedMarker.birds}></BirdPopup>
+                        <BirdPopup birds={this.state.selectedMarker.birds} photoUrl={this.state.selectedMarker.firstPhotoUrl}></BirdPopup>
                   </div>
               </Popup>
             )

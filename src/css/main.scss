@@ -159,6 +159,9 @@ div.body > table td {
         .date-column {
             width: 160px;
         }
+        .marker-thumbnail{
+            display: none;
+        }
     }
 }
 @media screen and (max-width: 460px) {
@@ -195,4 +198,18 @@ div.body > table td {
     tbody.life-list-table{
         font-size: 11px;
     }
+}
+
+.marker-thumbnail
+{
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.logo {
+    background-image: url("http://www.iconninja.com/files/139/538/395/pigeon-bird-shape-icon.png");
+    width: 45px;
+    height: 30px;
+    background-repeat: no-repeat;
+    background-size: contain;
 }

@@ -80,7 +80,8 @@ namespace birds.Controllers
                     X = location.X,
                     Y = location.Y,
                     Birds = GetBirdsByLocation(location.Id),
-                    Id = location.Id
+                    Id = location.Id,
+                    FirstPhotoUrl = GetPhotoByLocation(location.Id)
                 };
                 yield return entry;
             }
@@ -98,7 +99,8 @@ namespace birds.Controllers
                     X = location.X,
                     Y = location.Y,
                     Birds = GetBirdsByLocation(location.Id),
-                    Id = location.Id
+                    Id = location.Id,
+                    FirstPhotoUrl = GetPhotoByLocation(location.Id)
                 });
 
             return list;
@@ -108,8 +110,7 @@ namespace birds.Controllers
         public object GetWikiInfo(int id){
             var bird = _context.Birds.Find(id);
             var response = _wikipediaConnectionService.CallWikipediaExtract(bird.EnglishName);
-            var imageUrl = GetImageUrl(bird.EnglishName);
-            return new { Name = bird.EnglishName, WikiInfo = response, ImageUrl = imageUrl };
+            return new { Name = bird.EnglishName, WikiInfo = response, ImageUrl = string.Empty };
         }
 
         private IEnumerable<object> GetBirdsByLocation(int id)
@@ -132,11 +133,12 @@ namespace birds.Controllers
 
             return $"{addComma(location.Neighbourhood)} {addComma(location.Region)} {location.Country}";
         }
-
-        private string GetImageUrl(string birdName){
-            // todo: some images still get lost afterwards; fix it
-            var imageUrl = "";
-            return imageUrl;
+        private string GetPhotoByLocation(int id)
+        {
+            var photo = _context.Photos.FirstOrDefault(x => x.LocationId == id);
+            if (photo ==null) return string.Empty;
+            var url = _galleryService.GetPreviewUrl(photo);
+            return url;
         }
     }
 }

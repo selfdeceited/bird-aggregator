@@ -29,14 +29,22 @@ namespace birds.Services
             }
         }
 
+        internal string GetPreviewUrl(Domain.Photo photo){
+            return GetFlickrImageUrl(photo, "");
+        }
         private string GetThumbnailUrl(Domain.Photo photo)
         {
-            return $"https://farm{photo.FarmId}.staticflickr.com/{photo.ServerId}/{photo.FlickrId}_{photo.Secret}_q.jpg";
+            return GetFlickrImageUrl(photo, "_q");
         }
 
         private string GetImageUrl(Domain.Photo photo)
         {
-            return $"https://farm{photo.FarmId}.staticflickr.com/{photo.ServerId}/{photo.FlickrId}_{photo.Secret}_b.jpg";
+            return GetFlickrImageUrl(photo, "_b");
+        }
+
+        // postfix info: https://www.flickr.com/services/api/misc.urls.html
+        private string GetFlickrImageUrl(Domain.Photo photo, string postfix){
+            return $"https://farm{photo.FarmId}.staticflickr.com/{photo.ServerId}/{photo.FlickrId}_{photo.Secret}{postfix}.jpg";
         }
     }
 }
