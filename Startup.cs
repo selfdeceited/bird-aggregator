@@ -42,6 +42,7 @@ namespace birds
             services.AddSingleton<FlickrConnectionService>();
             services.AddSingleton<SeedService>();
             services.AddSingleton<GalleryService>();
+            services.AddSingleton<WikipediaConnectionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

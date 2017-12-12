@@ -11,10 +11,6 @@ const Map = ReactMapboxGl({
     accessToken: "pk.eyJ1IjoidG9ueXJ5emhpa292IiwiYSI6ImNpbHhvYTY0MDA4MTF0bWtyaW9xbjAyaWsifQ.ih-8rDMRiBmDPqdeyyrHNg"
 });
 
-// todo: fix https://github.com/mapbox/mapbox-gl-js/issues/2440
-// enhance according to: http://alex3165.github.io/react-mapbox-gl/demos
-// add clusterisation
-
 interface MapWrapProps {
     asPopup: boolean,
     locationIdToShow: number
@@ -103,7 +99,7 @@ export class MapWrap extends React.Component<MapWrapProps, MapWrapState> {
                 <div>{pointCount}</div>
               </Marker>
             );
-            
+
             const onZoom = (map: any, event: Event) => {
                 this.setState({ zoomLevel: [...[map.getZoom()]] })
             }

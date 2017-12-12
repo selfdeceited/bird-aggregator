@@ -54,7 +54,7 @@ export class BirdGallery extends React.Component<any, BirdGalleryState>  {
                 </div>
             <div className="flex-container body">
 
-                <div className="wiki-info">
+                <div className="wiki-info hide">
                     <img src={this.state.wikiData.imageUrl} width="80%"/>
                 </div>
                 <div className="wiki-info">

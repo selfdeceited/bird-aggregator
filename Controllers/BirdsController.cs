@@ -18,11 +18,14 @@ namespace birds.Controllers
         private readonly ApiContext _context;
 
         private readonly GalleryService _galleryService;
+        private readonly WikipediaConnectionService _wikipediaConnectionService;
 
-        public BirdsController(IOptions<AppSettings> settings, ApiContext context, GalleryService galleryService){
+        public BirdsController(IOptions<AppSettings> settings, ApiContext context, GalleryService galleryService, WikipediaConnectionService wikipediaConnectionService)
+        {
             _settings = settings.Value;
             _context = context;
             _galleryService = galleryService;
+            _wikipediaConnectionService = wikipediaConnectionService;
         }
 
         [HttpGet]
@@ -104,7 +107,7 @@ namespace birds.Controllers
         [HttpGet("wiki/{id}")]
         public object GetWikiInfo(int id){
             var bird = _context.Birds.Find(id);
-            var response = CallWikipediaExtract(bird.EnglishName);
+            var response = _wikipediaConnectionService.CallWikipediaExtract(bird.EnglishName);
             var imageUrl = GetImageUrl(bird.EnglishName);
             return new { Name = bird.EnglishName, WikiInfo = response, ImageUrl = imageUrl };
         }
@@ -130,54 +133,10 @@ namespace birds.Controllers
             return $"{addComma(location.Neighbourhood)} {addComma(location.Region)} {location.Country}";
         }
 
-
-
         private string GetImageUrl(string birdName){
             // todo: some images still get lost afterwards; fix it
             var imageUrl = "";
-            var imagesQueryResponse = CallWikipediaImages(birdName);
-            var imageName = JToken.Parse(imagesQueryResponse)?["continue"]?["imcontinue"]?.ToString();
-            if (imageName != null){
-                var imagesInfoResponse = CallWikipediaForImageUrl(imageName);
-                var parsedUrl = JToken.Parse(imagesInfoResponse)?["query"]?["pages"]?["-1"]?["imageinfo"]?[0]?["url"]?.ToString();;
-                if(parsedUrl != null) imageUrl = parsedUrl;
-            }
             return imageUrl;
-        }
-
-
-        // TODO: to WikipediaConnectionService
-        private string CallWikipediaForImageUrl(string imageName)
-        {
-            var image = imageName.Split("|")[1];
-            var url = $"w/api.php?action=query&format=json&titles=File:{image}&prop=imageinfo&iiprop=timestamp|user|url";
-            return CallWikipedia(url);
-        }
-
-        private string CallWikipediaExtract(string englishName)
-        {
-            return QueryWikipedia(englishName, "extracts");
-        }
-
-        private string CallWikipediaImages(string englishName)
-        {
-            return QueryWikipedia(englishName, "images");
-        }
-
-        private string QueryWikipedia(string englishName, string propertyName)
-        {
-            var name = englishName.Replace(" ", "%20");
-            var requestUrl = $"w/api.php?format=json&action=query&prop={propertyName}&titles={name}&redirects=true";
-            return CallWikipedia(requestUrl);
-        }
-
-        private string CallWikipedia(string requestUrl){
-            var client = new RestClient();
-            client.BaseUrl = new Uri("https://en.wikipedia.org");
-            var request = new RestRequest();
-            request.Resource = requestUrl;
-            var response = client.Execute(request);
-            return response.Content;
         }
     }
 }
