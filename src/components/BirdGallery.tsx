@@ -37,9 +37,14 @@ export class BirdGallery extends React.Component<any, BirdGalleryState>  {
             
             var div = document.createElement('div');
             div.innerHTML = html;
-            var firstPart = div.getElementsByTagName('p')[0].outerHTML;
-            
-            this.setState({ wikiData: { name: res.data.name, wikiInfo: firstPart, imageUrl: res.data.imageUrl } });
+            var firstDiv = div.getElementsByTagName('p')[0];
+            if (firstDiv) {
+                var chapter = firstDiv.outerHTML;
+                this.setState({ wikiData: { name: res.data.name, wikiInfo: chapter, imageUrl: res.data.imageUrl } });
+                
+            } else {
+                this.setState({ wikiData: null });
+            }
         });
     }
 
@@ -52,26 +57,28 @@ export class BirdGallery extends React.Component<any, BirdGalleryState>  {
                     urlToFetch={`/api/birds/gallery/` + this.props.match.params.id}
                     />
                 </div>
-            <div className="flex-container body">
-
-                <div className="wiki-info hide">
-                    <img src={this.state.wikiData.imageUrl} width="80%"/>
-                </div>
-                <div className="wiki-info">
-                    <h2>{this.state.wikiData.name}</h2>
-                    <div dangerouslySetInnerHTML={{ __html: this.state.wikiData.wikiInfo }}></div>
-                    <a className="new-window" href={"https://en.wikipedia.org/wiki/"+this.state.wikiData.name} target="_blank">more from Wikipedia...</a>
-                </div>
-                <div className="wiki-info hide">
-                    <h4>Voice sample</h4>
-                    <p>(todo)</p>
-                    <code>http://www.xeno-canto.org/article/153</code>
-                </div>
-                <div className="wiki-info hide">
-                    <h4>Occurences on map</h4>
-                    <p>(todo)</p>
-                </div>
-            </div>
+                {
+                    !this.state.wikiData ? null : (
+                    <div className="flex-container body">
+                        <div className="wiki-info hide">
+                            <img src={this.state.wikiData.imageUrl} width="80%"/>
+                        </div>
+                        <div className="wiki-info">
+                            <h2>{this.state.wikiData.name}</h2>
+                            <div dangerouslySetInnerHTML={{ __html: this.state.wikiData.wikiInfo }}></div>
+                            <a className="new-window" href={"https://en.wikipedia.org/wiki/"+this.state.wikiData.name} target="_blank">more from Wikipedia...</a>
+                        </div>
+                        <div className="wiki-info hide">
+                            <h4>Voice sample</h4>
+                            <p>(todo)</p>
+                            <code>http://www.xeno-canto.org/article/153</code>
+                        </div>
+                        <div className="wiki-info hide">
+                            <h4>Occurences on map</h4>
+                            <p>(todo)</p>
+                        </div>
+                    </div>)
+                }
             </div>
         )
     }

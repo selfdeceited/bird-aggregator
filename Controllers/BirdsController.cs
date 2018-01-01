@@ -110,6 +110,9 @@ namespace birds.Controllers
         public object GetWikiInfo(int id){
             var bird = _context.Birds.Find(id);
             var response = _wikipediaConnectionService.CallWikipediaExtract(bird.EnglishName);
+            if (response.Contains("may refer to")){
+                response = _wikipediaConnectionService.CallWikipediaExtract(bird.EnglishName + "_(bird)");
+            }
             return new { Name = bird.EnglishName, WikiInfo = response, ImageUrl = string.Empty };
         }
 
