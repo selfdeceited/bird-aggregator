@@ -54,7 +54,7 @@ export class LifeList extends React.Component<LifeListProps, LifeListState> {
             {
                 this.state.lifeList.map((x: LifeListDto, i: number) => 
                 (
-                    <tr>
+                    <tr key={i}>
                         <td className="hide-mobile">{i + 1}</td>
                         <td className="bird-column">
                             {x.name}

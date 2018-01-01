@@ -107,6 +107,5 @@ export default class Navbar extends React.Component<NavbarProps, NavbarState>  {
     private onSelect = (bird: Bird) => {
         const selectedBird = bird; 
         this.setState({selectedBird});
-        const a = 1;
     }
 }
