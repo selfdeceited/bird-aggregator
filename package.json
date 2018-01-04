@@ -30,6 +30,7 @@
     "webpack-hot-middleware": "^2.18.2"
   },
   "dependencies": {
+    "@aspnet/signalr-client": "^1.0.0-alpha2-final",
     "@blueprintjs/core": "^1.23.1",
     "@blueprintjs/labs": "^0.5.0",
     "@types/pure-render-decorator": "^0.2.27",

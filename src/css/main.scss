@@ -214,3 +214,27 @@ div.body > table td {
     background-repeat: no-repeat;
     background-size: contain;
 }
+
+.seed-bar {
+    margin-top: 65px;
+    box-shadow: 3px 3px 4px 5px #d0d0d0;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.progress-bar {
+    height: 20px;
+    width: 500px;
+    span {
+        margin: 10px;
+        z-index: 99;
+        opacity: .99;
+        color: white;
+    }
+}
+
+#seed-log {
+    white-space: pre-wrap;
+    margin-bottom: 5px;
+    font-size: 0.8em;
+}

@@ -1,6 +1,9 @@
 import * as React from "react"
 
 const styles: { [key: string]: React.CSSProperties } = {
+    barWrap: {
+      marginTop: "5px",
+    },
     clusterMarker: {
       alignItems: "center",
       backgroundColor: "#51D5A0",
@@ -25,5 +28,9 @@ const styles: { [key: string]: React.CSSProperties } = {
       justifyContent: "center",
       width: 30,
     },
+    seedPopover: {
+      padding: "10px",
+    },
 }
+
 export default styles

@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Route, Switch } from "react-router-dom"
+import { SeedProgress } from "../SeedProgress"
 import { BirdGallery } from "./../BirdGallery"
 import { GalleryWrap } from "./../GalleryWrap"
 import { LifeList } from "./../LifeList"
@@ -32,6 +33,7 @@ const defaultMapWrap = (<MapWrap asPopup={false} locationIdToShow={undefined}/>)
 
 return (
     <main>
+        <SeedProgress/>
         <Switch>
           <Route exact path="/" render={() => previewGalleryRoute }/>
           <Route path="/lifelist" component={LifeList}/>

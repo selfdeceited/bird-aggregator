@@ -32,20 +32,9 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
         super(props)
 
         this.state = {
+            fullGallery: !props.seeFullGalleryLink,
             images: [],
-            fullGallery: !props.seeFullGalleryLink
         }
-    }
-
-    fetchTheUrl(url) {
-        axios.get(url).then((res) => {
-            const images = res.data.map((x: Image) => {
-                x.tags = [{title: x.caption, value: x.caption}]
-                x.thumbnailWidth = 500
-                return x
-            })
-            this.setState({ images })
-        })
     }
 
     public componentDidMount() {
@@ -60,7 +49,9 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
         const latestShotsLink = this.state.fullGallery ? (<div></div>) : (
             <div>
                 <h2 className="latest-shots">Latest photos</h2>
-                <Link to="/gallery" role="button" className="pt-button pt-minimal pt-icon-camera small-margin">Check Out Full Gallery</Link>
+                <Link to="/gallery" role="button"
+                    className="pt-button pt-minimal pt-icon-camera small-margin">Check Out Full Gallery
+                </Link>
             </div>
         )
 
@@ -76,5 +67,16 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
                          maxRows={9000}/>
                     </div>
                </div>
+    }
+
+    private fetchTheUrl(url) {
+        axios.get(url).then((res) => {
+            const images = res.data.map((x: Image) => {
+                x.tags = [{title: x.caption, value: x.caption}]
+                x.thumbnailWidth = 500
+                return x
+            })
+            this.setState({ images })
+        })
     }
 }

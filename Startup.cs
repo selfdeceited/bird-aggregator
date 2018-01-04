@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
+using bird_aggregator.Hubs;
 
 namespace birds
 {
@@ -30,6 +31,10 @@ namespace birds
         {
             // Add framework services.
             services.AddMvc();
+
+            services.AddSignalR();
+
+            services.AddScoped<SeedHub>();
             
             services.Configure<GzipCompressionProviderOptions>(options => 
                 options.Level = CompressionLevel.Optimal);
@@ -39,10 +44,13 @@ namespace birds
             
             var settings = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(options => settings.Bind(options));
+            
             services.AddSingleton<FlickrConnectionService>();
             services.AddSingleton<SeedService>();
             services.AddSingleton<GalleryService>();
             services.AddSingleton<WikipediaConnectionService>();
+
+            services.AddSingleton<SeedLauncher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,9 +73,11 @@ namespace birds
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            
-            new TaskFactory().StartNew(() =>
-                app.ApplicationServices.GetService<SeedService>().Seed());
+
+            app.UseSignalR(routes => routes.MapHub<SeedHub>("seed"));
+
+            //new TaskFactory().StartNew(() =>
+            //    app.ApplicationServices.GetService<SeedService>().Seed());
         }
     }
 }

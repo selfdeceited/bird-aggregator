@@ -38,11 +38,5 @@ namespace birds.Controllers
         public string GetUser(){
             return _settings.UserName;
         }
-
-        [HttpPost("reseed")] // todo: secure
-        public void ReSeed()
-        {
-            _seedService.Seed();
-        }
     }
 }

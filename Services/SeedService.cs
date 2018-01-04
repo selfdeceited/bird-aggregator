@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using birds.Domain;
 
 namespace birds.Services
@@ -14,53 +15,74 @@ namespace birds.Services
             _context = context;
         }
 
+        internal int GetPageCount()
+        {
+            return  _flickrConnectionService.GetPagesCount();
+        }
+
+        internal List<POCOs.PhotosResponse.Photo> GetMetaData(int count)
+        {
+            return Enumerable.Range(0, count)
+                .SelectMany(page => _flickrConnectionService.GetPhotos(page).photos.photo)
+                .Where(x => x.title.StartsWith("B: ")).ToList();
+        }
+
         public void TruncateDb(){
             _context.Locations.RemoveRange(_context.Locations);
             _context.Photos.RemoveRange(_context.Photos);
             _context.Birds.RemoveRange(_context.Birds);
         }
-        public void Seed()
-        {
-            TruncateDb();
-            var count = _flickrConnectionService.GetPagesCount();
-            var allPhotos = Enumerable.Range(0, count)
-                .SelectMany(page => _flickrConnectionService.GetPhotos(page).photos.photo)
-                .Where(x => x.title.StartsWith("B: ")).ToList();
 
-            var birdNames = allPhotos.GroupBy(x => x.title).Select(x => x.First().title);
-            PopulateBirds(birdNames);
-            PopulatePhotos(allPhotos);
-        }
-
-        private void PopulatePhotos(List<POCOs.PhotosResponse.Photo> allPhotos, bool populateLocations = true)
+        internal async Task<bool> SavePhotoAsync(POCOs.PhotosResponse.Photo photo, bool populateLocations = true)
         {
-            foreach (var photo in allPhotos)
+            if (_context.Photos.Any(x => x.FlickrId == photo.id))
+                return false;
+
+            var bird = _context.Birds.SingleOrDefault(_ => _.ApiName == photo.title);
+            var extraPhotoInfo = _flickrConnectionService.GetPhoto(photo.id);
+            var domainPhoto = new Photo
             {
-                if (_context.Photos.Any(x => x.FlickrId == photo.id))
-                    continue;
+                FlickrId = photo.id,
+                FarmId = photo.farm,
+                ServerId = photo.server,
+                Secret = photo.secret,
+                DateTaken = DateTime.Parse(extraPhotoInfo.photo.dates.taken),
+                Description = extraPhotoInfo.photo.description._content,
+            };
 
-                var bird = _context.Birds.SingleOrDefault(_ => _.ApiName == photo.title);
-                var extraPhotoInfo = _flickrConnectionService.GetPhoto(photo.id);
-                var domainPhoto = new Photo
-                {
-                    FlickrId = photo.id,
-                    FarmId = photo.farm,
-                    ServerId = photo.server,
-                    Secret = photo.secret,
-                    DateTaken = DateTime.Parse(extraPhotoInfo.photo.dates.taken),
-                    Description = extraPhotoInfo.photo.description._content,
-                };
-
-                if (bird != null)
-                    domainPhoto.BirdId = bird.Id;
-
-                if (populateLocations)
-                    domainPhoto = PopulateLocation(domainPhoto);
+            if (bird != null)
+                domainPhoto.BirdId = bird.Id;
+            
+            if (populateLocations)
+                domainPhoto = PopulateLocation(domainPhoto);
                 
-                _context.Photos.Add(domainPhoto);
-                _context.SaveChanges();
-            }
+            await _context.Photos.AddAsync(domainPhoto);
+            return true;
         }
+
+        internal bool AnythingSaved()
+        {
+            return _context.Photos.Any();
+        }
+
+        internal async Task<bool> SaveBirdAsync(string bird)
+        {
+            if (bird.Contains("undefined"))
+                return false;
+
+            var noPrefixName = bird.Replace("B: ", "");
+            var engName = noPrefixName.Substring(0, noPrefixName.IndexOf("(") - 1);
+            var latinName = noPrefixName.Substring(noPrefixName.IndexOf("(") + 1, noPrefixName.IndexOf(")") - noPrefixName.IndexOf("(") - 1);
+            _context.Birds.Add(new Bird
+            {
+                ApiName = bird,
+                EnglishName = engName,
+                LatinName = latinName
+            });
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
 
         private Photo PopulateLocation(Photo domainPhoto)
         {
@@ -94,24 +116,6 @@ namespace birds.Services
                 domainPhoto.LocationId = domainLocation.Id;
 
             return domainPhoto;
-        }
-
-        private void PopulateBirds(IEnumerable<string> birdNames)
-        {
-            foreach(var bird in birdNames)
-            {
-                if (bird.Contains("undefined")) continue;
-                var noPrefixName = bird.Replace("B: ", "");
-                var engName = noPrefixName.Substring(0, noPrefixName.IndexOf("(") - 1);
-                var latinName = noPrefixName.Substring(noPrefixName.IndexOf("(") + 1, noPrefixName.IndexOf(")") - noPrefixName.IndexOf("(") - 1);
-                _context.Birds.Add(new Bird
-                {
-                    ApiName = bird,
-                    EnglishName = engName,
-                    LatinName = latinName
-                });
-                _context.SaveChanges();
-            }
         }
     }
 }
