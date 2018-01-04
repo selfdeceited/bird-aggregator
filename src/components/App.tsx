@@ -1,14 +1,14 @@
 import * as React from "react"
-import Navbar from './Navbar'
-import MainRouter from './routing/MainRouter'
+import Navbar from "./Navbar"
+import MainRouter from "./routing/MainRouter"
 
-interface AppProps {}
-interface AppState {}
-export class App extends React.Component<AppProps, AppState> {
-    render() {
+interface IAppProps {}
+interface IAppState {}
+export class App extends React.Component<IAppProps, IAppState> {
+    public render() {
         return (<div>
                     <Navbar/>
                     <MainRouter />
-                </div>);
+                </div>)
     }
 }

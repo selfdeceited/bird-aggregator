@@ -20,7 +20,10 @@ module.exports = merge({
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
                 use: [
-                    { loader: "awesome-typescript-loader" }
+                    { loader: "awesome-typescript-loader" },
+                    { loader: "tslint-loader", options: {
+                        configFile: "tslint.json"
+                    } }
                 ]
             },
             {

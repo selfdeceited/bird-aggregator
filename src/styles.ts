@@ -2,28 +2,28 @@ import * as React from "react"
 
 const styles: { [key: string]: React.CSSProperties } = {
     clusterMarker: {
-      width: 30,
+      alignItems: "center",
+      backgroundColor: "#51D5A0",
+      border: "2px solid #56C498",
+      borderRadius: "50%",
+      color: "white",
+      cursor: "pointer",
+      display: "flex",
       height: 30,
-      borderRadius: '50%',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      color: 'white',
-      border: '2px solid #56C498',
-      cursor: 'pointer',
-      backgroundColor: '#51D5A0',
+      justifyContent: "center",
+      width: 30,
     },
     marker: {
-      width: 30,
+      alignItems: "center",
+      backgroundImage: "url(\"http://www.iconninja.com/files/139/538/395/pigeon-bird-shape-icon.png\")",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "contain",
+      border: "2px solid rgba(255, 255, 255, 0)",
+      borderRadius: "50%",
+      display: "flex",
       height: 30,
-      borderRadius: '50%',
-      backgroundImage: 'url("http://www.iconninja.com/files/139/538/395/pigeon-bird-shape-icon.png")',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'contain',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      border: '2px solid rgba(255, 255, 255, 0)'
-    }
+      justifyContent: "center",
+      width: 30,
+    },
 }
-export default styles;
+export default styles

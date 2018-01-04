@@ -1,10 +1,10 @@
+import * as Blueprint from "@blueprintjs/core"
 import * as React from "react"
-import * as Blueprint from "@blueprintjs/core";
 
-export interface UnderConstructionStateProps { }
+export interface IUnderConstructionStateProps { }
 
-export default class UnderConstructionState extends React.Component<UnderConstructionStateProps, undefined>  {
-    render() {
+export default class UnderConstructionState extends React.Component<IUnderConstructionStateProps, undefined>  {
+    public render() {
         return  (
 <div className="pt-non-ideal-state">
   <div className="pt-non-ideal-state-visual pt-non-ideal-state-icon">

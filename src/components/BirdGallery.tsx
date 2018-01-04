@@ -1,54 +1,35 @@
+import axios from "axios"
 import * as React from "react"
 import { GalleryWrap } from "./GalleryWrap"
-import axios from 'axios'
 
-export interface BirdGalleryState { 
-    wikiData: WikiData
+export interface IBirdGalleryState {
+    wikiData: IWikiData
 }
 
-interface WikiData { 
-    name: string;
-    wikiInfo: string;
-    imageUrl: string;
+interface IWikiData {
+    name: string
+    wikiInfo: string
+    imageUrl: string
 }
 
-export class BirdGallery extends React.Component<any, BirdGalleryState>  {
+export class BirdGallery extends React.Component<any, IBirdGalleryState>  {
     constructor(props) {
-        super(props);
+        super(props)
 
         this.state = {
-            wikiData: { name: "", wikiInfo: "", imageUrl: "" }
-        };
+            wikiData: { name: "", wikiInfo: "", imageUrl: "" },
+        }
     }
 
-    componentDidMount() {
-        this.fetchWikiInfo(this.props);
-    }
-    
-    componentWillReceiveProps(nextProps){
-        this.fetchWikiInfo(nextProps);
+    public componentDidMount() {
+        this.fetchWikiInfo(this.props)
     }
 
-    fetchWikiInfo(props){
-        axios.get(`api/birds/wiki/`+ props.match.params.id).then(res => {
-            const wikiData = res.data;
-            var extract = JSON.parse(wikiData.wikiInfo);
-            var html = extract.query.pages[Object.keys(extract.query.pages)[0]].extract;
-            
-            var div = document.createElement('div');
-            div.innerHTML = html;
-            var firstDiv = div.getElementsByTagName('p')[0];
-            if (firstDiv) {
-                var chapter = firstDiv.outerHTML;
-                this.setState({ wikiData: { name: res.data.name, wikiInfo: chapter, imageUrl: res.data.imageUrl } });
-                
-            } else {
-                this.setState({ wikiData: null });
-            }
-        });
+    public componentWillReceiveProps(nextProps) {
+        this.fetchWikiInfo(nextProps)
     }
 
-    render() {
+    public render() {
         return  (
             <div>
                 <div className="half-screen">
@@ -66,7 +47,9 @@ export class BirdGallery extends React.Component<any, BirdGalleryState>  {
                         <div className="wiki-info">
                             <h2>{this.state.wikiData.name}</h2>
                             <div dangerouslySetInnerHTML={{ __html: this.state.wikiData.wikiInfo }}></div>
-                            <a className="new-window" href={"https://en.wikipedia.org/wiki/"+this.state.wikiData.name} target="_blank">more from Wikipedia...</a>
+                            <a className="new-window"
+                               href={"https://en.wikipedia.org/wiki/" + this.state.wikiData.name}
+                               target="_blank">more from Wikipedia...</a>
                         </div>
                         <div className="wiki-info hide">
                             <h4>Voice sample</h4>
@@ -81,5 +64,23 @@ export class BirdGallery extends React.Component<any, BirdGalleryState>  {
                 }
             </div>
         )
+    }
+
+    private fetchWikiInfo(props) {
+        axios.get(`api/birds/wiki/` + props.match.params.id).then(res => {
+            const wikiData = res.data
+            const extract = JSON.parse(wikiData.wikiInfo)
+            const html = extract.query.pages[Object.keys(extract.query.pages)[0]].extract
+
+            const div = document.createElement("div")
+            div.innerHTML = html
+            const firstDiv = div.getElementsByTagName("p")[0]
+            if (firstDiv) {
+                const chapter = firstDiv.outerHTML
+                this.setState({ wikiData: { name: res.data.name, wikiInfo: chapter, imageUrl: res.data.imageUrl } })
+            } else {
+                this.setState({ wikiData: null })
+            }
+        })
     }
 }

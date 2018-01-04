@@ -1,15 +1,15 @@
+import * as Blueprint from "@blueprintjs/core"
+import axios from "axios"
 import * as React from "react"
-import * as Blueprint from "@blueprintjs/core";
 import * as Gallery from "react-grid-gallery"
-import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom"
 
-export interface GalleryProps {
+export interface IGalleryProps {
     seeFullGalleryLink: boolean,
     urlToFetch: string
  }
 
-interface Tag {
+interface ITag {
     value: string,
     title: string
 }
@@ -19,55 +19,55 @@ interface Image {
     thumbnailWidth: number,
     thumbnailHeight: number,
     caption: string,
-    tags: Tag[]
+    tags: ITag[]
 }
 
-interface GalleryState {
+interface IGalleryState {
     images: Image[],
     fullGallery: boolean
 }
 
-export class GalleryWrap extends React.Component<GalleryProps, GalleryState> {
-    constructor(props: GalleryProps) {
-        super(props);
+export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
+    constructor(props: IGalleryProps) {
+        super(props)
 
         this.state = {
             images: [],
             fullGallery: !props.seeFullGalleryLink
-        };
+        }
     }
 
-    fetchTheUrl(url){
-        axios.get(url).then(res => {
+    fetchTheUrl(url) {
+        axios.get(url).then((res) => {
             const images = res.data.map((x: Image) => {
-                x.tags = [{title: x.caption, value: x.caption}];
-                x.thumbnailWidth = 500;
-                return x;
-            });
-            this.setState({ images });
-        });
+                x.tags = [{title: x.caption, value: x.caption}]
+                x.thumbnailWidth = 500
+                return x
+            })
+            this.setState({ images })
+        })
     }
 
-    componentDidMount() {
-        this.fetchTheUrl(this.props.urlToFetch);
+    public componentDidMount() {
+        this.fetchTheUrl(this.props.urlToFetch)
     }
 
-    componentWillReceiveProps(nextProps){
-        this.fetchTheUrl(nextProps.urlToFetch);
+    public componentWillReceiveProps(nextProps) {
+        this.fetchTheUrl(nextProps.urlToFetch)
     }
 
-    render() {
+    public render() {
         const latestShotsLink = this.state.fullGallery ? (<div></div>) : (
             <div>
                 <h2 className="latest-shots">Latest photos</h2>
                 <Link to="/gallery" role="button" className="pt-button pt-minimal pt-icon-camera small-margin">Check Out Full Gallery</Link>
             </div>
-        );
+        )
 
         return <div>
                     <div className="body">
                         <div>{latestShotsLink}</div>
-                        <Gallery 
+                        <Gallery
                          images={this.state.images}
                          backdropClosesModal={true}
                          preloadNextImage={true}
@@ -75,6 +75,6 @@ export class GalleryWrap extends React.Component<GalleryProps, GalleryState> {
                          showLightboxThumbnails={true}
                          maxRows={9000}/>
                     </div>
-               </div>;
+               </div>
     }
 }

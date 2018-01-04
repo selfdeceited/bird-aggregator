@@ -1,25 +1,25 @@
 import * as React from "react"
-import { Link } from 'react-router-dom'
-import { BirdDto } from './MapWrap'
+import { Link } from "react-router-dom"
+import { IBirdDto } from "./MapWrap"
 
-interface BirdPopupProps {
-    birds: BirdDto[]
+interface IBirdPopupProps {
+    birds: IBirdDto[]
     photoUrl: string
 }
-interface BirdPopupState {
+interface IBirdPopupState {
 
 }
 
-export class BirdPopup extends React.Component<BirdPopupProps, BirdPopupState> {
+export class BirdPopup extends React.Component<IBirdPopupProps, IBirdPopupState> {
 
     constructor(props) {
-        super(props);
-        this.state = {};
+        super(props)
+        this.state = {}
     }
 
-    render() {
+    public render() {
 
-        const imagePreview = this.props.birds.length > 2 ? null : 
+        const imagePreview = this.props.birds.length > 2 ? null :
         (<div>
             <img src={this.props.photoUrl} className="marker-thumbnail"/>
         </div>)
@@ -27,7 +27,7 @@ export class BirdPopup extends React.Component<BirdPopupProps, BirdPopupState> {
         return (<div>
                     <p>Birds found:</p>
                     {
-                        this.props.birds.filter(x => x.id > 0).map(x => (<Link 
+                        this.props.birds.filter(x => x.id > 0).map(x => (<Link
                                 key={x.id}
                                 to={"/birds/" + x.id}
                                 role="button"
@@ -37,6 +37,6 @@ export class BirdPopup extends React.Component<BirdPopupProps, BirdPopupState> {
                         ))
                     }
                     {imagePreview}
-                </div>);
+                </div>)
     }
 }

@@ -1,16 +1,16 @@
+import * as Blueprint from "@blueprintjs/core"
+import axios from "axios"
+import * as moment from "moment"
 import * as React from "react"
-import * as Blueprint from "@blueprintjs/core";
-import axios from 'axios';
-import { Link } from 'react-router-dom'
-import { MapWrap } from './MapWrap'
-import * as moment from 'moment';
+import { Link } from "react-router-dom"
+import { MapWrap } from "./MapWrap"
 
-interface LifeListProps {}
-interface LifeListState {
-    lifeList: LifeListDto[]
+interface ILifeListProps {}
+interface ILifeListState {
+    lifeList: ILifeListDto[]
 }
 
-interface LifeListDto {
+interface ILifeListDto {
     birdId: number,
     name: string,
     dateMet: string,
@@ -18,21 +18,21 @@ interface LifeListDto {
     locationId: number
 }
 
-export class LifeList extends React.Component<LifeListProps, LifeListState> {
+export class LifeList extends React.Component<ILifeListProps, ILifeListState> {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
-            lifeList: []
-        };
+            lifeList: [],
+        }
     }
-    componentDidMount() {
+    public componentDidMount() {
         axios.get(`/api/birds/lifelist`).then(res => {
-            const lifeList = res.data as LifeListDto[];
-            this.setState({ lifeList });
-        });
+            const lifeList = res.data as ILifeListDto[]
+            this.setState({ lifeList })
+        })
     }
-    
-    render() {
+
+    public render() {
         const popover = x => (x.locationId > 0) ?
             (<Blueprint.Popover
                 target={<Blueprint.Button className="pt-button pt-minimal pt-icon-map-marker display-block"/>}
@@ -52,20 +52,20 @@ export class LifeList extends React.Component<LifeListProps, LifeListState> {
         </thead>
         <tbody className="life-list-table">
             {
-                this.state.lifeList.map((x: LifeListDto, i: number) => 
+                this.state.lifeList.map((x: ILifeListDto, i: number) =>
                 (
                     <tr key={i}>
                         <td className="hide-mobile">{i + 1}</td>
                         <td className="bird-column">
                             {x.name}
-                            <Link 
+                            <Link
                                 key={x.birdId}
                                 to={"/birds/" + x.birdId}
                                 role="button"
                                 className="pt-button pt-minimal pt-icon-arrow-right">
                             </Link>
                         </td>
-                        <td className="date-column">{moment(x.dateMet).format('YYYY MM DD')}</td>
+                        <td className="date-column">{moment(x.dateMet).format("YYYY MM DD")}</td>
                         <td>
                             <span className="hide-mobile">{x.location}&nbsp;&nbsp;</span>
                             {popover(x)}
@@ -75,6 +75,6 @@ export class LifeList extends React.Component<LifeListProps, LifeListState> {
             }
         </tbody>
     </table>
-</div>);
+</div>)
     }
 }
