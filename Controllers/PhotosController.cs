@@ -36,5 +36,12 @@ namespace birds.Controllers
             return _context.Photos.Where(_ => _.BirdId == id).Select(_ => 
                 $"https://www.flickr.com/photos/{_settings.FlickrUserId}/{_.FlickrId}");
         }
+
+
+        [HttpGet("{id}")]
+        public PhotoDto Get(int id){
+            var photo = _context.Photos.Find(id);
+            return _galleryService.Project(photo);
+        }
     }
 }

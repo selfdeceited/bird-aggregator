@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using birds.Dtos;
 
 namespace birds.Services
@@ -18,17 +19,18 @@ namespace birds.Services
         }
 
         public IEnumerable<PhotoDto> GetGallery(IEnumerable<Domain.Photo> photos){
-            foreach (var photo in photos)
-            {
-                yield return new PhotoDto {
+            return photos.Select(Project);
+        }
+        internal PhotoDto Project(Domain.Photo photo){
+            return new PhotoDto {
                         Thumbnail = GetThumbnailUrl(photo),
                         Src = GetImageUrl(photo),
                         Caption = GetBirdName(photo),
-                        Id = photo.Id
+                        Id = photo.Id,
+                        DateTaken = photo.DateTaken,
+                        LocationId = photo.LocationId
                     };
-            }
         }
-
         internal string GetPreviewUrl(Domain.Photo photo){
             return GetFlickrImageUrl(photo, "");
         }

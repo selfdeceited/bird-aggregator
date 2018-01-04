@@ -15,7 +15,8 @@ interface ILifeListDto {
     name: string,
     dateMet: string,
     location: string,
-    locationId: number
+    locationId: number,
+    photoId: number
 }
 
 export class LifeList extends React.Component<ILifeListProps, ILifeListState> {
@@ -59,8 +60,8 @@ export class LifeList extends React.Component<ILifeListProps, ILifeListState> {
                         <td className="bird-column">
                             {x.name}
                             <Link
-                                key={x.birdId}
-                                to={"/birds/" + x.birdId}
+                                key={x.photoId}
+                                to={"/photos/" + x.photoId}
                                 role="button"
                                 className="pt-button pt-minimal pt-icon-arrow-right">
                             </Link>

@@ -13,13 +13,16 @@ interface ITag {
     value: string,
     title: string
 }
-interface Image {
+
+export interface Image {
     src: string,
     thumbnail: string,
     thumbnailWidth: number,
     thumbnailHeight: number,
     caption: string,
-    tags: ITag[]
+    tags: ITag[],
+    dateTaken: string,
+    locationId: number
 }
 
 interface IGalleryState {

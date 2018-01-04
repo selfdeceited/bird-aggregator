@@ -9,5 +9,6 @@ namespace birds.Dtos
         public DateTime DateMet { get; set; }
         public string Location { get; set; }
         public int LocationId { get; set; }
+        public int PhotoId { get; set; }
     }
 }

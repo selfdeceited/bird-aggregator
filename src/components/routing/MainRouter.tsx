@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Route, Switch } from "react-router-dom"
+import { PhotoPage } from "../PhotoPage";
 import { SeedProgress } from "../SeedProgress"
 import { BirdGallery } from "./../BirdGallery"
 import { GalleryWrap } from "./../GalleryWrap"
@@ -41,6 +42,7 @@ return (
           <Route path="/triplist" component={TripList}/>
           <Route path="/gallery" render={() => fullGalleryRoute}/>
           <Route path="/birds/:id" component={BirdGallery} />
+          <Route path="/photos/:id" component={PhotoPage} />
         </Switch>
     </main>)
     }

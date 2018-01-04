@@ -1,3 +1,5 @@
+using System;
+
 namespace birds.Dtos
 {
     public class PhotoDto
@@ -7,5 +9,7 @@ namespace birds.Dtos
         public string Caption { get; set; }
         public string ImageUrl { get; set; }
         public int Id { get; set; }
+        public DateTime DateTaken { get; set; }
+        public int LocationId { get; set; }
     }
 }

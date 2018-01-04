@@ -79,7 +79,9 @@ export default class Navbar extends React.Component<INavbarProps, INavbarState> 
             itemRenderer={this.renderBird}
             onItemSelect={this.onSelect}
         >
-            <Blueprint.Button text={this.state.selectedBird.name} rightIconName="double-caret-vertical" />
+            <Blueprint.Button
+                text={!!this.state.selectedBird ? this.state.selectedBird.name : ""}
+                rightIconName="double-caret-vertical" />
         </BirdSelect>
         <span className="small-space"></span>
         <Link to={"/birds/" + this.state.selectedBird.id}

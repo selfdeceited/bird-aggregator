@@ -65,7 +65,8 @@ namespace birds.Controllers
                         Name = _galleryService.GetBirdName(firstOccurence), 
                         DateMet = firstOccurence.DateTaken,
                         Location = ShowLocation(firstOccurence.LocationId),
-                        LocationId = firstOccurence.LocationId
+                        LocationId = firstOccurence.LocationId,
+                        PhotoId = firstOccurence.Id
                     });
             }
             return localList.OrderByDescending(x => x.DateMet);

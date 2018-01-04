@@ -14,12 +14,13 @@ namespace bird_aggregator.Hubs
         private volatile bool seedCompleted = false;
 
 
-        public SeedLauncher(FlickrConnectionService flickrConnectionService, ApiContext context, IHubContext<SeedHub> clients){
+        public SeedLauncher(IHubContext<SeedHub> clients){
             _clients = clients;
         }
 
         internal async Task WrapLaunch(Action action, bool anythingSaved){
-            if (seedCompleted || anythingSaved) {
+            if (seedCompleted || anythingSaved)
+            {
                 await HidePopup();
                 return;
             };
@@ -27,7 +28,8 @@ namespace bird_aggregator.Hubs
             await _seedStartLock.WaitAsync();
             try
             {
-                if (seedCompleted || anythingSaved){
+                if (seedCompleted || anythingSaved)
+                {
                     await HidePopup();
                     return;
                 }

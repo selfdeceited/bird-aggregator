@@ -40,7 +40,8 @@ namespace bird_aggregator.Hubs
         private async Task LoadPhotos(List<PhotosResponse.Photo> metadata)
         {
             await _seedLauncher.Log("Photo loading begins ...");
-            foreach(var photo in metadata){
+            foreach (var photo in metadata)
+            {
                 if (await _seedService.SavePhotoAsync(photo))
                     await _seedLauncher.PhotoSaved();
             };
