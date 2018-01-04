@@ -33,7 +33,15 @@ module.exports = {
         new UglifyJSPlugin(
             { 
                 sourceMap: true, 
-                parallel: true
+                parallel: true,
+                uglifyOptions: {
+                    compress: {
+                        warnings: false,
+                        comparisons: false, // to avoid https://github.com/mapbox/mapbox-gl-js/issues/4359
+                        pure_getters: true,
+                        unsafe_comps: true
+                    }
+                }
             }),
         new webpack.LoaderOptionsPlugin({
                  minimize: true
