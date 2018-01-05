@@ -22,7 +22,8 @@ export interface Image {
     caption: string,
     tags: ITag[],
     dateTaken: string,
-    locationId: number
+    locationId: number,
+    birdId: number
 }
 
 interface IGalleryState {

@@ -11,5 +11,6 @@ namespace birds.Dtos
         public int Id { get; set; }
         public DateTime DateTaken { get; set; }
         public int LocationId { get; set; }
+        public int BirdId { get; set; }
     }
 }

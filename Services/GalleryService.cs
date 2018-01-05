@@ -28,7 +28,8 @@ namespace birds.Services
                         Caption = GetBirdName(photo),
                         Id = photo.Id,
                         DateTaken = photo.DateTaken,
-                        LocationId = photo.LocationId
+                        LocationId = photo.LocationId,
+                        BirdId = photo.BirdId
                     };
         }
         internal string GetPreviewUrl(Domain.Photo photo){
