@@ -42,7 +42,7 @@ namespace birds.Controllers
         public IEnumerable<PhotoDto> GetGallery(int id)
         {
              var photos = _context.Photos.Where(x => x.BirdId == id).ToList()
-                .Distinct().OrderByDescending(x => x.DateTaken);
+                .OrderByDescending(x => x.DateTaken);
 
             return _galleryService.GetGallery(photos);
         }

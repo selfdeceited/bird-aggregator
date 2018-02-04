@@ -68,7 +68,11 @@ namespace birds.Services
 
             domainPhoto = PopulateLocation(domainPhoto);
 
-            await _context.Photos.AddAsync(domainPhoto);
+            if (_context.Photos.FirstOrDefault(x => x.FlickrId == domainPhoto.FlickrId) == null){
+                await _context.Photos.AddAsync(domainPhoto);
+                await _context.SaveChangesAsync();
+            }
+
             return true;
         }
 
