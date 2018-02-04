@@ -14,5 +14,6 @@ namespace birds.Domain
         public string Secret { get; set; }
         public DateTime DateTaken { get; set; }
         public string Description { get; set; }
+        public double Ratio { get; set; }
     }
 }

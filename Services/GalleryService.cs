@@ -23,13 +23,15 @@ namespace birds.Services
         }
         internal PhotoDto Project(Domain.Photo photo){
             return new PhotoDto {
-                        Thumbnail = GetThumbnailUrl(photo),
-                        Src = GetImageUrl(photo),
+                        Original = GetImageUrl(photo),
+                        Src = GetThumbnailUrl(photo),
                         Caption = GetBirdName(photo),
                         Id = photo.Id,
                         DateTaken = photo.DateTaken,
                         LocationId = photo.LocationId,
-                        BirdId = photo.BirdId
+                        BirdId = photo.BirdId,
+                        Height = 1,
+                        Width = photo.Ratio
                     };
         }
         internal string GetPreviewUrl(Domain.Photo photo){
@@ -37,7 +39,7 @@ namespace birds.Services
         }
         private string GetThumbnailUrl(Domain.Photo photo)
         {
-            return GetFlickrImageUrl(photo, "_q");
+            return GetFlickrImageUrl(photo, "_n");
         }
 
         private string GetImageUrl(Domain.Photo photo)

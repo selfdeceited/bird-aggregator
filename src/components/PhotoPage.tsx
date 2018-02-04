@@ -35,7 +35,7 @@ export class PhotoPage extends React.Component<any, IPhotoPageState> {
                 </Link>
                 <section className="photo-flex-container">
                     <div className="flex-item photo-flex-element">
-                        <img src={this.state.image.src} className="photo-page"></img>
+                        <img src={this.state.image.original} className="photo-page"></img>
                     </div>
                     <div className="flex-item">
                         <MapWrap asPopup={true} locationIdToShow={this.state.image.locationId}/>

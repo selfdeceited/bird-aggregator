@@ -5,12 +5,13 @@ namespace birds.Dtos
     public class PhotoDto
     {
         public string Src { get; set; }
-        public string Thumbnail { get; set; }
         public string Caption { get; set; }
-        public string ImageUrl { get; set; }
         public int Id { get; set; }
         public DateTime DateTaken { get; set; }
         public int LocationId { get; set; }
         public int BirdId { get; set; }
+        public int Height { get; set; }
+        public double Width { get; set; }
+        public string Original { get; set; }
     }
 }

@@ -54,6 +54,15 @@ namespace birds.Services
             return HandleExceptions(response);
         }
 
+        public SizeResponse GetSize(string flickrPhotoId)
+        {
+            var request = CreateDefaultRequest("flickr.photos.getSizes", Method.GET)
+                .AddParameter("photo_id", flickrPhotoId);
+
+            var response = _client.Execute<SizeResponse>(request);
+            return HandleExceptions(response);
+        }
+
         public IRestRequest CreateDefaultRequest(string method, Method verb)
         {
             return new RestRequest("services/rest", verb)

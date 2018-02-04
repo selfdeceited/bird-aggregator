@@ -42,7 +42,7 @@ namespace birds.Controllers
         public IEnumerable<PhotoDto> GetGallery(int id)
         {
              var photos = _context.Photos.Where(x => x.BirdId == id).ToList()
-                .OrderByDescending(x => x.DateTaken);
+                .Distinct().OrderByDescending(x => x.DateTaken);
 
             return _galleryService.GetGallery(photos);
         }
@@ -66,7 +66,7 @@ namespace birds.Controllers
                         DateMet = firstOccurence.DateTaken,
                         Location = ShowLocation(firstOccurence.LocationId),
                         LocationId = firstOccurence.LocationId,
-                        PhotoId = firstOccurence.Id
+                        PhotoId = firstOccurence.Id,
                     });
             }
             return localList.OrderByDescending(x => x.DateMet);

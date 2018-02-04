@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using birds.Domain;
+using birds.Dtos;
 
 namespace birds.Services
 {
@@ -33,13 +34,24 @@ namespace birds.Services
             _context.Birds.RemoveRange(_context.Birds);
         }
 
-        internal async Task<bool> SavePhotoAsync(POCOs.PhotosResponse.Photo photo, bool populateLocations = true)
+        internal async Task<bool> SavePhotoAsync(POCOs.PhotosResponse.Photo photo)
         {
             if (_context.Photos.Any(x => x.FlickrId == photo.id))
                 return false;
 
             var bird = _context.Birds.SingleOrDefault(_ => _.ApiName == photo.title);
             var extraPhotoInfo = _flickrConnectionService.GetPhoto(photo.id);
+            var sizeInfo = _flickrConnectionService.GetSize(photo.id);
+
+            var mediumSize = sizeInfo.sizes.size.Select(x => new SizeDto {
+                    Width = x.width,
+                    Height = x.height,
+                    Label = x.label,
+                    Source = x.source
+                }).FirstOrDefault(x => x.Label == "Medium");
+                
+            var ratio = (double)mediumSize.Width / mediumSize.Height;
+            
             var domainPhoto = new Photo
             {
                 FlickrId = photo.id,
@@ -48,14 +60,14 @@ namespace birds.Services
                 Secret = photo.secret,
                 DateTaken = DateTime.Parse(extraPhotoInfo.photo.dates.taken),
                 Description = extraPhotoInfo.photo.description._content,
+                Ratio = ratio
             };
 
             if (bird != null)
                 domainPhoto.BirdId = bird.Id;
-            
-            if (populateLocations)
-                domainPhoto = PopulateLocation(domainPhoto);
-                
+
+            domainPhoto = PopulateLocation(domainPhoto);
+
             await _context.Photos.AddAsync(domainPhoto);
             return true;
         }

@@ -1,7 +1,8 @@
 import * as Blueprint from "@blueprintjs/core"
 import axios from "axios"
 import * as React from "react"
-import * as Gallery from "react-grid-gallery"
+import Measure from "react-measure"
+import Gallery from "react-photo-gallery"
 import { Link } from "react-router-dom"
 
 export interface IGalleryProps {
@@ -16,9 +17,9 @@ interface ITag {
 
 export interface Image {
     src: string,
-    thumbnail: string,
-    thumbnailWidth: number,
-    thumbnailHeight: number,
+    original: string,
+    width: number,
+    height: number,
     caption: string,
     tags: ITag[],
     dateTaken: string,
@@ -28,7 +29,8 @@ export interface Image {
 
 interface IGalleryState {
     images: Image[],
-    fullGallery: boolean
+    fullGallery: boolean,
+    width: number
 }
 
 export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
@@ -38,6 +40,7 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
         this.state = {
             fullGallery: !props.seeFullGalleryLink,
             images: [],
+            width: -1,
         }
     }
 
@@ -59,25 +62,44 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
             </div>
         )
 
-        return <div>
-                    <div className="body">
-                        <div>{latestShotsLink}</div>
-                        <Gallery
-                         images={this.state.images}
-                         backdropClosesModal={true}
-                         preloadNextImage={true}
-                         enableImageSelection={false}
-                         showLightboxThumbnails={true}
-                         maxRows={9000}/>
+        const width = this.state.width
+        const measure = (
+            <Measure bounds onResize={(contentRect) => this.setState({ width: contentRect.bounds.width })}>
+              {
+              ({measureRef}) => {
+                if (width < 1 ) {
+                  return <div ref={measureRef}></div>
+                }
+                let columns = 1
+                if (width >= 480) {
+                  columns = 2
+                }
+                if (width >= 1024) {
+                  columns = 3
+                }
+                if (width >= 1824) {
+                  columns = 4
+                }
+                return <div ref={measureRef}>
+                        <div className="body">
+                            <div>{latestShotsLink}</div>
+                            <Gallery
+                                photos={this.state.images}
+                                columns={columns}
+                            />
+                        </div>
                     </div>
-               </div>
+              }
+            }
+            </Measure>
+          )
+        return measure
     }
 
     private fetchTheUrl(url) {
         axios.get(url).then((res) => {
             const images = res.data.map((x: Image) => {
                 x.tags = [{title: x.caption, value: x.caption}]
-                x.thumbnailWidth = 500
                 return x
             })
             this.setState({ images })
