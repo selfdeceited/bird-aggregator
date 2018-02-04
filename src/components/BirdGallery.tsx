@@ -1,6 +1,7 @@
 import axios from "axios"
 import * as React from "react"
 import { GalleryWrap } from "./GalleryWrap"
+import { MapWrap } from "./MapWrap"
 
 export interface IBirdGalleryState {
     wikiData: IWikiData
@@ -38,30 +39,36 @@ export class BirdGallery extends React.Component<any, IBirdGalleryState>  {
                     urlToFetch={`/api/birds/gallery/` + this.props.match.params.id}
                     />
                 </div>
-                {
-                    !this.state.wikiData ? null : (
                     <div className="flex-container body">
-                        <div className="wiki-info hide">
-                            <img src={this.state.wikiData.imageUrl} width="80%"/>
-                        </div>
-                        <div className="wiki-info">
+                        {
+                            !this.state.wikiData ? null : (
+                            <div className="wiki-info hide">
+                                <img src={this.state.wikiData.imageUrl} width="80%"/>
+                            </div>)
+                        }
+                        {
+                            !this.state.wikiData ? null : (
+                            <div className="wiki-info">
                             <h2>{this.state.wikiData.name}</h2>
                             <div dangerouslySetInnerHTML={{ __html: this.state.wikiData.wikiInfo }}></div>
                             <a className="new-window"
                                href={"https://en.wikipedia.org/wiki/" + this.state.wikiData.name}
                                target="_blank">more from Wikipedia...</a>
+                            </div>)
+                        }
+                        <div className="wiki-info">
+                            <h4>Occurences on map</h4>
+                            <MapWrap asPopup={true}
+                                birdId={this.props.match.params.id}
+                            />
                         </div>
+
                         <div className="wiki-info hide">
                             <h4>Voice sample</h4>
                             <p>(todo)</p>
                             <code>http://www.xeno-canto.org/article/153</code>
                         </div>
-                        <div className="wiki-info hide">
-                            <h4>Occurences on map</h4>
-                            <p>(todo)</p>
-                        </div>
-                    </div>)
-                }
+                    </div>
             </div>
         )
     }

@@ -13,7 +13,8 @@ const Map = ReactMapboxGl({
 
 interface IMapWrapProps {
     asPopup: boolean,
-    locationIdToShow: number
+    locationIdToShow?: number,
+    birdId?: number
 }
 
 interface IMapWrapState {
@@ -40,30 +41,37 @@ export interface IBirdDto {
 
 export class MapWrap extends React.Component<IMapWrapProps, IMapWrapState> {
     constructor(props) {
+        const set = _ => props.asPopup ? props.birdId ? "400px" : "220px" : `100v${_}`
         super(props)
         this.state = {
             center: [35.5, 55.6],
-            mapHeight: props.asPopup ? "220px" : "100vh",
-            mapWidth: props.asPopup ? "220px" : "100vw",
+            mapHeight: set("h"),
+            mapWidth: set("w"),
             markers: [],
             selectedMarker: undefined,
             zoomLevel: [6],
         }
     }
 
-    public componentDidMount() {
-        let urlToFetch = `/api/birds/map/markers`
-        if (this.props.locationIdToShow) {
-            urlToFetch = urlToFetch + "/" + this.props.locationIdToShow
+    public urlHandler(props, propName) {
+        const check = url => !!props[propName]
+            ? `${url}/${props[propName]}`
+            : undefined
+
+        const dict = {
+            birdId : check(`/api/map/bird`),
+            locationIdToShow : check(`/api/map/markers`),
         }
 
-        axios.get(urlToFetch).then(res => {
-            const markers = res.data as IMapMarkerDto[]
-            this.setState({ markers })
-            if (this.props.locationIdToShow) {
-                this.setState({ center: [markers[0].x, markers[0].y] })
-            }
-        })
+        return dict[propName]
+    }
+
+    public componentDidMount() {
+        this.fetchData(this.props)
+    }
+
+    public componentWillReceiveProps(nextProps) {
+        this.fetchData(nextProps)
     }
 
     public render() {
@@ -140,6 +148,22 @@ export class MapWrap extends React.Component<IMapWrapProps, IMapWrapState> {
     <ZoomControl/>
 </Map>
 </div>)
+    }
+
+    private fetchData(props) {
+        const urlsToFetch = ["birdId", "locationIdToShow"]
+        .map(_ => this.urlHandler(props, _))
+        .filter(x => !!x)
+
+        const urlToFetch = urlsToFetch.length > 0 ? urlsToFetch[0] : `/api/map/markers`
+
+        axios.get(urlToFetch).then(res => {
+            const markers = res.data as IMapMarkerDto[]
+            this.setState({ markers })
+            if (this.props.locationIdToShow || this.props.birdId) {
+                this.setState({ center: [markers[0].x, markers[0].y] })
+            }
+        })
     }
 
     private markerClick(selectedMarker: IMapMarkerDto, { feature }: { feature: any }) {

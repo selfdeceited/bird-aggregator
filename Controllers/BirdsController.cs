@@ -72,41 +72,6 @@ namespace birds.Controllers
             return localList.OrderByDescending(x => x.DateMet);
         }
 
-        [HttpGet("map/markers")]
-        public IEnumerable<object> GetMapMarkers()
-        {
-            foreach (var location in _context.Locations)
-            {
-                var entry = new {
-                    X = location.X,
-                    Y = location.Y,
-                    Birds = GetBirdsByLocation(location.Id),
-                    Id = location.Id,
-                    FirstPhotoUrl = GetPhotoByLocation(location.Id)
-                };
-                yield return entry;
-            }
-        }
-
-        [HttpGet("map/markers/{id}")]
-        public IEnumerable<object> GetMapMarkerByLocationId(int id)
-        {
-            // TODO: refactor & remove code duplication at object init
-            var list = new List<object>();
-
-            var location = _context.Locations.Find(id);
-            if (location != null)
-                list.Add(new {
-                    X = location.X,
-                    Y = location.Y,
-                    Birds = GetBirdsByLocation(location.Id),
-                    Id = location.Id,
-                    FirstPhotoUrl = GetPhotoByLocation(location.Id)
-                });
-
-            return list;
-        }
-
         [HttpGet("wiki/{id}")]
         public object GetWikiInfo(int id){
             var bird = _context.Birds.Find(id);
@@ -117,15 +82,6 @@ namespace birds.Controllers
             return new { Name = bird.EnglishName, WikiInfo = response, ImageUrl = string.Empty };
         }
 
-        private IEnumerable<object> GetBirdsByLocation(int id)
-        {
-            var names = _context.Photos.Where(x => x.LocationId == id)
-                .Select(x => new {
-                    Name = _galleryService.GetBirdName(x),
-                    Id = x.BirdId
-                }).GroupBy(x => x.Id).Select(x => x.First());
-            return names;
-        }
         private string ShowLocation(int locationId)
         {
             var location = _context.Locations.Find(locationId);
@@ -136,13 +92,6 @@ namespace birds.Controllers
                 string.IsNullOrEmpty(s) ? string.Empty : s + ",";
 
             return $"{addComma(location.Neighbourhood)} {addComma(location.Region)} {location.Country}";
-        }
-        private string GetPhotoByLocation(int id)
-        {
-            var photo = _context.Photos.FirstOrDefault(x => x.LocationId == id);
-            if (photo ==null) return string.Empty;
-            var url = _galleryService.GetPreviewUrl(photo);
-            return url;
         }
     }
 }
