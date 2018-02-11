@@ -39,7 +39,7 @@ export class BirdGallery extends React.Component<any, IBirdGalleryState>  {
                     urlToFetch={`/api/birds/gallery/` + this.props.match.params.id}
                     />
                 </div>
-                    <div className="flex-container body">
+                    <div className="flex-container body fourty">
                         {
                             !this.state.wikiData ? null : (
                             <div className="wiki-info hide">

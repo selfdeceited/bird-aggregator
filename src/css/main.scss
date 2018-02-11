@@ -22,7 +22,8 @@ h1 {
 }
 
 .half-screen {
-    width: 60%
+    width: 60%;
+    display: inline-block;
 }
 
 .wiki-info {
@@ -283,4 +284,10 @@ img.photo-page {
 
 .lightbox-caption {
     color: #c8e6f9;
+}
+
+.fourty {
+    width: 40%;
+    display: inline-block !important;
+    vertical-align: top;
 }

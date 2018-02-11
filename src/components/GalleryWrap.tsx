@@ -39,6 +39,7 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
 
     public componentWillReceiveProps(nextProps) {
         this.fetchTheUrl(nextProps.urlToFetch)
+        this.setState({selectedIndex: null})
     }
 
     public render() {
