@@ -31,7 +31,8 @@ namespace birds.Services
                         LocationId = photo.LocationId,
                         BirdId = photo.BirdId,
                         Height = 1,
-                        Width = photo.Ratio
+                        Width = photo.Ratio,
+                        Text = photo.Description
                     };
         }
         internal string GetPreviewUrl(Domain.Photo photo){
@@ -44,7 +45,7 @@ namespace birds.Services
 
         private string GetImageUrl(Domain.Photo photo)
         {
-            return GetFlickrImageUrl(photo, "_b");
+            return GetFlickrImageUrl(photo, "_h");
         }
 
         // postfix info: https://www.flickr.com/services/api/misc.urls.html

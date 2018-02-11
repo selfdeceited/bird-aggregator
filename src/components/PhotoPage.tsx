@@ -2,7 +2,7 @@ import axios from "axios"
 import * as moment from "moment"
 import * as React from "react"
 import { Link } from "react-router-dom"
-import { Image } from "./GalleryWrap"
+import { Image } from "./BirdImage"
 import { MapWrap } from "./MapWrap"
 
 interface IPhotoPageState {

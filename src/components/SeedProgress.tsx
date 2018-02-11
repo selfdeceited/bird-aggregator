@@ -120,6 +120,7 @@ export class SeedProgress extends React.Component<ISeedProgressProps, ISeedProgr
             }
             </div>)
     }
+
     private hide() {
         this.setState(prevState => ({
             showComponent: false,

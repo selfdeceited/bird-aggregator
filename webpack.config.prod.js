@@ -41,7 +41,7 @@ module.exports = {
                         pure_getters: true,
                         unsafe_comps: true
                     }
-                }
+                },
             }),
         new webpack.LoaderOptionsPlugin({
                  minimize: true

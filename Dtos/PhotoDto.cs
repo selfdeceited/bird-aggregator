@@ -13,5 +13,6 @@ namespace birds.Dtos
         public int Height { get; set; }
         public double Width { get; set; }
         public string Original { get; set; }
+        public string Text { get; set; }
     }
 }

@@ -274,3 +274,13 @@ img.photo-page {
 .mapboxgl-map > div {
     z-index: 9 !important;
 }
+
+.lightbox-photo-link {
+    color: white !important;
+    background-color: rgba(109, 119, 117, 0.4);
+    margin-left: 30px;
+}
+
+.lightbox-caption {
+    color: #c8e6f9;
+}

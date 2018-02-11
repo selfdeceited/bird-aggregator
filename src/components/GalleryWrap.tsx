@@ -4,33 +4,19 @@ import * as React from "react"
 import Measure from "react-measure"
 import Gallery from "react-photo-gallery"
 import { Link } from "react-router-dom"
+import { BirdImage, Image } from "./BirdImage"
+import { BirdLightbox } from "./BirdLightbox"
 
 export interface IGalleryProps {
     seeFullGalleryLink: boolean,
     urlToFetch: string
  }
 
-interface ITag {
-    value: string,
-    title: string
-}
-
-export interface Image {
-    src: string,
-    original: string,
-    width: number,
-    height: number,
-    caption: string,
-    tags: ITag[],
-    dateTaken: string,
-    locationId: number,
-    birdId: number
-}
-
 interface IGalleryState {
     images: Image[],
     fullGallery: boolean,
-    width: number
+    width: number,
+    selectedIndex: number
 }
 
 export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
@@ -40,8 +26,11 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
         this.state = {
             fullGallery: !props.seeFullGalleryLink,
             images: [],
+            selectedIndex: null,
             width: -1,
         }
+
+        this.onClick = this.onClick.bind(this)
     }
 
     public componentDidMount() {
@@ -53,41 +42,40 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
     }
 
     public render() {
-        const latestShotsLink = this.state.fullGallery ? (<div></div>) : (
+        const latestShotsLink = this.state.fullGallery ? <div></div> : (
             <div>
                 <h2 className="latest-shots">Latest photos</h2>
                 <Link to="/gallery" role="button"
-                    className="pt-button pt-minimal pt-icon-camera small-margin">Check Out Full Gallery
+                    className="pt-button pt-minimal pt-icon-camera small-margin">
+                    Check Out Full Gallery
                 </Link>
             </div>
         )
 
-        const width = this.state.width
         const measure = (
-            <Measure bounds onResize={(contentRect) => this.setState({ width: contentRect.bounds.width })}>
+            <Measure bounds onResize={contentRect => this.setState({ width: contentRect.bounds.width })}>
               {
-              ({measureRef}) => {
-                if (width < 1 ) {
+                ({measureRef}) => {
+                if (this.state.width < 1) {
                   return <div ref={measureRef}></div>
                 }
-                let columns = 1
-                if (width >= 480) {
-                  columns = 2
-                }
-                if (width >= 1024) {
-                  columns = 3
-                }
-                if (width >= 1824) {
-                  columns = 4
-                }
+
                 return <div ref={measureRef}>
                         <div className="body">
-                            <div>{latestShotsLink}</div>
+                            {latestShotsLink}
                             <Gallery
                                 photos={this.state.images}
-                                columns={columns}
+                                columns={this.getColumnSize(this.state.width)}
+                                ImageComponent={BirdImage}
+                                onClick={this.onClick}
                             />
                         </div>
+                        {
+                            (this.state.selectedIndex !== null) ? <BirdLightbox
+                                photos={this.state.images}
+                                index={this.state.selectedIndex}
+                            /> : null
+                         }
                     </div>
               }
             }
@@ -104,5 +92,24 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
             })
             this.setState({ images })
         })
+    }
+
+    private getColumnSize(width) {
+        const columnWidthMap = [
+            { cols: 1, minWidth: 1 },
+            { cols: 2, minWidth: 480 },
+            { cols: 3, minWidth: 1024 },
+            { cols: 4, minWidth: 1824 },
+        ]
+
+        let columns = 0
+        columnWidthMap.map(x => columns = width >= x.minWidth ? x.cols : columns)
+        return columns
+    }
+
+    private onClick(event, obj) {
+        // tslint:disable-next-line:no-console
+        console.log("click")
+        this.setState({selectedIndex: obj.index})
     }
 }

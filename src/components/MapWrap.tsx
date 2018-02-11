@@ -53,19 +53,6 @@ export class MapWrap extends React.Component<IMapWrapProps, IMapWrapState> {
         }
     }
 
-    public urlHandler(props, propName) {
-        const check = url => !!props[propName]
-            ? `${url}/${props[propName]}`
-            : undefined
-
-        const dict = {
-            birdId : check(`/api/map/bird`),
-            locationIdToShow : check(`/api/map/markers`),
-        }
-
-        return dict[propName]
-    }
-
     public componentDidMount() {
         this.fetchData(this.props)
     }
@@ -152,8 +139,8 @@ export class MapWrap extends React.Component<IMapWrapProps, IMapWrapState> {
 
     private fetchData(props) {
         const urlsToFetch = ["birdId", "locationIdToShow"]
-        .map(_ => this.urlHandler(props, _))
-        .filter(x => !!x)
+            .map(_ => this.urlHandler(props, _))
+            .filter(x => !!x)
 
         const urlToFetch = urlsToFetch.length > 0 ? urlsToFetch[0] : `/api/map/markers`
 
@@ -176,5 +163,18 @@ export class MapWrap extends React.Component<IMapWrapProps, IMapWrapState> {
 
     private removePopup() {
         this.setState({ selectedMarker: undefined })
+    }
+
+    private urlHandler(props, propName) {
+        const check = url => !!props[propName]
+            ? `${url}/${props[propName]}`
+            : undefined
+
+        const dict = {
+            birdId : check(`/api/map/bird`),
+            locationIdToShow : check(`/api/map/markers`),
+        }
+
+        return dict[propName]
     }
 }
