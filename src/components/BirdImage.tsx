@@ -44,16 +44,21 @@ export class BirdImage extends React.Component<IBirdProps, {}> {
           } as any
 
         const imgStyle = {
+          borderRadius: "2px",
           display: "block",
           transition: "transform .135s cubic-bezier(0.0,0.0,0.2,1),opacity linear .15s",
         } as any
 
         return (
-            <div style={{ margin: this.props.margin, width: this.props.photo.width, ...cont }}>
+            <div style={{
+                height: this.props.photo.height,
+                margin: this.props.margin,
+                width: this.props.photo.width,
+                ...cont }}>
 
               <img style={{ ...imgStyle }} {...this.props.photo}
                    onClick={(e) => this.props.onClick(e, { index: this.props.index, photo: this.props.photo })} />
-
+              <span className="image-bird-name">{this.props.photo.caption}</span>
               <style>
                 {`.not-selected:hover{outline:2px solid #06befa}`}
               </style>
