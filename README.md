@@ -10,9 +10,11 @@ So I decided to get shots by Flickr API and expose some website to get info rega
 In order to make it work, your image captions should reflect this sort of format:
 
 B: {bird-name-in-English, UpperCamelCased with spaces} ({Latin name})
-### example:
-_B: Great Tit (Parus major)_
+Several birds in one photo supported by comma-delimeters.
+
+### examples:
 _B: Common Goldeneye (Bucephala clangula)_
+_B: Caspian Tern (Hydroprogne caspia), Mute Swan (Cygnus olor)_
 
 Names should be aligned according to latest [IOC World Bird List](http://www.worldbirdnames.org/)
 

@@ -86,9 +86,9 @@ namespace birds.Services
             if (bird.Contains("undefined"))
                 return false;
 
-            var noPrefixName = bird.Replace("B: ", "");
-            var engName = noPrefixName.Substring(0, noPrefixName.IndexOf("(") - 1);
-            var latinName = noPrefixName.Substring(noPrefixName.IndexOf("(") + 1, noPrefixName.IndexOf(")") - noPrefixName.IndexOf("(") - 1);
+            Func<string, int> _i =  i => bird.IndexOf(i);
+            var engName = bird.Substring(0, _i("(") - 1);
+            var latinName = bird.Substring(_i("(") + 1, _i(")") - _i("(") - 1);
             _context.Birds.Add(new Bird
             {
                 ApiName = bird,
