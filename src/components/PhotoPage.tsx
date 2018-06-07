@@ -30,9 +30,12 @@ export class PhotoPage extends React.Component<any, IPhotoPageState> {
     public render() {
         return this.state.loaded ? (
             <div className="body">
-                <Link className="big-link" to={`/birds/${this.state.image.birdId}`}>
+
+            {this.state.image.birdIds.map(id => <Link
+                    className="big-link" to={`/birds/${id}`}>
                     {this.state.image.caption} ({moment(this.state.image.dateTaken).format("YYYY MM DD")})
-                </Link>
+                </Link>,
+            )}
                 <section className="photo-flex-container">
                     <div className="flex-item photo-flex-element">
                         <img src={this.state.image.original} className="photo-page"></img>

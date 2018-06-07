@@ -74,7 +74,12 @@ export class SeedProgress extends React.Component<ISeedProgressProps, ISeedProgr
             return (
                 <div style={styles.barWrap}>
                 <p>{caption} </p>
-                    <div className="pt-progress-bar pt-intent-primary progress-bar">
+                    <div className={
+                        "pt-progress-bar progress-bar " + (current === all
+                         ? "pt-no-stripes pt-no-animation pt-intent-success"
+                         : "pt-intent-primary")
+                        }
+                    >
                     <div className="pt-progress-meter"
                         style={{ width: `${current / all * 100 }%` }}></div>
                             <span>{current} / {all}</span>

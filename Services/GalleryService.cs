@@ -1,27 +1,37 @@
 using System.Collections.Generic;
 using System.Linq;
+using bird_aggregator.Dtos;
+using birds.Dao;
+using birds.Domain;
 using birds.Dtos;
 
 namespace birds.Services
 {
     public class GalleryService
     {
-        private readonly ApiContext _context;
-        public GalleryService(ApiContext context)
+        private readonly BirdDao _birdDao;
+        public GalleryService(BirdDao birdDao)
         {
-            _context = context;
+            _birdDao = birdDao;
         }
 
-        public string GetBirdName(Domain.Photo x)
+        public IEnumerable<IdNameDto> GetBirdsForPhoto(Photo photo)
         {
-            var bird = _context.Birds.Find(x.BirdId);
-            return bird == null ? string.Empty : bird.EnglishName;
+            return _birdDao.GetBirds(photo).Select(x => new IdNameDto { Id = x.Id, Name = x.EnglishName });
         }
 
-        public IEnumerable<PhotoDto> GetGallery(IEnumerable<Domain.Photo> photos){
+        public string GetBirdName(Photo photo)
+        {
+            return string.Join(", ", _birdDao.GetBirds(photo).Select(x => x.EnglishName));
+        }
+
+        public IEnumerable<PhotoDto> GetGallery(IEnumerable<Domain.Photo> photos)
+        {
             return photos.Select(Project);
         }
-        internal PhotoDto Project(Domain.Photo photo){
+        
+        internal PhotoDto Project(Domain.Photo photo)
+        {
             return new PhotoDto {
                         Original = GetImageUrl(photo),
                         Src = GetThumbnailUrl(photo),
@@ -29,7 +39,7 @@ namespace birds.Services
                         Id = photo.Id,
                         DateTaken = photo.DateTaken,
                         LocationId = photo.LocationId,
-                        BirdId = photo.BirdId,
+                        BirdIds = photo.BirdIds,
                         Height = 1,
                         Width = photo.Ratio,
                         Text = photo.Description

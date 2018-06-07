@@ -83,9 +83,14 @@ export default class Navbar extends React.Component<INavbarProps, INavbarState> 
                 text={!!this.state.selectedBird ? this.state.selectedBird.name : ""}
                 rightIconName="double-caret-vertical" />
         </BirdSelect>
-        <span className="small-space"></span>
-        <Link to={"/birds/" + this.state.selectedBird.id}
-            role="button" className="pt-button pt-minimal pt-icon-arrow-right"></Link>
+        {
+            !!this.state.selectedBird ?  (
+            <span>
+                <span className="small-space"></span>
+                <Link to={"/birds/" + this.state.selectedBird.id}
+                    role="button" className="pt-button pt-minimal pt-icon-arrow-right"></Link>
+            </span>) : null
+        }
     </div>
   </div>
   <div className="pt-navbar-group pt-align-right">

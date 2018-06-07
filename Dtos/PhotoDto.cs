@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace birds.Dtos
 {
@@ -9,10 +10,10 @@ namespace birds.Dtos
         public int Id { get; set; }
         public DateTime DateTaken { get; set; }
         public int LocationId { get; set; }
-        public int BirdId { get; set; }
         public int Height { get; set; }
         public double Width { get; set; }
         public string Original { get; set; }
         public string Text { get; set; }
+        public IEnumerable<int> BirdIds { get; set; }
     }
 }

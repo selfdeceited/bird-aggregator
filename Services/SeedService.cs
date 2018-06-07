@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using birds.Domain;
 using birds.Dtos;
+using birds.Dao;
 
 namespace birds.Services
 {
@@ -11,9 +12,11 @@ namespace birds.Services
     {
         private readonly FlickrConnectionService _flickrConnectionService;
         private readonly ApiContext _context;
-        public SeedService(FlickrConnectionService flickrConnectionService, ApiContext context){
+        private readonly BirdDao _birdDao;
+        public SeedService(FlickrConnectionService flickrConnectionService, ApiContext context, BirdDao birdDao){
             _flickrConnectionService = flickrConnectionService;
             _context = context;
+            _birdDao = birdDao;
         }
 
         internal int GetPageCount()
@@ -39,7 +42,7 @@ namespace birds.Services
             if (_context.Photos.Any(x => x.FlickrId == photo.id))
                 return false;
 
-            var bird = _context.Birds.SingleOrDefault(_ => _.ApiName == photo.title);
+            var birds = _birdDao.GetBirdsByNames(ExtractBirdNames(photo.title));
             var extraPhotoInfo = _flickrConnectionService.GetPhoto(photo.id);
             var sizeInfo = _flickrConnectionService.GetSize(photo.id);
 
@@ -63,9 +66,11 @@ namespace birds.Services
                 Ratio = ratio
             };
 
-            if (bird != null)
-                domainPhoto.BirdId = bird.Id;
-
+            if (birds.Count() > 0)
+                domainPhoto.BirdIdsAsString = string.Join(",", birds.Select(x => x.Id));
+            else {
+                domainPhoto.BirdIdsAsString = "";
+            }
             domainPhoto = PopulateLocation(domainPhoto);
 
             if (_context.Photos.FirstOrDefault(x => x.FlickrId == domainPhoto.FlickrId) == null){
@@ -99,7 +104,6 @@ namespace birds.Services
             return true;
         }
 
-
         private Photo PopulateLocation(Photo domainPhoto)
         {
             var locationResponse = _flickrConnectionService.GetLocation(domainPhoto.FlickrId);
@@ -132,6 +136,32 @@ namespace birds.Services
                 domainPhoto.LocationId = domainLocation.Id;
 
             return domainPhoto;
+        }
+
+        public IEnumerable<string> ExtractBirdNames(IEnumerable<string> photoNames)
+        {
+            var birdNames = new HashSet<string>();
+
+            Action<string> add = name => {
+                if (!birdNames.Contains(name))
+                    birdNames.Add(name);
+            };
+
+            foreach (var title in photoNames) {
+                if (title.Contains(", ")) {
+                    title.Split(", ").ToList().ForEach(add);
+                } else {
+                    add(title);
+                }
+            }
+            return birdNames;
+        }
+
+        private IEnumerable<string> ExtractBirdNames(string title)
+        {
+            if (title.StartsWith("B: "))
+                title = title.Substring("B: ".Length);
+            return title.Contains(", ") ? title.Split(", ") : new string[]{title};
         }
     }
 }

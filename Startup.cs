@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
 using bird_aggregator.Hubs;
+using birds.Dao;
 
 namespace birds
 {
@@ -45,12 +46,13 @@ namespace birds
             var settings = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(options => settings.Bind(options));
             
-            services.AddSingleton<FlickrConnectionService>();
-            services.AddSingleton<SeedService>();
-            services.AddSingleton<GalleryService>();
-            services.AddSingleton<WikipediaConnectionService>();
+            services.AddScoped<BirdDao>();
+            services.AddScoped<FlickrConnectionService>();
+            services.AddScoped<SeedService>();
+            services.AddScoped<GalleryService>();
+            services.AddScoped<WikipediaConnectionService>();
 
-            services.AddSingleton<SeedLauncher>();
+            services.AddScoped<SeedLauncher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

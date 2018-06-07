@@ -8,6 +8,7 @@ using birds.Dtos;
 using RestSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using birds.Dao;
 
 namespace birds.Controllers
 {
@@ -19,19 +20,25 @@ namespace birds.Controllers
 
         private readonly GalleryService _galleryService;
         private readonly WikipediaConnectionService _wikipediaConnectionService;
-
-        public BirdsController(IOptions<AppSettings> settings, ApiContext context, GalleryService galleryService, WikipediaConnectionService wikipediaConnectionService)
+        private readonly BirdDao _birdDao;
+        public BirdsController(IOptions<AppSettings> settings,
+        ApiContext context,
+        GalleryService galleryService,
+        WikipediaConnectionService wikipediaConnectionService,
+        BirdDao birdDao
+        )
         {
             _settings = settings.Value;
             _context = context;
             _galleryService = galleryService;
             _wikipediaConnectionService = wikipediaConnectionService;
+            _birdDao = birdDao;
         }
 
         [HttpGet]
         public IEnumerable<object> Get()
         {
-            return _context.Birds
+            return _birdDao.GetAll()
                 .Select(_ => new { Id = _.Id, Name = _.EnglishName, Latin = _.LatinName })
                 .OrderBy(_ => _.Name)
                 .ToList();
@@ -41,40 +48,42 @@ namespace birds.Controllers
         [HttpGet("gallery/{id}")]
         public IEnumerable<PhotoDto> GetGallery(int id)
         {
-             var photos = _context.Photos.Where(x => x.BirdId == id).ToList()
+             var photos = _context.Photos.Where(x => x.BirdIds.Contains(id)).ToList()
                 .OrderByDescending(x => x.DateTaken);
 
             return _galleryService.GetGallery(photos);
         }
 
-
         [HttpGet("lifelist")]
         public IEnumerable<object> GetLifeList()
         {
-            var photos = _context.Photos.GroupBy(x => x.BirdId);
+            var grouping = _birdDao.GetAll().Select(x => new LifeListGrouping
+            {
+                Bird = x,
+                Photos = _context.Photos.Where(p => p.BirdIds.Contains(x.Id))
+            }).Where(x => x.Photos.Any());
 
             var localList = new List<LifeListDto>();
-            foreach (var item in photos)
+            foreach (var item in grouping)
             {
-                var firstOccurence = item.Aggregate(
+                var firstOccurence = item.Photos.Aggregate(
                     (c1, c2) => c1.DateTaken < c2.DateTaken ? c1 : c2);
                     
-                if (item.Key != 0)
-                    localList.Add(new LifeListDto(){ 
-                        BirdId = item.Key, 
-                        Name = _galleryService.GetBirdName(firstOccurence), 
-                        DateMet = firstOccurence.DateTaken,
-                        Location = ShowLocation(firstOccurence.LocationId),
-                        LocationId = firstOccurence.LocationId,
-                        PhotoId = firstOccurence.Id,
-                    });
+                localList.Add(new LifeListDto(){ 
+                    BirdId = item.Bird.Id, 
+                    Name = _galleryService.GetBirdName(firstOccurence), 
+                    DateMet = firstOccurence.DateTaken,
+                    Location = ShowLocation(firstOccurence.LocationId),
+                    LocationId = firstOccurence.LocationId,
+                    PhotoId = firstOccurence.Id,
+                });
             }
             return localList.OrderByDescending(x => x.DateMet);
         }
 
         [HttpGet("wiki/{id}")]
         public object GetWikiInfo(int id){
-            var bird = _context.Birds.Find(id);
+            var bird = _birdDao.Find(id);
             var response = _wikipediaConnectionService.CallWikipediaExtract(bird.EnglishName);
             if (response.Contains("may refer to")){
                 response = _wikipediaConnectionService.CallWikipediaExtract(bird.EnglishName + "_(bird)");
@@ -92,6 +101,12 @@ namespace birds.Controllers
                 string.IsNullOrEmpty(s) ? string.Empty : s + ",";
 
             return $"{addComma(location.Neighbourhood)} {addComma(location.Region)} {location.Country}";
+        }
+
+        private class LifeListGrouping
+        {
+            public Domain.Bird Bird {get;set;}
+            public IEnumerable<Domain.Photo> Photos {get; set;}
         }
     }
 }

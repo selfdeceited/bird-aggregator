@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using birds.POCOs;
 
 namespace birds.Domain
@@ -6,7 +9,20 @@ namespace birds.Domain
     public class Photo
     {
         public int Id { get; set; }
-        public int BirdId {get; set; }
+
+        [NotMapped]
+        public IEnumerable<int> BirdIds {get; set; }
+
+        public string BirdIdsAsString
+        {
+           get { return string.Join(",", BirdIds); }
+           set 
+           { 
+               BirdIds = string.IsNullOrWhiteSpace(value)
+                       ? new List<int>()
+                       : value.Split(',').Select(int.Parse).ToList();
+           }
+        }
         public string FlickrId { get; set; }
         public int LocationId {get; set;}
         public int FarmId { get; set; }

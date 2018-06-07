@@ -33,7 +33,7 @@ namespace birds.Controllers
         [HttpGet("{id}/photos")]
         public IEnumerable<object> GetPhotos(int id)
         {
-            return _context.Photos.Where(_ => _.BirdId == id).Select(_ => 
+            return _context.Photos.Where(_ => _.BirdIds.Contains(id)).Select(_ => 
                 $"https://www.flickr.com/photos/{_settings.FlickrUserId}/{_.FlickrId}");
         }
 

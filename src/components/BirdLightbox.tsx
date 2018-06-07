@@ -29,10 +29,14 @@ export class BirdLightbox extends React.Component<IBirdLightboxProps, IBirdLight
 
     public render() {
 
-        const getTitle = () => <Link className="big-link lightbox-caption"
-            to={`/birds/${this.props.photos[this.state.index].birdId}`}>
-            {this.props.photos[this.state.index].caption}
-        </Link>
+        const getTitle = () => <div>
+            {this.props.photos[this.state.index].birdIds.map(id => <Link
+                      className="big-link lightbox-caption"
+                      to={`/birds/${id}`}>
+                      {this.props.photos[this.state.index].caption}
+                 </Link>,
+            )}
+        </div>
 
         const getDescription = () => <div>
             <span>{this.props.photos[this.state.index].text}</span>

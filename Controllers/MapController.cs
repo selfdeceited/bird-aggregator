@@ -8,6 +8,7 @@ using birds.Dtos;
 using RestSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using birds.Dao;
 
 namespace birds.Controllers
 {
@@ -18,12 +19,14 @@ namespace birds.Controllers
         private readonly ApiContext _context;
 
         private readonly GalleryService _galleryService;
+        private readonly BirdDao _birdDao;
 
-        public MapController(IOptions<AppSettings> settings, ApiContext context, GalleryService galleryService)
+        public MapController(IOptions<AppSettings> settings, ApiContext context, GalleryService galleryService, BirdDao birdDao)
         {
             _settings = settings.Value;
             _context = context;
             _galleryService = galleryService;
+            _birdDao = birdDao;
         }
 
         [HttpGet("markers")]
@@ -67,11 +70,11 @@ namespace birds.Controllers
             // TODO: refactor & remove code duplication at object init
             var list = new List<object>();
 
-            var bird = _context.Birds.Find(id);
+            var bird = _birdDao.Find(id);
             if (bird != null)
             {
                 var locationIds = _context.Photos
-                    .Where(x => x.BirdId == id)
+                    .Where(x => x.BirdIds.Contains(id))
                     .Select(x => x.LocationId);
 
                 foreach(var locationId in locationIds)
@@ -93,10 +96,8 @@ namespace birds.Controllers
         private IEnumerable<object> GetBirdsByLocation(int id)
         {
             var names = _context.Photos.Where(x => x.LocationId == id)
-                .Select(x => new {
-                    Name = _galleryService.GetBirdName(x),
-                    Id = x.BirdId
-                }).GroupBy(x => x.Id).Select(x => x.First());
+                .SelectMany(_galleryService.GetBirdsForPhoto)
+                .GroupBy(x => x.Id).Select(x => x.First());
             return names;
         }
         private string GetPhotoByLocation(int id)
