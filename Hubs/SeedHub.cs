@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,7 +36,7 @@ namespace bird_aggregator.Hubs
             }, _seedService.AnythingSaved());
         }
 
-        private async Task LoadPhotos(List<PhotosResponse.Photo> metadata)
+        private async Task LoadPhotos(IEnumerable<PhotosResponse.Photo> metadata)
         {
             await _seedLauncher.Log("Photo loading begins ...");
             foreach (var photo in metadata)
@@ -47,7 +46,7 @@ namespace bird_aggregator.Hubs
             };
         }
 
-        private async Task LoadBirds(List<PhotosResponse.Photo> metadata){
+        private async Task LoadBirds(IEnumerable<PhotosResponse.Photo> metadata){
             await _seedLauncher.Log("Bird loading ...");
             var namesToExtract = metadata.Select(x => x.title.Substring("B: ".Length));
             var birdNames = _seedService.ExtractBirdNames(namesToExtract);

@@ -1,4 +1,4 @@
-namespace bird_aggregator.Dtos
+namespace birds.Dtos
 {
     public class IdNameDto
     {

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using bird_aggregator.Dtos;
 using birds.Dao;
 using birds.Domain;
 using birds.Dtos;
@@ -25,12 +24,12 @@ namespace birds.Services
             return string.Join(", ", _birdDao.GetBirds(photo).Select(x => x.EnglishName));
         }
 
-        public IEnumerable<PhotoDto> GetGallery(IEnumerable<Domain.Photo> photos)
+        public IEnumerable<PhotoDto> GetGallery(IEnumerable<Photo> photos)
         {
             return photos.Select(Project);
         }
         
-        internal PhotoDto Project(Domain.Photo photo)
+        internal PhotoDto Project(Photo photo)
         {
             return new PhotoDto {
                         Original = GetImageUrl(photo),
@@ -45,21 +44,21 @@ namespace birds.Services
                         Text = photo.Description
                     };
         }
-        internal string GetPreviewUrl(Domain.Photo photo){
+        internal string GetPreviewUrl(Photo photo){
             return GetFlickrImageUrl(photo, "");
         }
-        private string GetThumbnailUrl(Domain.Photo photo)
+        private string GetThumbnailUrl(Photo photo)
         {
             return GetFlickrImageUrl(photo, "_n");
         }
 
-        private string GetImageUrl(Domain.Photo photo)
+        private string GetImageUrl(Photo photo)
         {
             return GetFlickrImageUrl(photo, "_h");
         }
 
         // postfix info: https://www.flickr.com/services/api/misc.urls.html
-        private string GetFlickrImageUrl(Domain.Photo photo, string postfix){
+        private string GetFlickrImageUrl(Photo photo, string postfix){
             return $"https://farm{photo.FarmId}.staticflickr.com/{photo.ServerId}/{photo.FlickrId}_{photo.Secret}{postfix}.jpg";
         }
     }

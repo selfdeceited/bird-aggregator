@@ -4,11 +4,8 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using birds.Services;
 using Microsoft.Extensions.Options;
-using birds.Dtos;
-using RestSharp;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using birds.Dao;
+using birds.Domain;
 
 namespace birds.Controllers
 {
@@ -32,17 +29,7 @@ namespace birds.Controllers
         [HttpGet("markers")]
         public IEnumerable<object> GetMapMarkers()
         {
-            foreach (var location in _context.Locations)
-            {
-                var entry = new {
-                    X = location.X,
-                    Y = location.Y,
-                    Birds = GetBirdsByLocation(location.Id),
-                    Id = location.Id,
-                    FirstPhotoUrl = GetPhotoByLocation(location.Id)
-                };
-                yield return entry;
-            }
+	        return _context.Locations.Select(ToLocationDto);
         }
 
         [HttpGet("markers/{id}")]
@@ -53,13 +40,7 @@ namespace birds.Controllers
 
             var location = _context.Locations.Find(id);
             if (location != null)
-                list.Add(new {
-                    X = location.X,
-                    Y = location.Y,
-                    Birds = GetBirdsByLocation(location.Id),
-                    Id = location.Id,
-                    FirstPhotoUrl = GetPhotoByLocation(location.Id)
-                });
+                list.Add(ToLocationDto(location));
 
             return list;
         }
@@ -67,35 +48,26 @@ namespace birds.Controllers
         [HttpGet("bird/{id}")]
         public IEnumerable<object> GetMapMarkersByBirdId(int id)
         {
-            // TODO: refactor & remove code duplication at object init
-            var list = new List<object>();
-
             var bird = _birdDao.Find(id);
-            if (bird != null)
-            {
-                var locationIds = _context.Photos
-                    .Where(x => x.BirdIds.Contains(id))
-                    .Select(x => x.LocationId);
+	        if (bird == null)
+		        yield break;
 
-                foreach(var locationId in locationIds)
-                {
-                    var location = _context.Locations.Find(locationId);
-                    if (location == null) continue;
+	        var locationIds = _context.Photos
+		        .Where(x => x.BirdIds.Contains(id))
+		        .Select(x => x.LocationId);
 
-                    yield return new {
-                        X = location.X,
-                        Y = location.Y,
-                        Birds = GetBirdsByLocation(location.Id),
-                        Id = location.Id,
-                        FirstPhotoUrl = GetPhotoByLocation(location.Id)
-                    };
-                }
-            }
+	        foreach(var locationId in locationIds)
+	        {
+		        var location = _context.Locations.Find(locationId);
+		        if (location == null) continue;
+
+		        yield return ToLocationDto(location);
+	        }
         }
 
         private IEnumerable<object> GetBirdsByLocation(int id)
         {
-            var names = _context.Photos.Where(x => x.LocationId == id)
+            var names = _context.Photos.Where(x => x.LocationId == id).AsEnumerable()
                 .SelectMany(_galleryService.GetBirdsForPhoto)
                 .GroupBy(x => x.Id).Select(x => x.First());
             return names;
@@ -107,5 +79,17 @@ namespace birds.Controllers
             var url = _galleryService.GetPreviewUrl(photo);
             return url;
         }
+
+		private object ToLocationDto(Location location)
+		{
+			return new
+			{
+				location.X,
+				location.Y,
+				Birds = GetBirdsByLocation(location.Id),
+				location.Id,
+				FirstPhotoUrl = GetPhotoByLocation(location.Id)
+			};
+		}
     }
 }

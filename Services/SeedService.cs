@@ -13,6 +13,7 @@ namespace birds.Services
         private readonly FlickrConnectionService _flickrConnectionService;
         private readonly ApiContext _context;
         private readonly BirdDao _birdDao;
+
         public SeedService(FlickrConnectionService flickrConnectionService, ApiContext context, BirdDao birdDao){
             _flickrConnectionService = flickrConnectionService;
             _context = context;
@@ -53,32 +54,29 @@ namespace birds.Services
                     Source = x.source
                 }).FirstOrDefault(x => x.Label == "Medium");
                 
-            var ratio = (double)mediumSize.Width / mediumSize.Height;
-            
-            var domainPhoto = new Photo
-            {
-                FlickrId = photo.id,
-                FarmId = photo.farm,
-                ServerId = photo.server,
-                Secret = photo.secret,
-                DateTaken = DateTime.Parse(extraPhotoInfo.photo.dates.taken),
-                Description = extraPhotoInfo.photo.description._content,
-                Ratio = ratio
-            };
+            var ratio = mediumSize != null ? (double)mediumSize.Width / mediumSize.Height : 1;
 
-            if (birds.Count() > 0)
-                domainPhoto.BirdIdsAsString = string.Join(",", birds.Select(x => x.Id));
-            else {
-                domainPhoto.BirdIdsAsString = "";
-            }
-            domainPhoto = PopulateLocation(domainPhoto);
+	        var domainPhoto = new Photo
+	        {
+		        FlickrId = photo.id,
+		        FarmId = photo.farm,
+		        ServerId = photo.server,
+		        Secret = photo.secret,
+		        DateTaken = DateTime.Parse(extraPhotoInfo.photo.dates.taken),
+		        Description = extraPhotoInfo.photo.description._content,
+		        Ratio = ratio,
+		        BirdIdsAsString = birds.Any() ? string.Join(",", birds.Select(x => x.Id)) : ""
+	        };
 
-            if (_context.Photos.FirstOrDefault(x => x.FlickrId == domainPhoto.FlickrId) == null){
-                await _context.Photos.AddAsync(domainPhoto);
-                await _context.SaveChangesAsync();
-            }
+	        domainPhoto = PopulateLocation(domainPhoto);
 
-            return true;
+	        if (_context.Photos.FirstOrDefault(x => x.FlickrId == domainPhoto.FlickrId) != null)
+		        return true;
+
+	        await _context.Photos.AddAsync(domainPhoto);
+	        await _context.SaveChangesAsync();
+
+	        return true;
         }
 
         internal bool AnythingSaved()
@@ -91,7 +89,7 @@ namespace birds.Services
             if (bird.Contains("undefined"))
                 return false;
 
-            Func<string, int> _i =  i => bird.IndexOf(i);
+            Func<string, int> _i =  bird.IndexOf; // for readability in next lines
             var engName = bird.Substring(0, _i("(") - 1);
             var latinName = bird.Substring(_i("(") + 1, _i(")") - _i("(") - 1);
             _context.Birds.Add(new Bird
@@ -112,7 +110,7 @@ namespace birds.Services
             if (location == null)
                 return domainPhoto;
 
-            var domainLocation = _context.Locations.SingleOrDefault(_ =>
+            var domainLocation = _context.Locations.SingleOrDefault(_ => 
                 _.Y == location.latitude && _.X == location.longitude);
 
             if (domainLocation == null)
@@ -161,7 +159,7 @@ namespace birds.Services
         {
             if (title.StartsWith("B: "))
                 title = title.Substring("B: ".Length);
-            return title.Contains(", ") ? title.Split(", ") : new string[]{title};
+            return title.Contains(", ") ? title.Split(", ") : new[]{title};
         }
     }
 }

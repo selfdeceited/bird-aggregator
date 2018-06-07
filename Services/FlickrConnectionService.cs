@@ -1,5 +1,4 @@
 using RestSharp;
-using birds;
 using birds.POCOs;
 using Microsoft.Extensions.Options;
 
@@ -15,11 +14,9 @@ namespace birds.Services
             _client = new RestClient("https://api.flickr.com");
         }
 
-        public int GetPagesCount(){
-            if (_settings.IsTestRun)
-                return 1;
-            
-            return GetPhotos().photos.pages;
+        public int GetPagesCount()
+        {
+	        return _settings.IsTestRun ? 1 : GetPhotos().photos.pages;
         }
         
         public PhotosResponse GetPhotos(int page = 0)
@@ -78,9 +75,7 @@ namespace birds.Services
             if (response.ErrorException != null)
                 throw response.ErrorException;
 
-            if (response.Data.stat == "ok")
-                return response.Data;
-            else return (T)null;
+            return response.Data.stat == "ok" ? response.Data : null;
         }
     }
 }

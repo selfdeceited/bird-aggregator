@@ -1,8 +1,6 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using birds;
-using birds.Services;
 using Microsoft.AspNetCore.SignalR;
 
 namespace bird_aggregator.Hubs

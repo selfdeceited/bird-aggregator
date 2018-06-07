@@ -23,11 +23,9 @@ namespace birds.Services
         }
 
         private string CallWikipedia(string requestUrl){
-            var client = new RestClient();
-            client.BaseUrl = new Uri("https://en.wikipedia.org");
-            var request = new RestRequest();
-            request.Resource = requestUrl;
-            var response = client.Execute(request);
+	        var client = new RestClient { BaseUrl = new Uri("https://en.wikipedia.org") };
+	        var request = new RestRequest { Resource = requestUrl };
+	        var response = client.Execute(request);
             return response.Content;
         }
     }

@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using birds.Services;
-using Microsoft.Extensions.Options;
 using birds.Dtos;
-using RestSharp;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using birds.Dao;
 
 namespace birds.Controllers
@@ -15,21 +11,16 @@ namespace birds.Controllers
     [Route("api/[controller]")]
     public class BirdsController : Controller
     {
-        private readonly AppSettings _settings;
-        private readonly ApiContext _context;
-
+	    private readonly AppSettings _settings;
+		private readonly ApiContext _context;
         private readonly GalleryService _galleryService;
         private readonly WikipediaConnectionService _wikipediaConnectionService;
         private readonly BirdDao _birdDao;
-        public BirdsController(IOptions<AppSettings> settings,
-        ApiContext context,
-        GalleryService galleryService,
-        WikipediaConnectionService wikipediaConnectionService,
-        BirdDao birdDao
-        )
+
+        public BirdsController(AppSettings settings, ApiContext context, GalleryService galleryService, WikipediaConnectionService wikipediaConnectionService, BirdDao birdDao)
         {
-            _settings = settings.Value;
-            _context = context;
+	        _settings = settings;
+			_context = context;
             _galleryService = galleryService;
             _wikipediaConnectionService = wikipediaConnectionService;
             _birdDao = birdDao;

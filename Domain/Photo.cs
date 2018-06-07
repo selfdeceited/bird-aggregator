@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using birds.POCOs;
 
 namespace birds.Domain
 {
@@ -15,13 +14,10 @@ namespace birds.Domain
 
         public string BirdIdsAsString
         {
-           get { return string.Join(",", BirdIds); }
-           set 
-           { 
-               BirdIds = string.IsNullOrWhiteSpace(value)
-                       ? new List<int>()
-                       : value.Split(',').Select(int.Parse).ToList();
-           }
+           get => string.Join(",", BirdIds);
+	       set => BirdIds = string.IsNullOrWhiteSpace(value)
+		        ? new List<int>()
+		        : value.Split(',').Select(int.Parse).ToList();
         }
         public string FlickrId { get; set; }
         public int LocationId {get; set;}
