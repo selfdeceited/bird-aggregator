@@ -1,13 +1,16 @@
 import * as Blueprint from "@blueprintjs/core"
+import { Button, Collapse, Icon } from "@blueprintjs/core"
 import axios from "axios"
 import * as moment from "moment"
 import * as React from "react"
 import { Link } from "react-router-dom"
 import { MapWrap } from "./MapWrap"
+import { YearlyLifeList } from "./YearlyLifeList"
 
 interface ILifeListProps {}
 interface ILifeListState {
-    lifeList: ILifeListDto[]
+    lifeList: ILifeListDto[],
+    showYearlyStats: boolean
 }
 
 interface ILifeListDto {
@@ -24,6 +27,7 @@ export class LifeList extends React.Component<ILifeListProps, ILifeListState> {
         super(props)
         this.state = {
             lifeList: [],
+            showYearlyStats: false,
         }
     }
     public componentDidMount() {
@@ -42,6 +46,15 @@ export class LifeList extends React.Component<ILifeListProps, ILifeListState> {
         return (
 <div className="body">
     <h2 className="show-mobile">Life list</h2>
+    <div>
+        <Button onClick={() => this.showYearlyNumbers()}>
+            <Icon iconName="calendar" />&nbsp;
+            {this.state.showYearlyStats ? "Hide" : "Show"} yearly statistics
+        </Button>
+        <Collapse isOpen={this.state.showYearlyStats}>
+            <YearlyLifeList/>
+        </Collapse>
+    </div>
     <table className="pt-table pt-striped">
         <thead>
             <tr>
@@ -77,5 +90,9 @@ export class LifeList extends React.Component<ILifeListProps, ILifeListState> {
         </tbody>
     </table>
 </div>)
+    }
+
+    private showYearlyNumbers() {
+        this.setState({ showYearlyStats: !this.state.showYearlyStats })
     }
 }

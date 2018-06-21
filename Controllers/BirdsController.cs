@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using birds.Services;
 using birds.Dtos;
 using birds.Dao;
+using Microsoft.Extensions.Options;
 
 namespace birds.Controllers
 {
@@ -17,9 +18,9 @@ namespace birds.Controllers
         private readonly WikipediaConnectionService _wikipediaConnectionService;
         private readonly BirdDao _birdDao;
 
-        public BirdsController(AppSettings settings, ApiContext context, GalleryService galleryService, WikipediaConnectionService wikipediaConnectionService, BirdDao birdDao)
+        public BirdsController(IOptions<AppSettings> settings, ApiContext context, GalleryService galleryService, WikipediaConnectionService wikipediaConnectionService, BirdDao birdDao)
         {
-	        _settings = settings;
+	        _settings = settings.Value;
 			_context = context;
             _galleryService = galleryService;
             _wikipediaConnectionService = wikipediaConnectionService;
@@ -70,6 +71,12 @@ namespace birds.Controllers
                 });
             }
             return localList.OrderByDescending(x => x.DateMet);
+        }
+
+        [HttpGet("lifelist/peryear")]
+        public IEnumerable<object> LifeListPerYear(){
+            var yearsGrouping = _context.Photos.GroupBy(x => x.DateTaken.Year);
+            return yearsGrouping.Select(x => new {x.Key, Count = x.SelectMany(_=>_.BirdIds).Distinct().Count()});
         }
 
         [HttpGet("wiki/{id}")]
