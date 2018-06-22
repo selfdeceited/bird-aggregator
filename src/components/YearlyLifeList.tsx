@@ -32,7 +32,7 @@ export class YearlyLifeList extends React.Component<IYearlyLifeListProps, IYearl
         <thead>
             <tr>
                 <th className="hide-mobile">Year</th>
-                <th># of species met</th>
+                <th>Count</th>
             </tr>
         </thead>
         <tbody className="life-list-table">
@@ -40,10 +40,10 @@ export class YearlyLifeList extends React.Component<IYearlyLifeListProps, IYearl
                 this.state.lifeList.map((x: IYearlyLifeListDto, i: number) =>
                 (
                     <tr key={i}>
-                        <td className="bird-column">
+                        <td>
                             {x.key}
                         </td>
-                        <td className="date-column">{x.count}</td>
+                        <td>{x.count}</td>
                     </tr>
                 ))
             }
