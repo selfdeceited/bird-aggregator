@@ -28,12 +28,21 @@ export class BirdLightbox extends React.Component<IBirdLightboxProps, IBirdLight
     }
 
     public render() {
+        const zip = (arr, ...arrs) => {
+            // tslint:disable-next-line:no-shadowed-variable
+            return arr.map((val, i) => arrs.reduce((a, arr) => [...a, arr[i]], [val]))
+        }
+
+        const photoTitles = zip(this.props.photos[this.state.index].caption.split(","),
+            this.props.photos[this.state.index].birdIds)
 
         const getTitle = () => <div>
-            {this.props.photos[this.state.index].birdIds.map(id => <Link
+            {
+                photoTitles.map((arr, i) => <Link
                       className="big-link lightbox-caption"
-                      to={`/birds/${id}`}>
-                      {this.props.photos[this.state.index].caption}
+                      to={`/birds/${arr[1]}`}>
+                      {arr[0]}
+                      {i === photoTitles.length - 1 ? "" : ","}
                  </Link>,
             )}
         </div>

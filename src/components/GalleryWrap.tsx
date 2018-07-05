@@ -110,7 +110,6 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
 
     private onClick(event, obj) {
         // tslint:disable-next-line:no-console
-        console.log("click")
         this.setState({selectedIndex: obj.index})
     }
 }
