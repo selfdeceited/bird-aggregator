@@ -61,9 +61,9 @@ namespace birds.Controllers
                 var firstOccurence = item.Photos.Aggregate(
                     (c1, c2) => c1.DateTaken < c2.DateTaken ? c1 : c2);
                     
-                localList.Add(new LifeListDto(){ 
+                localList.Add(new LifeListDto { 
                     BirdId = item.Bird.Id, 
-                    Name = _galleryService.GetBirdName(firstOccurence), 
+                    Name = item.Bird.EnglishName, 
                     DateMet = firstOccurence.DateTaken,
                     Location = ShowLocation(firstOccurence.LocationId),
                     LocationId = firstOccurence.LocationId,
