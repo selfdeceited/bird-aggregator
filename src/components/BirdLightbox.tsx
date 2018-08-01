@@ -5,7 +5,8 @@ import { Image } from "./BirdImage"
 
 interface IBirdLightboxProps {
     photos: Image[],
-    index: number
+    index: number,
+    onClose: any,
 }
 
 interface IBirdLightboxState {
@@ -63,7 +64,7 @@ export class BirdLightbox extends React.Component<IBirdLightboxProps, IBirdLight
                 mainSrc={this.images[this.state.index]}
                 nextSrc={this.images[(this.state.index + 1) % this.images.length]}
                 prevSrc={this.images[(this.state.index + this.images.length - 1) % this.images.length]}
-                onCloseRequest={() => this.setState({ index: null })}
+                onCloseRequest={this.props.onClose}
                 onMovePrevRequest={() =>
                     this.setState({
                         index: (this.state.index + this.images.length - 1) % this.images.length,

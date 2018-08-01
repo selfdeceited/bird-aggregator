@@ -42,6 +42,12 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
         this.setState({selectedIndex: null})
     }
 
+    public onLightBoxClose() {
+        this.setState({
+          selectedIndex: null,
+        })
+    }
+
     public render() {
         const latestShotsLink = this.state.fullGallery ? <div></div> : (
             <div>
@@ -75,6 +81,7 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
                             (this.state.selectedIndex !== null) ? <BirdLightbox
                                 photos={this.state.images}
                                 index={this.state.selectedIndex}
+                                onClose={() => this.onLightBoxClose()}
                             /> : null
                          }
                     </div>
@@ -109,7 +116,6 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
     }
 
     private onClick(event, obj) {
-        // tslint:disable-next-line:no-console
         this.setState({selectedIndex: obj.index})
     }
 }
