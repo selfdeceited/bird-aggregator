@@ -1,0 +1,8 @@
+[x] make server-side work
+[ ] make client-side work
+[ ] Move to hexagonal architecture
+[ ] Set up a domain
+[ ] Move to MongoDB as a primary storage
+[ ] use docker-compose to set up an env
+[ ] run tests in CI
+[ ] Change update mechanism by implementing a saga
