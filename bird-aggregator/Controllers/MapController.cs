@@ -18,9 +18,9 @@ namespace birds.Controllers
         private readonly GalleryService _galleryService;
         private readonly BirdDao _birdDao;
 
-        public MapController(IOptions<AppSettings> settings, ApiContext context, GalleryService galleryService, BirdDao birdDao)
+        public MapController(IOptionsMonitor<AppSettings> settings, ApiContext context, GalleryService galleryService, BirdDao birdDao)
         {
-            _settings = settings.Value;
+            _settings = settings.CurrentValue;
             _context = context;
             _galleryService = galleryService;
             _birdDao = birdDao;

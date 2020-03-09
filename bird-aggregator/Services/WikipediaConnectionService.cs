@@ -1,5 +1,6 @@
 using System;
 using RestSharp;
+using RestSharp.Serializers.NewtonsoftJson;
 
 namespace birds.Services
 {
@@ -24,6 +25,7 @@ namespace birds.Services
 
         private string CallWikipedia(string requestUrl){
 	        var client = new RestClient { BaseUrl = new Uri("https://en.wikipedia.org") };
+            client.UseNewtonsoftJson();
 	        var request = new RestRequest { Resource = requestUrl };
 	        var response = client.Execute(request);
             return response.Content;

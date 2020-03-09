@@ -1,6 +1,7 @@
 using RestSharp;
 using birds.POCOs;
 using Microsoft.Extensions.Options;
+using RestSharp.Serializers.NewtonsoftJson;
 
 namespace birds.Services
 {
@@ -9,9 +10,10 @@ namespace birds.Services
         private readonly RestClient _client;
         private readonly AppSettings _settings;
 
-        public FlickrConnectionService(IOptions<AppSettings> settings){
-            _settings = settings.Value;
+        public FlickrConnectionService(IOptionsMonitor<AppSettings> settings){
+            _settings = settings.CurrentValue;
             _client = new RestClient("https://api.flickr.com");
+            _client.UseNewtonsoftJson();
         }
 
         public int GetPagesCount()

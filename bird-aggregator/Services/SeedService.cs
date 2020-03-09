@@ -32,7 +32,7 @@ namespace birds.Services
                 .Where(x => x.title.StartsWith("B: ")).ToList();
         }
 
-        public void TruncateDb(){
+        public void TruncateDb() {
             _context.Locations.RemoveRange(_context.Locations);
             _context.Photos.RemoveRange(_context.Photos);
             _context.Birds.RemoveRange(_context.Birds);

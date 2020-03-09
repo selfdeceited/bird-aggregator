@@ -14,8 +14,8 @@ namespace birds.Controllers
         private readonly ApiContext _context;
         private readonly GalleryService _galleryService;
 
-        public PhotosController(IOptions<AppSettings> settings, ApiContext context, GalleryService galleryService){
-            _settings = settings.Value;
+        public PhotosController(IOptionsMonitor<AppSettings> settings, ApiContext context, GalleryService galleryService){
+            _settings = settings.CurrentValue;
             _context = context;
             _galleryService = galleryService;
         }

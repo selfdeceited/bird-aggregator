@@ -9,8 +9,8 @@ namespace birds.Controllers
     {
         private readonly AppSettings _settings;
 
-        public MetaController(IOptions<AppSettings> settings, SeedService seedService){
-            _settings = settings.Value;
+        public MetaController(IOptionsMonitor<AppSettings> settings, SeedService seedService){
+            _settings = settings.CurrentValue;
         }
 
         [HttpGet("github")]

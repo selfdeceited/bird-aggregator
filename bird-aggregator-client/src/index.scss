@@ -1,0 +1,305 @@
+@import "~normalize.css";
+@import "~@blueprintjs/core/lib/css/blueprint.css";
+@import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
+@import "~@blueprintjs/core/lib/scss/variables";
+
+.hide {
+  display: none;
+}
+
+h1 {
+  color: $pt-heading-color
+}
+
+.body{
+  padding-top: $pt-navbar-height
+}
+
+.pt-select-popover .pt-menu {
+  max-width: 400px;
+  max-height: 300px;
+  overflow: auto;
+  padding: 0;
+}
+
+.half-screen {
+  width: 60%;
+  display: inline-block;
+}
+
+.wiki-info {
+  margin: 10px;
+}
+
+a.new-window, a.new-window:visited, a.new-window:active {
+  color: #106ba3;
+  text-decoration: none;
+  border-bottom: 1px #106ba3 dotted;
+}
+
+a.new-window:hover {
+  color: #106ba3;
+  text-decoration: underline;
+  border: none;
+}
+
+nav {
+  .small-space {
+      display: inline-block;
+      width: 4px;
+  }
+  .bird-info-select {
+      div.inline-block {
+          display: inline-block;
+      }
+  }
+}
+.latest-shots {
+  margin: 15px;
+}
+
+.small-margin {
+  margin: 1px;
+}
+
+.bird-column {
+  width: 320px;
+}
+
+.map-popup {
+  background: white;
+  color: #3F618C;
+  font-weight: 400;
+  padding: 5px;
+  border-radius: 2px;
+
+  a {
+      font-size: 13px;
+  }
+  
+  a.pt-icon-cross{
+      float: right;
+  }
+}
+
+.display-block {
+  display: block;
+}
+
+.small-reference {
+  font-size: 8px;
+  min-height: 0;
+  line-height: 0;
+  text-align: left !important;
+}
+
+div.body > table td {
+  line-height: 30px;
+}
+
+.show-mobile{
+  display: none;
+}
+
+.hide-mobile {
+  &div {
+      display: block;
+  }
+  &span {
+      display: inline
+  }
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 960px) {
+  #root {
+      nav > div.pt-navbar-group > a.pt-button.pt-minimal.pt-icon-arrow-right{
+          line-height: 0;
+          font-size: 0;
+          color: transparent;
+          margin-top: 15px;
+      }
+  }
+}
+
+@mixin hide-text-for-icon {
+  line-height: 0;
+  font-size: 0;
+  color: transparent;
+  padding-top: 6px;
+}
+
+
+@media screen and (max-width: 960px) {
+  #root {
+      nav > div.pt-navbar-group.pt-align-right > a.pt-button.pt-minimal{
+          @include hide-text-for-icon;
+      }
+  }
+}
+
+@media screen and (max-width: 880px) {
+  #root {
+      nav > div.pt-navbar-group.pt-align-left > a.pt-button.pt-minimal{
+          @include hide-text-for-icon;
+      }
+  }
+}
+
+@media screen and (max-width: 780px) {
+  #root {
+      nav .bird-info-select{
+          display: none;
+      }
+      .bird-column{
+          width: 300px;
+      }
+      .date-column {
+          width: 160px;
+      }
+      .marker-thumbnail{
+          display: none;
+      }
+      .photo-flex-container{
+          display: block
+      }
+  }
+}
+@media screen and (max-width: 460px) {
+  #root {
+      nav {
+          div.pt-navbar-group.pt-align-right > a.pt-button.pt-minimal{
+              display: none;
+          }
+          .pt-navbar-heading
+          {
+              font-size: 12px;
+              margin-right: 0
+          }
+      }
+  }
+
+  .show-mobile {
+      &h2 {
+          display: block;
+          padding-left: 10px;
+          padding-top: 10px;
+      }
+      &div {
+          display: block;
+      }
+      &span {
+          display: inline
+      }
+  }
+  .hide-mobile {
+      display: none;
+  }
+
+  tbody.life-list-table{
+      font-size: 11px;
+  }
+}
+
+.marker-thumbnail
+{
+  margin-top: 10px;
+  border-radius: 5px;
+  max-height: 300px;
+}
+
+.logo {
+  background-image: url("http://www.iconninja.com/files/139/538/395/pigeon-bird-shape-icon.png");
+  width: 45px;
+  height: 30px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.seed-bar {
+  margin-top: 65px;
+  box-shadow: 3px 3px 4px 5px #d0d0d0;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.progress-bar {
+  height: 20px;
+  width: 500px;
+  span {
+      margin: 10px;
+      z-index: 99;
+      opacity: .99;
+      color: white;
+  }
+}
+
+#seed-log {
+  white-space: pre-wrap;
+  margin-bottom: 5px;
+  font-size: 0.8em;
+}
+
+.big-link {
+  font-size: 2em;
+  font-weight: 500;
+  margin: 10px;
+}
+
+.photo-flex-container{
+  margin: 0 auto;
+  display: flex;
+}
+
+.flex-item {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+  margin: 10px;
+}
+
+.photo-flex-element {
+  flex-grow: 2;
+  flex-shrink: 2;
+  flex-basis: 0;
+}
+
+img.photo-page {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.mapboxgl-map > div {
+  z-index: 9 !important;
+}
+
+.lightbox-photo-link {
+  color: white !important;
+  background-color: rgba(109, 119, 117, 0.4);
+  margin-left: 30px;
+}
+
+.lightbox-caption {
+  color: #c8e6f9;
+}
+
+.fourty {
+  width: 40%;
+  display: inline-block !important;
+  vertical-align: top;
+}
+
+.image-bird-name {
+  color: #f6fb5e;
+  background-color:rgba(0, 0, 0, 0.45);
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 3px;
+  margin-left: 10px;
+  position: relative;
+  top: -20px;
+}

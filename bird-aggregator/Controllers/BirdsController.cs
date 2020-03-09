@@ -18,9 +18,9 @@ namespace birds.Controllers
         private readonly WikipediaConnectionService _wikipediaConnectionService;
         private readonly BirdDao _birdDao;
 
-        public BirdsController(IOptions<AppSettings> settings, ApiContext context, GalleryService galleryService, WikipediaConnectionService wikipediaConnectionService, BirdDao birdDao)
+        public BirdsController(IOptionsMonitor<AppSettings> settings, ApiContext context, GalleryService galleryService, WikipediaConnectionService wikipediaConnectionService, BirdDao birdDao)
         {
-	        _settings = settings.Value;
+	        _settings = settings.CurrentValue;
 			_context = context;
             _galleryService = galleryService;
             _wikipediaConnectionService = wikipediaConnectionService;

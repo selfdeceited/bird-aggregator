@@ -24,7 +24,7 @@ namespace bird_aggregator.Hubs
                 _seedService.TruncateDb();
                 await _seedLauncher.Log("DB truncated");
 
-                var count = 1; //_seedService.GetPageCount(); //- for debug
+                var count = _seedService.GetPageCount();
                 var metadata = _seedService.GetMetaData(count);
                 await _seedLauncher.Log("Metadata received");
 

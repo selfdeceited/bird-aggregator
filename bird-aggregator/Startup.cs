@@ -1,4 +1,4 @@
-﻿using System.IO.Compression;
+using System.IO.Compression;
 using bird_aggregator.Hubs;
 using birds.Dao;
 using birds.Services;
@@ -10,6 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.IO;
+using System;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace birds
 {
@@ -22,16 +25,28 @@ namespace birds
 
         public IConfiguration Configuration { get; }
 
+        readonly string CorsPolicy = "_myAllowSpecificOrigins";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "../bird-aggregator-client/build";
+            });
+
+            // todo: for dev env only!
+            services.AddCors(options =>
+            {
+                var builder = new CorsPolicyBuilder()
+                    .WithOrigins("http://localhost:3000")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+
+                options.AddPolicy(CorsPolicy, builder.Build());
             });
 
             services.AddSignalR();
@@ -43,11 +58,11 @@ namespace birds
 
             services.AddResponseCompression();
 
+            var appSettings = Configuration.GetSection(nameof(AppSettings));
+            services.Configure<AppSettings>(appSettings);
             services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase("birds"));
-            
-            var settings = Configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(options => settings.Bind(options));
-            
+           
+
             services.AddScoped<BirdDao>();
             services.AddScoped<FlickrConnectionService>();
             services.AddScoped<SeedService>();
@@ -55,9 +70,6 @@ namespace birds
             services.AddScoped<WikipediaConnectionService>();
 
             services.AddScoped<SeedLauncher>();
-
-
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +86,7 @@ namespace birds
                 app.UseHsts();
             }
 
+            app.UseCors(CorsPolicy);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
@@ -88,10 +101,13 @@ namespace birds
             });
 
             app.UseEndpoints(r => r.MapHub<SeedHub>("seed"));
+            
 
+            Console.WriteLine("env.ContentRootPath is " + env.ContentRootPath);
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "../bird-aggregator-client";
+                spa.Options.SourcePath = Path.Join(env.ContentRootPath, "..\\bird-aggregator-client");
+                Console.WriteLine("spa.Options.SourcePath is " + spa.Options.SourcePath);
 
                 if (env.IsDevelopment())
                 {
