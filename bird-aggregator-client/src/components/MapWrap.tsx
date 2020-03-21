@@ -120,7 +120,7 @@ export class MapWrap extends React.Component<IMapWrapProps, IMapWrapState> {
               >
                   <div className="map-popup">
                         <a
-                            className="pt-button pt-minimal small-reference pt-icon-cross"
+                            className="bp3-button bp3-minimal small-reference bp3-icon-cross"
                             onClick={() => this.removePopup()}></a>
                         <BirdPopup
                             birds={this.state.selectedMarker.birds}

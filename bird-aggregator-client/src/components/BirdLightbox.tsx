@@ -58,7 +58,7 @@ export class BirdLightbox extends React.Component<IBirdLightboxProps, IBirdLight
                 key={this.props.photos[this.state.index].id}
                 to={"/photos/" + this.props.photos[this.state.index].id}
                 role="button"
-                className="pt-button pt-minimal pt-icon-arrow-right lightbox-photo-link">
+                className="bp3-button bp3-minimal bp3-icon-arrow-right lightbox-photo-link">
                 Visit photo page
             </Link>
         </div>

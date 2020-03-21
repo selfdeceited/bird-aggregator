@@ -38,7 +38,7 @@ export class LifeList extends React.Component<ILifeListProps, ILifeListState> {
     public render() {
         const popover = (x: ILifeListDto) => (x.locationId > 0) ?
             (<Blueprint.Popover
-                target={<Blueprint.Button className="pt-button pt-minimal pt-icon-map-marker display-block"/>}
+                target={<Blueprint.Button className="bp3-button bp3-minimal bp3-icon-map-marker display-block"/>}
                 content={<MapWrap asPopup={true} locationIdToShow={x.locationId}/>}/>) : <div></div>
 
         return (
@@ -54,7 +54,7 @@ export class LifeList extends React.Component<ILifeListProps, ILifeListState> {
         </div>
         </Popover>
     </div>
-    <table className="pt-table pt-striped">
+    <table className="bp3-table bp3-striped">
         <thead>
             <tr>
                 <th className="hide-mobile">#</th>
@@ -75,7 +75,7 @@ export class LifeList extends React.Component<ILifeListProps, ILifeListState> {
                                 key={x.photoId}
                                 to={"/photos/" + x.photoId}
                                 role="button"
-                                className="pt-button pt-minimal pt-icon-arrow-right">
+                                className="bp3-button bp3-minimal bp3-icon-arrow-right">
                             </Link>
                         </td>
                         <td className="date-column">{moment(x.dateMet).format("YYYY MM DD")}</td>

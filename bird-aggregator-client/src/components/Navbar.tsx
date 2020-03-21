@@ -20,7 +20,7 @@ const BirdSelect = Select.ofType<Bird>()
 
 const filterBird: ItemPredicate<Bird> = (query: string, bird: Bird) => {
     return `${bird.name.toLowerCase()} ${bird.latin.toLowerCase()}`.indexOf(query.toLowerCase()) >= 0
-};
+}
 
 const renderBird: ItemRenderer<Bird> = (bird: Bird, { handleClick, modifiers })=> (
     <Blueprint.MenuItem
@@ -72,18 +72,18 @@ export default class Navbar extends React.Component<INavbarProps, INavbarState> 
 
     public render() {
         return  (
-<nav className="pt-navbar pt-fixed-top">
-    <div className="pt-navbar-group pt-align-left">
+<nav className="bp3-navbar bp3-fixed-top">
+    <div className="bp3-navbar-group bp3-align-left">
     <div className="logo"></div>
-    <Link to="/" title="Main page" className="pt-navbar-heading"><b>{this.state.owner}</b></Link>
-    <span className="pt-navbar-divider"></span>
-    <Link to="/map" title="Map" role="button" className="pt-button pt-minimal pt-icon-map small-margin">Map</Link>
+    <Link to="/" title="Main page" className="bp3-navbar-heading"><b>{this.state.owner}</b></Link>
+    <span className="bp3-navbar-divider"></span>
+    <Link to="/map" title="Map" role="button" className="bp3-button bp3-minimal bp3-icon-map small-margin">Map</Link>
     <Link to="/triplist" title="Trips" role="button"
-        className="pt-button pt-minimal pt-icon-torch small-margin">Trips</Link>
+        className="bp3-button bp3-minimal bp3-icon-torch small-margin">Trips</Link>
     <Link to="/lifelist" title="Life List" role="button"
-        className="pt-button pt-minimal pt-icon-numbered-list small-margin">Life List</Link>
+        className="bp3-button bp3-minimal bp3-icon-numbered-list small-margin">Life List</Link>
 
-    <span className="pt-navbar-divider"></span>
+    <span className="bp3-navbar-divider"></span>
     <div className="bird-info-select">
         <div className="inline-block">Find specific bird: &nbsp;</div>
         <BirdSelect
@@ -102,14 +102,14 @@ export default class Navbar extends React.Component<INavbarProps, INavbarState> 
             <span>
                 <span className="small-space"></span>
                 <Link to={"/birds/" + this.state.selectedBird.id}
-                    role="button" className="pt-button pt-minimal pt-icon-arrow-right"></Link>
+                    role="button" className="bp3-button bp3-minimal bp3-icon-arrow-right"></Link>
             </span>) : null
         }
     </div>
   </div>
-  <div className="pt-navbar-group pt-align-right">
-    <a role="button" className="pt-button pt-minimal pt-icon-git-repo" href={this.state.github}>GitHub</a>
-    <a role="button" className="pt-button pt-minimal pt-icon-group-objects" href={this.state.flickr}>Flickr</a>
+  <div className="bp3-navbar-group bp3-align-right">
+    <a role="button" className="bp3-button bp3-minimal bp3-icon-git-repo" href={this.state.github}>GitHub</a>
+    <a role="button" className="bp3-button bp3-minimal bp3-icon-group-objects" href={this.state.flickr}>Flickr</a>
   </div>
 </nav>)
     }

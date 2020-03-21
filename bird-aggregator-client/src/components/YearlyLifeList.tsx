@@ -28,7 +28,7 @@ export class YearlyLifeList extends React.Component<IYearlyLifeListProps, IYearl
     public render() {
         return (
 <div>
-    <table className="pt-table pt-striped">
+    <table className="bp3-table bp3-striped">
         <thead>
             <tr>
                 <th className="hide-mobile">Year</th>

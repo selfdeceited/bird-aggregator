@@ -75,12 +75,12 @@ export class SeedProgress extends React.Component<ISeedProgressProps, ISeedProgr
                 <div style={styles.barWrap}>
                 <p>{caption} </p>
                     <div className={
-                        "pt-progress-bar progress-bar " + (current === all
-                         ? "pt-no-stripes pt-no-animation pt-intent-success"
-                         : "pt-intent-primary")
+                        "bp3-progress-bar progress-bar " + (current === all
+                         ? "bp3-no-stripes bp3-no-animation bp3-intent-success"
+                         : "bp3-intent-primary")
                         }
                     >
-                    <div className="pt-progress-meter"
+                    <div className="bp3-progress-meter"
                         style={{ width: `${current / all * 100 }%` }}></div>
                             <span>{current} / {all}</span>
                     </div>
@@ -119,7 +119,7 @@ export class SeedProgress extends React.Component<ISeedProgressProps, ISeedProgr
                         </div>
                     </Popover>
                     <div id="seed-log">{this.state.stateString}</div>
-                    <Button text="Hide" onClick={this.hide} className="pt-button pt-minimal pt-small"/>
+                    <Button text="Hide" onClick={this.hide} className="bp3-button bp3-minimal bp3-small"/>
                 </div>
                 ) : null
             }

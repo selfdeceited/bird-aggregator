@@ -52,7 +52,7 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
             <div>
                 <h2 className="latest-shots">Latest photos</h2>
                 <Link to="/gallery" role="button"
-                    className="pt-button pt-minimal pt-icon-camera small-margin">
+                    className="bp3-button bp3-minimal bp3-icon-camera small-margin">
                     Check Out Full Gallery
                 </Link>
             </div>

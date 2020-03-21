@@ -30,7 +30,7 @@ export class BirdPopup extends React.Component<IBirdPopupProps, IBirdPopupState>
                                 key={x.id}
                                 to={"/birds/" + x.id}
                                 role="button"
-                                className="pt-button pt-minimal pt-icon-arrow-right display-block small-reference">
+                                className="bp3-button bp3-minimal bp3-icon-arrow-right display-block small-reference">
                                     {x.name}
                             </Link>
                         ))
