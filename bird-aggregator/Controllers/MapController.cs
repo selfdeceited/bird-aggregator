@@ -53,6 +53,7 @@ namespace birds.Controllers
 		        yield break;
 
 	        var locationIds = _context.Photos
+                .ToList()
 		        .Where(x => x.BirdIds.Contains(id))
 		        .Select(x => x.LocationId);
 

@@ -40,7 +40,9 @@ namespace birds.Controllers
         [HttpGet("gallery/{id}")]
         public IEnumerable<PhotoDto> GetGallery(int id)
         {
-             var photos = _context.Photos.Where(x => x.BirdIds.Contains(id)).ToList()
+            // TODO: fix performance!
+            var photos = _context.Photos.ToList()
+                .Where(x => x.BirdIds.Contains(id))
                 .OrderByDescending(x => x.DateTaken);
 
             return _galleryService.GetGallery(photos);
@@ -49,10 +51,14 @@ namespace birds.Controllers
         [HttpGet("lifelist")]
         public IEnumerable<object> GetLifeList()
         {
-            var grouping = _birdDao.GetAll().Select(x => new LifeListGrouping
+            var allPhotos = _context.Photos.ToList();
+            var grouping = _birdDao
+                .GetAll()
+                .ToList()
+                .Select(x => new LifeListGrouping
             {
                 Bird = x,
-                Photos = _context.Photos.Where(p => p.BirdIds.Contains(x.Id))
+                Photos = allPhotos.Where(p => p.BirdIds.Contains(x.Id))
             }).Where(x => x.Photos.Any());
 
             var localList = new List<LifeListDto>();

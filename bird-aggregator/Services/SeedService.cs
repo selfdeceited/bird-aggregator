@@ -61,7 +61,7 @@ namespace birds.Services
 		        FlickrId = photo.id,
 		        FarmId = photo.farm,
 		        ServerId = photo.server,
-		        Secret = photo.secret,
+		        Secret = extraPhotoInfo.photo.originalsecret,
 		        DateTaken = DateTime.Parse(extraPhotoInfo.photo.dates.taken),
 		        Description = extraPhotoInfo.photo.description._content,
 		        Ratio = ratio,

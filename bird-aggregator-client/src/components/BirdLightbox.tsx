@@ -34,16 +34,17 @@ export class BirdLightbox extends React.Component<IBirdLightboxProps, IBirdLight
                 (previousValue: (U|T)[][], currentValue: (U|T)[]) => 
                       previousValue.map((p, i) => [...p, currentValue[i]])
                 , list.map(x=> [x]) as (U|T)[][]
-            );
+            )
         }
 
         const photoTitles = zip(
-            this.props.photos[this.state.index].caption.split(","), 
+            this.props.photos[this.state.index].caption.split(","),
             this.props.photos[this.state.index].birdIds)
 
         const getTitle = () => <div>
             {
                 photoTitles.map((arr: (string | number)[], i: number) => <Link
+                      key={arr[0]}
                       className="big-link lightbox-caption"
                       to={`/birds/${arr[1]}`}>
                       {arr[0]}

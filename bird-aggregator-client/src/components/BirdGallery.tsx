@@ -74,7 +74,7 @@ export class BirdGallery extends React.Component<any, IBirdGalleryState>  {
     }
 
     private fetchWikiInfo(props: any) {
-        axios.get(`api/birds/wiki/` + props.match.params.id).then(res => {
+        axios.get(`/api/birds/wiki/` + props.match.params.id).then(res => {
             const wikiData = res.data
             const extract = JSON.parse(wikiData.wikiInfo)
             const html = extract.query.pages[Object.keys(extract.query.pages)[0]].extract
