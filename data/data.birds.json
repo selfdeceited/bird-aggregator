@@ -1,0 +1,42 @@
+[
+    {
+      "id": 1,
+      "name": "Common Linnet (Linaria cannabina)"
+    },
+    {
+      "id": 2,
+      "name": "Common Starling (Sturnus vulgaris)"
+    },
+    {
+      "id": 3,
+      "name": "Western Yellow Wagtail (Motacilla flava)"
+    },
+    {
+      "id": 4,     
+      "name": "Wood Sandpiper (Tringa glareola)"
+    },
+    {
+      "id": 5,
+      "name": "Common Cuckoo (Cuculus canorus)"
+    },
+    {
+      "id": 6,
+      "name": "Common Gull (Larus canus)"
+    },
+    {
+      "id": 7,
+      "name": "Black Tern (Chlidonias niger)"
+    },
+    {
+      "id": 8,
+      "name": "White-Winged Tern (Chlidonias leucopterus)"
+    },
+    {
+      "id": 9,
+      "name": "Northern Lapwing (Vanellus vanellus)"
+    },
+    {
+      "id": 10,
+      "name": "Eurasian Skylark (Alauda arvensis)"
+    }
+  ]

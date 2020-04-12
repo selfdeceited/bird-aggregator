@@ -1,41 +1,34 @@
 using System.Threading;
 using System.Threading.Tasks;
-using BirdAggregator.Application.Configuration.Data;
 using BirdAggregator.Application;
 using BirdAggregator.Application.Birds.GetBirdsQuery;
 using System.Collections.Generic;
+using System.Linq;
+using BirdAggregator.Domain.Birds;
+using System.Threading.Tasks;
 
 namespace SampleProject.Application.Customers.GetCustomerDetails
 {
     public class GetBirdsQueryHandler : IQueryHandler<GetBirdsQuery, BirdListDto>
     {
-        public GetBirdsQueryHandler()
+        private readonly IBirdRepository _birdRepository;
+        public GetBirdsQueryHandler(IBirdRepository birdRepository)
         {
-            
+            _birdRepository = birdRepository;
         }
 
-        public Task<BirdListDto> Handle(GetBirdsQuery request, CancellationToken cancellationToken)
+        public async Task<BirdListDto> Handle(GetBirdsQuery request, CancellationToken cancellationToken)
         {
-            const string query = ""; // TODO: LOGIC HERE
-            //var connection = _connectionFactory.GetOpenConnection();
+            var allBirds = await _birdRepository.GetAllAsync();          
 
-            //return connection.GetAsync<List<BirdDto>>(query, request);
-            var fakeData = new BirdListDto {
-                Birds = new List<BirdDto>{
-                    new BirdDto {
-                        Id = 1,
-                        Name = "Bird 1",
-                        Latin = "Avis 1"
-                    },
-                    new BirdDto {
-                        Id = 2,
-                        Name = "Bird 2",
-                        Latin = "Avis 2"
-                    }
-                }
+            return new BirdListDto {
+                Birds = allBirds.Select(bird => new BirdDto {
+                    Id = bird.Id,
+                    Latin = bird.LatinName,
+                    Name = bird.EnglishName
+                }).ToList()
+                // TODO: add Automapper!
             };
-
-            return Task.FromResult(fakeData);
         }
     }
 }

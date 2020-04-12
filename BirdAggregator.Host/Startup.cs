@@ -15,6 +15,8 @@ using MediatR;
 using System.Reflection;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using BirdAggregator.Application.Birds.GetBirdsQuery;
+using BirdAggregator.Domain.Birds;
+using BirdAggregator.Infrastructure.DataAccess.Birds;
 
 //[assembly: UserSecretsId("c10e1a7d-8e00-44f5-a9ff-1a86af9e068a")]
 namespace birds
@@ -67,12 +69,18 @@ namespace birds
 
             services.AddResponseCompression();
 
-            services.AddMediatR(Assembly.GetExecutingAssembly(), typeof(GetBirdsQuery).Assembly);
+            // todo: IoC to infra layer!
+            services.AddMediatR(Assembly.GetExecutingAssembly(),
+                typeof(GetBirdsQuery).Assembly,
+                typeof(BirdRepository).Assembly,
+                typeof(Bird).Assembly
+                );
+
+            services.AddScoped<IBirdRepository, BirdRepository>();
+            // end todo: IoC to infra layer!
 
             //var serviceProvider = services.BuildServiceProvider();
-
             //var appSettings = this._configuration.GetSection(nameof(AppSettings)).Get<AppSettings>;
-
             //return ApplicationStartup.Initialize(services, appSettings);
         }
 

@@ -1,4 +1,5 @@
 using System;
+using BirdAggregator.Domain.Birds;
 
 namespace BirdAggregator.Domain
 {
