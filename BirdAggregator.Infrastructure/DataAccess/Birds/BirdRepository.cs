@@ -9,10 +9,16 @@ namespace BirdAggregator.Infrastructure.DataAccess.Birds
 {
     public class BirdRepository: IBirdRepository {
         public async Task<List<Bird>> GetAllAsync() {
-            var fileContent = File.ReadAllText(@"../data/data.birds.json");
+            var fileContent = await File.ReadAllTextAsync(@"../data/data.birds.json");
             var birdsModel = JsonConvert.DeserializeObject<List<BirdModel>>(fileContent);
 
             return birdsModel.Select(model => new Bird(model.Id, model.Name)).ToList();
+        }
+
+        public async Task<List<Bird>> GetBirdsByIds(IEnumerable<int> birdIds)
+        {
+            var allBirds = await GetAllAsync();
+            return allBirds.Where(bird => birdIds.Contains(bird.Id)).ToList();
         }
     }
 }

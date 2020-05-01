@@ -9,14 +9,13 @@ using Microsoft.Extensions.Hosting;
 using System.IO;
 using System;
 using Microsoft.AspNetCore.Cors.Infrastructure;
-using BirdAggregator.Application.Configuration;
 using BirdAggregator.Host.Configuration;
 using MediatR;
 using System.Reflection;
-using Microsoft.Extensions.Configuration.UserSecrets;
 using BirdAggregator.Application.Birds.GetBirdsQuery;
 using BirdAggregator.Domain.Birds;
 using BirdAggregator.Infrastructure.DataAccess.Birds;
+using BirdAggregator.Domain.Photos;
 
 //[assembly: UserSecretsId("c10e1a7d-8e00-44f5-a9ff-1a86af9e068a")]
 namespace birds
@@ -77,6 +76,7 @@ namespace birds
                 );
 
             services.AddScoped<IBirdRepository, BirdRepository>();
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
             // end todo: IoC to infra layer!
 
             //var serviceProvider = services.BuildServiceProvider();

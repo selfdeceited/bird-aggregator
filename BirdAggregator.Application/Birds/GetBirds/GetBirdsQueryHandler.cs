@@ -2,11 +2,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using BirdAggregator.Application;
 using BirdAggregator.Application.Birds.GetBirdsQuery;
-using System.Collections.Generic;
 using System.Linq;
 using BirdAggregator.Domain.Birds;
-using System.Threading.Tasks;
-
+using BirdAggregator.Application.Birds;
+ 
 namespace SampleProject.Application.Customers.GetCustomerDetails
 {
     public class GetBirdsQueryHandler : IQueryHandler<GetBirdsQuery, BirdListDto>
