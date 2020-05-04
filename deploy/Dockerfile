@@ -24,3 +24,6 @@
  COPY --from=builder /app .
 
  CMD ASPNETCORE_URLS=http://*:$PORT dotnet birds.dll
+
+
+ #HEALTHCHECK CMD curl --fail https://localhost:5001/healthcheck || exit

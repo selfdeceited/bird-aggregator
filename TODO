@@ -6,13 +6,21 @@ Bird-Aggregator 2.0 release-ready checklist
 [x] resolve new 500s for server-side
 [ ] succesfully run prod version in Docker
 [ ] Check at app start if all appSettings params has been set correctly
-[ ] add health checks
+[.] add health checks
+ - Flickr
+ - DB
+ 
 [.] Set up a domain via the DDD; Move to hexagonal architecture
 [ ] Move to MongoDB as a primary storage
 [ ] use docker-compose to set up an env
 [ ] run tests in CI
 [ ] Change update mechanism by implementing a saga
-[ ] integration tests
+[.] integration tests
+ - https://localhost:5001/api/birds
+ - https://localhost:5001/api/gallery/bird/3
+ - https://localhost:5001/api/gallery/photo/1
+ - https://localhost:5001/api/gallery/2000
+ - https://localhost:5001/api/gallery/photo/1/websitelink
 
 Migration
 
@@ -25,8 +33,8 @@ Birds
 
 Photos
 [x] Gallery/x
-[ ] By photo ID
-[ ] Flickr direct link per photo
+[x] By photo ID
+[x] Flickr direct link per photo - IOptions needed
 
 Stats
 [ ] LifeList
@@ -45,3 +53,7 @@ Metadata
 
 Commands
 [ ] Add Photo
+============================================
+[ ] Edit Photo Metadata
+[ ] Add Photo Location
+[ ] Re-identify bird on photo

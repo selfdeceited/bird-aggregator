@@ -1,7 +1,5 @@
-using System;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 using System.Threading.Tasks;
 using BirdAggregator.Application.Birds.GetBirdsQuery;
 

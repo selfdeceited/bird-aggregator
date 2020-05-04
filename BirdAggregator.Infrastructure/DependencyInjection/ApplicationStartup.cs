@@ -1,0 +1,34 @@
+﻿using BirdAggregator.Application.Configuration;
+using System;
+using Microsoft.Extensions.DependencyInjection;
+using BirdAggregator.Domain.Birds;
+using BirdAggregator.Domain.Photos;
+using BirdAggregator.Infrastructure.Flickr;
+using BirdAggregator.Infrastructure.DataAccess.Birds;
+
+namespace BirdAggregator.Infrastructure.DependencyInjection
+{
+    public class ApplicationStartup
+    {
+        public static IServiceProvider Initialize(
+            IServiceCollection services,
+            AppSettings appSettings)
+        {
+            var serviceProvider = CreateServiceProvider(services, appSettings);
+
+            return serviceProvider;
+        }
+
+        private static IServiceProvider CreateServiceProvider(
+            IServiceCollection services,
+            AppSettings appSettings)
+        {                     
+            services.AddScoped<IBirdRepository, BirdRepository>();
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
+            services.AddScoped<IPictureHostingService, FlickrService>();
+            services.AddSingleton<AppSettings>(appSettings);
+            var serviceProvider = services.BuildServiceProvider();
+            return serviceProvider;
+        }
+    }
+}

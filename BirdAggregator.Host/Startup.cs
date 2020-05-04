@@ -15,9 +15,12 @@ using System.Reflection;
 using BirdAggregator.Application.Birds.GetBirdsQuery;
 using BirdAggregator.Domain.Birds;
 using BirdAggregator.Infrastructure.DataAccess.Birds;
-using BirdAggregator.Domain.Photos;
+using BirdAggregator.Application.Configuration;
+using BirdAggregator.Infrastructure.DependencyInjection;
+using BirdAggregator.Infrastructure.HealthChecks;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
-//[assembly: UserSecretsId("c10e1a7d-8e00-44f5-a9ff-1a86af9e068a")]
+[assembly: UserSecretsId("c10e1a7d-8e00-44f5-a9ff-1a86af9e068a")]
 namespace birds
 {    
     public class Startup
@@ -31,7 +34,7 @@ namespace birds
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
                 .AddJsonFile($"hosting.{env.EnvironmentName}.json")
-                //.AddUserSecrets<Startup>()
+                .AddUserSecrets<Startup>()
                 .Build();
         }
 
@@ -39,6 +42,11 @@ namespace birds
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+             /*services
+                .AddHealthChecksUI()
+                .AddInMemoryStorage();*/
+            
             services.AddControllersWithViews();
 
             services.AddSwaggerDocumentation();
@@ -68,20 +76,19 @@ namespace birds
 
             services.AddResponseCompression();
 
-            // todo: IoC to infra layer!
+            // todo: MediaTr IoC to infra layer!
             services.AddMediatR(Assembly.GetExecutingAssembly(),
                 typeof(GetBirdsQuery).Assembly,
                 typeof(BirdRepository).Assembly,
                 typeof(Bird).Assembly
-                );
+            );
 
-            services.AddScoped<IBirdRepository, BirdRepository>();
-            services.AddScoped<IPhotoRepository, PhotoRepository>();
-            // end todo: IoC to infra layer!
+            var appSettings = _configuration.GetSection(nameof(AppSettings)).Get<AppSettings>();
+            var sp = ApplicationStartup.Initialize(services, appSettings);
 
-            //var serviceProvider = services.BuildServiceProvider();
-            //var appSettings = this._configuration.GetSection(nameof(AppSettings)).Get<AppSettings>;
-            //return ApplicationStartup.Initialize(services, appSettings);
+            services.AddHealthChecks()
+                .AddCheck<FlickrHealthCheck>("flickr-access")
+                .AddProcessAllocatedMemoryHealthCheck(200 * 1000 * 1000);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -109,6 +116,9 @@ namespace birds
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+
+                endpoints.MapHealthChecks("/health");
+                //endpoints.MapHealthChecksUI();
             });
 
             //app.UseEndpoints(r => r.MapHub<SeedHub>("seed"));

@@ -8,9 +8,11 @@ namespace BirdAggregator.Application.Photos.GetGalleryForBirdQuery
     public class GetGalleryForBirdQueryHanlder : IQueryHandler<GetGalleryForBirdQuery, GetGalleryQueryDto>
     {
         private readonly IPhotoRepository _photoRepository;
-        public GetGalleryForBirdQueryHanlder(IPhotoRepository photoRepository)
+        private readonly IPictureHostingService _pictureHostingService;
+        public GetGalleryForBirdQueryHanlder(IPhotoRepository photoRepository, IPictureHostingService pictureHostingService)
         {
             _photoRepository = photoRepository;
+            _pictureHostingService = pictureHostingService;
         }
 
         public async Task<GetGalleryQueryDto> Handle(GetGalleryForBirdQuery request, CancellationToken cancellationToken)
@@ -19,9 +21,10 @@ namespace BirdAggregator.Application.Photos.GetGalleryForBirdQuery
             
             return new GetGalleryQueryDto {
                 Photos = gallery.Select(_ => {
-                   return new PhotoDto {
-                        Original = _.Url.Original,
-                        Src = _.Url.Thumbnail,
+                    var links = _pictureHostingService.GetAllImageLinks(_.PhotoInformation);
+                    return new PhotoDto {
+                        Original = links.OriginalLink,
+                        Src = links.ThumbnailLink,
                         Caption = _.Caption,
                         Id = _.Id,
                         DateTaken = _.DateTaken,

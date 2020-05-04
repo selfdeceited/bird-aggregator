@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using BirdAggregator.Domain.Birds;
+using BirdAggregator.Infrastructure.Flickr;
 
 namespace BirdAggregator.Infrastructure.DataAccess.Birds
 {
@@ -22,11 +23,11 @@ namespace BirdAggregator.Infrastructure.DataAccess.Birds
             var photoModels = JsonConvert.DeserializeObject<List<PhotoModel>>(fileContent);
             var birdResults = await Task.WhenAll(photoModels.Select(model => _birdRepository.GetBirdsByIds(model.BirdIds)));
 
-
-            Photo Project((List<Bird> birds, PhotoModel model) tuple) {
+            Photo Project((List<Bird> birds, PhotoModel model) tuple)
+            {
                 var model = tuple.model;
-                var birds = tuple.birds;
-                return new Photo(model.Id, model.LocationId, model.FlickrId, model.FarmId, model.ServerId, birds, model.DateTaken, model.Ratio, model.Secret, model.Description);
+                var photoInformation = new FlickrPhotoInformation(model.FlickrId, model.FarmId, model.ServerId, model.Secret);
+                return new Photo(model.Id, model.LocationId, photoInformation, tuple.birds, model.DateTaken, model.Ratio, model.Description);
             }
             
             return birdResults.ToList()
@@ -38,6 +39,12 @@ namespace BirdAggregator.Infrastructure.DataAccess.Birds
         {
             var allPhotos = await GetAllAsync();
             return allPhotos.Take(count).ToList();
+        }
+
+        public async Task<Photo> GetById(int photoId)
+        {
+            var allPhotos = await GetAllAsync();
+            return allPhotos.SingleOrDefault(x => x.Id == photoId);
         }
 
         public async Task<List<Photo>> GetGalleryForBirdAsync(int birdId)

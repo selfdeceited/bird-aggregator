@@ -8,5 +8,6 @@ namespace BirdAggregator.Domain.Photos
         Task<List<Photo>> GetAllAsync();
         Task<List<Photo>> GetGalleryForBirdAsync(int birdId);
         Task<List<Photo>> GetAllAsync(int count);
+        Task<Photo> GetById(int photoId);
     }
 }

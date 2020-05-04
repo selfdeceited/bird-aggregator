@@ -1,8 +1,9 @@
 ﻿using System;
+using BirdAggregator.Domain.Interfaces;
 
 namespace BirdAggregator.Domain.Birds
 {
-    public class Bird
+    public class Bird: IAggregateRoot
     {
         public Bird(int id, string name) {
             if (id <= 0) {
