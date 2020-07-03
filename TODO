@@ -16,11 +16,6 @@ Bird-Aggregator 2.0 release-ready checklist
 [ ] run tests in CI
 [ ] Change update mechanism by implementing a saga
 [.] integration tests
- - https://localhost:5001/api/birds
- - https://localhost:5001/api/gallery/bird/3
- - https://localhost:5001/api/gallery/photo/1
- - https://localhost:5001/api/gallery/2000
- - https://localhost:5001/api/gallery/photo/1/websitelink
 
 Migration
 
@@ -29,7 +24,7 @@ Queries
 Birds
 [x] GetBirds
 [x] GetGallery Per Bird
-[ ] Wiki info per bird
+[x] Wiki info per bird
 
 Photos
 [x] Gallery/x

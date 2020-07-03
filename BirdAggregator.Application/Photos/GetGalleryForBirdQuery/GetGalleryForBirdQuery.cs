@@ -6,6 +6,6 @@ namespace BirdAggregator.Application.Photos.GetGalleryForBirdQuery
         public GetGalleryForBirdQuery(int id)
         {
             BirdId = id;
-        }       
+        }
     }
 }

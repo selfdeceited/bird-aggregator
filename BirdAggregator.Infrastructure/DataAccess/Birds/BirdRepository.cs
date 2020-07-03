@@ -8,6 +8,12 @@ using System.Collections.Generic;
 namespace BirdAggregator.Infrastructure.DataAccess.Birds
 {
     public class BirdRepository: IBirdRepository {
+        public async Task<Bird> Get(int birdId)
+        {
+            var allBirds = await GetAllAsync();
+            return allBirds.SingleOrDefault(bird => bird.Id == birdId);
+        }
+
         public async Task<List<Bird>> GetAllAsync() {
             var fileContent = await File.ReadAllTextAsync(@"../data/data.birds.json");
             var birdsModel = JsonConvert.DeserializeObject<List<BirdModel>>(fileContent);

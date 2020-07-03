@@ -5,6 +5,7 @@ using BirdAggregator.Domain.Birds;
 using BirdAggregator.Domain.Photos;
 using BirdAggregator.Infrastructure.Flickr;
 using BirdAggregator.Infrastructure.DataAccess.Birds;
+using BirdAggregator.Infrastructure.Wikipedia;
 
 namespace BirdAggregator.Infrastructure.DependencyInjection
 {
@@ -26,6 +27,7 @@ namespace BirdAggregator.Infrastructure.DependencyInjection
             services.AddScoped<IBirdRepository, BirdRepository>();
             services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IPictureHostingService, FlickrService>();
+            services.AddScoped<IInformationService, WikipediaService>();
             services.AddSingleton<AppSettings>(appSettings);
             var serviceProvider = services.BuildServiceProvider();
             return serviceProvider;

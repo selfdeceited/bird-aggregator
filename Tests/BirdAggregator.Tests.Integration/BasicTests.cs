@@ -26,6 +26,7 @@ namespace BirdAggregator.Tests.Integration
         [InlineData("/api/gallery/photo/1")]
         [InlineData("/api/gallery/50")]
         [InlineData("/api/gallery/photo/1/websitelink")]
+        [InlineData("/api/birds/info/1")]
         public async Task Get_EndpointsReturnSuccessAndCorrectContentType(string url)
         {
             // Arrange

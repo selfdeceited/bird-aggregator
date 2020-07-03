@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using BirdAggregator.Application.Birds.GetBirdsQuery;
+using BirdAggregator.Application.Birds.GetBirdInfo;
 
 namespace birds.Controllers
 {
@@ -20,6 +21,13 @@ namespace birds.Controllers
         {
             var orders = await _mediator.Send(new GetBirdsQuery());
             return Ok(orders);
+        }
+
+        [HttpGet("info/{id}")]
+        public async Task<IActionResult> GetInfo(int id)
+        {
+            var info = await _mediator.Send(new GetBirdInfoQuery(id));
+            return Ok(info);
         }
 
         /*
