@@ -29,8 +29,8 @@ export class LifeList extends React.Component<ILifeListProps, ILifeListState> {
         }
     }
     public componentDidMount() {
-        axios.get(`/api/birds/lifelist`).then(res => {
-            const lifeList = res.data as ILifeListDto[]
+        axios.get(`/api/lifelist`).then(res => {
+            const lifeList = res.data.firstOccurences as ILifeListDto[]
             this.setState({ lifeList })
         })
     }

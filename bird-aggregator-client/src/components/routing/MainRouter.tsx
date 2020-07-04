@@ -17,13 +17,13 @@ export default class MainRouter extends React.Component<IMainRouterProps, IMainR
 const previewGalleryRoute = (
 <GalleryWrap
     seeFullGalleryLink={true}
-    urlToFetch={`/api/photos/gallery/100`}/>)
+    urlToFetch={`/api/gallery/100`}/>)
 
 const fullGalleryRoute = (
 <div>
     <GalleryWrap
         seeFullGalleryLink={false}
-        urlToFetch={`/api/photos/gallery/9000`}/>
+        urlToFetch={`/api/gallery/9000`}/>
 </div>
 )
 
@@ -33,8 +33,9 @@ const fullGalleryRoute = (
 const defaultMapWrap = (<MapWrap asPopup={false} locationIdToShow={undefined}/>)
 
 return (
+    // <SeedProgress/>
+
     <main>
-        <SeedProgress/>
         <Switch>
           <Route exact path="/" render={() => previewGalleryRoute }/>
           <Route path="/lifelist" component={LifeList}/>

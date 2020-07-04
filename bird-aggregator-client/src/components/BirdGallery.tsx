@@ -36,7 +36,7 @@ export class BirdGallery extends React.Component<any, IBirdGalleryState>  {
                 <div className="half-screen">
                 <GalleryWrap
                     seeFullGalleryLink={false}
-                    urlToFetch={`/api/birds/gallery/` + this.props.match.params.id}
+                    urlToFetch={`/api/gallery/bird/` + this.props.match.params.id}
                     />
                 </div>
                     <div className="flex-container body fourty">
@@ -74,20 +74,35 @@ export class BirdGallery extends React.Component<any, IBirdGalleryState>  {
     }
 
     private fetchWikiInfo(props: any) {
-        axios.get(`/api/birds/wiki/` + props.match.params.id).then(res => {
+        axios.get(`/api/birds/info/` + props.match.params.id).then(res => {
             const wikiData = res.data
             const extract = JSON.parse(wikiData.wikiInfo)
             const html = extract.query.pages[Object.keys(extract.query.pages)[0]].extract
 
             const div = document.createElement("div")
             div.innerHTML = html
-            const firstDiv = div.getElementsByTagName("p")[0]
-            if (firstDiv) {
-                const chapter = firstDiv.outerHTML
-                this.setState({ wikiData: { name: res.data.name, wikiInfo: chapter, imageUrl: res.data.imageUrl } })
-            } else {
+
+            try {
+                const chapters = this.fillChapters(div)
+                this.setState({ wikiData: { name: res.data.name, wikiInfo: chapters.outerHTML, imageUrl: res.data.imageUrl } })
+            }
+            catch {
                 this.setState({ wikiData: null as unknown as IWikiData } as IBirdGalleryState)
             }
         })
+    }
+
+    private fillChapters(div: HTMLDivElement): HTMLDivElement
+    {
+        const finalContainer = document.createElement("div")
+        const paragraphs = Array.prototype.slice.call(div.getElementsByTagName("p")).filter(x => x.innerHTML.length > 2)
+        // tslint:disable-next-line: prefer-for-of
+        for (let i = 0 ; i < paragraphs.length; i++) {
+            finalContainer.append(paragraphs[i])
+            if (finalContainer.innerHTML.length > 1000)
+                break
+        }
+
+        return finalContainer
     }
 }

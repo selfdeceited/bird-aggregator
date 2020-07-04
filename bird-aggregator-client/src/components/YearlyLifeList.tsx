@@ -19,8 +19,8 @@ export class YearlyLifeList extends React.Component<IYearlyLifeListProps, IYearl
         }
     }
     public componentDidMount() {
-        axios.get(`/api/birds/lifelist/peryear`).then(res => {
-            const lifeList = res.data as IYearlyLifeListDto[]
+        axios.get(`/api/lifelist/peryear`).then(res => {
+            const lifeList = res.data.perYearCollection as IYearlyLifeListDto[]
             this.setState({ lifeList })
         })
     }

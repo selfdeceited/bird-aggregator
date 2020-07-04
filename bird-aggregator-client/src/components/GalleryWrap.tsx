@@ -105,7 +105,7 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
 
     private fetchTheUrl(url: string) {
         axios.get(url).then((res) => {
-            const images = res.data.map((x: Image) => {
+            const images = res.data.photos.map((x: Image) => {
                 x.tags = [{title: x.caption, value: x.caption}]
                 return x
             })

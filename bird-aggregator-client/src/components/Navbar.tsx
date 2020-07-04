@@ -46,23 +46,23 @@ export default class Navbar extends React.Component<INavbarProps, INavbarState> 
     }
 
     public componentDidMount() {
-        axios.get(`/api/meta/flickr`).then(res => {
+        axios.get(`/api/links/flickr`).then(res => {
             const flickr = res.data
             this.setState({ flickr })
         })
 
-        axios.get(`/api/meta/github`).then(res => {
+        axios.get(`/api/links/github`).then(res => {
             const github = res.data
             this.setState({ github })
         })
 
-        axios.get(`/api/meta/user`).then(res => {
+        axios.get(`/api/links/user`).then(res => {
             const owner = res.data
             this.setState({ owner })
         })
 
         axios.get(`/api/birds/`).then(res => {
-            const birds = res.data
+            const birds = res.data.birds
             this.setState({ birds })
 
             const selectedBird = birds[0]
