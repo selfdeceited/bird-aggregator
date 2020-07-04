@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using BirdAggregator.Domain.Birds;
 using BirdAggregator.Domain.Photos;
-using MediatR;
 
 namespace BirdAggregator.Application.Birds.GetBirdInfo
 {

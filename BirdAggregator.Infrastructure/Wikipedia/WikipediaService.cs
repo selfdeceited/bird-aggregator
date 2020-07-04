@@ -11,8 +11,13 @@ namespace BirdAggregator.Infrastructure.Wikipedia
     {
         public Task<IBirdInfo> Get(string englishName)
         {
+            var extract = CallWikipediaExtract(englishName);
+            if (extract.Contains("may refer to")){
+                extract = CallWikipediaExtract(englishName + "_(bird)");
+            }
+
             return Task.FromResult(new BirdInfo {
-                Description = CallWikipediaExtract(englishName),
+                Description = extract,
                 ImageLink = CallWikipediaImages(englishName)
             } as IBirdInfo);
         }
