@@ -1,33 +1,31 @@
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using BirdAggregator.Domain.Birds;
+using BirdAggregator.Domain.Photos;
 
 namespace BirdAggregator.Application.LifeList.GetLifeListPerYearQuery
 {
     public class GetLifeListPerYearQueryHandler : IQueryHandler<GetLifeListPerYearQuery, GetLifeListPerYearDto>
     {
-        private readonly IBirdRepository _birdRepository;
-        public GetLifeListPerYearQueryHandler(IBirdRepository birdRepository)
+        private readonly IPhotoRepository _photoRepository;
+        public GetLifeListPerYearQueryHandler(IPhotoRepository photoRepository)
         {
-            _birdRepository = birdRepository;
+            _photoRepository = photoRepository;
         }
 
         public async Task<GetLifeListPerYearDto> Handle(GetLifeListPerYearQuery request, CancellationToken cancellationToken)
         {
-            /*
-                var yearsGrouping = _context.Photos.GroupBy(x => x.DateTaken.Year);
-                return yearsGrouping.Select(x => new {x.Key, Count = x.SelectMany(_=>_.BirdIds).Distinct().Count()});
-            */
+            var allPhotos = await _photoRepository.GetAllAsync();
+            
+            var yearsGrouping = allPhotos.GroupBy(x => x.DateTaken.Year);
+                      
             return new GetLifeListPerYearDto
             {
-                PerYearCollection = new List<PerYearInfo>
+                PerYearCollection = yearsGrouping.Select(x => new PerYearInfo
                 {
-                    new PerYearInfo {
-                        Key = 2020,
-                        Count = 42
-                    }
-                }
+                    Key = x.Key,
+                    Count = x.SelectMany(_ => _.Birds).Distinct().Count()
+                }).ToList()
             };
         }
     }
