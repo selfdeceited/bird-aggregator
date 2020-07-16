@@ -1,32 +1,22 @@
 import * as axios from "../http.adapter"
 import * as React from "react"
-
-interface IYearlyLifeListProps {}
-interface IYearlyLifeListState {
-    lifeList: IYearlyLifeListDto[]
-}
+import { useEffect, useState } from "react"
 
 interface IYearlyLifeListDto {
     key: number,
     count: number
 }
 
-export class YearlyLifeList extends React.Component<IYearlyLifeListProps, IYearlyLifeListState> {
-    constructor(props: IYearlyLifeListProps) {
-        super(props)
-        this.state = {
-            lifeList: [],
-        }
-    }
-    public componentDidMount() {
-        axios.get(`/api/lifelist/peryear`).then(res => {
-            const lifeList = res.data.perYearCollection as IYearlyLifeListDto[]
-            this.setState({ lifeList })
-        })
-    }
+export const YearlyLifeList: React.FC = () => {
+    const [lifelist, setLifelist] = useState<IYearlyLifeListDto[]>([])
+    useEffect(() => {
+        (async () => {
+            const res = await axios.get(`/api/lifelist/peryear`)
+            setLifelist(res.data.perYearCollection as IYearlyLifeListDto[])
+        })()
+    })
 
-    public render() {
-        return (
+    return (
 <div>
     <table className="bp3-table bp3-striped">
         <thead>
@@ -37,7 +27,7 @@ export class YearlyLifeList extends React.Component<IYearlyLifeListProps, IYearl
         </thead>
         <tbody className="life-list-table">
             {
-                this.state.lifeList.map((x: IYearlyLifeListDto, i: number) =>
+                lifelist.map((x: IYearlyLifeListDto, i: number) =>
                 (
                     <tr key={i}>
                         <td>
@@ -50,5 +40,4 @@ export class YearlyLifeList extends React.Component<IYearlyLifeListProps, IYearl
         </tbody>
     </table>
 </div>)
-    }
 }

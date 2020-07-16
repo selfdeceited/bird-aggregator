@@ -6,11 +6,7 @@ import * as React from "react"
 import { Link } from "react-router-dom"
 import { MapWrap } from "./MapWrap"
 import { YearlyLifeList } from "./YearlyLifeList"
-
-interface ILifeListProps {}
-interface ILifeListState {
-    lifeList: ILifeListDto[],
-}
+import { useEffect, useState } from "react"
 
 interface ILifeListDto {
     birdId: number,
@@ -21,22 +17,17 @@ interface ILifeListDto {
     photoId: number
 }
 
-export class LifeList extends React.Component<ILifeListProps, ILifeListState> {
-    constructor(props: ILifeListProps) {
-        super(props)
-        this.state = {
-            lifeList: [],
-        }
-    }
-    public componentDidMount() {
-        axios.get(`/api/lifelist`).then(res => {
-            const lifeList = res.data.firstOccurences as ILifeListDto[]
-            this.setState({ lifeList })
-        })
-    }
+export const LifeList: React.FC = () => {
+    const [lifelist, setLifelist] = useState<ILifeListDto[]>([])
 
-    public render() {
-        const popover = (x: ILifeListDto) => (x.locationId > 0) ?
+    useEffect(() => {
+        (async () => {
+            const res = await axios.get(`/api/lifelist`)
+            setLifelist(res.data.firstOccurences as ILifeListDto[])
+        })()
+    })
+
+    const popover = (x: ILifeListDto) => (x.locationId > 0) ?
             (<Blueprint.Popover
                 target={<Blueprint.Button className="bp3-button bp3-minimal bp3-icon-map-marker display-block"/>}
                 content={<MapWrap asPopup={true} locationIdToShow={x.locationId}/>}/>) : <div></div>
@@ -65,7 +56,7 @@ export class LifeList extends React.Component<ILifeListProps, ILifeListState> {
         </thead>
         <tbody className="life-list-table">
             {
-                this.state.lifeList.map((x: ILifeListDto, i: number) =>
+                lifelist.map((x: ILifeListDto, i: number) =>
                 (
                     <tr key={i}>
                         <td className="hide-mobile">{i + 1}</td>
@@ -89,5 +80,4 @@ export class LifeList extends React.Component<ILifeListProps, ILifeListState> {
         </tbody>
     </table>
 </div>)
-    }
 }

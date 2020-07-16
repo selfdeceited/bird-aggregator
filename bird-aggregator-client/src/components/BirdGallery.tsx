@@ -1,11 +1,9 @@
+import { FC, useState, useEffect } from "react"
+import React from "react"
+
 import * as axios from "../http.adapter"
-import * as React from "react"
 import { GalleryWrap } from "./GalleryWrap"
 import { MapWrap } from "./MapWrap"
-
-export interface IBirdGalleryState {
-    wikiData: IWikiData
-}
 
 interface IWikiData {
     name: string
@@ -13,53 +11,76 @@ interface IWikiData {
     imageUrl: string
 }
 
-export class BirdGallery extends React.Component<any, IBirdGalleryState>  {
-    constructor(props: any) {
-        super(props)
+const fetchWikiInfo = (props: any, setWikiData: (data: IWikiData) => void) => {
+    axios.get(`/api/birds/info/` + props.match.params.id).then(res => {
+        const wikiData = res.data
+        const extract = JSON.parse(wikiData.wikiInfo)
+        const html = extract.query.pages[Object.keys(extract.query.pages)[0]].extract
 
-        this.state = {
-            wikiData: { name: "", wikiInfo: "", imageUrl: "" },
+        const div = document.createElement("div")
+        div.innerHTML = html
+
+        try {
+            const chapters = fillChapters(div)
+            setWikiData({ name: res.data.name, wikiInfo: chapters.outerHTML, imageUrl: res.data.imageUrl })
         }
+        // tslint:disable-next-line: no-empty
+        catch { }
+    })
+}
+
+const fillChapters = (div: HTMLDivElement): HTMLDivElement =>
+{
+    const finalContainer = document.createElement("div")
+    const paragraphs = Array.prototype.slice.call(div.getElementsByTagName("p")).filter(x => x.innerHTML.length > 2)
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0 ; i < paragraphs.length; i++) {
+        finalContainer.append(paragraphs[i])
+        if (finalContainer.innerHTML.length > 1000)
+            break
     }
 
-    public componentDidMount() {
-        this.fetchWikiInfo(this.props)
-    }
+    return finalContainer
+}
 
-    public componentWillReceiveProps(nextProps: any) {
-        this.fetchWikiInfo(nextProps)
-    }
+export const BirdGallery : FC<any> = props => {
+    const [wikiData, setWikiData] = useState<IWikiData>({
+        name: "",
+        wikiInfo: "",
+        imageUrl: ""
+    })
 
-    public render() {
-        return  (
+    useEffect(() => fetchWikiInfo(props, setWikiData), [props])
+
+    return (
             <div>
                 <div className="half-screen">
                 <GalleryWrap
                     seeFullGalleryLink={false}
-                    urlToFetch={`/api/gallery/bird/` + this.props.match.params.id}
+                    urlToFetch={`/api/gallery/bird/` + props.match.params.id}
                     />
                 </div>
                     <div className="flex-container body fourty">
                         {
-                            !this.state.wikiData ? null : (
+                            !wikiData ? null : (
                             <div className="wiki-info hide">
-                                <img src={this.state.wikiData.imageUrl} width="80%"/>
+                                <img src={wikiData.imageUrl} width="80%"/>
                             </div>)
                         }
                         {
-                            !this.state.wikiData ? null : (
+                            !wikiData ? null : (
                             <div className="wiki-info">
-                            <h2>{this.state.wikiData.name}</h2>
-                            <div dangerouslySetInnerHTML={{ __html: this.state.wikiData.wikiInfo }}></div>
+                            <h2>{wikiData.name}</h2>
+                            <div dangerouslySetInnerHTML={{ __html: wikiData.wikiInfo }}></div>
                             <a className="new-window"
-                               href={"https://en.wikipedia.org/wiki/" + this.state.wikiData.name}
+                               href={"https://en.wikipedia.org/wiki/" + wikiData.name}
                                target="_blank">more from Wikipedia...</a>
                             </div>)
                         }
                         <div className="wiki-info">
                             <h4>Occurences on map</h4>
                             <MapWrap asPopup={true}
-                                birdId={this.props.match.params.id}
+                                birdId={props.match.params.id}
                             />
                         </div>
 
@@ -71,38 +92,4 @@ export class BirdGallery extends React.Component<any, IBirdGalleryState>  {
                     </div>
             </div>
         )
-    }
-
-    private fetchWikiInfo(props: any) {
-        axios.get(`/api/birds/info/` + props.match.params.id).then(res => {
-            const wikiData = res.data
-            const extract = JSON.parse(wikiData.wikiInfo)
-            const html = extract.query.pages[Object.keys(extract.query.pages)[0]].extract
-
-            const div = document.createElement("div")
-            div.innerHTML = html
-
-            try {
-                const chapters = this.fillChapters(div)
-                this.setState({ wikiData: { name: res.data.name, wikiInfo: chapters.outerHTML, imageUrl: res.data.imageUrl } })
-            }
-            catch {
-                this.setState({ wikiData: null as unknown as IWikiData } as IBirdGalleryState)
-            }
-        })
-    }
-
-    private fillChapters(div: HTMLDivElement): HTMLDivElement
-    {
-        const finalContainer = document.createElement("div")
-        const paragraphs = Array.prototype.slice.call(div.getElementsByTagName("p")).filter(x => x.innerHTML.length > 2)
-        // tslint:disable-next-line: prefer-for-of
-        for (let i = 0 ; i < paragraphs.length; i++) {
-            finalContainer.append(paragraphs[i])
-            if (finalContainer.innerHTML.length > 1000)
-                break
-        }
-
-        return finalContainer
-    }
 }

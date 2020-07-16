@@ -1,49 +1,42 @@
 import * as axios from "../http.adapter"
 import moment from "moment"
-import * as React from "react"
 import { Link } from "react-router-dom"
 import { Image } from "./BirdImage"
 import { MapWrap } from "./MapWrap"
+import { useState, useEffect } from "react"
+import React from "react"
 
-interface IPhotoPageState {
-    image: Image
-    loaded: boolean
-}
 
-export class PhotoPage extends React.Component<any, IPhotoPageState> {
-    constructor(props: any) {
-        super(props)
-        this.state = {
-            image: null as any,
-            loaded: false,
-        }
-    }
+export const PhotoPage: React.FC<any> = props => {
+    const [image, setImage] = useState<Image | null>(null)
 
-    public componentDidMount() {
-        axios.get(`api/photos/${this.props.match.params.id}`).then((res) => {
-            const image = res.data
-            image.tags = [{title: image.caption, value: image.caption}]
-            this.setState({ image, loaded: true })
+    useEffect(() => {
+        axios.get(`/api/gallery/photo/${props.match.params.id}`).then((res) => {
+            const receivedImage = res.data.photo
+            receivedImage.tags = [{title: receivedImage.caption, value: receivedImage.caption}]
+            setImage(receivedImage)
         })
-    }
+    }, [props])
 
-    public render() {
-        return this.state.loaded ? (
+    if (!image)
+        return null
+
+    return (
             <div className="body">
 
-            {this.state.image.birdIds.map(id => <Link
+            {image.birdIds.map(id => <Link
+                    key={id}
                     className="big-link" to={`/birds/${id}`}>
-                    {this.state.image.caption} ({moment(this.state.image.dateTaken).format("YYYY MM DD")})
+                    {image.caption} ({moment(image.dateTaken).format("YYYY MM DD")})
                 </Link>,
             )}
                 <section className="photo-flex-container">
                     <div className="flex-item photo-flex-element">
-                        <img src={this.state.image.original} className="photo-page"></img>
+                        <img src={image.original} className="photo-page"></img>
                     </div>
                     <div className="flex-item">
-                        <MapWrap asPopup={true} locationIdToShow={this.state.image.locationId}/>
+                        <MapWrap asPopup={true} locationIdToShow={image.locationId}/>
                     </div>
                 </section>
-            </div>) : null
-    }
+            </div>)
 }

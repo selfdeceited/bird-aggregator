@@ -72,7 +72,7 @@ export class MapWrap extends React.Component<IMapWrapProps, IMapWrapState> {
         const clusterMarker = (
             coordinates: GeoJSON.Position,
             pointCount: number,
-            getLeaves: (limit?: number, offset?: number) => Array<React.ReactElement<any>>,
+            getLeaves: (limit?: number, offset?: number) => React.ReactElement<any>[],
         ) => (
               <Marker
                 key={coordinates.toString()}

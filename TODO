@@ -17,6 +17,13 @@ Bird-Aggregator 2.0 release-ready checklist
 [ ] Change update mechanism by implementing a saga
 [.] integration tests
 
+[.] move to functional components and hooks
+left components:
+ - GalleryWrap
+ - MapWrap
+ - SeedProgress
+ - Navbar
+
 Migration
 
 Queries
