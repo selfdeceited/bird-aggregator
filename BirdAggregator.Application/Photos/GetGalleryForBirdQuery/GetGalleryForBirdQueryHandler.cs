@@ -1,23 +1,25 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using BirdAggregator.Domain.Interfaces;
 using BirdAggregator.Domain.Photos;
 
-namespace BirdAggregator.Application.Photos.GetGalleryQuery
+namespace BirdAggregator.Application.Photos.GetGalleryForBirdQuery
 {
-    public class GetGalleryQueryHanlder: IQueryHandler<GetGalleryQuery, GetGalleryQueryDto>
+    public class GetGalleryForBirdQueryHandler : IQueryHandler<GetGalleryForBirdQuery, GetGalleryQueryDto>
     {
         private readonly IPhotoRepository _photoRepository;
         private readonly IPictureHostingService _pictureHostingService;
-        public GetGalleryQueryHanlder(IPhotoRepository photoRepository, IPictureHostingService pictureHostingService)
+        public GetGalleryForBirdQueryHandler(IPhotoRepository photoRepository, IPictureHostingService pictureHostingService)
         {
             _photoRepository = photoRepository;
             _pictureHostingService = pictureHostingService;
         }
 
-        public async Task<GetGalleryQueryDto> Handle(GetGalleryQuery request, CancellationToken cancellationToken)
+        public async Task<GetGalleryQueryDto> Handle(GetGalleryForBirdQuery request, CancellationToken cancellationToken)
         {
-            var gallery = await _photoRepository.GetAllAsync(request.Count);
+            var gallery = await _photoRepository.GetGalleryForBirdAsync(request.BirdId);
+            
             return new GetGalleryQueryDto {
                 Photos = gallery.Select(_ => {
                     var links = _pictureHostingService.GetAllImageLinks(_.PhotoInformation);

@@ -11,9 +11,9 @@ namespace BirdAggregator.Domain.Birds
             }
 
             Id = id;
-            Func<string, int> _i =  name.IndexOf;
-            EnglishName = name.Substring(0, _i("(") - 1);
-            LatinName = name.Substring(_i("(") + 1, _i(")") - _i("(") - 1);
+            Func<string, int> indexOf =  name.IndexOf;
+            EnglishName = name.Substring(0, indexOf("(") - 1);
+            LatinName = name.Substring(indexOf("(") + 1, indexOf(")") - indexOf("(") - 1);
         }
         
         public int Id { get; set; }

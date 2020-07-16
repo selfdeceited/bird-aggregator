@@ -1,7 +1,7 @@
 import { Button, Popover } from "@blueprintjs/core"
 import * as React from "react"
 import styles from "../styles"
-import * as hubBuilder from "../http.adapter";
+import * as hubBuilder from "../http.adapter"
 
 interface ISeedProgressProps {
 
@@ -36,7 +36,7 @@ export class SeedProgress extends React.Component<ISeedProgressProps, ISeedProgr
     }
 
     public componentDidMount() {
-        const connection = hubBuilder.buildWithUrl("/seed");
+        const connection = hubBuilder.buildWithUrl("/seed")
 
         connection.start().then(() => {
 

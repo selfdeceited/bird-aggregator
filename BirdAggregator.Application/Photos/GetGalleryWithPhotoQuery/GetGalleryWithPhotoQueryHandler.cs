@@ -1,16 +1,17 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using BirdAggregator.Domain.Interfaces;
 using BirdAggregator.Domain.Photos;
 
 namespace BirdAggregator.Application.Photos.GetGalleryWithPhotoQuery
 {
-    public class GetGalleryWithPhotoQueryHanlder: IQueryHandler<GetGalleryWithPhotoQuery, GetGalleryWithPhotoDto>
+    public class GetGalleryWithPhotoQueryHandler: IQueryHandler<GetGalleryWithPhotoQuery, GetGalleryWithPhotoDto>
     {
         private readonly IPhotoRepository _photoRepository;
         private readonly IPictureHostingService _pictureHostingService;
         
-        public GetGalleryWithPhotoQueryHanlder(IPhotoRepository photoRepository, IPictureHostingService pictureHostingService)
+        public GetGalleryWithPhotoQueryHandler(IPhotoRepository photoRepository, IPictureHostingService pictureHostingService)
         {
             _photoRepository = photoRepository;
             _pictureHostingService = pictureHostingService;

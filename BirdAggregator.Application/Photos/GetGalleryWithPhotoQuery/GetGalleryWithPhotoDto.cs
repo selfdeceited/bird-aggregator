@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace BirdAggregator.Application.Photos.GetGalleryWithPhotoQuery
 {
     public class GetGalleryWithPhotoDto

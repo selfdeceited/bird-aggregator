@@ -2,9 +2,11 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using BirdAggregator.Domain.Birds;
+using BirdAggregator.Domain.Interfaces;
 using BirdAggregator.Domain.Photos;
 using BirdAggregator.Infrastructure.Flickr;
 using BirdAggregator.Infrastructure.DataAccess.Birds;
+using BirdAggregator.Infrastructure.DataAccess.Photos;
 using BirdAggregator.Infrastructure.Wikipedia;
 
 namespace BirdAggregator.Infrastructure.DependencyInjection

@@ -1,8 +1,8 @@
 using System;
 using Xunit;
-using birds;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Threading.Tasks;
+using BirdAggregator.Host;
 
 namespace BirdAggregator.Tests.Integration
 {

@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using BirdAggregator.Domain.Interfaces;
 using BirdAggregator.Domain.Photos;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
@@ -22,12 +23,12 @@ namespace BirdAggregator.Infrastructure.Wikipedia
             } as IBirdInfo);
         }
 
-        public string CallWikipediaExtract(string englishName)
+        private string CallWikipediaExtract(string englishName)
         {
             return QueryWikipedia(englishName, "extracts");
         }
 
-        public string CallWikipediaImages(string englishName)
+        private string CallWikipediaImages(string englishName)
         {
             return QueryWikipedia(englishName, "images");
         }

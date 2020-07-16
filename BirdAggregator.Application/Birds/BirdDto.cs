@@ -1,5 +1,3 @@
-using System;
-
 namespace BirdAggregator.Application.Birds
 {
     public class BirdDto 

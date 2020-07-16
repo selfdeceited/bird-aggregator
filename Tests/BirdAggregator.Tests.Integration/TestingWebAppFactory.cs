@@ -1,4 +1,4 @@
-using birds;
+using BirdAggregator.Host;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.Hosting;
 

@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using BirdAggregator.Domain.Interfaces;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using BirdAggregator.Domain.Photos;
 
@@ -9,8 +10,8 @@ namespace BirdAggregator.Infrastructure.HealthChecks
 {
     public class FlickrHealthCheck : IHealthCheck
     {
-        private IPhotoRepository _photoRepository;
-        private IPictureHostingService _hostingService;
+        private readonly IPhotoRepository _photoRepository;
+        private readonly IPictureHostingService _hostingService;
 
         public FlickrHealthCheck(IPhotoRepository photoRepository, IPictureHostingService hostingService)
         {
@@ -25,16 +26,12 @@ namespace BirdAggregator.Infrastructure.HealthChecks
 
             try
             {
-                using (var client = new HttpClient())
-                {
-                    var response = await client.GetAsync(websiteLink);
+                using var client = new HttpClient();
+                var response = await client.GetAsync(websiteLink, cancellationToken);
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return new HealthCheckResult(HealthStatus.Healthy);
-                    }
-                    return new HealthCheckResult(HealthStatus.Unhealthy);
-                }
+                return response.IsSuccessStatusCode
+                    ? new HealthCheckResult(HealthStatus.Healthy)
+                    : new HealthCheckResult(HealthStatus.Unhealthy);
             } catch (Exception) {
                 return new HealthCheckResult(HealthStatus.Unhealthy);
             }

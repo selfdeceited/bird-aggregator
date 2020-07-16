@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using MediatR;
-
-namespace BirdAggregator.Application.Birds.GetBirdsQuery
+namespace BirdAggregator.Application.Birds.GetBirds
 {
     public class GetBirdsQuery : IQuery<BirdListDto>
     {

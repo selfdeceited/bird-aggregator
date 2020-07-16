@@ -1,10 +1,10 @@
+using System.Threading.Tasks;
+using BirdAggregator.Application.Birds.GetBirdInfo;
+using BirdAggregator.Application.Birds.GetBirds;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using BirdAggregator.Application.Birds.GetBirdsQuery;
-using BirdAggregator.Application.Birds.GetBirdInfo;
 
-namespace birds.Controllers
+namespace BirdAggregator.Host.Controllers
 {
     [Route("api/[controller]")]
     public class BirdsController : Controller

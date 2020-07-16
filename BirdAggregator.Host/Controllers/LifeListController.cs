@@ -1,10 +1,10 @@
+using System.Threading.Tasks;
 using BirdAggregator.Application.LifeList.GetLifeListPerYearQuery;
 using BirdAggregator.Application.LifeList.GetLifeListQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
-namespace birds.Controllers
+namespace BirdAggregator.Host.Controllers
 {
     [Route("api/[controller]")]
     public class LifeListController: Controller

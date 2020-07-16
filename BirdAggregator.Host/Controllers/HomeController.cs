@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace birds.Controllers
+namespace BirdAggregator.Host.Controllers
 {
     public class HomeController : Controller
     {

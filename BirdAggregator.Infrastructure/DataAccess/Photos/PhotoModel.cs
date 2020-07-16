@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BirdAggregator.Infrastructure.DataAccess.Birds
+namespace BirdAggregator.Infrastructure.DataAccess.Photos
 {
     internal class PhotoModel
     {

@@ -1,12 +1,12 @@
-
 using BirdAggregator.Application.Configuration;
+using BirdAggregator.Domain.Interfaces;
 using BirdAggregator.Domain.Photos;
 
 namespace BirdAggregator.Infrastructure.Flickr
 {
     public class FlickrService : IPictureHostingService
     {
-        public readonly AppSettings _appSettings;
+        private readonly AppSettings _appSettings;
 
         public FlickrService(AppSettings appSettings) {
             _appSettings = appSettings;

@@ -1,13 +1,13 @@
-using BirdAggregator.Domain.Photos;
-using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using BirdAggregator.Domain.Birds;
+using BirdAggregator.Domain.Photos;
 using BirdAggregator.Infrastructure.Flickr;
+using Newtonsoft.Json;
 
-namespace BirdAggregator.Infrastructure.DataAccess.Birds
+namespace BirdAggregator.Infrastructure.DataAccess.Photos
 {
     public class PhotoRepository: IPhotoRepository {
         private readonly IBirdRepository _birdRepository;
@@ -25,9 +25,9 @@ namespace BirdAggregator.Infrastructure.DataAccess.Birds
 
             Photo Project((List<Bird> birds, PhotoModel model) tuple)
             {
-                var model = tuple.model;
+                var (birds, model) = tuple;
                 var photoInformation = new FlickrPhotoInformation(model.FlickrId, model.FarmId, model.ServerId, model.Secret);
-                return new Photo(model.Id, model.LocationId, photoInformation, tuple.birds, model.DateTaken, model.Ratio, model.Description);
+                return new Photo(model.Id, model.LocationId, photoInformation, birds, model.DateTaken, model.Ratio, model.Description);
             }
             
             return birdResults.ToList()

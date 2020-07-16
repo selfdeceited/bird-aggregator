@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace BirdAggregator.Domain.Photos
 {
     public interface IBirdInfo

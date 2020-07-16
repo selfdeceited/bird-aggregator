@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using BirdAggregator.Domain.Birds;
-using BirdAggregator.Domain.Photos;
+using BirdAggregator.Domain.Interfaces;
 
 namespace BirdAggregator.Application.Birds.GetBirdInfo
 {

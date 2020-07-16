@@ -1,27 +1,27 @@
+using System;
+using System.IO;
 using System.IO.Compression;
+using System.Reflection;
+using BirdAggregator.Application.Birds.GetBirds;
+using BirdAggregator.Application.Configuration;
+using BirdAggregator.Domain.Birds;
+using BirdAggregator.Host.Configuration;
+using BirdAggregator.Infrastructure.DataAccess.Birds;
+using BirdAggregator.Infrastructure.DependencyInjection;
+using BirdAggregator.Infrastructure.HealthChecks;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.IO;
-using System;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using BirdAggregator.Host.Configuration;
-using MediatR;
-using System.Reflection;
-using BirdAggregator.Application.Birds.GetBirdsQuery;
-using BirdAggregator.Domain.Birds;
-using BirdAggregator.Infrastructure.DataAccess.Birds;
-using BirdAggregator.Application.Configuration;
-using BirdAggregator.Infrastructure.DependencyInjection;
-using BirdAggregator.Infrastructure.HealthChecks;
-using Microsoft.Extensions.Configuration.UserSecrets;
 
 [assembly: UserSecretsId("c10e1a7d-8e00-44f5-a9ff-1a86af9e068a")]
-namespace birds
+namespace BirdAggregator.Host
 {    
     public class Startup
     {

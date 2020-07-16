@@ -1,4 +1,6 @@
-namespace BirdAggregator.Domain.Photos
+﻿using BirdAggregator.Domain.Photos;
+
+namespace BirdAggregator.Domain.Interfaces
 {
     public interface IPictureHostingService
     {

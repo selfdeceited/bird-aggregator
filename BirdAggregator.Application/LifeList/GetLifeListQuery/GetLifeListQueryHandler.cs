@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -21,7 +20,7 @@ namespace BirdAggregator.Application.LifeList.GetLifeListQuery
 
         public async Task<GetLifeListDto> Handle(GetLifeListQuery request, CancellationToken cancellationToken)
         {
-
+            // todo: move as much to domain logic as possible
             var allBirds = await _birdRepository.GetAllAsync();
             var allPhotos = await _photoRepository.GetAllAsync();
             
@@ -54,7 +53,7 @@ namespace BirdAggregator.Application.LifeList.GetLifeListQuery
             };
         }
 
-        internal class LifeListGrouping
+        private class LifeListGrouping
         {
             public Bird Bird { get; set; }
             public IEnumerable<Photo> Photos { get; set; }

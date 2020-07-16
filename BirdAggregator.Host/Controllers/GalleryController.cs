@@ -1,12 +1,12 @@
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using BirdAggregator.Application.Photos.GetGalleryForBirdQuery;
 using BirdAggregator.Application.Photos.GetGalleryQuery;
 using BirdAggregator.Application.Photos.GetGalleryWithPhotoQuery;
 using BirdAggregator.Application.Photos.GetWebsiteLinkForPhotoQuery;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
-namespace birds.Controllers
+namespace BirdAggregator.Host.Controllers
 {
     [Route("api/[controller]")]
     public class GalleryController : Controller
