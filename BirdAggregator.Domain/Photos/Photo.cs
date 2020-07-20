@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BirdAggregator.Domain.Birds;
 using BirdAggregator.Domain.Interfaces;
+using BirdAggregator.Domain.Locations;
 
 namespace BirdAggregator.Domain.Photos
 {
@@ -11,10 +12,10 @@ namespace BirdAggregator.Domain.Photos
     ///</summary>
     public class Photo: IAggregateRoot
     {
-        public Photo(int id, int locationId, IPhotoInformation photoInformation, IEnumerable<Bird> birds, DateTime dateTaken, double ratio, string description)
+        public Photo(int id, Location location, IPhotoInformation photoInformation, IEnumerable<Bird> birds, DateTime dateTaken, double ratio, string description)
         {
             Id = id;
-            Location = new Location(locationId);
+            Location = location;
             PhotoInformation = photoInformation;
             DateTaken = dateTaken;
             Ratio = ratio;

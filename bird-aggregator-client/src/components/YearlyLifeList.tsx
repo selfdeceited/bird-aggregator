@@ -14,11 +14,11 @@ export const YearlyLifeList: React.FC = () => {
             const res = await axios.get(`/api/lifelist/peryear`)
             setLifelist(res.data.perYearCollection as IYearlyLifeListDto[])
         })()
-    })
+    }, [])
 
     return (
 <div>
-    <table className="bp3-table bp3-striped">
+    <table className="bp3-table bp3-striped yearly-lifelist-container">
         <thead>
             <tr>
                 <th className="hide-mobile">Year</th>

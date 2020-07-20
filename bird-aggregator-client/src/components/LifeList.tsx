@@ -20,12 +20,14 @@ interface ILifeListDto {
 export const LifeList: React.FC = () => {
     const [lifelist, setLifelist] = useState<ILifeListDto[]>([])
 
+    const fetchLifelist = async () => {
+        const res = await axios.get(`/api/lifelist`)
+        setLifelist(res.data.firstOccurences as ILifeListDto[])
+    }
+
     useEffect(() => {
-        (async () => {
-            const res = await axios.get(`/api/lifelist`)
-            setLifelist(res.data.firstOccurences as ILifeListDto[])
-        })()
-    })
+        fetchLifelist()
+    }, [])
 
     const popover = (x: ILifeListDto) => (x.locationId > 0) ?
             (<Blueprint.Popover
@@ -33,12 +35,12 @@ export const LifeList: React.FC = () => {
                 content={<MapWrap asPopup={true} locationIdToShow={x.locationId}/>}/>) : <div></div>
 
         return (
-<div className="body">
-    <h2 className="show-mobile">Life lis t</h2>
+<article className="body lifelist-container">
+    <h2 className="show-mobile">Life list</h2>
     <div>
         <Popover>
         <Button>
-            <Icon icon="calendar" />&nbsp;Yearly statistics
+            <Icon icon="calendar" />&nbsp;&nbsp;&nbsp;Yearly statistics
         </Button>
         <div>
             <YearlyLifeList/>
@@ -48,7 +50,7 @@ export const LifeList: React.FC = () => {
     <table className="bp3-table bp3-striped">
         <thead>
             <tr>
-                <th className="hide-mobile">#</th>
+                <th className="hide-mobile">&nbsp;</th>
                 <th>Species</th>
                 <th>Date</th>
                 <th><span className="hide-mobile">Location</span></th>
@@ -79,5 +81,5 @@ export const LifeList: React.FC = () => {
             }
         </tbody>
     </table>
-</div>)
+</article>)
 }
