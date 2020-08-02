@@ -1,0 +1,56 @@
+[
+    {
+      "id": 1,
+      "neighbourhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.565745,
+      "y": 55.416576
+    },
+    {
+      "id": 2,
+      "neighbourhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.566732,
+      "y": 55.411923
+    },
+    {
+      "id": 3,
+      "neighbourhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.588404,
+      "y": 55.402567
+    },
+    {
+      "id": 4,
+      "neighbourhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.591022,
+      "y": 55.40091
+    },
+    {
+      "id": 5,
+      "neighbourhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.595871,
+      "y": 55.402908
+    },
+    {
+      "id": 6,
+      "neighbourhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    }
+  ]

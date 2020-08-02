@@ -1,0 +1,28 @@
+# https://hub.docker.com/_/microsoft-dotnet-core
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+WORKDIR /source
+
+# copy csproj and restore as distinct layers
+COPY *.sln .
+COPY BirdAggregator.Host/*.csproj ./BirdAggregator.Host/
+COPY BirdAggregator.Domain/*.csproj ./BirdAggregator.Domain/
+COPY BirdAggregator.Application/*.csproj ./BirdAggregator.Application/
+COPY BirdAggregator.Infrastructure/*.csproj ./BirdAggregator.Infrastructure/
+COPY Tests/BirdAggregator.Tests.Unit/*.csproj ./Tests/BirdAggregator.Tests.Unit/
+COPY Tests/BirdAggregator.Tests.Integration/*.csproj ./Tests/BirdAggregator.Tests.Integration/
+
+RUN dotnet restore
+
+# copy everything else and build app
+COPY . .
+WORKDIR /source/BirdAggregator.Host
+RUN dotnet publish -c release -o /app --no-restore
+
+# final stage/image
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 as runtime
+WORKDIR /app
+COPY --from=build /app ./
+ENTRYPOINT ["dotnet", "BirdAggregator.Host.dll"]
+
+EXPOSE 5006
+#HEALTHCHECK CMD curl --fail https://localhost:5001/healthcheck || exit

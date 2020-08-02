@@ -1,0 +1,61 @@
+Bird-Aggregator 2.0 release-ready checklist
+
+[x] make server-side work
+[x] make client-side fully work
+[x] resolve all major client-side UI issues
+[x] resolve new 500s for server-side
+[ ] succesfully run prod version in Docker
+[ ] Check at app start if all appSettings params has been set correctly
+[.] add health checks
+ - Flickr
+ - DB
+ 
+[.] Set up a domain via the DDD; Move to hexagonal architecture
+[ ] Move to MongoDB as a primary storage
+[ ] use docker-compose to set up an env
+[ ] run tests in CI
+[ ] Change update mechanism by implementing a saga
+[.] integration tests
+
+[.] move to functional components and hooks
+left components:
+ - GalleryWrap
+ - MapWrap
+ - SeedProgress
+ - Navbar
+
+Migration
+
+Queries
+
+Birds
+[x] GetBirds
+[x] GetGallery Per Bird
+[x] Wiki info per bird
+
+Photos
+[x] Gallery/x
+[x] By photo ID
+[x] Flickr direct link per photo - IOptions needed
+
+Stats
+[x] LifeList
+[x] Yearly LifeList
+
+Location
+[ ] All markers
+[ ] Marker by locationid
+[ ] Markers per bird
+
+Metadata
+[ ] Github
+[ ] Flickr
+[ ] User
+
+
+Commands
+[ ] Add Photo
+============================================
+[ ] Edit Photo Metadata
+[ ] Add Photo Location
+[ ] Re-identify bird on photo
