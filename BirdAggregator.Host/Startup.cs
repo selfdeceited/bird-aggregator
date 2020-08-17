@@ -21,7 +21,7 @@ using Microsoft.Extensions.Hosting;
 
 [assembly: UserSecretsId("c10e1a7d-8e00-44f5-a9ff-1a86af9e068a")]
 namespace BirdAggregator.Host
-{    
+{
     public class Startup
     {
         private readonly IConfiguration _configuration;
@@ -37,18 +37,18 @@ namespace BirdAggregator.Host
                 .Build();
         }
 
-        
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
-             /*services
-                .AddHealthChecksUI()
-                .AddInMemoryStorage();*/
-            
+            /*services
+               .AddHealthChecksUI()
+               .AddInMemoryStorage();*/
+
             services.AddControllersWithViews();
 
-            services.AddSwaggerDocumentation();
+            services.AddSwaggerGen();
 
             // todo: for dev env only!
             services.AddCors(options =>
@@ -64,7 +64,7 @@ namespace BirdAggregator.Host
 
             //services.AddSignalR();
 
-            services.Configure<GzipCompressionProviderOptions>(options => 
+            services.Configure<GzipCompressionProviderOptions>(options =>
                 options.Level = CompressionLevel.Optimal);
 
             services.AddResponseCompression();
@@ -113,11 +113,21 @@ namespace BirdAggregator.Host
             });
 
             //app.UseEndpoints(r => r.MapHub<SeedHub>("seed"));
-            
 
-            Console.WriteLine("env.ContentRootPath is " + env.ContentRootPath);
 
-            app.UseSwaggerDocumentation();
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                //c.IncludeXmlComments(xmlPath);
+            });
+
         }
     }
 }

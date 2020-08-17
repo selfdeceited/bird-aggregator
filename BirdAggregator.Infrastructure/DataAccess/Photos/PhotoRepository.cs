@@ -6,25 +6,29 @@ using BirdAggregator.Domain.Birds;
 using BirdAggregator.Domain.Locations;
 using BirdAggregator.Domain.Photos;
 using BirdAggregator.Infrastructure.Flickr;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 
 namespace BirdAggregator.Infrastructure.DataAccess.Photos
 {
-    public class PhotoRepository: IPhotoRepository
+    public class PhotoRepository : IPhotoRepository
     {
         private readonly IBirdRepository _birdRepository;
         private readonly ILocationRepository _locationRepository;
+        private readonly IHostingEnvironment _appEnvironment;
 
-        public PhotoRepository(IBirdRepository birdRepository, ILocationRepository locationRepository)
+        public PhotoRepository(IBirdRepository birdRepository, ILocationRepository locationRepository, IHostingEnvironment appEnvironment)
         {
             _birdRepository = birdRepository;
             _locationRepository = locationRepository;
+            _appEnvironment = appEnvironment;
         }
 
         public async Task<List<Photo>> GetAllAsync()
         {
-            var fileContent = await File.ReadAllTextAsync(@"../data/data.photos.json");
-            
+            var path = Path.Combine(_appEnvironment.ContentRootPath, @"../data/data.photos.json");
+            var fileContent = await File.ReadAllTextAsync(path);
+
             var photoModels = JsonConvert.DeserializeObject<List<PhotoModel>>(fileContent);
             var birdResults = await Task.WhenAll(photoModels.Select(model => _birdRepository.GetBirdsByIds(model.BirdIds)));
             var locationResults = await Task.WhenAll(photoModels.Select(model => _locationRepository.GetByIdAsync(model.LocationId)));
@@ -35,10 +39,10 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
                 var photoInformation = new FlickrPhotoInformation(model.FlickrId, model.FarmId, model.ServerId, model.Secret);
                 return new Photo(model.Id, location, photoInformation, birds, model.DateTaken, model.Ratio, model.Description);
             }
-            
+
             return birdResults.ToList()
-                .Zip(photoModels,  (birds, photo) => (birds, photo))
-                .Zip(locationResults,  (_, location) => (_.birds, _.photo, location))
+                .Zip(photoModels, (birds, photo) => (birds, photo))
+                .Zip(locationResults, (_, location) => (_.birds, _.photo, location))
                 .Select(Project).ToList();
         }
 
