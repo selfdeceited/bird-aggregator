@@ -12,7 +12,8 @@ Bird-Aggregator 2.0 release-ready checklist
  
 [.] Set up a domain via the DDD; Move to hexagonal architecture
 [ ] Move to MongoDB as a primary storage
-[ ] use docker-compose to set up an env
+[.] use docker-compose to set up an env
+[ ] fix: CORS and env handling!
 [ ] run tests in CI
 [ ] Change update mechanism by implementing a saga
 [.] integration tests

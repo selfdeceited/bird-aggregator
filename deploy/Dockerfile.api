@@ -30,8 +30,6 @@ COPY --from=build /app ./
 # copy 'database' until it's fully switched to other storage
 COPY --from=build /app/data/ ../data/
 
-RUN ls -la /app
-
 ENTRYPOINT ["dotnet", "BirdAggregator.Host.dll"]
 
 #ENV ASPNETCORE_URLS=http://*:${PORT}

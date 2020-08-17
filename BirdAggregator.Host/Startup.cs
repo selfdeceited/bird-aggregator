@@ -5,7 +5,6 @@ using System.Reflection;
 using BirdAggregator.Application.Birds.GetBirds;
 using BirdAggregator.Application.Configuration;
 using BirdAggregator.Domain.Birds;
-using BirdAggregator.Host.Configuration;
 using BirdAggregator.Infrastructure.DataAccess.Birds;
 using BirdAggregator.Infrastructure.DependencyInjection;
 using BirdAggregator.Infrastructure.HealthChecks;
