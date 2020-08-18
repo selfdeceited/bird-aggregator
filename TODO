@@ -4,17 +4,21 @@ Bird-Aggregator 2.0 release-ready checklist
 [x] make client-side fully work
 [x] resolve all major client-side UI issues
 [x] resolve new 500s for server-side
-[ ] succesfully run prod version in Docker
+[x] successfully run prod version in Docker
+[ ] Move to MongoDB as a primary storage
+[ ] K U B E R N E T E S (:
 [ ] Check at app start if all appSettings params has been set correctly
 [.] add health checks
  - Flickr
  - DB
  
 [.] Set up a domain via the DDD; Move to hexagonal architecture
-[ ] Move to MongoDB as a primary storage
-[.] use docker-compose to set up an env
+
+[x] use docker-compose to set up an env
 [ ] fix: CORS and env handling!
 [ ] run tests in CI
+[ ] error handling (render good 500s)
+[ ] swagger working with typedoc
 [ ] Change update mechanism by implementing a saga
 [.] integration tests
 

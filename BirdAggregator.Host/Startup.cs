@@ -49,11 +49,15 @@ namespace BirdAggregator.Host
 
             services.AddSwaggerGen();
 
-            // todo: for dev env only!
+            // todo: configure as env params!
+            var allowedAddresses = new string[] {
+                "http://localhost:3000",
+                "http://localhost:10003",
+            };
             services.AddCors(options =>
             {
                 var builder = new CorsPolicyBuilder()
-                    .WithOrigins("http://localhost:3000")
+                    .WithOrigins(allowedAddresses)
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
