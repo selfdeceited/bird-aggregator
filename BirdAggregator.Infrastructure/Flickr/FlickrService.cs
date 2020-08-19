@@ -8,13 +8,15 @@ namespace BirdAggregator.Infrastructure.Flickr
     {
         private readonly AppSettings _appSettings;
 
-        public FlickrService(AppSettings appSettings) {
+        public FlickrService(AppSettings appSettings)
+        {
             _appSettings = appSettings;
         }
 
         public PictureInfo GetAllImageLinks(IPhotoInformation photoInformation)
         {
-            return new PictureInfo {
+            return new PictureInfo
+            {
                 OriginalLink = GetOriginal(photoInformation),
                 ThumbnailLink = GetThumbnail(photoInformation),
                 WebsiteLink = GetWebsiteLink(photoInformation)
@@ -23,7 +25,12 @@ namespace BirdAggregator.Infrastructure.Flickr
 
         public string GetOriginal(IPhotoInformation photoInformation) => GetFlickrImageUrl(photoInformation, "_h");
         public string GetThumbnail(IPhotoInformation photoInformation) => GetFlickrImageUrl(photoInformation, "_n");
-        
+
+        public string GetUserLink()
+        {
+            return $"https://www.flickr.com/photos/{_appSettings.FlickrUserId}/";
+        }
+
         public string GetWebsiteLink(IPhotoInformation photoInformation)
         {
             return $"https://www.flickr.com/photos/{_appSettings.FlickrUserId}/{photoInformation.Id}";

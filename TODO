@@ -21,7 +21,7 @@ Bird-Aggregator 2.0 release-ready checklist
 [ ] swagger working with typedoc
 [ ] Change update mechanism by implementing a saga
 [.] integration tests
-
+[ ] https://github.com/dotnet/AspNetCore.Docs/issues/6199
 [.] move to functional components and hooks
 left components:
  - GalleryWrap
@@ -53,9 +53,9 @@ Location
 [ ] Markers per bird
 
 Metadata
-[ ] Github
-[ ] Flickr
-[ ] User
+[x] Github
+[x] Flickr
+[x] User
 
 
 Commands

@@ -21,10 +21,5 @@ Several birds in one photo supported by comma-delimeters.
 
 ## Development
 
-Start locally: `docker-compose up`
-
-### API container bootstrapping
-
-`./deploy/build-api.sh`
-
-https://github.com/dotnet/AspNetCore.Docs/issues/6199
+- Start locally: `./utils/run-back.sh` && `./utils/run-front.sh`
+- Start locally in containers: `docker-compose up`. There are also `./deploy/build-api.sh` and `./deploy/build-spa.sh` for precise operations (:
