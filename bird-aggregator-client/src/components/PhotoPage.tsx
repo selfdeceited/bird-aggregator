@@ -3,8 +3,7 @@ import moment from "moment"
 import { Link } from "react-router-dom"
 import { Image } from "./BirdImage"
 import { MapWrap } from "./MapWrap"
-import { useState, useEffect } from "react"
-import React from "react"
+import React, { useState, useEffect } from "react"
 
 
 export const PhotoPage: React.FC<any> = props => {

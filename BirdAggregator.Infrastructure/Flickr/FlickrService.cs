@@ -38,6 +38,9 @@ namespace BirdAggregator.Infrastructure.Flickr
 
         private string GetFlickrImageUrl(IPhotoInformation photoInformation, string postfix)
         {
+            if (photoInformation == null)
+                return string.Empty;
+                
             var farmId = photoInformation.Metadata["FarmId"];
             var serverId = photoInformation.Metadata["ServerId"];
             var secret = photoInformation.Metadata["Secret"];
