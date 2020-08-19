@@ -3,7 +3,7 @@ import * as GeoJSON from "geojson"
 import * as React from "react"
 import ReactMapboxGl, { Cluster, Marker, Popup, ZoomControl } from "react-mapbox-gl-typingfix"
 import styles from "../styles"
-import {BirdPopup} from "./BirdPopup"
+import { BirdPopup } from "./BirdPopup"
 
 const Map = ReactMapboxGl({
     accessToken: "pk.eyJ1IjoidG9ueXJ5emhpa292IiwiYSI6ImNpbHhvYTY0MDA4MTF0bWtyaW9xbjAyaWsifQ.ih-8rDMRiBmDPqdeyyrHNg",

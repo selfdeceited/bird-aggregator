@@ -17,6 +17,13 @@ namespace BirdAggregator.Infrastructure.DataAccess.Locations
                 new Location(x.Id, x.Country, x.Neighbourhood, x.Region, x.X, x.Y));
         }
 
+        public async Task<IEnumerable<Location>> GetByBirdIdAsync(int birdId)
+        {
+            var allLocations = await GetAllAsync();
+            // TODO!!!11
+            return allLocations.Where(x=>true);
+        }
+
         public async Task<Location> GetByIdAsync(int id)
         {
             var allLocations = await GetAllAsync();

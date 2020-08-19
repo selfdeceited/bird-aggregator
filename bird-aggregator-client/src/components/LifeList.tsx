@@ -2,11 +2,10 @@ import * as Blueprint from "@blueprintjs/core"
 import { Button, Icon, Popover } from "@blueprintjs/core"
 import * as axios from "../http.adapter"
 import moment from "moment"
-import * as React from "react"
+import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { MapWrap } from "./MapWrap"
 import { YearlyLifeList } from "./YearlyLifeList"
-import { useEffect, useState } from "react"
 
 interface ILifeListDto {
     birdId: number,

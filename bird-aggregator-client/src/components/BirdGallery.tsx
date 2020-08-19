@@ -1,6 +1,4 @@
-import { FC, useState, useEffect } from "react"
-import React from "react"
-
+import React, { FC, useState, useEffect } from "react"
 import * as axios from "../http.adapter"
 import { GalleryWrap } from "./GalleryWrap"
 import { MapWrap } from "./MapWrap"

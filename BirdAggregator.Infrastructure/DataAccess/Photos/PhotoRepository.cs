@@ -54,6 +54,12 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
             return allPhotos.SingleOrDefault(x => x.Id == photoId);
         }
 
+        public async Task<List<Photo>> GetByLocationAsync(int id)
+        {
+            var allPhotos = await GetAllAsync();
+            return allPhotos.Where(x => x.Location.Id == id).ToList();
+        }
+
         public async Task<List<Photo>> GetGalleryForBirdAsync(int birdId)
         {
             var allPhotos = await GetAllAsync();

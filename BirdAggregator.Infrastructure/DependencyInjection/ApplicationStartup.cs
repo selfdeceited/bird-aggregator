@@ -10,6 +10,7 @@ using BirdAggregator.Infrastructure.DataAccess.Photos;
 using BirdAggregator.Infrastructure.Wikipedia;
 using BirdAggregator.Domain.Locations;
 using BirdAggregator.Infrastructure.DataAccess.Locations;
+using BirdAggregator.Application.Locations;
 
 namespace BirdAggregator.Infrastructure.DependencyInjection
 {
@@ -36,6 +37,9 @@ namespace BirdAggregator.Infrastructure.DependencyInjection
             // todo: move to different extension methods                  
             services.AddScoped<IPictureHostingService, FlickrService>();
             services.AddScoped<IInformationService, WikipediaService>();
+
+            // todo: move to different extension methods                  
+            services.AddScoped<ILocationService, LocationService>();
             
             services.AddSingleton<AppSettings>(appSettings);
             var serviceProvider = services.BuildServiceProvider();
