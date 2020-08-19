@@ -7,6 +7,7 @@ namespace BirdAggregator.Domain.Interfaces
         string GetOriginal(IPhotoInformation photoInformation);
         string GetThumbnail(IPhotoInformation photoInformation);
         string GetWebsiteLink(IPhotoInformation photoInformation);
-        PictureInfo GetAllImageLinks (IPhotoInformation photoInformation);
+        PictureInfo GetAllImageLinks(IPhotoInformation photoInformation);
+        string GetUserLink();
     }
 }

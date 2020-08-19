@@ -1,0 +1,16 @@
+version: "3.6"
+services:
+    birds-api:
+        build:
+            context: .
+            dockerfile: ./deploy/Dockerfile.api
+        ports:
+            - "10001:80"
+    birds-spa:
+        build:
+            context: .
+            dockerfile: ./deploy/Dockerfile.spa
+        ports:
+            - "10003:80"
+        depends_on:
+            - birds-api

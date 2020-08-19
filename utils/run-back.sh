@@ -1,0 +1,1 @@
+dotnet run --project ./BirdAggregator.Host/BirdAggregator.Host.csproj

@@ -1,27 +1,20 @@
-import axios, { AxiosResponse } from "axios"
-import * as signalR from "@aspnet/signalr"
+import * as signalR from "@aspnet/signalr";
 
-// Added as a hack to debug client and server-side independently.
-const localServerPort = 5001
-const defaultDebug = false
+import axios, { AxiosResponse } from "axios";
 
-// TODO: configure based on env! just proxy for prod.
-const getUrl = (url: string) => defaultDebug ? url : `https://localhost:${localServerPort}${url}`
+const backend_url = process.env.REACT_APP_BACKEND_URL;
+
+const getUrl = (url: string) => `${backend_url}${url}`;
 
 function get(url: string): Promise<AxiosResponse<any>> {
-    return axios.get(getUrl(url))
+  return axios.get(getUrl(url));
 }
 
 function buildWithUrl(url: string): signalR.HubConnection {
-    return new signalR.HubConnectionBuilder()
-            .withUrl(getUrl(url))
-            .configureLogging(signalR.LogLevel.Information)
-            .build()
+  return new signalR.HubConnectionBuilder()
+    .withUrl(getUrl(url))
+    .configureLogging(signalR.LogLevel.Information)
+    .build();
 }
 
-export {
-    get,
-    buildWithUrl
-}
-
-
+export { get, buildWithUrl };

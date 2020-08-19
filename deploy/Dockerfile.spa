@@ -3,7 +3,7 @@ WORKDIR /src
 
 COPY bird-aggregator-client/package.json .
 COPY bird-aggregator-client/tsconfig.json .
- 
+
 RUN npm install
 RUN npm rebuild node-sass
 
@@ -11,5 +11,6 @@ COPY bird-aggregator-client/. .
 RUN npm run build
 
 FROM nginx:latest
-COPY --from=base build /usr/share/nginx/html
-EXPOSE 5005
+COPY --from=base /src/build /usr/share/nginx/html
+
+EXPOSE 80 443

@@ -17,12 +17,21 @@ RUN dotnet restore
 COPY . .
 WORKDIR /source/BirdAggregator.Host
 RUN dotnet publish -c release -o /app --no-restore
+COPY ./data /app/data
+
+# trust local dev cert
+#RUN dotnet dev-certs https --trust
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 as runtime
 WORKDIR /app
 COPY --from=build /app ./
+
+# copy 'database' until it's fully switched to other storage
+COPY --from=build /app/data/ ../data/
+
 ENTRYPOINT ["dotnet", "BirdAggregator.Host.dll"]
 
-EXPOSE 5006
+#ENV ASPNETCORE_URLS=http://*:${PORT}
+EXPOSE 80 443
 #HEALTHCHECK CMD curl --fail https://localhost:5001/healthcheck || exit

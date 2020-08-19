@@ -1,0 +1,1 @@
+yarn --cwd ./bird-aggregator-client/ start

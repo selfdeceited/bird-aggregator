@@ -1,19 +1,19 @@
 {
-    "version": "0.1.0",
-    "command": "dotnet",
-    "isShellCommand": true,
-    "args": [],
-    "tasks": [
-        {
-            "taskName": "build",
-            "args": [
-                "${workspaceRoot}/bird-aggregator/birds.csproj"
-            ],
-            "isBuildCommand": true,
-            "problemMatcher": "$msCompile",
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            }
-        }
-    ]
+  "version": "0.1.0",
+  "command": "dotnet",
+  "isShellCommand": true,
+  "args": [],
+  "tasks": [
+    {
+      "taskName": "build",
+      "args": [
+        "${workspaceRoot}/BirdAggregator.Host/BirdAggregator.Host.csproj"
+      ],
+      "isBuildCommand": true,
+      "problemMatcher": "$msCompile",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  ]
 }
