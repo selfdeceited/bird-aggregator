@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,12 +49,6 @@ namespace BirdAggregator.Host
             services.AddControllersWithViews();
 
             services.AddSwaggerDocumentation();
-
-            // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "../bird-aggregator-client/build";
-            });
 
             // todo: for dev env only!
             services.AddCors(options =>
@@ -106,8 +99,6 @@ namespace BirdAggregator.Host
 
             app.UseCors(CorsPolicy);
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
 
             app.UseRouting();
 
@@ -125,16 +116,6 @@ namespace BirdAggregator.Host
             
 
             Console.WriteLine("env.ContentRootPath is " + env.ContentRootPath);
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = Path.Join(env.ContentRootPath, "..\\bird-aggregator-client");
-                Console.WriteLine("spa.Options.SourcePath is " + spa.Options.SourcePath);
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }
-            });
 
             app.UseSwaggerDocumentation();
         }

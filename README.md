@@ -15,3 +15,9 @@ Several birds in one photo supported by comma-delimeters.
  * _B: Common Goldeneye (Bucephala clangula)_
  * _B: Caspian Tern (Hydroprogne caspia), Mute Swan (Cygnus olor)_
 
+## Development
+
+### API container bootstrapping
+`./deploy/build-api.sh`
+
+https://github.com/dotnet/AspNetCore.Docs/issues/6199
