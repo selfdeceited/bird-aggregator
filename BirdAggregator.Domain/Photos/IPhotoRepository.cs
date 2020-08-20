@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BirdAggregator.Domain.Locations;
 
 namespace BirdAggregator.Domain.Photos
 {
@@ -10,5 +11,6 @@ namespace BirdAggregator.Domain.Photos
         Task<List<Photo>> GetAllAsync(int count);
         Task<Photo> GetById(int photoId);
         Task<List<Photo>> GetByLocationAsync(int id);
+        Task<IEnumerable<Location>> GetByBirdIdAsync(int birdId);
     }
 }

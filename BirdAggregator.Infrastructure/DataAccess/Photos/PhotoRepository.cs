@@ -73,5 +73,11 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
                     .Contains(birdId))
                 .OrderByDescending(_ => _.DateTaken).ToList();
         }
+
+        public async Task<IEnumerable<Location>> GetByBirdIdAsync(int birdId)
+        {
+            var photos = await GetGalleryForBirdAsync(birdId);
+            return photos.Select(x => x.Location);
+        }
     }
 }

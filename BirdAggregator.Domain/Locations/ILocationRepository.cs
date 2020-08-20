@@ -7,6 +7,5 @@ namespace BirdAggregator.Domain.Locations
     {
         Task<IEnumerable<Location>> GetAllAsync();
         Task<Location> GetByIdAsync(int id);
-        Task<IEnumerable<Location>> GetByBirdIdAsync(int birdId);
     }
 }

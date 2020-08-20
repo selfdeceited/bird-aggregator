@@ -16,6 +16,7 @@ namespace BirdAggregator.Infrastructure.DataAccess.Locations
         {
             _appEnvironment = appEnvironment;
         }
+
         public async Task<IEnumerable<Location>> GetAllAsync()
         {
             var path = Path.Combine(_appEnvironment.ContentRootPath, @"../data/data.locations.json");
@@ -23,13 +24,6 @@ namespace BirdAggregator.Infrastructure.DataAccess.Locations
             var locationModels = JsonConvert.DeserializeObject<List<LocationModel>>(fileContent);
             return locationModels.Select(x =>
                 new Location(x.Id, x.Country, x.Neighbourhood, x.Region, x.X, x.Y));
-        }
-
-        public async Task<IEnumerable<Location>> GetByBirdIdAsync(int birdId)
-        {
-            var allLocations = await GetAllAsync();
-            // TODO!!!11
-            return allLocations.Where(x=>true);
         }
 
         public async Task<Location> GetByIdAsync(int id)
