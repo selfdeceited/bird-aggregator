@@ -5,36 +5,44 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.Extensions.Hosting;
+using BirdAggregator.Infrastructure.Mongo;
+using MongoDB.Driver;
 
 namespace BirdAggregator.Infrastructure.DataAccess.Birds
 {
     public class BirdRepository : IBirdRepository
     {
         private readonly IHostingEnvironment _appEnvironment;
+        private readonly IMongoConnection _mongoConnection;
+        private IMongoCollection<BirdModel> _birds => _mongoConnection.Database.GetCollection<BirdModel>("birds");
 
-        public BirdRepository(IHostingEnvironment appEnvironment)
+        public BirdRepository(IHostingEnvironment appEnvironment, IMongoConnection connection)
         {
             _appEnvironment = appEnvironment;
+            _mongoConnection = connection;
         }
+
         public async Task<Bird> Get(int birdId)
         {
-            var allBirds = await GetAllAsync();
-            return allBirds.SingleOrDefault(bird => bird.Id == birdId);
+            var birds = await _birds.FindAsync(bird => bird.Id == birdId);
+            var birdModel = await birds.SingleOrDefaultAsync();
+            return MapModel(birdModel);
         }
 
-        public async Task<List<Bird>> GetAllAsync()
+        public async Task<List<Bird>> GetAll()
         {
-            var path = Path.Combine(_appEnvironment.ContentRootPath, @"../data/data.birds.json");
-            var fileContent = await File.ReadAllTextAsync(path);
-            var birdsModel = JsonConvert.DeserializeObject<List<BirdModel>>(fileContent);
-
-            return birdsModel.Select(model => new Bird(model.Id, model.Name)).ToList();
+            var allBirds = await _birds.FindAsync(_ => true);
+            var birdList = await allBirds.ToListAsync();
+            return birdList.Select(MapModel).ToList();
         }
 
         public async Task<List<Bird>> GetBirdsByIds(IEnumerable<int> birdIds)
         {
-            var allBirds = await GetAllAsync();
-            return allBirds.Where(bird => birdIds.Contains(bird.Id)).ToList();
+            var birds = await _birds.FindAsync(bird => birdIds.Contains(bird.Id));
+            var birdList = await birds.ToListAsync();
+            return birdList.Select(MapModel).ToList();
         }
+
+        private Bird MapModel(BirdModel model) => new Bird(model.Id, model.Name);
     }
 }

@@ -15,10 +15,12 @@ namespace BirdAggregator.Application.Birds.GetBirds
 
         public async Task<BirdListDto> Handle(GetBirdsQuery request, CancellationToken cancellationToken)
         {
-            var allBirds = await _birdRepository.GetAllAsync();          
+            var allBirds = await _birdRepository.GetAll();
 
-            return new BirdListDto {
-                Birds = allBirds.Select(bird => new BirdDto {
+            return new BirdListDto
+            {
+                Birds = allBirds.Select(bird => new BirdDto
+                {
                     Id = bird.Id,
                     Latin = bird.LatinName,
                     Name = bird.EnglishName

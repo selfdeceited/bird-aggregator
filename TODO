@@ -1,66 +1,53 @@
 Bird-Aggregator 2.0 release-ready checklist
 
-[x] make server-side work
-[x] make client-side fully work
-[x] resolve all major client-side UI issues
-[x] resolve new 500s for server-side
-[x] successfully run prod version in Docker
-[ ] Move to MongoDB as a primary storage
-[ ] K U B E R N E T E S (:
+# BACKEND
+
+[ ] api error handling (good 500s and UI)
+[ ] swagger working with typedoc
+[ ] structured logging
+[ ] proper env values handling with secret storage
+[.] Move to MongoDB as a primary storage
+
+- [x] birds
+- [ ] locations
+- [ ] photos
+
 [ ] Check at app start if all appSettings params has been set correctly
 [.] add health checks
- - Flickr
- - DB
- 
-[.] Set up a domain via the DDD; Move to hexagonal architecture
 
-[x] use docker-compose to set up an env
-[ ] fix: CORS and env handling!
-[ ] run tests in CI
-[ ] error handling (render good 500s)
-[ ] swagger working with typedoc
-[ ] Change update mechanism by implementing a saga
-[.] integration tests
-[ ] https://github.com/dotnet/AspNetCore.Docs/issues/6199
+- Flickr
+- DB
+  [ ] scaleable small actor apps that auto-updates the database
+  [ ] update mechanism by implementing a saga?
+- and show it to the user
+
+# FRONTEND
+
 [.] move to functional components and hooks
 left components:
- - GalleryWrap
- - MapWrap
- - SeedProgress
- - Navbar
 
-Migration
+- GalleryWrap
+- MapWrap
+- SeedProgress
+- Navbar
 
-Queries
+# INFRA
 
-Birds
-[x] GetBirds
-[x] GetGallery Per Bird
-[x] Wiki info per bird
+[ ] Healthcheck in Dockerfile.api
+[ ] K U B E R N E T E S (:
+[ ] run tests in CI
+[ ] CD in Azure Functions
+[ ] IaC
+[.] integration tests
 
-Photos
-[x] Gallery/x
-[x] By photo ID
-[x] Flickr direct link per photo - IOptions needed
-
-Stats
-[x] LifeList
-[x] Yearly LifeList
-
-Location
-[x] All markers
-[ ] Marker by locationid
-[ ] Markers per bird
-
-Metadata
-[x] Github
-[x] Flickr
-[x] User
-
+# MIGRATION
 
 Commands
 [ ] Add Photo
-============================================
-[ ] Edit Photo Metadata
-[ ] Add Photo Location
-[ ] Re-identify bird on photo
+[ ] Edit Photo Metadata (new)
+[ ] Add Photo Location (new)
+[ ] Re-identify bird on photo (new)
+
+# OTHER
+
+[ ] https://github.com/dotnet/AspNetCore.Docs/issues/6199

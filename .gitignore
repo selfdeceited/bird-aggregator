@@ -240,3 +240,5 @@ _Pvt_Extensions
 
 # private keys
 *.private
+
+*.Development.json

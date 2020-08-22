@@ -11,6 +11,7 @@ using BirdAggregator.Infrastructure.Wikipedia;
 using BirdAggregator.Domain.Locations;
 using BirdAggregator.Infrastructure.DataAccess.Locations;
 using BirdAggregator.Application.Locations;
+using BirdAggregator.Infrastructure.Mongo;
 
 namespace BirdAggregator.Infrastructure.DependencyInjection
 {
@@ -22,17 +23,26 @@ namespace BirdAggregator.Infrastructure.DependencyInjection
         {
             var serviceProvider = CreateServiceProvider(services, appSettings);
 
+            OnStartup(serviceProvider);
             return serviceProvider;
+        }
+
+        private static void OnStartup(IServiceProvider serviceProvider)
+        {
+            var bootstrapTask = serviceProvider.GetService<IMongoConnection>().BootstrapDb();
+            bootstrapTask.ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
         private static IServiceProvider CreateServiceProvider(
             IServiceCollection services,
             AppSettings appSettings)
-        {   
-            // todo: move to different extension methods                  
+        {
+            // todo: move to different extension methods
+            services.AddScoped<IMongoConnection, MongoConnection>();
             services.AddScoped<IBirdRepository, BirdRepository>();
             services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<ILocationRepository, LocationRepository>();
+
 
             // todo: move to different extension methods                  
             services.AddScoped<IPictureHostingService, FlickrService>();
@@ -40,7 +50,7 @@ namespace BirdAggregator.Infrastructure.DependencyInjection
 
             // todo: move to different extension methods                  
             services.AddScoped<ILocationService, LocationService>();
-            
+
             services.AddSingleton<AppSettings>(appSettings);
             var serviceProvider = services.BuildServiceProvider();
             return serviceProvider;

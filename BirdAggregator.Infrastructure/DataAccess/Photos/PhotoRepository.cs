@@ -77,7 +77,7 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
         public async Task<IEnumerable<Location>> GetByBirdIdAsync(int birdId)
         {
             var photos = await GetGalleryForBirdAsync(birdId);
-            return photos.Select(x => x.Location);
+            return photos.Where(x => x.Birds.Select(_ => _.Id).Contains(birdId)).Select(x => x.Location);
         }
     }
 }

@@ -21,9 +21,9 @@ namespace BirdAggregator.Application.LifeList.GetLifeListQuery
         public async Task<GetLifeListDto> Handle(GetLifeListQuery request, CancellationToken cancellationToken)
         {
             // todo: move as much to domain logic as possible
-            var allBirds = await _birdRepository.GetAllAsync();
+            var allBirds = await _birdRepository.GetAll();
             var allPhotos = await _photoRepository.GetAllAsync();
-            
+
             var grouping = allBirds.Select(x => new LifeListGrouping
             {
                 Bird = x,
@@ -36,17 +36,18 @@ namespace BirdAggregator.Application.LifeList.GetLifeListQuery
             {
                 var firstOccurence = item.Photos.Aggregate(
                     (c1, c2) => c1.DateTaken < c2.DateTaken ? c1 : c2);
-                    
-                localList.Add(new Occurence { 
-                    BirdId = item.Bird.Id, 
-                    Name = item.Bird.EnglishName, 
+
+                localList.Add(new Occurence
+                {
+                    BirdId = item.Bird.Id,
+                    Name = item.Bird.EnglishName,
                     DateMet = firstOccurence.DateTaken,
                     Location = firstOccurence.Location.Description,
                     LocationId = firstOccurence.Location.Id,
                     PhotoId = firstOccurence.Id,
                 });
             }
-            
+
             return new GetLifeListDto
             {
                 FirstOccurences = localList.OrderByDescending(x => x.DateMet).ToList()
