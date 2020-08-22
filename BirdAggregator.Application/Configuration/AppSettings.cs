@@ -7,5 +7,7 @@ namespace BirdAggregator.Application.Configuration
         public string Github { get; set; }
         public string UserName { get; set; }
         public bool IsTestRun { get; set; }
+
+        public string MongoConnectionString { get; set; }
     }
 }
