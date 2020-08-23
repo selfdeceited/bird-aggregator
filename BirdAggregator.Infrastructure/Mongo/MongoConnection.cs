@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BirdAggregator.Application.Configuration;
 using BirdAggregator.Infrastructure.DataAccess.Birds;
+using BirdAggregator.Infrastructure.DataAccess.Locations;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
 using Newtonsoft.Json;
@@ -60,6 +61,7 @@ namespace BirdAggregator.Infrastructure.Mongo
             {
                 var initTasks = new Task[] {
                     InitCollection<BirdModel>(@"../data/data.birds.json", "birds"),
+                    InitCollection<LocationModel>(@"../data/data.locations.json", "locations")
                 };
 
                 return Task.WhenAll(initTasks);

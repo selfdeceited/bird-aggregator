@@ -1,35 +1,36 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using BirdAggregator.Domain.Locations;
-using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
+using BirdAggregator.Infrastructure.Mongo;
+using MongoDB.Driver;
 
 namespace BirdAggregator.Infrastructure.DataAccess.Locations
 {
     public class LocationRepository : ILocationRepository
     {
-        private readonly IHostingEnvironment _appEnvironment;
+        private readonly IMongoConnection _mongoConnection;
+        private IMongoCollection<LocationModel> _locations => _mongoConnection.Database.GetCollection<LocationModel>("locations");
 
-        public LocationRepository(IHostingEnvironment appEnvironment)
+        public LocationRepository(IMongoConnection mongoConnection)
         {
-            _appEnvironment = appEnvironment;
+            _mongoConnection = mongoConnection;
         }
 
         public async Task<IEnumerable<Location>> GetAllAsync()
         {
-            var path = Path.Combine(_appEnvironment.ContentRootPath, @"../data/data.locations.json");
-            var fileContent = await File.ReadAllTextAsync(path);
-            var locationModels = JsonConvert.DeserializeObject<List<LocationModel>>(fileContent);
-            return locationModels.Select(x =>
-                new Location(x.Id, x.Country, x.Neighbourhood, x.Region, x.X, x.Y));
+            var allLocations = await _locations.FindAsync(_ => true);
+            var locationList = await allLocations.ToListAsync();
+            return locationList.Select(MapModel).ToList();
         }
 
         public async Task<Location> GetByIdAsync(int id)
         {
-            var allLocations = await GetAllAsync();
-            return allLocations.SingleOrDefault(x => x.Id == id);
+            var locations = await _locations.FindAsync(location => location.Id == id);
+            var locationModel = await locations.SingleOrDefaultAsync();
+            return MapModel(locationModel);
         }
+
+        private Location MapModel(LocationModel x) => new Location(x.Id, x.Country, x.Neighbourhood, x.Region, x.X, x.Y);
     }
 }

@@ -1,7 +1,10 @@
-﻿namespace BirdAggregator.Infrastructure.DataAccess.Locations
+﻿using MongoDB.Bson.Serialization.Attributes;
+
+namespace BirdAggregator.Infrastructure.DataAccess.Locations
 {
     public class LocationModel
     {
+        [BsonId]
         public int Id { get; set; }
         public string Neighbourhood { get; set; }
         public string Region { get; set; }

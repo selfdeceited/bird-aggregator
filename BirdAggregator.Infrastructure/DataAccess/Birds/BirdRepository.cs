@@ -12,14 +12,12 @@ namespace BirdAggregator.Infrastructure.DataAccess.Birds
 {
     public class BirdRepository : IBirdRepository
     {
-        private readonly IHostingEnvironment _appEnvironment;
         private readonly IMongoConnection _mongoConnection;
         private IMongoCollection<BirdModel> _birds => _mongoConnection.Database.GetCollection<BirdModel>("birds");
 
-        public BirdRepository(IHostingEnvironment appEnvironment, IMongoConnection connection)
+        public BirdRepository(IMongoConnection mongoConnection)
         {
-            _appEnvironment = appEnvironment;
-            _mongoConnection = connection;
+            _mongoConnection = mongoConnection;
         }
 
         public async Task<Bird> Get(int birdId)

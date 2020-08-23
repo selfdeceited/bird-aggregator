@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "ms-dotnettools.csharp",
+    "streetsidesoftware.code-spell-checker",
+    "ms-azuretools.vscode-docker",
+    "dbaeumer.vscode-eslint",
+    "k--kato.intellij-idea-keybindings",
+    "esbenp.prettier-vscode",
+    "amatiasq.sort-imports",
+    "orta.vscode-jest"
+  ]
+}
