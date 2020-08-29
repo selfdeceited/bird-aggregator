@@ -31,6 +31,6 @@ namespace BirdAggregator.Infrastructure.DataAccess.Locations
             return MapModel(locationModel);
         }
 
-        private Location MapModel(LocationModel x) => new Location(x.Id, x.Country, x.Neighbourhood, x.Region, x.X, x.Y);
+        internal static Location MapModel(LocationModel x) => new Location(x.Id, x.Country, x.Neighbourhood, x.Region, x.X, x.Y);
     }
 }

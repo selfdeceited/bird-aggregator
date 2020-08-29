@@ -41,6 +41,6 @@ namespace BirdAggregator.Infrastructure.DataAccess.Birds
             return birdList.Select(MapModel).ToList();
         }
 
-        private Bird MapModel(BirdModel model) => new Bird(model.Id, model.Name);
+        internal static Bird MapModel(BirdModel model) => new Bird(model.Id, model.Name);
     }
 }

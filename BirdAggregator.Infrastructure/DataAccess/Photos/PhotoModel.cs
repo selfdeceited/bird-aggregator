@@ -1,14 +1,16 @@
 using System;
 using System.Collections.Generic;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace BirdAggregator.Infrastructure.DataAccess.Photos
 {
     internal class PhotoModel
     {
+        [BsonId]
         public int Id { get; set; }
-        public IEnumerable<int> BirdIds {get; set; }
+        public IEnumerable<int> BirdIds { get; set; }
         public string FlickrId { get; set; }
-        public int LocationId {get; set;}
+        public int LocationId { get; set; }
         public int FarmId { get; set; }
         public string ServerId { get; set; }
         public string Secret { get; set; }
