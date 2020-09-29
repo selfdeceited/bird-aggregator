@@ -9,7 +9,7 @@ Bird-Aggregator 2.0 release-ready checklist
 - [x] birds
 - [x] locations
 - [x] photos
-- [ ] fix JOINs not working for PhotoRepository 
+- [ ] switch to flat model (see PhotoRepository mess)
 
 [ ] Check at app start if all appSettings params has been set correctly
 [.] add health checks
