@@ -5,8 +5,10 @@
         "Flickr",
         "Hsts",
         "Lightbox",
+        "Mapbox",
         "Xunit",
         "blueprintjs",
+        "lifelist",
         "mediatr"
     ]
 }

@@ -242,3 +242,5 @@ _Pvt_Extensions
 *.private
 
 *.Development.json
+
+.eslintcache

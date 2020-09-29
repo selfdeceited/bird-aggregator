@@ -44,8 +44,8 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 	const set = (_: string) => (props.asPopup ? (props.birdId ? '400px' : '220px') : `100v${_}`)
 
 	const [center, setCenter] = useState<number[]>([35.5, 55.6])
-	const [mapHeight, setMapHeight] = useState<string>(set('h'))
-	const [mapWidth, setMapWidth] = useState<string>(set('w'))
+	const [mapHeight] = useState<string>(set('h'))
+	const [mapWidth] = useState<string>(set('w'))
 	const [markers, setMarkers] = useState<IMapMarkerDto[]>([])
 	const [zoomLevel, setZoomLevel] = useState<number[]>([6])
 	const [selectedMarker, setSelectedMarker] = useState<IMapMarkerDto | undefined>()
@@ -69,10 +69,10 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 		const urlToFetch = urlsToFetch.length > 0 ? urlsToFetch[0] : '/api/map/markers'
 
 		axios.get(urlToFetch).then(res => {
-			const { markers } = res.data
-			setMarkers(markers)
+			const { markers: fetchedMarkers } = res.data
+			setMarkers(fetchedMarkers)
 			if (props.locationIdToShow || props.birdId) {
-				setCenter([markers[0].x, markers[0].y])
+				setCenter([fetchedMarkers[0].x, fetchedMarkers[0].y])
 			}
 		})
 	}
@@ -82,9 +82,9 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 		fetchData()
 	}, [props])
 
-	const markerClick = (selectedMarker: IMapMarkerDto) => {
-		setCenter([selectedMarker.x, selectedMarker.y])
-		setSelectedMarker(selectedMarker)
+	const markerClick = (marker: IMapMarkerDto) => {
+		setCenter([marker.x, marker.y])
+		setSelectedMarker(marker)
 	}
 
 	const removePopup = () => {
