@@ -43,5 +43,48 @@ namespace birds.Controllers
             var photo = _context.Photos.Find(id);
             return _galleryService.Project(photo);
         }
+
+        // Add for flat schema migration.
+        [HttpGet("flat")]
+        public IEnumerable<object> Flat() {
+            var allBirds = _context.Birds.ToList();
+            var allLocations = _context.Locations.ToList();
+
+            return _context.Photos.ToList().Select(_ => {
+                var location = allLocations.Single(x => x.Id == _.LocationId);
+                return new {
+                Id = _.Id,
+                Birds = _.BirdIds.Select(id => {
+                    var bird = allBirds.Single(x => x.Id == id);
+                    return new {
+                        Id = id,
+                        LatinName = bird.LatinName,
+                        EnglishName = bird.EnglishName
+                    };
+                }
+                ),
+                Flickr = new {
+                    FarmId = _.FarmId,
+                    ServerId = _.ServerId,
+                    Secret = _.Secret,
+                },
+
+                Location = new {
+                    Id = location.Id,
+                    Neighbourhood = location.Neighbourhood,
+                    Region = location.Region,
+                    GeoTag = location.GeoTag,
+                    Country = location.Country,
+                    X = location.X,
+                    Y = location.Y,
+                },
+                DateTaken = _.DateTaken,
+                Description = _.Description,
+                Ratio = _.Ratio
+            };
+            }
+            );
+              
+        }
     }
 }

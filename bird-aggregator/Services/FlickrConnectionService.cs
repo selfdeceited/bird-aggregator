@@ -18,7 +18,7 @@ namespace birds.Services
 
         public int GetPagesCount()
         {
-	        return _settings.IsTestRun ? 1 : GetPhotos().photos.pages;
+	        return _settings.IsTestRun ? 5 : GetPhotos().photos.pages;
         }
         
         public PhotosResponse GetPhotos(int page = 0)

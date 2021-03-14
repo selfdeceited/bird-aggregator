@@ -45,7 +45,7 @@ namespace BirdAggregator.Host
                .AddHealthChecksUI()
                .AddInMemoryStorage();*/
 
-            services.AddControllersWithViews();
+            services.AddControllers();
 
             services.AddSwaggerGen();
 
@@ -54,6 +54,7 @@ namespace BirdAggregator.Host
                 "http://localhost:3000",
                 "http://localhost:10003",
             };
+
             services.AddCors(options =>
             {
                 var builder = new CorsPolicyBuilder()
