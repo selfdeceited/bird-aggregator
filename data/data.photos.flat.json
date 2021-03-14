@@ -4,7 +4,12 @@
     "birds": [
       { "id": 1, "latinName": "Chloris chloris", "englishName": "Greenfinch" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "43b499d1a5" },
+    "flickr": {
+      "id": "50687195056",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "43b499d1a5"
+    },
     "location": {
       "id": 1,
       "neighbourhood": "",
@@ -23,7 +28,12 @@
     "birds": [
       { "id": 2, "latinName": "Saxicola rubetra", "englishName": "Whinchat" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "fe4922162d" },
+    "flickr": {
+      "id": "50686445333",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "fe4922162d"
+    },
     "location": {
       "id": 1,
       "neighbourhood": "",
@@ -42,7 +52,12 @@
     "birds": [
       { "id": 2, "latinName": "Saxicola rubetra", "englishName": "Whinchat" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "89fbd0133c" },
+    "flickr": {
+      "id": "50687279152",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "89fbd0133c"
+    },
     "location": {
       "id": 1,
       "neighbourhood": "",
@@ -61,7 +76,12 @@
     "birds": [
       { "id": 3, "latinName": "Chlidonias niger", "englishName": "Black Tern" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "59bddd04ef" },
+    "flickr": {
+      "id": "50687279132",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "59bddd04ef"
+    },
     "location": {
       "id": 2,
       "neighbourhood": "",
@@ -80,7 +100,12 @@
     "birds": [
       { "id": 4, "latinName": "Corvus corax", "englishName": "Common Raven" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "fe455a395d" },
+    "flickr": {
+      "id": "50687279257",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "fe455a395d"
+    },
     "location": {
       "id": 3,
       "neighbourhood": "",
@@ -99,7 +124,12 @@
     "birds": [
       { "id": 5, "latinName": "Ardea cinerea", "englishName": "Grey Heron" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "3687b28386" },
+    "flickr": {
+      "id": "50686445468",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "3687b28386"
+    },
     "location": {
       "id": 4,
       "neighbourhood": "",
@@ -122,7 +152,12 @@
         "englishName": "Western Marsh Harrier"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "b38e3618b3" },
+    "flickr": {
+      "id": "50687279387",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "b38e3618b3"
+    },
     "location": {
       "id": 4,
       "neighbourhood": "",
@@ -145,7 +180,12 @@
         "englishName": "Citrine Wagtail"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "17a31130e8" },
+    "flickr": {
+      "id": "50687195686",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "17a31130e8"
+    },
     "location": {
       "id": 5,
       "neighbourhood": "",
@@ -164,7 +204,12 @@
     "birds": [
       { "id": 8, "latinName": "Luscinia svecica", "englishName": "Bluethroat" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "bae58a22b0" },
+    "flickr": {
+      "id": "50687279482",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "bae58a22b0"
+    },
     "location": {
       "id": 6,
       "neighbourhood": "",
@@ -187,7 +232,12 @@
         "englishName": "Black-Headed Gull"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "4924e206ee" },
+    "flickr": {
+      "id": "50687279557",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "4924e206ee"
+    },
     "location": {
       "id": 6,
       "neighbourhood": "",
@@ -206,7 +256,12 @@
     "birds": [
       { "id": 5, "latinName": "Ardea cinerea", "englishName": "Grey Heron" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "f2eab00720" },
+    "flickr": {
+      "id": "50686445128",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "f2eab00720"
+    },
     "location": {
       "id": 7,
       "neighbourhood": "",
@@ -225,7 +280,12 @@
     "birds": [
       { "id": 5, "latinName": "Ardea cinerea", "englishName": "Grey Heron" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "bb5075329e" },
+    "flickr": {
+      "id": "50687195841",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "bb5075329e"
+    },
     "location": {
       "id": 7,
       "neighbourhood": "",
@@ -244,7 +304,12 @@
     "birds": [
       { "id": 5, "latinName": "Ardea cinerea", "englishName": "Grey Heron" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "556d64fd30" },
+    "flickr": {
+      "id": "50687195901",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "556d64fd30"
+    },
     "location": {
       "id": 7,
       "neighbourhood": "",
@@ -263,7 +328,12 @@
     "birds": [
       { "id": 8, "latinName": "Luscinia svecica", "englishName": "Bluethroat" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "cd6d3e577e" },
+    "flickr": {
+      "id": "50687195951",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "cd6d3e577e"
+    },
     "location": {
       "id": 8,
       "neighbourhood": "",
@@ -282,7 +352,12 @@
     "birds": [
       { "id": 8, "latinName": "Luscinia svecica", "englishName": "Bluethroat" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "cd414958b3" },
+    "flickr": {
+      "id": "50687279767",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "cd414958b3"
+    },
     "location": {
       "id": 8,
       "neighbourhood": "",
@@ -305,7 +380,12 @@
         "englishName": "Black-Necked Grebe"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "6a93133a23" },
+    "flickr": {
+      "id": "50686446003",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "6a93133a23"
+    },
     "location": {
       "id": 9,
       "neighbourhood": "",
@@ -328,7 +408,12 @@
         "englishName": "Black-Necked Grebe"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "f47fdfce33" },
+    "flickr": {
+      "id": "50687196076",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "f47fdfce33"
+    },
     "location": {
       "id": 9,
       "neighbourhood": "",
@@ -351,7 +436,12 @@
         "englishName": "Black-Necked Grebe"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "9253d001b4" },
+    "flickr": {
+      "id": "50687196146",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "9253d001b4"
+    },
     "location": {
       "id": 9,
       "neighbourhood": "",
@@ -374,7 +464,12 @@
         "englishName": "Black-Necked Grebe"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "831ea6d044" },
+    "flickr": {
+      "id": "50686446138",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "831ea6d044"
+    },
     "location": {
       "id": 9,
       "neighbourhood": "",
@@ -397,7 +492,12 @@
         "englishName": "Black-Necked Grebe"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "cbfb058396" },
+    "flickr": {
+      "id": "50687196261",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "cbfb058396"
+    },
     "location": {
       "id": 9,
       "neighbourhood": "",
@@ -416,7 +516,12 @@
     "birds": [
       { "id": 3, "latinName": "Chlidonias niger", "englishName": "Black Tern" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "eaae078211" },
+    "flickr": {
+      "id": "50687280137",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "eaae078211"
+    },
     "location": {
       "id": 10,
       "neighbourhood": "",
@@ -439,7 +544,12 @@
         "englishName": "Common Reed Bunting"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "5d0ec439cf" },
+    "flickr": {
+      "id": "50686446288",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "5d0ec439cf"
+    },
     "location": {
       "id": 10,
       "neighbourhood": "",
@@ -458,7 +568,12 @@
     "birds": [
       { "id": 5, "latinName": "Ardea cinerea", "englishName": "Grey Heron" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "2df0b7e2b7" },
+    "flickr": {
+      "id": "50687196361",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "2df0b7e2b7"
+    },
     "location": {
       "id": 10,
       "neighbourhood": "",
@@ -477,7 +592,12 @@
     "birds": [
       { "id": 3, "latinName": "Chlidonias niger", "englishName": "Black Tern" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "9a934ec935" },
+    "flickr": {
+      "id": "50686446368",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "9a934ec935"
+    },
     "location": {
       "id": 10,
       "neighbourhood": "",
@@ -500,7 +620,12 @@
         "englishName": "Great Cormorant"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "12754648c4" },
+    "flickr": {
+      "id": "50687280282",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "12754648c4"
+    },
     "location": {
       "id": 10,
       "neighbourhood": "",
@@ -519,7 +644,12 @@
     "birds": [
       { "id": 13, "latinName": "Turdus pilaris", "englishName": "Fieldfare" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "015a4f4690" },
+    "flickr": {
+      "id": "50687280357",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "015a4f4690"
+    },
     "location": {
       "id": 11,
       "neighbourhood": "",
@@ -538,7 +668,12 @@
     "birds": [
       { "id": 13, "latinName": "Turdus pilaris", "englishName": "Fieldfare" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "c42f62c9a1" },
+    "flickr": {
+      "id": "50687278897",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c42f62c9a1"
+    },
     "location": {
       "id": 11,
       "neighbourhood": "",
@@ -557,7 +692,12 @@
     "birds": [
       { "id": 14, "latinName": "Larus canus", "englishName": "Common Gull" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "bb938ebf3c" },
+    "flickr": {
+      "id": "50687280382",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "bb938ebf3c"
+    },
     "location": {
       "id": 11,
       "neighbourhood": "",
@@ -580,7 +720,12 @@
         "englishName": "Sedge Warbler"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "fe882d132f" },
+    "flickr": {
+      "id": "50687280437",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "fe882d132f"
+    },
     "location": {
       "id": 11,
       "neighbourhood": "",
@@ -599,7 +744,12 @@
     "birds": [
       { "id": 2, "latinName": "Saxicola rubetra", "englishName": "Whinchat" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "1bdc990cc9" },
+    "flickr": {
+      "id": "50687280467",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "1bdc990cc9"
+    },
     "location": {
       "id": 11,
       "neighbourhood": "",
@@ -618,7 +768,12 @@
     "birds": [
       { "id": 2, "latinName": "Saxicola rubetra", "englishName": "Whinchat" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "9f291a5765" },
+    "flickr": {
+      "id": "50687196621",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "9f291a5765"
+    },
     "location": {
       "id": 11,
       "neighbourhood": "",
@@ -637,7 +792,12 @@
     "birds": [
       { "id": 4, "latinName": "Corvus corax", "englishName": "Common Raven" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "cbf0e8ef2b" },
+    "flickr": {
+      "id": "50687196656",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "cbf0e8ef2b"
+    },
     "location": {
       "id": 3,
       "neighbourhood": "",
@@ -656,7 +816,12 @@
     "birds": [
       { "id": 4, "latinName": "Corvus corax", "englishName": "Common Raven" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "6c0d3e2a0a" },
+    "flickr": {
+      "id": "50687196721",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "6c0d3e2a0a"
+    },
     "location": {
       "id": 3,
       "neighbourhood": "",
@@ -675,7 +840,12 @@
     "birds": [
       { "id": 16, "latinName": "Milvus migrans", "englishName": "Black Kite" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "ba71198ab1" },
+    "flickr": {
+      "id": "50687196761",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "ba71198ab1"
+    },
     "location": {
       "id": 3,
       "neighbourhood": "",
@@ -694,7 +864,12 @@
     "birds": [
       { "id": 16, "latinName": "Milvus migrans", "englishName": "Black Kite" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "def6b35995" },
+    "flickr": {
+      "id": "50686445208",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "def6b35995"
+    },
     "location": {
       "id": 3,
       "neighbourhood": "",
@@ -713,7 +888,12 @@
     "birds": [
       { "id": 16, "latinName": "Milvus migrans", "englishName": "Black Kite" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "28eb167a06" },
+    "flickr": {
+      "id": "50686446653",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "28eb167a06"
+    },
     "location": {
       "id": 3,
       "neighbourhood": "",
@@ -732,7 +912,12 @@
     "birds": [
       { "id": 3, "latinName": "Chlidonias niger", "englishName": "Black Tern" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "ba1f897c4b" },
+    "flickr": {
+      "id": "50687196841",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "ba1f897c4b"
+    },
     "location": {
       "id": 12,
       "neighbourhood": "",
@@ -751,7 +936,12 @@
     "birds": [
       { "id": 3, "latinName": "Chlidonias niger", "englishName": "Black Tern" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "887673caa7" },
+    "flickr": {
+      "id": "50686446718",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "887673caa7"
+    },
     "location": {
       "id": 12,
       "neighbourhood": "",
@@ -774,7 +964,12 @@
         "englishName": "Black-Headed Gull"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "4f3395c03b" },
+    "flickr": {
+      "id": "50687196861",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "4f3395c03b"
+    },
     "location": {
       "id": 12,
       "neighbourhood": "",
@@ -793,7 +988,12 @@
     "birds": [
       { "id": 17, "latinName": "Pica pica", "englishName": "Common Magpie" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "418e9d8328" },
+    "flickr": {
+      "id": "50687280772",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "418e9d8328"
+    },
     "location": {
       "id": 13,
       "neighbourhood": "",
@@ -812,7 +1012,12 @@
     "birds": [
       { "id": 5, "latinName": "Ardea cinerea", "englishName": "Grey Heron" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "885370d243" },
+    "flickr": {
+      "id": "50687196916",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "885370d243"
+    },
     "location": {
       "id": 14,
       "neighbourhood": "",
@@ -831,7 +1036,12 @@
     "birds": [
       { "id": 8, "latinName": "Luscinia svecica", "englishName": "Bluethroat" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "c3db7a6244" },
+    "flickr": {
+      "id": "50687196926",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c3db7a6244"
+    },
     "location": {
       "id": 1,
       "neighbourhood": "",
@@ -854,7 +1064,12 @@
         "englishName": "Sedge Warbler"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "3cbae66a31" },
+    "flickr": {
+      "id": "50687195261",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "3cbae66a31"
+    },
     "location": {
       "id": 15,
       "neighbourhood": "",
@@ -877,7 +1092,12 @@
         "englishName": "White Wagtail"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "19c28acc1c" },
+    "flickr": {
+      "id": "50687280837",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "19c28acc1c"
+    },
     "location": {
       "id": 15,
       "neighbourhood": "",
@@ -896,7 +1116,12 @@
     "birds": [
       { "id": 2, "latinName": "Saxicola rubetra", "englishName": "Whinchat" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "68fc9e144f" },
+    "flickr": {
+      "id": "50687197021",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "68fc9e144f"
+    },
     "location": {
       "id": 15,
       "neighbourhood": "",
@@ -915,7 +1140,12 @@
     "birds": [
       { "id": 2, "latinName": "Saxicola rubetra", "englishName": "Whinchat" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "4c9783d889" },
+    "flickr": {
+      "id": "50686447013",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "4c9783d889"
+    },
     "location": {
       "id": 15,
       "neighbourhood": "",
@@ -934,7 +1164,12 @@
     "birds": [
       { "id": 2, "latinName": "Saxicola rubetra", "englishName": "Whinchat" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "ae7aca51a7" },
+    "flickr": {
+      "id": "50686447033",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "ae7aca51a7"
+    },
     "location": {
       "id": 15,
       "neighbourhood": "",
@@ -957,7 +1192,12 @@
         "englishName": "Common Linnet"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "a17e34f28e" },
+    "flickr": {
+      "id": "50687281012",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "a17e34f28e"
+    },
     "location": {
       "id": 15,
       "neighbourhood": "",
@@ -980,7 +1220,12 @@
         "englishName": "Common Linnet"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "f3e1aff272" },
+    "flickr": {
+      "id": "50687197196",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "f3e1aff272"
+    },
     "location": {
       "id": 15,
       "neighbourhood": "",
@@ -1003,7 +1248,12 @@
         "englishName": "Common Linnet"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "463e661d36" },
+    "flickr": {
+      "id": "50687281082",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "463e661d36"
+    },
     "location": {
       "id": 16,
       "neighbourhood": "",
@@ -1026,7 +1276,12 @@
         "englishName": "Common Linnet"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "4969454888" },
+    "flickr": {
+      "id": "50687281132",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "4969454888"
+    },
     "location": {
       "id": 16,
       "neighbourhood": "",
@@ -1049,7 +1304,12 @@
         "englishName": "Common Linnet"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "ced9ee5be8" },
+    "flickr": {
+      "id": "50687281182",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "ced9ee5be8"
+    },
     "location": {
       "id": 16,
       "neighbourhood": "",
@@ -1072,7 +1332,12 @@
         "englishName": "Common Whitethroat"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "a44e3a5d3f" },
+    "flickr": {
+      "id": "50687195336",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "a44e3a5d3f"
+    },
     "location": {
       "id": 17,
       "neighbourhood": "",
@@ -1095,7 +1360,12 @@
         "englishName": "Willow Warbler"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "4c56d1680d" },
+    "flickr": {
+      "id": "50687197341",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "4c56d1680d"
+    },
     "location": {
       "id": 18,
       "neighbourhood": "",
@@ -1118,7 +1388,12 @@
         "englishName": "Willow Warbler"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "7a65e743df" },
+    "flickr": {
+      "id": "50687197376",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "7a65e743df"
+    },
     "location": {
       "id": 18,
       "neighbourhood": "",
@@ -1137,7 +1412,12 @@
     "birds": [
       { "id": 22, "latinName": "Anthus trivialis", "englishName": "Tree Pipit" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "c773bc3135" },
+    "flickr": {
+      "id": "50687281337",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c773bc3135"
+    },
     "location": {
       "id": 18,
       "neighbourhood": "",
@@ -1160,7 +1440,12 @@
         "englishName": "Common Whitethroat"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "03a7fe1064" },
+    "flickr": {
+      "id": "50687281392",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "03a7fe1064"
+    },
     "location": {
       "id": 19,
       "neighbourhood": "",
@@ -1179,7 +1464,12 @@
     "birds": [
       { "id": 2, "latinName": "Saxicola rubetra", "englishName": "Whinchat" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "8d89aac1cf" },
+    "flickr": {
+      "id": "50686447448",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "8d89aac1cf"
+    },
     "location": {
       "id": 19,
       "neighbourhood": "",
@@ -1202,7 +1492,12 @@
         "englishName": "Common Linnet"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "2a6548cdda" },
+    "flickr": {
+      "id": "49698383151",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "2a6548cdda"
+    },
     "location": {
       "id": 20,
       "neighbourhood": "",
@@ -1225,7 +1520,12 @@
         "englishName": "Common Starling"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "455b4920db" },
+    "flickr": {
+      "id": "49697851488",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "455b4920db"
+    },
     "location": {
       "id": 20,
       "neighbourhood": "",
@@ -1248,7 +1548,12 @@
         "englishName": "Western Yellow Wagtail"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "74458e1d76" },
+    "flickr": {
+      "id": "49697851563",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "74458e1d76"
+    },
     "location": {
       "id": 20,
       "neighbourhood": "",
@@ -1271,7 +1576,12 @@
         "englishName": "Western Yellow Wagtail"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "a2febafa46" },
+    "flickr": {
+      "id": "49697851623",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "a2febafa46"
+    },
     "location": {
       "id": 20,
       "neighbourhood": "",
@@ -1294,7 +1604,12 @@
         "englishName": "Western Yellow Wagtail"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "8a614aeb16" },
+    "flickr": {
+      "id": "49697851948",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "8a614aeb16"
+    },
     "location": {
       "id": 20,
       "neighbourhood": "",
@@ -1317,7 +1632,12 @@
         "englishName": "Wood Sandpiper"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "14d5fd5249" },
+    "flickr": {
+      "id": "49698383726",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "14d5fd5249"
+    },
     "location": {
       "id": 21,
       "neighbourhood": "",
@@ -1340,7 +1660,12 @@
         "englishName": "Common Cuckoo"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "42662af896" },
+    "flickr": {
+      "id": "49698689232",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "42662af896"
+    },
     "location": {
       "id": 22,
       "neighbourhood": "",
@@ -1363,7 +1688,12 @@
         "englishName": "Common Cuckoo"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "83cb855afa" },
+    "flickr": {
+      "id": "49698689337",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "83cb855afa"
+    },
     "location": {
       "id": 22,
       "neighbourhood": "",
@@ -1386,7 +1716,12 @@
         "englishName": "Common Cuckoo"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "90498835fe" },
+    "flickr": {
+      "id": "49698383866",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "90498835fe"
+    },
     "location": {
       "id": 22,
       "neighbourhood": "",
@@ -1405,7 +1740,12 @@
     "birds": [
       { "id": 14, "latinName": "Larus canus", "englishName": "Common Gull" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "7c640cc11c" },
+    "flickr": {
+      "id": "49697852203",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "7c640cc11c"
+    },
     "location": {
       "id": 23,
       "neighbourhood": "",
@@ -1424,7 +1764,12 @@
     "birds": [
       { "id": 3, "latinName": "Chlidonias niger", "englishName": "Black Tern" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "7262f7d887" },
+    "flickr": {
+      "id": "49698689477",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "7262f7d887"
+    },
     "location": {
       "id": 23,
       "neighbourhood": "",
@@ -1443,7 +1788,12 @@
     "birds": [
       { "id": 3, "latinName": "Chlidonias niger", "englishName": "Black Tern" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "a4fc786676" },
+    "flickr": {
+      "id": "49698689602",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "a4fc786676"
+    },
     "location": {
       "id": 23,
       "neighbourhood": "",
@@ -1466,7 +1816,12 @@
         "englishName": "Western Yellow Wagtail"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "c66e03682e" },
+    "flickr": {
+      "id": "49697852388",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c66e03682e"
+    },
     "location": {
       "id": 24,
       "neighbourhood": "",
@@ -1489,7 +1844,12 @@
         "englishName": "Western Yellow Wagtail"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "66067fcaea" },
+    "flickr": {
+      "id": "49697852478",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "66067fcaea"
+    },
     "location": {
       "id": 24,
       "neighbourhood": "",
@@ -1512,7 +1872,12 @@
         "englishName": "White-Winged Tern"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "c021db3832" },
+    "flickr": {
+      "id": "49698384256",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c021db3832"
+    },
     "location": {
       "id": 24,
       "neighbourhood": "",
@@ -1535,7 +1900,12 @@
         "englishName": "Northern Lapwing"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "fa36818216" },
+    "flickr": {
+      "id": "49697852603",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "fa36818216"
+    },
     "location": {
       "id": 25,
       "neighbourhood": "",
@@ -1558,7 +1928,12 @@
         "englishName": "Northern Lapwing"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "a53f383c5b" },
+    "flickr": {
+      "id": "49698384391",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "a53f383c5b"
+    },
     "location": {
       "id": 25,
       "neighbourhood": "",
@@ -1581,7 +1956,12 @@
         "englishName": "Northern Lapwing"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "942f2fa7ce" },
+    "flickr": {
+      "id": "49698384416",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "942f2fa7ce"
+    },
     "location": {
       "id": 25,
       "neighbourhood": "",
@@ -1604,7 +1984,12 @@
         "englishName": "Northern Lapwing"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "b7f70635a1" },
+    "flickr": {
+      "id": "49698690022",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "b7f70635a1"
+    },
     "location": {
       "id": 25,
       "neighbourhood": "",
@@ -1627,7 +2012,12 @@
         "englishName": "Eurasian Skylark"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "ddc003b4a7" },
+    "flickr": {
+      "id": "49698690097",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "ddc003b4a7"
+    },
     "location": {
       "id": 25,
       "neighbourhood": "",
@@ -1650,7 +2040,12 @@
         "englishName": "Western Yellow Wagtail"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "80e89bd95f" },
+    "flickr": {
+      "id": "49698688707",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "80e89bd95f"
+    },
     "location": {
       "id": 25,
       "neighbourhood": "",
@@ -1673,7 +2068,12 @@
         "englishName": "Western Yellow Wagtail"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "9e7c93f4ef" },
+    "flickr": {
+      "id": "49698384621",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "9e7c93f4ef"
+    },
     "location": {
       "id": 25,
       "neighbourhood": "",
@@ -1696,7 +2096,12 @@
         "englishName": "Western Yellow Wagtail"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "c89cbb4dbb" },
+    "flickr": {
+      "id": "49698384676",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c89cbb4dbb"
+    },
     "location": {
       "id": 25,
       "neighbourhood": "",
@@ -1719,7 +2124,12 @@
         "englishName": "Western Yellow Wagtail"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "9232bf7e80" },
+    "flickr": {
+      "id": "49698690192",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "9232bf7e80"
+    },
     "location": {
       "id": 25,
       "neighbourhood": "",
@@ -1742,7 +2152,12 @@
         "englishName": "Western Yellow Wagtail"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "6cee8281da" },
+    "flickr": {
+      "id": "49698384791",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "6cee8281da"
+    },
     "location": {
       "id": 25,
       "neighbourhood": "",
@@ -1765,7 +2180,12 @@
         "englishName": "Western Yellow Wagtail"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "3d8a5d2266" },
+    "flickr": {
+      "id": "49698690297",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "3d8a5d2266"
+    },
     "location": {
       "id": 25,
       "neighbourhood": "",
@@ -1788,7 +2208,12 @@
         "englishName": "Northern Lapwing"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "64b3b00d91" },
+    "flickr": {
+      "id": "49698690327",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "64b3b00d91"
+    },
     "location": {
       "id": 25,
       "neighbourhood": "",
@@ -1811,7 +2236,12 @@
         "englishName": "Northern Lapwing"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "74f1eed05c" },
+    "flickr": {
+      "id": "49698384851",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "74f1eed05c"
+    },
     "location": {
       "id": 25,
       "neighbourhood": "",
@@ -1834,7 +2264,12 @@
         "englishName": "Northern Lapwing"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "85d95771f0" },
+    "flickr": {
+      "id": "49698690372",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "85d95771f0"
+    },
     "location": {
       "id": 25,
       "neighbourhood": "",
@@ -1857,7 +2292,12 @@
         "englishName": "Eurasian Skylark"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "b6aa3fdbc5" },
+    "flickr": {
+      "id": "49698384891",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "b6aa3fdbc5"
+    },
     "location": {
       "id": 25,
       "neighbourhood": "",
@@ -1880,7 +2320,12 @@
         "englishName": "Eurasian Skylark"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "b3bf00b71d" },
+    "flickr": {
+      "id": "49698690457",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "b3bf00b71d"
+    },
     "location": {
       "id": 25,
       "neighbourhood": "",
@@ -1903,7 +2348,12 @@
         "englishName": "Citrine Wagtail"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "d55d00db97" },
+    "flickr": {
+      "id": "49697853258",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "d55d00db97"
+    },
     "location": {
       "id": 26,
       "neighbourhood": "",
@@ -1922,7 +2372,12 @@
     "birds": [
       { "id": 4, "latinName": "Corvus corax", "englishName": "Common Raven" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "866e640b86" },
+    "flickr": {
+      "id": "49698690522",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "866e640b86"
+    },
     "location": {
       "id": 27,
       "neighbourhood": "",
@@ -1945,7 +2400,12 @@
         "englishName": "Common Whitethroat"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "e54d5da796" },
+    "flickr": {
+      "id": "49698385006",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "e54d5da796"
+    },
     "location": {
       "id": 18,
       "neighbourhood": "",
@@ -1964,7 +2424,12 @@
     "birds": [
       { "id": 22, "latinName": "Anthus trivialis", "englishName": "Tree Pipit" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "65340e9599" },
+    "flickr": {
+      "id": "49698385031",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "65340e9599"
+    },
     "location": {
       "id": 18,
       "neighbourhood": "",
@@ -1983,7 +2448,12 @@
     "birds": [
       { "id": 2, "latinName": "Saxicola rubetra", "englishName": "Whinchat" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "0460eee424" },
+    "flickr": {
+      "id": "49697853478",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "0460eee424"
+    },
     "location": {
       "id": 28,
       "neighbourhood": "",
@@ -2006,7 +2476,12 @@
         "englishName": "Common Rosefinch"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "c955c7abc4" },
+    "flickr": {
+      "id": "48278844417",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c955c7abc4"
+    },
     "location": {
       "id": 29,
       "neighbourhood": "",
@@ -2029,7 +2504,12 @@
         "englishName": "Common Kestrel"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "e9de2d6805" },
+    "flickr": {
+      "id": "48278844517",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "e9de2d6805"
+    },
     "location": {
       "id": 30,
       "neighbourhood": "",
@@ -2052,7 +2532,12 @@
         "englishName": "Red-Backed Shrike"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "31e887e108" },
+    "flickr": {
+      "id": "48278757671",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "31e887e108"
+    },
     "location": {
       "id": 30,
       "neighbourhood": "",
@@ -2075,7 +2560,12 @@
         "englishName": "Red-Backed Shrike"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "1e161e99d7" },
+    "flickr": {
+      "id": "48278757711",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "1e161e99d7"
+    },
     "location": {
       "id": 30,
       "neighbourhood": "",
@@ -2098,7 +2588,12 @@
         "englishName": "Red-Backed Shrike"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "ef21dc978a" },
+    "flickr": {
+      "id": "48278757766",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "ef21dc978a"
+    },
     "location": {
       "id": 30,
       "neighbourhood": "",
@@ -2121,7 +2616,12 @@
         "englishName": "Wood Nuthatch"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "db91571a32" },
+    "flickr": {
+      "id": "48278844697",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "db91571a32"
+    },
     "location": {
       "id": 31,
       "neighbourhood": "",
@@ -2144,7 +2644,12 @@
         "englishName": "Eurasian Wren"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "d6f1677636" },
+    "flickr": {
+      "id": "48278844787",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "d6f1677636"
+    },
     "location": {
       "id": 32,
       "neighbourhood": "",
@@ -2167,7 +2672,12 @@
         "englishName": "Eurasian Wren"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "32b2aa00de" },
+    "flickr": {
+      "id": "48278844837",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "32b2aa00de"
+    },
     "location": {
       "id": 32,
       "neighbourhood": "",
@@ -2190,7 +2700,12 @@
         "englishName": "Eurasian Wren"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "4df4b6435d" },
+    "flickr": {
+      "id": "48278844902",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "4df4b6435d"
+    },
     "location": {
       "id": 32,
       "neighbourhood": "",
@@ -2213,7 +2728,12 @@
         "englishName": "Eurasian Wren"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "01080b132e" },
+    "flickr": {
+      "id": "48278758226",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "01080b132e"
+    },
     "location": {
       "id": 32,
       "neighbourhood": "",
@@ -2236,7 +2756,12 @@
         "englishName": "Eurasian Wren"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "421c8c2f22" },
+    "flickr": {
+      "id": "48278845132",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "421c8c2f22"
+    },
     "location": {
       "id": 32,
       "neighbourhood": "",
@@ -2259,7 +2784,12 @@
         "englishName": "Common Whitethroat"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "a6a84b0245" },
+    "flickr": {
+      "id": "48278758431",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "a6a84b0245"
+    },
     "location": {
       "id": 33,
       "neighbourhood": "",
@@ -2278,7 +2808,12 @@
     "birds": [
       { "id": 5, "latinName": "Ardea cinerea", "englishName": "Grey Heron" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "d04b4351a8" },
+    "flickr": {
+      "id": "48096292321",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "d04b4351a8"
+    },
     "location": {
       "id": 34,
       "neighbourhood": "",
@@ -2301,7 +2836,12 @@
         "englishName": "Garganey"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "595e8b6e61" },
+    "flickr": {
+      "id": "48096292601",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "595e8b6e61"
+    },
     "location": {
       "id": 34,
       "neighbourhood": "",
@@ -2324,7 +2864,12 @@
         "englishName": "Eurasian Skylark"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "15454085e0" },
+    "flickr": {
+      "id": "48096394962",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "15454085e0"
+    },
     "location": {
       "id": 35,
       "neighbourhood": "",
@@ -2347,7 +2892,12 @@
         "englishName": "Eurasian Skylark"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "c9e6f12b45" },
+    "flickr": {
+      "id": "48096292676",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c9e6f12b45"
+    },
     "location": {
       "id": 35,
       "neighbourhood": "",
@@ -2370,7 +2920,12 @@
         "englishName": "Eurasian Skylark"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "077fdaa479" },
+    "flickr": {
+      "id": "48096395037",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "077fdaa479"
+    },
     "location": {
       "id": 35,
       "neighbourhood": "",
@@ -2393,7 +2948,12 @@
         "englishName": "Eurasian Skylark"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "f3249d3b6f" },
+    "flickr": {
+      "id": "48096395097",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "f3249d3b6f"
+    },
     "location": {
       "id": 35,
       "neighbourhood": "",
@@ -2416,7 +2976,12 @@
         "englishName": "Eurasian Skylark"
       }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "0a49fa5eb6" },
+    "flickr": {
+      "id": "48096292801",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "0a49fa5eb6"
+    },
     "location": {
       "id": 35,
       "neighbourhood": "",
@@ -2435,7 +3000,12 @@
     "birds": [
       { "id": 36, "latinName": "Calidris pugnax", "englishName": "Ruff" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "6f0337f88b" },
+    "flickr": {
+      "id": "48096340143",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "6f0337f88b"
+    },
     "location": {
       "id": 35,
       "neighbourhood": "",
@@ -2454,7 +3024,12 @@
     "birds": [
       { "id": 36, "latinName": "Calidris pugnax", "englishName": "Ruff" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "54d080e046" },
+    "flickr": {
+      "id": "48096340198",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "54d080e046"
+    },
     "location": {
       "id": 35,
       "neighbourhood": "",
@@ -2473,7 +3048,12 @@
     "birds": [
       { "id": 36, "latinName": "Calidris pugnax", "englishName": "Ruff" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "e9b6d471b7" },
+    "flickr": {
+      "id": "48096340263",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "e9b6d471b7"
+    },
     "location": {
       "id": 35,
       "neighbourhood": "",
@@ -2492,7 +3072,12 @@
     "birds": [
       { "id": 36, "latinName": "Calidris pugnax", "englishName": "Ruff" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "c35b02f265" },
+    "flickr": {
+      "id": "48096340348",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c35b02f265"
+    },
     "location": {
       "id": 35,
       "neighbourhood": "",
@@ -2511,7 +3096,12 @@
     "birds": [
       { "id": 36, "latinName": "Calidris pugnax", "englishName": "Ruff" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "859b0808e5" },
+    "flickr": {
+      "id": "48096293096",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "859b0808e5"
+    },
     "location": {
       "id": 35,
       "neighbourhood": "",
@@ -2530,7 +3120,12 @@
     "birds": [
       { "id": 36, "latinName": "Calidris pugnax", "englishName": "Ruff" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "102f934382" },
+    "flickr": {
+      "id": "48096293151",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "102f934382"
+    },
     "location": {
       "id": 35,
       "neighbourhood": "",
@@ -2549,7 +3144,12 @@
     "birds": [
       { "id": 36, "latinName": "Calidris pugnax", "englishName": "Ruff" }
     ],
-    "flickr": { "farmId": 66, "serverId": "65535", "secret": "debedb0f48" },
+    "flickr": {
+      "id": "48096293216",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "debedb0f48"
+    },
     "location": {
       "id": 35,
       "neighbourhood": "",

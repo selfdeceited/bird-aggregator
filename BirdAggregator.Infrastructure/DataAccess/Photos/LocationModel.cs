@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace BirdAggregator.Infrastructure.DataAccess.Locations
+namespace BirdAggregator.Infrastructure.DataAccess.Photos
 {
     public class LocationModel
     {
@@ -9,6 +9,7 @@ namespace BirdAggregator.Infrastructure.DataAccess.Locations
         public string Neighbourhood { get; set; }
         public string Region { get; set; }
         public string Country { get; set; }
+        public string GeoTag { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
     }

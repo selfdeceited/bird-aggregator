@@ -64,6 +64,7 @@ namespace birds.Controllers
                 }
                 ),
                 Flickr = new {
+                    Id = _.FlickrId,
                     FarmId = _.FarmId,
                     ServerId = _.ServerId,
                     Secret = _.Secret,

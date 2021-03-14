@@ -1,102 +1,83 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using BirdAggregator.Domain.Birds;
 using BirdAggregator.Domain.Locations;
 using BirdAggregator.Domain.Photos;
-using BirdAggregator.Infrastructure.DataAccess.Birds;
-using BirdAggregator.Infrastructure.DataAccess.Locations;
-using BirdAggregator.Infrastructure.Flickr;
 using BirdAggregator.Infrastructure.Mongo;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
 namespace BirdAggregator.Infrastructure.DataAccess.Photos
 {
-    public partial class PhotoRepository : IPhotoRepository
+    public class PhotoRepository : IPhotoRepository, IBirdRepository, ILocationRepository
     {
         private readonly IMongoConnection _mongoConnection;
         private IMongoCollection<PhotoModel> _photos => _mongoConnection.Database.GetCollection<PhotoModel>("photos");
 
-        public PhotoRepository(IMongoConnection mongoConnection)
+
+        public Task<Bird> Get(int birdId)
         {
-            _mongoConnection = mongoConnection;
+            throw new System.NotImplementedException();
         }
 
-        public async Task<List<Photo>> GetAllAsync()
+        public Task<List<Bird>> GetAll()
         {
-            var list = FetchAll(9000).ToList();
-            return list.Select(MapModel).ToList();
+            throw new System.NotImplementedException();
         }
 
-        public async Task<List<Photo>> GetAllAsync(int count)
+        public Task<IEnumerable<Location>> GetAllAsync()
         {
-            var list = FetchAll(count).ToList();
-            return list.Select(MapModel).ToList();
+            throw new System.NotImplementedException();
         }
 
-        private IEnumerable<PhotoResultModel> FetchAll(int count)
+        public Task<List<Bird>> GetBirdsByIds(IEnumerable<int> birdIds)
         {
-            // todo: completely rewrite. No lazy joins / lookup aggregates work by now
-            var locations = Query<LocationModel>("locations").ToList();
-            var birds = Query<BirdModel>("birds").ToList();
-            var photos = Query<PhotoModel>("photos").Take(count).ToList();
-
-
-            var result = photos.Join(locations,
-                                p => p.LocationId,
-                                l => l.Id,
-                                (p, l) => new PhotoResultModel(p, birds.Where(b => p.BirdIds.Contains(b.Id)), l)).ToList();
-
-            return result;
+            throw new System.NotImplementedException();
         }
 
+        public Task<Location> GetByIdAsync(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+        Task<List<Photo>> IPhotoRepository.GetAllAsync()
+        {
+            throw new System.NotImplementedException();
+        }
 
-        public async Task<Photo> GetById(int photoId)
+        Task<List<Photo>> IPhotoRepository.GetAllAsync(int count)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task<IEnumerable<Location>> IPhotoRepository.GetByBirdIdAsync(int birdId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        async Task<Photo> IPhotoRepository.GetById(int photoId)
         {
             var photoFind = await _photos.FindAsync(x => x.Id == photoId);
             var photoModel = await photoFind.SingleOrDefaultAsync();
-            var birds = await Query<BirdModel>("birds").Where(x => photoModel.BirdIds.Contains(x.Id)).ToListAsync();
-            var locationModel = await Query<LocationModel>("locations").SingleOrDefaultAsync(l => l.Id == photoModel.Id);
-            return MapModel(new PhotoResultModel(photoModel, birds.ToArray(), locationModel));
+
+            return MapModel(photoModel);
         }
 
-        public async Task<List<Photo>> GetByLocationAsync(int id)
+        Task<List<Photo>> IPhotoRepository.GetByLocationAsync(int id)
         {
-            var list = FetchAll(9000)
-                .Where(x => x.PhotoModel.LocationId == id).ToList();
-
-            return list.Select(MapModel).ToList();
+            throw new System.NotImplementedException();
         }
 
-        public async Task<List<Photo>> GetGalleryForBirdAsync(int birdId)
+        Task<List<Photo>> IPhotoRepository.GetGalleryForBirdAsync(int birdId)
         {
-            var list = FetchAll(9000)
-                .Where(x => x.BirdModels.Select(b => b.Id).Contains(birdId))
-                .ToList();
-
-            return list.Select(MapModel).ToList();
+            throw new System.NotImplementedException();
         }
 
-        public async Task<IEnumerable<Location>> GetByBirdIdAsync(int birdId)
+        private Photo MapModel(PhotoModel photoModel)
         {
-            var photos = await GetGalleryForBirdAsync(birdId);
-            return photos.Select(x => x.Location);
-        }
-
-        private Photo MapModel(PhotoResultModel photoResultModel)
-        {
-            var model = photoResultModel.PhotoModel;
-            var locationModel = photoResultModel.LocationModel;
-            var birdModels = photoResultModel.BirdModels;
-
-            var location = LocationRepository.MapModel(locationModel);
-            var birds = birdModels.Select(BirdRepository.MapModel);
-            var photoInformation = new FlickrPhotoInformation(model.FlickrId, model.FarmId, model.ServerId, model.Secret);
-            return new Photo(model.Id, location, photoInformation, birds, model.DateTaken, model.Ratio, model.Description);
+            throw new System.NotImplementedException();
         }
 
         private IMongoQueryable<T> Query<T>(string name) =>
-                _mongoConnection.Database.GetCollection<T>(name).AsQueryable();
+        _mongoConnection.Database.GetCollection<T>(name).AsQueryable();
     }
 }

@@ -1,13 +1,11 @@
-using System;
-using System.IO;
 using System.IO.Compression;
 using System.Reflection;
 using BirdAggregator.Application.Birds.GetBirds;
 using BirdAggregator.Application.Configuration;
 using BirdAggregator.Domain.Birds;
-using BirdAggregator.Infrastructure.DataAccess.Birds;
 using BirdAggregator.Infrastructure.DependencyInjection;
 using BirdAggregator.Infrastructure.HealthChecks;
+using BirdAggregator.Infrastructure.Mongo;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -76,7 +74,7 @@ namespace BirdAggregator.Host
             // todo: MediaTr IoC to infra layer!
             services.AddMediatR(Assembly.GetExecutingAssembly(),
                 typeof(GetBirdsQuery).Assembly,
-                typeof(BirdRepository).Assembly,
+                typeof(MongoConnection).Assembly,
                 typeof(Bird).Assembly
             );
 
