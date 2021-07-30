@@ -54,15 +54,7 @@ namespace birds.Controllers
                 var location = allLocations.Single(x => x.Id == _.LocationId);
                 return new {
                 Id = _.Id,
-                Birds = _.BirdIds.Select(id => {
-                    var bird = allBirds.Single(x => x.Id == id);
-                    return new {
-                        Id = id,
-                        LatinName = bird.LatinName,
-                        EnglishName = bird.EnglishName
-                    };
-                }
-                ),
+                BirdIds = _.BirdIds,
                 Flickr = new {
                     Id = _.FlickrId,
                     FarmId = _.FarmId,
@@ -72,7 +64,7 @@ namespace birds.Controllers
 
                 Location = new {
                     Id = location.Id,
-                    Neighbourhood = location.Neighbourhood,
+                    Neighborhood = location.Neighbourhood,
                     Region = location.Region,
                     GeoTag = location.GeoTag,
                     Country = location.Country,
