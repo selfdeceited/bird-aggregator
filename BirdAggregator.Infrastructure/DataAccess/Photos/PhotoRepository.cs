@@ -14,7 +14,6 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
         private readonly IMongoConnection _mongoConnection;
         private IMongoCollection<PhotoModel> _photos => _mongoConnection.Database.GetCollection<PhotoModel>("photos");
 
-
         public Task<Bird> Get(int birdId)
         {
             throw new System.NotImplementedException();
@@ -78,6 +77,6 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
         }
 
         private IMongoQueryable<T> Query<T>(string name) =>
-        _mongoConnection.Database.GetCollection<T>(name).AsQueryable();
+            _mongoConnection.Database.GetCollection<T>(name).AsQueryable();
     }
 }

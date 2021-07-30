@@ -6,6 +6,8 @@ using BirdAggregator.Infrastructure.Flickr;
 using BirdAggregator.Infrastructure.Wikipedia;
 using BirdAggregator.Application.Locations;
 using BirdAggregator.Infrastructure.Mongo;
+using BirdAggregator.Domain.Birds;
+using BirdAggregator.Domain.Locations;
 using BirdAggregator.Domain.Photos;
 using BirdAggregator.Infrastructure.DataAccess.Photos;
 
@@ -36,6 +38,8 @@ namespace BirdAggregator.Infrastructure.DependencyInjection
             // todo: move to different extension methods
             services.AddScoped<IMongoConnection, MongoConnection>();
             services.AddScoped<IPhotoRepository, PhotoRepository>();
+            services.AddScoped<ILocationRepository, PhotoRepository>();
+            services.AddScoped<IBirdRepository, PhotoRepository>();
 
             // todo: move to different extension methods
             services.AddScoped<IPictureHostingService, FlickrService>();
