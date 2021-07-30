@@ -2,10 +2,11 @@ import * as GeoJSON from 'geojson'
 import * as React from 'react'
 import * as axios from '../http.adapter'
 
-import ReactMapboxGl, { Cluster, Marker, Popup, ZoomControl } from 'react-mapbox-gl-typingfix'
+import ReactMapboxGl, { Cluster, Marker, Popup, ZoomControl } from 'react-mapbox-gl'
 import { useEffect, useState } from 'react'
 
 import { BirdPopup } from './BirdPopup'
+import { Map as RootMap } from 'mapbox-gl'
 import styles from '../styles'
 
 const Map = ReactMapboxGl({
@@ -16,15 +17,6 @@ interface IMapWrapProps {
 	asPopup: boolean
 	locationIdToShow?: number
 	birdId?: number
-}
-
-interface IMapWrapState {
-	markers: IMapMarkerDto[]
-	selectedMarker?: IMapMarkerDto
-	zoomLevel: number[]
-	center: number[]
-	mapHeight: string
-	mapWidth: string
 }
 
 interface IMapMarkerDto {
@@ -43,11 +35,11 @@ export interface IBirdDto {
 export const MapWrap: React.FC<IMapWrapProps> = props => {
 	const set = (_: string) => (props.asPopup ? (props.birdId ? '400px' : '220px') : `100v${_}`)
 
-	const [center, setCenter] = useState<number[]>([35.5, 55.6])
+	const [center, setCenter] = useState<[number, number]>([35.5, 55.6])
 	const [mapHeight] = useState<string>(set('h'))
 	const [mapWidth] = useState<string>(set('w'))
 	const [markers, setMarkers] = useState<IMapMarkerDto[]>([])
-	const [zoomLevel, setZoomLevel] = useState<number[]>([6])
+	const [zoomLevel, setZoomLevel] = useState<[number]>([6])
 	const [selectedMarker, setSelectedMarker] = useState<IMapMarkerDto | undefined>()
 
 	const urlHandler = (propName: keyof IMapWrapProps) => {
@@ -92,7 +84,7 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 	}
 
 	const clusterClick = (coordinates: GeoJSON.Position) => {
-		setCenter(coordinates)
+		setCenter([coordinates[0], coordinates[1]])
 		setZoomLevel([zoomLevel[0] + 1])
 	}
 
@@ -111,8 +103,8 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 		</Marker>
 	)
 
-	const onZoom = (map: any, event: Event) => {
-		setZoomLevel([...[map.getZoom()]])
+	const onZoom = (map: RootMap, event: React.SyntheticEvent<any>) => {
+		setZoomLevel([map.getZoom()])
 	}
 
 	return (
@@ -127,6 +119,7 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 				zoom={zoomLevel}
 				onZoomEnd={onZoom}
 			>
+				<>
 				<Cluster ClusterMarkerFactory={clusterMarker}>
 					{/* Array<React.Component<MarkerProps, {}>> */}
 					{markers.map(x => (
@@ -150,6 +143,7 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 					</Popup>
 				)}
 				<ZoomControl />
+				</>
 			</Map>
 		</div>
 	)
