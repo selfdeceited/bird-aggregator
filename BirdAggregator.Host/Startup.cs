@@ -16,7 +16,7 @@ using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-[assembly: UserSecretsId("c10e1a7d-8e00-44f5-a9ff-1a86af9e068a")]
+//[assembly: UserSecretsId("c10e1a7d-8e00-44f5-a9ff-1a86af9e068a")]
 namespace BirdAggregator.Host
 {
     public class Startup
@@ -30,7 +30,7 @@ namespace BirdAggregator.Host
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
                 .AddJsonFile($"hosting.{env.EnvironmentName}.json")
-                .AddUserSecrets<Startup>()
+                //.AddUserSecrets<Startup>()
                 .Build();
         }
 
