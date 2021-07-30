@@ -36,7 +36,7 @@ namespace BirdAggregator.Infrastructure.Mongo
             var collections = await _database.ListCollectionNamesAsync();
             var collectionsList = await collections.ToListAsync();
 
-            var dbCreationTasks = new[] { "birds", "photos", "locations" }.Select(_ =>
+            var dbCreationTasks = new[] { "birds", "photos" }.Select(_ =>
             {
                 return collectionsList.Contains(_)
                   ? Task.CompletedTask
@@ -59,7 +59,8 @@ namespace BirdAggregator.Infrastructure.Mongo
             if (_appSettings.IsTestRun)
             {
                 var initTasks = new Task[] {
-                    InitCollection<PhotoModel>(@"../data/data.photos.flat.json", "photos")
+                    InitCollection<PhotoModel>(@"../data/data.photos.json", "photos"),
+                    InitCollection<BirdModel>(@"../data/data.birds.json", "birds")
                 };
 
                 return Task.WhenAll(initTasks);

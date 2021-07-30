@@ -5,6 +5,12 @@ namespace BirdAggregator.Domain.Birds
 {
     public class Bird: IAggregateRoot
     {
+        public Bird(int id, string latinName, string englishName){
+            Id = id;
+            LatinName = latinName;
+            EnglishName = englishName;
+        }
+
         public Bird(int id, string name) {
             if (id <= 0) {
                 throw new ArgumentException(nameof(id));

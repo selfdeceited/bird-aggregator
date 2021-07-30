@@ -6,7 +6,7 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
     {
         [BsonId]
         public int Id { get; set; }
-        public string LatinName { get; set; }
-        public string EnglishName { get; set; }
+        public string Latin { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BirdAggregator.Domain.Birds;
 using BirdAggregator.Domain.Locations;
 using BirdAggregator.Domain.Photos;
+using BirdAggregator.Infrastructure.DataAccess.Mappings;
 using BirdAggregator.Infrastructure.Mongo;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -13,70 +15,131 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
     {
         private readonly IMongoConnection _mongoConnection;
         private IMongoCollection<PhotoModel> _photos => _mongoConnection.Database.GetCollection<PhotoModel>("photos");
+        private IMongoCollection<BirdModel> _birds => _mongoConnection.Database.GetCollection<BirdModel>("birds");
+        private IMongoCollection<LocationModel> _locations => _mongoConnection.Database.GetCollection<LocationModel>("locations");
 
-        public Task<Bird> Get(int birdId)
+        private readonly BirdMapper _birdMapper = new BirdMapper();
+        private readonly PhotoMapper _photoMapper = new PhotoMapper();
+         private readonly LocationMapper _locationMapper = new LocationMapper();
+
+        public PhotoRepository(IMongoConnection mongoConnection)
         {
-            throw new System.NotImplementedException();
+            _mongoConnection = mongoConnection;
         }
 
-        public Task<List<Bird>> GetAll()
+        public async Task<Bird> Get(int birdId)
         {
-            throw new System.NotImplementedException();
+            var birdCursor = await _birds.FindAsync<BirdModel>(_ => _.Id == birdId);
+            var birdModel = await birdCursor.SingleAsync();
+            return _birdMapper.ToDomain(birdModel);
         }
 
-        public Task<IEnumerable<Location>> GetAllAsync()
+        public async Task<Bird[]> GetAll()
         {
-            throw new System.NotImplementedException();
+            var birdCursor = await _birds.FindAsync<BirdModel>(_ => true);
+            var birdModels = await birdCursor.ToListAsync();
+            return birdModels.Select(_birdMapper.ToDomain).ToArray();
+        }
+        public async Task<Bird[]> GetBirdsByIds(IEnumerable<int> birdIds)
+        {
+            var birdCursor = await _birds.FindAsync<BirdModel>(_ => birdIds.Contains(_.Id));
+            var birdModels = await birdCursor.ToListAsync();
+            return birdModels.Select(_birdMapper.ToDomain).ToArray();
         }
 
-        public Task<List<Bird>> GetBirdsByIds(IEnumerable<int> birdIds)
+        public async Task<Location[]> GetAllAsync()
         {
-            throw new System.NotImplementedException();
+            // todo: doesn't work. System.FormatException: Element 'Location' does not match any field or property of class 
+            var projection = Builders<PhotoResultModel>.Projection.Include(x => x.Location);
+            var locations = await GetPhotoResultModelLookup()
+                .Project<LocationModel>(projection)
+                .ToListAsync();
+
+            return locations
+                .Select(_locationMapper.ToDomain)
+                .ToArray();
         }
 
-        public Task<Location> GetByIdAsync(int id)
+        async Task<Photo[]> IPhotoRepository.GetAllAsync()
         {
-            throw new System.NotImplementedException();
-        }
-        Task<List<Photo>> IPhotoRepository.GetAllAsync()
-        {
-            throw new System.NotImplementedException();
+            var photoAggregate = await GetPhotoResultModelLookup()
+                .ToListAsync();
+
+            return photoAggregate
+                .Select(_photoMapper.ToDomain)
+                .ToArray();
         }
 
-        Task<List<Photo>> IPhotoRepository.GetAllAsync(int count)
+        async Task<Photo[]> IPhotoRepository.GetAllAsync(int count)
         {
-            throw new System.NotImplementedException();
+            var photoAggregate = await GetPhotoResultModelLookup()
+                .Limit(count)
+                .ToListAsync();
+
+            return photoAggregate
+                .Select(_photoMapper.ToDomain)
+                .ToArray();
         }
 
-        Task<IEnumerable<Location>> IPhotoRepository.GetByBirdIdAsync(int birdId)
+        async Task<Location[]> IPhotoRepository.GetByBirdIdAsync(int birdId)
         {
-            throw new System.NotImplementedException();
+            // todo: doesn't work. System.FormatException: Element 'Location' does not match any field or property of class 
+            var projection = Builders<PhotoResultModel>.Projection.Include(x => x.Location);
+            var locations = await GetPhotoResultModelLookup()
+                .Match<PhotoResultModel>(x => x.BirdIds.Contains(birdId))
+                .Project<LocationModel>(projection)
+                .ToListAsync();
+
+            return locations
+                .Select(_locationMapper.ToDomain)
+                .ToArray();
         }
 
         async Task<Photo> IPhotoRepository.GetById(int photoId)
         {
-            var photoFind = await _photos.FindAsync(x => x.Id == photoId);
-            var photoModel = await photoFind.SingleOrDefaultAsync();
+            var photoAggregate = await GetPhotoResultModelLookup()
+                .Match<PhotoResultModel>(x => x._id == photoId)
+                .ToListAsync();
+            
 
-            return MapModel(photoModel);
+            var photoResultModel = photoAggregate.Single();
+            return _photoMapper.ToDomain(photoResultModel);
         }
 
-        Task<List<Photo>> IPhotoRepository.GetByLocationAsync(int id)
+        async Task<Photo[]> IPhotoRepository.GetGalleryForBirdAsync(int birdId)
         {
-            throw new System.NotImplementedException();
-        }
+            var photoAggregate = await GetPhotoResultModelLookup()
+                .Match<PhotoResultModel>(x => x.BirdIds.Contains(birdId))
+                .ToListAsync();
 
-        Task<List<Photo>> IPhotoRepository.GetGalleryForBirdAsync(int birdId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private Photo MapModel(PhotoModel photoModel)
-        {
-            throw new System.NotImplementedException();
+            return photoAggregate
+                .Select(_photoMapper.ToDomain)
+                .ToArray();
         }
 
         private IMongoQueryable<T> Query<T>(string name) =>
             _mongoConnection.Database.GetCollection<T>(name).AsQueryable();
+
+
+        private IAggregateFluent<PhotoResultModel> GetPhotoResultModelLookup() {
+            return _photos
+                .Aggregate()
+                .Lookup<PhotoModel, BirdModel, PhotoResultModel>(
+                    _birds,
+                    x => x.BirdIds,
+                    x => x.Id,
+                    x => x.BirdModels);
+        }
+
+        // todo: consider switching to /map/photo/{id}
+        public Task<Location> GetByIdAsync(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Task<Photo[]> IPhotoRepository.GetByLocationAsync(int id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

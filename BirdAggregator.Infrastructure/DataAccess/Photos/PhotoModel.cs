@@ -8,7 +8,7 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
     {
         [BsonId]
         public int Id { get; set; }
-        public IEnumerable<BirdModel> Birds { get; set; }
+        public IEnumerable<int> BirdIds { get; set; }
         public FlickrModel Flickr { get; set; }
         public LocationModel Location { get; set; }
         public DateTime DateTaken { get; set; }

@@ -12,23 +12,23 @@ namespace BirdAggregator.Infrastructure.DataAccess.Mappings
         public override Photo ToDomain(PhotoResultModel model)
         {
             var birds = model.BirdModels.Select(_birdMapper.ToDomain);
-            var location = _locationMapper.ToDomain(model.PhotoModel.Location);
+            var location = _locationMapper.ToDomain(model.Location);
 
             var flickrPhotoInformation = new FlickrPhotoInformation(
-                model.PhotoModel.Flickr.FlickrId,
-                model.PhotoModel.Flickr.FarmId,
-                model.PhotoModel.Flickr.ServerId,
-                model.PhotoModel.Flickr.Secret
+                model.Flickr.Id,
+                model.Flickr.FarmId,
+                model.Flickr.ServerId,
+                model.Flickr.Secret
             );
 
             return new Photo(
-                model.PhotoModel.Id,
+                model._id,
                 location,
                 flickrPhotoInformation,
                 birds,
-                model.PhotoModel.DateTaken,
-                model.PhotoModel.Ratio,
-                model.PhotoModel.Description
+                model.DateTaken,
+                model.Ratio,
+                model.Description
             );
         }
     }
