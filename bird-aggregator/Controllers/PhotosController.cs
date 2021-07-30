@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using Microsoft.AspNetCore.Mvc;
 using birds.Services;
 using Microsoft.Extensions.Options;
@@ -63,7 +64,6 @@ namespace birds.Controllers
                 },
 
                 Location = new {
-                    Id = location.Id,
                     Neighborhood = location.Neighbourhood,
                     Region = location.Region,
                     GeoTag = location.GeoTag,
@@ -73,7 +73,7 @@ namespace birds.Controllers
                 },
                 DateTaken = _.DateTaken,
                 Description = _.Description,
-                Ratio = _.Ratio
+                Ratio = Math.Round(_.Ratio, 3)
             };
             }
             );
