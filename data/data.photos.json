@@ -1,452 +1,2522 @@
 [
-    {
-      "id": 1,
-      "birdIds": [
-        1
-      ],
-      "birdIdsAsString": "1",
-      "flickrId": "49698383151",
-      "locationId": 1,
+  {
+    "id": 1,
+    "birdIds": [1],
+    "flickr": {
+      "id": "50687195056",
       "farmId": 66,
       "serverId": "65535",
-      "secret": "2a6548cdda",
-      "dateTaken": "2019-05-19T12:00:35",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+      "secret": "43b499d1a5"
     },
-    {
-      "id": 2,
-      "birdIds": [
-        2
-      ],
-      "birdIdsAsString": "2",
-      "flickrId": "49697851488",
-      "locationId": 1,
-      "farmId": 66,
-      "serverId": "65535",
-      "secret": "455b4920db",
-      "dateTaken": "2019-05-19T12:00:34",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.645708,
+      "y": 55.393368
     },
-    {
-      "id": 3,
-      "birdIds": [
-        3
-      ],
-      "birdIdsAsString": "3",
-      "flickrId": "49697851563",
-      "locationId": 1,
+    "dateTaken": "2019-06-23T12:00:57",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 0.75
+  },
+  {
+    "id": 2,
+    "birdIds": [2],
+    "flickr": {
+      "id": "50686445333",
       "farmId": 66,
       "serverId": "65535",
-      "secret": "74458e1d76",
-      "dateTaken": "2019-05-19T12:00:33",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+      "secret": "fe4922162d"
     },
-    {
-      "id": 4,
-      "birdIds": [
-        3
-      ],
-      "birdIdsAsString": "3",
-      "flickrId": "49697851623",
-      "locationId": 1,
-      "farmId": 66,
-      "serverId": "65535",
-      "secret": "a2febafa46",
-      "dateTaken": "2019-05-19T12:00:32",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.645708,
+      "y": 55.393368
     },
-    {
-      "id": 5,
-      "birdIds": [
-        3
-      ],
-      "birdIdsAsString": "3",
-      "flickrId": "49697851948",
-      "locationId": 1,
+    "dateTaken": "2019-06-23T12:00:56",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 3,
+    "birdIds": [2],
+    "flickr": {
+      "id": "50687279152",
       "farmId": 66,
       "serverId": "65535",
-      "secret": "8a614aeb16",
-      "dateTaken": "2019-05-19T12:00:31",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+      "secret": "89fbd0133c"
     },
-    {
-      "id": 6,
-      "birdIds": [
-        4
-      ],
-      "birdIdsAsString": "4",
-      "flickrId": "49698383726",
-      "locationId": 2,
-      "farmId": 66,
-      "serverId": "65535",
-      "secret": "14d5fd5249",
-      "dateTaken": "2019-05-19T12:00:30",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.645708,
+      "y": 55.393368
     },
-    {
-      "id": 7,
-      "birdIds": [
-        5
-      ],
-      "birdIdsAsString": "5",
-      "flickrId": "49698689232",
-      "locationId": 3,
+    "dateTaken": "2019-06-23T12:00:55",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 4,
+    "birdIds": [3],
+    "flickr": {
+      "id": "50687279132",
       "farmId": 66,
       "serverId": "65535",
-      "secret": "42662af896",
-      "dateTaken": "2019-05-19T12:00:29",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+      "secret": "59bddd04ef"
     },
-    {
-      "id": 8,
-      "birdIds": [
-        5
-      ],
-      "birdIdsAsString": "5",
-      "flickrId": "49698689337",
-      "locationId": 3,
-      "farmId": 66,
-      "serverId": "65535",
-      "secret": "83cb855afa",
-      "dateTaken": "2019-05-19T12:00:28",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.647779,
+      "y": 55.384154
     },
-    {
-      "id": 9,
-      "birdIds": [
-        5
-      ],
-      "birdIdsAsString": "5",
-      "flickrId": "49698383866",
-      "locationId": 3,
+    "dateTaken": "2019-06-23T12:00:54",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 5,
+    "birdIds": [4],
+    "flickr": {
+      "id": "50687279257",
       "farmId": 66,
       "serverId": "65535",
-      "secret": "90498835fe",
-      "dateTaken": "2019-05-19T12:00:27",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+      "secret": "fe455a395d"
     },
-    {
-      "id": 10,
-      "birdIds": [
-        6
-      ],
-      "birdIdsAsString": "6",
-      "flickrId": "49697852203",
-      "locationId": 4,
-      "farmId": 66,
-      "serverId": "65535",
-      "secret": "7c640cc11c",
-      "dateTaken": "2019-05-19T12:00:26",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.645954,
+      "y": 55.380488
     },
-    {
-      "id": 11,
-      "birdIds": [
-        7
-      ],
-      "birdIdsAsString": "7",
-      "flickrId": "49698689477",
-      "locationId": 4,
+    "dateTaken": "2019-06-23T12:00:53",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 6,
+    "birdIds": [5],
+    "flickr": {
+      "id": "50686445468",
       "farmId": 66,
       "serverId": "65535",
-      "secret": "7262f7d887",
-      "dateTaken": "2019-05-19T12:00:25",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+      "secret": "3687b28386"
     },
-    {
-      "id": 12,
-      "birdIds": [
-        7
-      ],
-      "birdIdsAsString": "7",
-      "flickrId": "49698689602",
-      "locationId": 4,
-      "farmId": 66,
-      "serverId": "65535",
-      "secret": "a4fc786676",
-      "dateTaken": "2019-05-19T12:00:24",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.64176,
+      "y": 55.378119
     },
-    {
-      "id": 13,
-      "birdIds": [
-        3
-      ],
-      "birdIdsAsString": "3",
-      "flickrId": "49697852388",
-      "locationId": 5,
+    "dateTaken": "2019-06-23T12:00:52",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 7,
+    "birdIds": [6],
+    "flickr": {
+      "id": "50687279387",
       "farmId": 66,
       "serverId": "65535",
-      "secret": "c66e03682e",
-      "dateTaken": "2019-05-19T12:00:23",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+      "secret": "b38e3618b3"
     },
-    {
-      "id": 14,
-      "birdIds": [
-        3
-      ],
-      "birdIdsAsString": "3",
-      "flickrId": "49697852478",
-      "locationId": 5,
-      "farmId": 66,
-      "serverId": "65535",
-      "secret": "66067fcaea",
-      "dateTaken": "2019-05-19T12:00:22",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.64176,
+      "y": 55.378119
     },
-    {
-      "id": 15,
-      "birdIds": [
-        8
-      ],
-      "birdIdsAsString": "8",
-      "flickrId": "49698384256",
-      "locationId": 5,
+    "dateTaken": "2019-06-23T12:00:51",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 8,
+    "birdIds": [7],
+    "flickr": {
+      "id": "50687195686",
       "farmId": 66,
       "serverId": "65535",
-      "secret": "c021db3832",
-      "dateTaken": "2019-05-19T12:00:21",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.7793594306049823
+      "secret": "17a31130e8"
     },
-    {
-      "id": 16,
-      "birdIds": [
-        9
-      ],
-      "birdIdsAsString": "9",
-      "flickrId": "49697852603",
-      "locationId": 6,
-      "farmId": 66,
-      "serverId": "65535",
-      "secret": "fa36818216",
-      "dateTaken": "2019-05-19T12:00:20",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.631428,
+      "y": 55.375553
     },
-    {
-      "id": 17,
-      "birdIds": [
-        9
-      ],
-      "birdIdsAsString": "9",
-      "flickrId": "49698384391",
-      "locationId": 6,
+    "dateTaken": "2019-06-23T12:00:50",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 9,
+    "birdIds": [8],
+    "flickr": {
+      "id": "50687279482",
       "farmId": 66,
       "serverId": "65535",
-      "secret": "a53f383c5b",
-      "dateTaken": "2019-05-19T12:00:19",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+      "secret": "bae58a22b0"
     },
-    {
-      "id": 18,
-      "birdIds": [
-        9
-      ],
-      "birdIdsAsString": "9",
-      "flickrId": "49698384416",
-      "locationId": 6,
-      "farmId": 66,
-      "serverId": "65535",
-      "secret": "942f2fa7ce",
-      "dateTaken": "2019-05-19T12:00:18",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.625955,
+      "y": 55.37431
     },
-    {
-      "id": 19,
-      "birdIds": [
-        9
-      ],
-      "birdIdsAsString": "9",
-      "flickrId": "49698690022",
-      "locationId": 6,
+    "dateTaken": "2019-06-23T12:00:49",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 0.75
+  },
+  {
+    "id": 10,
+    "birdIds": [9],
+    "flickr": {
+      "id": "50687279557",
       "farmId": 66,
       "serverId": "65535",
-      "secret": "b7f70635a1",
-      "dateTaken": "2019-05-19T12:00:17",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+      "secret": "4924e206ee"
     },
-    {
-      "id": 20,
-      "birdIds": [
-        10
-      ],
-      "birdIdsAsString": "10",
-      "flickrId": "49698690097",
-      "locationId": 6,
-      "farmId": 66,
-      "serverId": "65535",
-      "secret": "ddc003b4a7",
-      "dateTaken": "2019-05-19T12:00:16",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.625955,
+      "y": 55.37431
     },
-    {
-      "id": 21,
-      "birdIds": [
-        3
-      ],
-      "birdIdsAsString": "3",
-      "flickrId": "49698688707",
-      "locationId": 6,
+    "dateTaken": "2019-06-23T12:00:48",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 11,
+    "birdIds": [5],
+    "flickr": {
+      "id": "50686445128",
       "farmId": 66,
       "serverId": "65535",
-      "secret": "80e89bd95f",
-      "dateTaken": "2019-05-19T12:00:15",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+      "secret": "f2eab00720"
     },
-    {
-      "id": 22,
-      "birdIds": [
-        3
-      ],
-      "birdIdsAsString": "3",
-      "flickrId": "49698384621",
-      "locationId": 6,
-      "farmId": 66,
-      "serverId": "65535",
-      "secret": "9e7c93f4ef",
-      "dateTaken": "2019-05-19T12:00:14",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 0.75
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.626942,
+      "y": 55.374818
     },
-    {
-      "id": 23,
-      "birdIds": [
-        3
-      ],
-      "birdIdsAsString": "3",
-      "flickrId": "49698384676",
-      "locationId": 6,
+    "dateTaken": "2019-06-23T12:00:47",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 12,
+    "birdIds": [5],
+    "flickr": {
+      "id": "50687195841",
       "farmId": 66,
       "serverId": "65535",
-      "secret": "c89cbb4dbb",
-      "dateTaken": "2019-05-19T12:00:13",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+      "secret": "bb5075329e"
     },
-    {
-      "id": 24,
-      "birdIds": [
-        3
-      ],
-      "birdIdsAsString": "3",
-      "flickrId": "49698690192",
-      "locationId": 6,
-      "farmId": 66,
-      "serverId": "65535",
-      "secret": "9232bf7e80",
-      "dateTaken": "2019-05-19T12:00:12",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.626942,
+      "y": 55.374818
     },
-    {
-      "id": 25,
-      "birdIds": [
-        3
-      ],
-      "birdIdsAsString": "3",
-      "flickrId": "49698384791",
-      "locationId": 6,
+    "dateTaken": "2019-06-23T12:00:46",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 13,
+    "birdIds": [5],
+    "flickr": {
+      "id": "50687195901",
       "farmId": 66,
       "serverId": "65535",
-      "secret": "6cee8281da",
-      "dateTaken": "2019-05-19T12:00:11",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 0.75
+      "secret": "556d64fd30"
     },
-    {
-      "id": 26,
-      "birdIds": [
-        3
-      ],
-      "birdIdsAsString": "3",
-      "flickrId": "49698690297",
-      "locationId": 6,
-      "farmId": 66,
-      "serverId": "65535",
-      "secret": "3d8a5d2266",
-      "dateTaken": "2019-05-19T12:00:10",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.626942,
+      "y": 55.374818
     },
-    {
-      "id": 27,
-      "birdIds": [
-        9
-      ],
-      "birdIdsAsString": "9",
-      "flickrId": "49698690327",
-      "locationId": 6,
+    "dateTaken": "2019-06-23T12:00:45",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 14,
+    "birdIds": [8],
+    "flickr": {
+      "id": "50687195951",
       "farmId": 66,
       "serverId": "65535",
-      "secret": "64b3b00d91",
-      "dateTaken": "2019-05-19T12:00:09",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+      "secret": "cd6d3e577e"
     },
-    {
-      "id": 28,
-      "birdIds": [
-        9
-      ],
-      "birdIdsAsString": "9",
-      "flickrId": "49698384851",
-      "locationId": 6,
-      "farmId": 66,
-      "serverId": "65535",
-      "secret": "74f1eed05c",
-      "dateTaken": "2019-05-19T12:00:08",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.3333333333333333
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.619861,
+      "y": 55.377915
     },
-    {
-      "id": 29,
-      "birdIds": [
-        9
-      ],
-      "birdIdsAsString": "9",
-      "flickrId": "49698690372",
-      "locationId": 6,
+    "dateTaken": "2019-06-23T12:00:44",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 15,
+    "birdIds": [8],
+    "flickr": {
+      "id": "50687279767",
       "farmId": 66,
       "serverId": "65535",
-      "secret": "85d95771f0",
-      "dateTaken": "2019-05-19T12:00:07",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 0.75
+      "secret": "cd414958b3"
     },
-    {
-      "id": 30,
-      "birdIds": [
-        10
-      ],
-      "birdIdsAsString": "10",
-      "flickrId": "49698384891",
-      "locationId": 6,
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.619861,
+      "y": 55.377915
+    },
+    "dateTaken": "2019-06-23T12:00:43",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 0.75
+  },
+  {
+    "id": 16,
+    "birdIds": [10],
+    "flickr": {
+      "id": "50686446003",
       "farmId": 66,
       "serverId": "65535",
-      "secret": "b6aa3fdbc5",
-      "dateTaken": "2019-05-19T12:00:06",
-      "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
-      "ratio": 1.7793594306049823
-    }
-  ]
+      "secret": "6a93133a23"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.617157,
+      "y": 55.380183
+    },
+    "dateTaken": "2019-06-23T12:00:42",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 17,
+    "birdIds": [10],
+    "flickr": {
+      "id": "50687196076",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "f47fdfce33"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.617157,
+      "y": 55.380183
+    },
+    "dateTaken": "2019-06-23T12:00:41",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 0.75
+  },
+  {
+    "id": 18,
+    "birdIds": [10],
+    "flickr": {
+      "id": "50687196146",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "9253d001b4"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.617157,
+      "y": 55.380183
+    },
+    "dateTaken": "2019-06-23T12:00:40",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 19,
+    "birdIds": [10],
+    "flickr": {
+      "id": "50686446138",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "831ea6d044"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.617157,
+      "y": 55.380183
+    },
+    "dateTaken": "2019-06-23T12:00:39",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 20,
+    "birdIds": [10],
+    "flickr": {
+      "id": "50687196261",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "cbfb058396"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.617157,
+      "y": 55.380183
+    },
+    "dateTaken": "2019-06-23T12:00:38",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 21,
+    "birdIds": [3],
+    "flickr": {
+      "id": "50687280137",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "eaae078211"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.620849,
+      "y": 55.377394
+    },
+    "dateTaken": "2019-06-23T12:00:37",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 22,
+    "birdIds": [11],
+    "flickr": {
+      "id": "50686446288",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "5d0ec439cf"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.620849,
+      "y": 55.377394
+    },
+    "dateTaken": "2019-06-23T12:00:36",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 0.75
+  },
+  {
+    "id": 23,
+    "birdIds": [5],
+    "flickr": {
+      "id": "50687196361",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "2df0b7e2b7"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.620849,
+      "y": 55.377394
+    },
+    "dateTaken": "2019-06-23T12:00:35",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 24,
+    "birdIds": [3],
+    "flickr": {
+      "id": "50686446368",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "9a934ec935"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.620849,
+      "y": 55.377394
+    },
+    "dateTaken": "2019-06-23T12:00:34",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 25,
+    "birdIds": [12],
+    "flickr": {
+      "id": "50687280282",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "12754648c4"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.620849,
+      "y": 55.377394
+    },
+    "dateTaken": "2019-06-23T12:00:33",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 26,
+    "birdIds": [13],
+    "flickr": {
+      "id": "50687280357",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "015a4f4690"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.6272,
+      "y": 55.374688
+    },
+    "dateTaken": "2019-06-23T12:00:32",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 0.75
+  },
+  {
+    "id": 27,
+    "birdIds": [13],
+    "flickr": {
+      "id": "50687278897",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c42f62c9a1"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.6272,
+      "y": 55.374688
+    },
+    "dateTaken": "2019-06-23T12:00:31",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 28,
+    "birdIds": [14],
+    "flickr": {
+      "id": "50687280382",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "bb938ebf3c"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.6272,
+      "y": 55.374688
+    },
+    "dateTaken": "2019-06-23T12:00:30",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 29,
+    "birdIds": [15],
+    "flickr": {
+      "id": "50687280437",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "fe882d132f"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.6272,
+      "y": 55.374688
+    },
+    "dateTaken": "2019-06-23T12:00:29",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 30,
+    "birdIds": [2],
+    "flickr": {
+      "id": "50687280467",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "1bdc990cc9"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.6272,
+      "y": 55.374688
+    },
+    "dateTaken": "2019-06-23T12:00:28",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 31,
+    "birdIds": [2],
+    "flickr": {
+      "id": "50687196621",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "9f291a5765"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.6272,
+      "y": 55.374688
+    },
+    "dateTaken": "2019-06-23T12:00:27",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 32,
+    "birdIds": [4],
+    "flickr": {
+      "id": "50687196656",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "cbf0e8ef2b"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.645954,
+      "y": 55.380488
+    },
+    "dateTaken": "2019-06-23T12:00:26",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 33,
+    "birdIds": [4],
+    "flickr": {
+      "id": "50687196721",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "6c0d3e2a0a"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.645954,
+      "y": 55.380488
+    },
+    "dateTaken": "2019-06-23T12:00:25",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 34,
+    "birdIds": [16],
+    "flickr": {
+      "id": "50687196761",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "ba71198ab1"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.645954,
+      "y": 55.380488
+    },
+    "dateTaken": "2019-06-23T12:00:24",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 35,
+    "birdIds": [16],
+    "flickr": {
+      "id": "50686445208",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "def6b35995"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.645954,
+      "y": 55.380488
+    },
+    "dateTaken": "2019-06-23T12:00:23",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 36,
+    "birdIds": [16],
+    "flickr": {
+      "id": "50686446653",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "28eb167a06"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.645954,
+      "y": 55.380488
+    },
+    "dateTaken": "2019-06-23T12:00:22",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 37,
+    "birdIds": [3],
+    "flickr": {
+      "id": "50687196841",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "ba1f897c4b"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.64793,
+      "y": 55.387271
+    },
+    "dateTaken": "2019-06-23T12:00:21",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.779
+  },
+  {
+    "id": 38,
+    "birdIds": [3],
+    "flickr": {
+      "id": "50686446718",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "887673caa7"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.64793,
+      "y": 55.387271
+    },
+    "dateTaken": "2019-06-23T12:00:20",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.779
+  },
+  {
+    "id": 39,
+    "birdIds": [9],
+    "flickr": {
+      "id": "50687196861",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "4f3395c03b"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.64793,
+      "y": 55.387271
+    },
+    "dateTaken": "2019-06-23T12:00:19",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 40,
+    "birdIds": [17],
+    "flickr": {
+      "id": "50687280772",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "418e9d8328"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.647842,
+      "y": 55.38952
+    },
+    "dateTaken": "2019-06-23T12:00:18",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 41,
+    "birdIds": [5],
+    "flickr": {
+      "id": "50687196916",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "885370d243"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.646309,
+      "y": 55.392442
+    },
+    "dateTaken": "2019-06-23T12:00:17",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 42,
+    "birdIds": [8],
+    "flickr": {
+      "id": "50687196926",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c3db7a6244"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.645708,
+      "y": 55.393368
+    },
+    "dateTaken": "2019-06-23T12:00:16",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 43,
+    "birdIds": [15],
+    "flickr": {
+      "id": "50687195261",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "3cbae66a31"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.644065,
+      "y": 55.395223
+    },
+    "dateTaken": "2019-06-23T12:00:15",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 44,
+    "birdIds": [18],
+    "flickr": {
+      "id": "50687280837",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "19c28acc1c"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.644065,
+      "y": 55.395223
+    },
+    "dateTaken": "2019-06-23T12:00:14",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 45,
+    "birdIds": [2],
+    "flickr": {
+      "id": "50687197021",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "68fc9e144f"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.644065,
+      "y": 55.395223
+    },
+    "dateTaken": "2019-06-23T12:00:13",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 46,
+    "birdIds": [2],
+    "flickr": {
+      "id": "50686447013",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "4c9783d889"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.644065,
+      "y": 55.395223
+    },
+    "dateTaken": "2019-06-23T12:00:12",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 47,
+    "birdIds": [2],
+    "flickr": {
+      "id": "50686447033",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "ae7aca51a7"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.644065,
+      "y": 55.395223
+    },
+    "dateTaken": "2019-06-23T12:00:11",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 0.75
+  },
+  {
+    "id": 48,
+    "birdIds": [19],
+    "flickr": {
+      "id": "50687281012",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "a17e34f28e"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.644065,
+      "y": 55.395223
+    },
+    "dateTaken": "2019-06-23T12:00:10",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 49,
+    "birdIds": [19],
+    "flickr": {
+      "id": "50687197196",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "f3e1aff272"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.644065,
+      "y": 55.395223
+    },
+    "dateTaken": "2019-06-23T12:00:09",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 50,
+    "birdIds": [19],
+    "flickr": {
+      "id": "50687281082",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "463e661d36"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.64325,
+      "y": 55.396596
+    },
+    "dateTaken": "2019-06-23T12:00:08",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 51,
+    "birdIds": [19],
+    "flickr": {
+      "id": "50687281132",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "4969454888"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.64325,
+      "y": 55.396596
+    },
+    "dateTaken": "2019-06-23T12:00:07",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 52,
+    "birdIds": [19],
+    "flickr": {
+      "id": "50687281182",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "ced9ee5be8"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.64325,
+      "y": 55.396596
+    },
+    "dateTaken": "2019-06-23T12:00:06",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 53,
+    "birdIds": [20],
+    "flickr": {
+      "id": "50687195336",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "a44e3a5d3f"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.6423,
+      "y": 55.398327
+    },
+    "dateTaken": "2019-06-23T12:00:05",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 54,
+    "birdIds": [21],
+    "flickr": {
+      "id": "50687197341",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "4c56d1680d"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.644559,
+      "y": 55.399712
+    },
+    "dateTaken": "2019-06-23T12:00:04",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 55,
+    "birdIds": [21],
+    "flickr": {
+      "id": "50687197376",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "7a65e743df"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.644559,
+      "y": 55.399712
+    },
+    "dateTaken": "2019-06-23T12:00:03",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 56,
+    "birdIds": [22],
+    "flickr": {
+      "id": "50687281337",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c773bc3135"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.644559,
+      "y": 55.399712
+    },
+    "dateTaken": "2019-06-23T12:00:02",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 57,
+    "birdIds": [20],
+    "flickr": {
+      "id": "50687281392",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "03a7fe1064"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.646426,
+      "y": 55.400203
+    },
+    "dateTaken": "2019-06-23T12:00:01",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 58,
+    "birdIds": [2],
+    "flickr": {
+      "id": "50686447448",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "8d89aac1cf"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.646426,
+      "y": 55.400203
+    },
+    "dateTaken": "2019-06-23T12:00:00",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 59,
+    "birdIds": [19],
+    "flickr": {
+      "id": "49698383151",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "2a6548cdda"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.565745,
+      "y": 55.416576
+    },
+    "dateTaken": "2019-05-19T12:00:35",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 60,
+    "birdIds": [23],
+    "flickr": {
+      "id": "49697851488",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "455b4920db"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.565745,
+      "y": 55.416576
+    },
+    "dateTaken": "2019-05-19T12:00:34",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 61,
+    "birdIds": [24],
+    "flickr": {
+      "id": "49697851563",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "74458e1d76"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.565745,
+      "y": 55.416576
+    },
+    "dateTaken": "2019-05-19T12:00:33",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 62,
+    "birdIds": [24],
+    "flickr": {
+      "id": "49697851623",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "a2febafa46"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.565745,
+      "y": 55.416576
+    },
+    "dateTaken": "2019-05-19T12:00:32",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 63,
+    "birdIds": [24],
+    "flickr": {
+      "id": "49697851948",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "8a614aeb16"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.565745,
+      "y": 55.416576
+    },
+    "dateTaken": "2019-05-19T12:00:31",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 64,
+    "birdIds": [25],
+    "flickr": {
+      "id": "49698383726",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "14d5fd5249"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.566732,
+      "y": 55.411923
+    },
+    "dateTaken": "2019-05-19T12:00:30",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 65,
+    "birdIds": [26],
+    "flickr": {
+      "id": "49698689232",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "42662af896"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.588404,
+      "y": 55.402567
+    },
+    "dateTaken": "2019-05-19T12:00:29",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 66,
+    "birdIds": [26],
+    "flickr": {
+      "id": "49698689337",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "83cb855afa"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.588404,
+      "y": 55.402567
+    },
+    "dateTaken": "2019-05-19T12:00:28",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 67,
+    "birdIds": [26],
+    "flickr": {
+      "id": "49698383866",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "90498835fe"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.588404,
+      "y": 55.402567
+    },
+    "dateTaken": "2019-05-19T12:00:27",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 68,
+    "birdIds": [14],
+    "flickr": {
+      "id": "49697852203",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "7c640cc11c"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.591022,
+      "y": 55.40091
+    },
+    "dateTaken": "2019-05-19T12:00:26",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 69,
+    "birdIds": [3],
+    "flickr": {
+      "id": "49698689477",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "7262f7d887"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.591022,
+      "y": 55.40091
+    },
+    "dateTaken": "2019-05-19T12:00:25",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 70,
+    "birdIds": [3],
+    "flickr": {
+      "id": "49698689602",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "a4fc786676"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.591022,
+      "y": 55.40091
+    },
+    "dateTaken": "2019-05-19T12:00:24",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 71,
+    "birdIds": [24],
+    "flickr": {
+      "id": "49697852388",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c66e03682e"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.595871,
+      "y": 55.402908
+    },
+    "dateTaken": "2019-05-19T12:00:23",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 72,
+    "birdIds": [24],
+    "flickr": {
+      "id": "49697852478",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "66067fcaea"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.595871,
+      "y": 55.402908
+    },
+    "dateTaken": "2019-05-19T12:00:22",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 73,
+    "birdIds": [27],
+    "flickr": {
+      "id": "49698384256",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c021db3832"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.595871,
+      "y": 55.402908
+    },
+    "dateTaken": "2019-05-19T12:00:21",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.779
+  },
+  {
+    "id": 74,
+    "birdIds": [28],
+    "flickr": {
+      "id": "49697852603",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "fa36818216"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    },
+    "dateTaken": "2019-05-19T12:00:20",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 75,
+    "birdIds": [28],
+    "flickr": {
+      "id": "49698384391",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "a53f383c5b"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    },
+    "dateTaken": "2019-05-19T12:00:19",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 76,
+    "birdIds": [28],
+    "flickr": {
+      "id": "49698384416",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "942f2fa7ce"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    },
+    "dateTaken": "2019-05-19T12:00:18",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 77,
+    "birdIds": [28],
+    "flickr": {
+      "id": "49698690022",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "b7f70635a1"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    },
+    "dateTaken": "2019-05-19T12:00:17",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 78,
+    "birdIds": [29],
+    "flickr": {
+      "id": "49698690097",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "ddc003b4a7"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    },
+    "dateTaken": "2019-05-19T12:00:16",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 79,
+    "birdIds": [24],
+    "flickr": {
+      "id": "49698688707",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "80e89bd95f"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    },
+    "dateTaken": "2019-05-19T12:00:15",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 80,
+    "birdIds": [24],
+    "flickr": {
+      "id": "49698384621",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "9e7c93f4ef"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    },
+    "dateTaken": "2019-05-19T12:00:14",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 0.75
+  },
+  {
+    "id": 81,
+    "birdIds": [24],
+    "flickr": {
+      "id": "49698384676",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c89cbb4dbb"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    },
+    "dateTaken": "2019-05-19T12:00:13",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 82,
+    "birdIds": [24],
+    "flickr": {
+      "id": "49698690192",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "9232bf7e80"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    },
+    "dateTaken": "2019-05-19T12:00:12",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 83,
+    "birdIds": [24],
+    "flickr": {
+      "id": "49698384791",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "6cee8281da"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    },
+    "dateTaken": "2019-05-19T12:00:11",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 0.75
+  },
+  {
+    "id": 84,
+    "birdIds": [24],
+    "flickr": {
+      "id": "49698690297",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "3d8a5d2266"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    },
+    "dateTaken": "2019-05-19T12:00:10",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 85,
+    "birdIds": [28],
+    "flickr": {
+      "id": "49698690327",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "64b3b00d91"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    },
+    "dateTaken": "2019-05-19T12:00:09",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 86,
+    "birdIds": [28],
+    "flickr": {
+      "id": "49698384851",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "74f1eed05c"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    },
+    "dateTaken": "2019-05-19T12:00:08",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 87,
+    "birdIds": [28],
+    "flickr": {
+      "id": "49698690372",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "85d95771f0"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    },
+    "dateTaken": "2019-05-19T12:00:07",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 0.75
+  },
+  {
+    "id": 88,
+    "birdIds": [29],
+    "flickr": {
+      "id": "49698384891",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "b6aa3fdbc5"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    },
+    "dateTaken": "2019-05-19T12:00:06",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.779
+  },
+  {
+    "id": 89,
+    "birdIds": [29],
+    "flickr": {
+      "id": "49698690457",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "b3bf00b71d"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.603553,
+      "y": 55.407757
+    },
+    "dateTaken": "2019-05-19T12:00:05",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.779
+  },
+  {
+    "id": 90,
+    "birdIds": [7],
+    "flickr": {
+      "id": "49697853258",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "d55d00db97"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.616213,
+      "y": 55.411192
+    },
+    "dateTaken": "2019-05-19T12:00:04",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 91,
+    "birdIds": [4],
+    "flickr": {
+      "id": "49698690522",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "866e640b86"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.618488,
+      "y": 55.414944
+    },
+    "dateTaken": "2019-05-19T12:00:03",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 92,
+    "birdIds": [20],
+    "flickr": {
+      "id": "49698385006",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "e54d5da796"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.644559,
+      "y": 55.399712
+    },
+    "dateTaken": "2019-05-19T12:00:02",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 93,
+    "birdIds": [22],
+    "flickr": {
+      "id": "49698385031",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "65340e9599"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.644559,
+      "y": 55.399712
+    },
+    "dateTaken": "2019-05-19T12:00:01",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 94,
+    "birdIds": [2],
+    "flickr": {
+      "id": "49697853478",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "0460eee424"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.648078,
+      "y": 55.400747
+    },
+    "dateTaken": "2019-05-19T12:00:00",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region, Russia",
+    "ratio": 1.333
+  },
+  {
+    "id": 95,
+    "birdIds": [30],
+    "flickr": {
+      "id": "48278844417",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c955c7abc4"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 37.550067,
+      "y": 55.638509
+    },
+    "dateTaken": "2019-05-17T09:00:11",
+    "description": "Shot at Bitsevski Forest, Moscow",
+    "ratio": 0.75
+  },
+  {
+    "id": 96,
+    "birdIds": [31],
+    "flickr": {
+      "id": "48278844517",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "e9de2d6805"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 37.552943,
+      "y": 55.638315
+    },
+    "dateTaken": "2019-05-17T09:00:10",
+    "description": "Shot at Bitsevski Forest, Moscow",
+    "ratio": 1.333
+  },
+  {
+    "id": 97,
+    "birdIds": [32],
+    "flickr": {
+      "id": "48278757671",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "31e887e108"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 37.552943,
+      "y": 55.638315
+    },
+    "dateTaken": "2019-05-17T09:00:09",
+    "description": "Shot at Bitsevski Forest, Moscow",
+    "ratio": 1.333
+  },
+  {
+    "id": 98,
+    "birdIds": [32],
+    "flickr": {
+      "id": "48278757711",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "1e161e99d7"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 37.552943,
+      "y": 55.638315
+    },
+    "dateTaken": "2019-05-17T09:00:08",
+    "description": "Shot at Bitsevski Forest, Moscow",
+    "ratio": 0.75
+  },
+  {
+    "id": 99,
+    "birdIds": [32],
+    "flickr": {
+      "id": "48278757766",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "ef21dc978a"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 37.552943,
+      "y": 55.638315
+    },
+    "dateTaken": "2019-05-17T09:00:07",
+    "description": "Shot at Bitsevski Forest, Moscow",
+    "ratio": 1.333
+  },
+  {
+    "id": 100,
+    "birdIds": [33],
+    "flickr": {
+      "id": "48278844697",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "db91571a32"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 37.55541,
+      "y": 55.632106
+    },
+    "dateTaken": "2019-05-17T09:00:06",
+    "description": "Shot at Bitsevski Forest, Moscow",
+    "ratio": 0.75
+  },
+  {
+    "id": 101,
+    "birdIds": [34],
+    "flickr": {
+      "id": "48278844787",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "d6f1677636"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 37.568027,
+      "y": 55.630192
+    },
+    "dateTaken": "2019-05-17T09:00:05",
+    "description": "Shot at Bitsevski Forest, Moscow",
+    "ratio": 0.75
+  },
+  {
+    "id": 102,
+    "birdIds": [34],
+    "flickr": {
+      "id": "48278844837",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "32b2aa00de"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 37.568027,
+      "y": 55.630192
+    },
+    "dateTaken": "2019-05-17T09:00:04",
+    "description": "Shot at Bitsevski Forest, Moscow",
+    "ratio": 1.333
+  },
+  {
+    "id": 103,
+    "birdIds": [34],
+    "flickr": {
+      "id": "48278844902",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "4df4b6435d"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 37.568027,
+      "y": 55.630192
+    },
+    "dateTaken": "2019-05-17T09:00:03",
+    "description": "Shot at Bitsevski Forest, Moscow",
+    "ratio": 1.333
+  },
+  {
+    "id": 104,
+    "birdIds": [34],
+    "flickr": {
+      "id": "48278758226",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "01080b132e"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 37.568027,
+      "y": 55.630192
+    },
+    "dateTaken": "2019-05-17T09:00:02",
+    "description": "Shot at Bitsevski Forest, Moscow",
+    "ratio": 1.333
+  },
+  {
+    "id": 105,
+    "birdIds": [34],
+    "flickr": {
+      "id": "48278845132",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "421c8c2f22"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 37.568027,
+      "y": 55.630192
+    },
+    "dateTaken": "2019-05-17T09:00:01",
+    "description": "Shot at Bitsevski Forest, Moscow",
+    "ratio": 1
+  },
+  {
+    "id": 106,
+    "birdIds": [20],
+    "flickr": {
+      "id": "48278758431",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "a6a84b0245"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 37.589056,
+      "y": 55.630325
+    },
+    "dateTaken": "2019-05-17T09:00:00",
+    "description": "Shot at Bitsevski Forest, Moscow",
+    "ratio": 0.75
+  },
+  {
+    "id": 107,
+    "birdIds": [5],
+    "flickr": {
+      "id": "48096292321",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "d04b4351a8"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.545961,
+      "y": 55.420103
+    },
+    "dateTaken": "2019-05-03T12:01:10",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 108,
+    "birdIds": [35],
+    "flickr": {
+      "id": "48096292601",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "595e8b6e61"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.545961,
+      "y": 55.420103
+    },
+    "dateTaken": "2019-05-03T12:01:09",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 109,
+    "birdIds": [29],
+    "flickr": {
+      "id": "48096394962",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "15454085e0"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.543987,
+      "y": 55.409491
+    },
+    "dateTaken": "2019-05-03T12:01:08",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 110,
+    "birdIds": [29],
+    "flickr": {
+      "id": "48096292676",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c9e6f12b45"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.543987,
+      "y": 55.409491
+    },
+    "dateTaken": "2019-05-03T12:01:07",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 111,
+    "birdIds": [29],
+    "flickr": {
+      "id": "48096395037",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "077fdaa479"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.543987,
+      "y": 55.409491
+    },
+    "dateTaken": "2019-05-03T12:01:06",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 0.75
+  },
+  {
+    "id": 112,
+    "birdIds": [29],
+    "flickr": {
+      "id": "48096395097",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "f3249d3b6f"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.543987,
+      "y": 55.409491
+    },
+    "dateTaken": "2019-05-03T12:01:05",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 0.75
+  },
+  {
+    "id": 113,
+    "birdIds": [29],
+    "flickr": {
+      "id": "48096292801",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "0a49fa5eb6"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.543987,
+      "y": 55.409491
+    },
+    "dateTaken": "2019-05-03T12:01:04",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 114,
+    "birdIds": [36],
+    "flickr": {
+      "id": "48096340143",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "6f0337f88b"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.543987,
+      "y": 55.409491
+    },
+    "dateTaken": "2019-05-03T12:01:03",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 115,
+    "birdIds": [36],
+    "flickr": {
+      "id": "48096340198",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "54d080e046"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.543987,
+      "y": 55.409491
+    },
+    "dateTaken": "2019-05-03T12:01:02",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 116,
+    "birdIds": [36],
+    "flickr": {
+      "id": "48096340263",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "e9b6d471b7"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.543987,
+      "y": 55.409491
+    },
+    "dateTaken": "2019-05-03T12:01:01",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 117,
+    "birdIds": [36],
+    "flickr": {
+      "id": "48096340348",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "c35b02f265"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.543987,
+      "y": 55.409491
+    },
+    "dateTaken": "2019-05-03T12:01:00",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 118,
+    "birdIds": [36],
+    "flickr": {
+      "id": "48096293096",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "859b0808e5"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.543987,
+      "y": 55.409491
+    },
+    "dateTaken": "2019-05-03T12:00:59",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 119,
+    "birdIds": [36],
+    "flickr": {
+      "id": "48096293151",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "102f934382"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.543987,
+      "y": 55.409491
+    },
+    "dateTaken": "2019-05-03T12:00:58",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.333
+  },
+  {
+    "id": 120,
+    "birdIds": [36],
+    "flickr": {
+      "id": "48096293216",
+      "farmId": 66,
+      "serverId": "65535",
+      "secret": "debedb0f48"
+    },
+    "location": {
+      "neighborhood": "",
+      "region": "Moscow",
+      "geoTag": null,
+      "country": "Russia",
+      "x": 38.543987,
+      "y": 55.409491
+    },
+    "dateTaken": "2019-05-03T12:00:57",
+    "description": "Shot at Vinogradovo Floodplain, Moscow Region",
+    "ratio": 1.779
+  }
+]
