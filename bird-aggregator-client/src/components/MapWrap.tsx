@@ -9,8 +9,6 @@ import { useEffect, useState } from 'react'
 import { BirdPopup } from './BirdPopup'
 import { Map as RootMap } from 'mapbox-gl'
 
-// todo: handle pictures at same location
-
 const Map = ReactMapboxGl({
 	accessToken: 'pk.eyJ1IjoidG9ueXJ5emhpa292IiwiYSI6ImNpbHhvYTY0MDA4MTF0bWtyaW9xbjAyaWsifQ.ih-8rDMRiBmDPqdeyyrHNg',
 })
