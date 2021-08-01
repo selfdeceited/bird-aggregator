@@ -32,7 +32,7 @@ export const LifeList: React.FC = () => {
 	const popover = (x: ILifeListDto) => (x.photoId > 0) ?
 		(<Blueprint.Popover
 			target={<Blueprint.Button className="bp3-button bp3-minimal bp3-icon-map-marker display-block"/>}
-			content={<MapWrap asPopup={true} photoId={x.photoId}/>}/>) : <div></div>
+			content={<MapWrap embedded photoId={x.photoId}/>}/>) : <div></div>
 
 	return (
 		<article className="body lifelist-container">

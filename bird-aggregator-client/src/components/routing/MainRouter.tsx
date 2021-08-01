@@ -26,7 +26,7 @@ export const MainRouter: React.FC = () => {
 	// fullGalleryRoute is wrapped in div as a workaround to avoid the situation in
 	// https://github.com/ReactTraining/react-router/issues/4105#issuecomment-310048346
 
-	const defaultMapWrap = (<MapWrap asPopup={false} />)
+	const defaultMapWrap = (<MapWrap embedded={false} />)
 
 	return (
 		<main>

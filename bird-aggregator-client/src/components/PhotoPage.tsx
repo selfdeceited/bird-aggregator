@@ -36,7 +36,7 @@ export const PhotoPage: React.FC<any> = props => {
                         <img src={image.original} className="photo-page"></img>
                     </div>
                     <div className="flex-item">
-                        <MapWrap asPopup={true} photoId={photoId}/>
+                        <MapWrap embedded photoId={photoId}/>
                     </div>
                 </section>
             </div>)

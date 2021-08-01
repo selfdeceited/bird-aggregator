@@ -1,5 +1,7 @@
-import React, { FC, useEffect, useState } from 'react'
 import * as axios from '../http.adapter'
+
+import React, { FC, useEffect, useState } from 'react'
+
 import { GalleryWrap } from './GalleryWrap'
 import { MapWrap } from './MapWrap'
 
@@ -77,7 +79,7 @@ export const BirdGallery: FC<any> = props => {
 				}
 				<div className="wiki-info">
 					<h4>Occurences on map</h4>
-					<MapWrap asPopup={true}
+					<MapWrap embedded
 						birdId={props.match.params.id}
 					/>
 				</div>

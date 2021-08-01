@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react'
 
-const styles: { [key: string]: CSSProperties } = {
+export const mapStyles: { [key: string]: CSSProperties } = {
 	barWrap: {
 		marginTop: '5px',
 	},
@@ -15,9 +15,6 @@ const styles: { [key: string]: CSSProperties } = {
 		justifyContent: 'center',
 		height: 30,
 		width: 30,
-		left: 10,
-		top: 60,
-		position: 'absolute',
 	},
 	marker: {
 		alignItems: 'center',
@@ -27,15 +24,30 @@ const styles: { [key: string]: CSSProperties } = {
 		border: '2px solid rgba(255, 255, 255, 0)',
 		borderRadius: '50%',
 		display: 'flex',
+		justifyContent: 'center',
 		height: 30,
 		width: 30,
-		left: 10,
-		top: 60,
-		position: 'absolute',
 	},
 	seedPopover: {
 		padding: '10px',
 	},
 }
 
-export default styles
+export const absoluteMapStyles: { [key: string]: CSSProperties } = {
+	clusterMarker: {
+		left: 10,
+		top: 60,
+		position: 'absolute',
+	},
+	marker: {
+		left: 10,
+		top: 60,
+		position: 'absolute',
+	}
+}
+
+export const popupStyles: CSSProperties = {
+	position: 'fixed',
+    left: 0,
+    top: 0,
+}

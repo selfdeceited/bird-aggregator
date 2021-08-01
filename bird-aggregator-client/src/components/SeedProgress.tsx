@@ -3,8 +3,6 @@ import * as hubBuilder from '../http.adapter'
 
 import { Button, Popover } from '@blueprintjs/core'
 
-import styles from '../styles'
-
 interface ISeedProgressState {
 	allPhotos: number
 	birdCount: number
@@ -69,7 +67,7 @@ export class SeedProgress extends React.Component<{}, ISeedProgressState> {
 
 	public render() {
 		const progressBar = (caption: string, current: number, all: number) => (
-			<div style={styles.barWrap}>
+			<div>
 				<p>{caption} </p>
 				<div className={
 					'bp3-progress-bar progress-bar ' + (current === all
@@ -97,7 +95,7 @@ export class SeedProgress extends React.Component<{}, ISeedProgressState> {
 							: null }
 						<Popover>
 							<Button text="What is happening?" style={popoverButtonStyle}/>
-							<div style={styles.seedPopover}>
+							<div>
                             Here's the part where I explain <s>why I'm such a shitty architect</s> what's happening.
 								<br/>
                             This site does not store or own any images.

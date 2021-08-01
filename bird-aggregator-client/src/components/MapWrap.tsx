@@ -3,11 +3,13 @@ import * as React from 'react'
 import * as axios from '../http.adapter'
 
 import ReactMapboxGl, { Cluster, Marker, Popup, ZoomControl } from 'react-mapbox-gl'
+import { absoluteMapStyles, mapStyles, popupStyles } from '../styles'
 import { useEffect, useState } from 'react'
 
 import { BirdPopup } from './BirdPopup'
 import { Map as RootMap } from 'mapbox-gl'
-import styles from '../styles'
+
+// todo: handle pictures at same location
 
 const Map = ReactMapboxGl({
 	accessToken: 'pk.eyJ1IjoidG9ueXJ5emhpa292IiwiYSI6ImNpbHhvYTY0MDA4MTF0bWtyaW9xbjAyaWsifQ.ih-8rDMRiBmDPqdeyyrHNg',
@@ -18,7 +20,7 @@ type InputUrlParameters = {
 	birdId?: number
 }
 
-type IMapWrapProps = InputUrlParameters & { asPopup: boolean }
+type IMapWrapProps = InputUrlParameters & { embedded: boolean }
 
 interface IMapMarkerDto {
 	id: number
@@ -34,7 +36,7 @@ export interface IBirdDto {
 }
 
 export const MapWrap: React.FC<IMapWrapProps> = props => {
-	const set = (_: string) => (props.asPopup ? (props.birdId ? '400px' : '220px') : `100v${_}`)
+	const set = (_: string) => (props.embedded ? (props.birdId ? '400px' : '220px') : `100v${_}`)
 
 	const [center, setCenter] = useState<[number, number]>([35.5, 55.6])
 	const [mapHeight] = useState<string>(set('h'))
@@ -62,7 +64,9 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 		const urlToFetch = urlsToFetch.length > 0 ? urlsToFetch[0] : '/api/map/markers'
 
 		const response = await axios.get(urlToFetch)
-		const { markers: fetchedMarkers } = response.data
+		let { markers: fetchedMarkers } = response.data
+
+		fetchedMarkers = aggregatePhotosInSameLocation(fetchedMarkers)
 		
 		setMarkers(fetchedMarkers)
 
@@ -93,6 +97,18 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 
 
 	const key = (_: GeoJSON.Position) => `${_[0]}:${_[1]}`
+
+	const getStyles: () => Record<string, React.CSSProperties> = () => ({
+		clusterMarker: props.embedded ? mapStyles.clusterMarker : {
+			...mapStyles.clusterMarker,
+			...absoluteMapStyles.clusterMarker
+		},
+		marker: props.embedded ? mapStyles.marker : {
+			...mapStyles.marker,
+			...absoluteMapStyles.marker
+		},
+	})
+
 	const clusterMarker = (
 		coordinates: GeoJSON.Position,
 		pointCount: number,
@@ -102,7 +118,7 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 		<Marker
 			key={key(coordinates)}
 			coordinates={coordinates}
-			style={styles.clusterMarker}
+			style={getStyles().clusterMarker}
 			onClick={_ => clusterClick(coordinates)}
 		>
 			<div>{pointCount}</div>
@@ -114,7 +130,7 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 	}
 
 	return (
-		<div className={props.asPopup ? '' : 'body'}>
+		<div className={props.embedded ? '' : 'body'}>
 			<Map
 				style="mapbox://styles/mapbox/outdoors-v10"
 				containerStyle={{
@@ -134,18 +150,22 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 								key={key([m.x, m.y])}
 								coordinates={[m.x, m.y]}
 								onClick={_ => markerClick(m)}
-								style={styles.marker}
+								style={getStyles().marker}
 							/>
 						))}
 				</Cluster>
-				{ (selectedMarker && !props.asPopup) ? (
-					<Popup key={selectedMarker.id} offset={[0, -50]} coordinates={[selectedMarker.x, selectedMarker.y]}>
+				{ (selectedMarker && !props.embedded) ? (
+					<Popup
+						key={selectedMarker.id}
+						offset={[0, -50]}
+						coordinates={[selectedMarker.x, selectedMarker.y]}
+						style={popupStyles}>
 						<div className="map-popup">
 							<a
 								className="bp3-button bp3-minimal small-reference bp3-icon-cross"
 								onMouseDown={() => removePopup()}
 							></a>
-							<BirdPopup birds={selectedMarker.birds} photoUrl={selectedMarker.firstPhotoUrl}></BirdPopup>
+							<BirdPopup birds={selectedMarker.birds} photoUrl={selectedMarker.firstPhotoUrl}/>
 						</div>
 					</Popup>
 				): undefined }
@@ -153,3 +173,30 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 		</div>
 	)
 }
+
+function aggregatePhotosInSameLocation(fetchedMarkers: IMapMarkerDto[]): IMapMarkerDto[] {
+	const filterDuplicateBirds = (_: IBirdDto[]) => _
+		.reduce((birds, bird) => {
+			if (birds.length === 0) {
+				birds.push(bird)
+				return birds
+			}
+			const existingBird = birds.filter(b => b.id == bird.id)[0]
+			if (!existingBird)
+				birds.push(bird)
+			return birds
+		}, [] as IBirdDto[])
+
+
+	return fetchedMarkers.reduce((acc, marker) => {
+		const candidate: IMapMarkerDto = acc.filter(c => c.x == marker.x && c.y == marker.y)[0]
+		if (candidate) {
+			candidate.birds = filterDuplicateBirds(candidate.birds.concat(marker.birds))
+		} else {
+			acc.push(marker)
+		}
+
+		return acc
+	}, [] as IMapMarkerDto[])
+}
+
