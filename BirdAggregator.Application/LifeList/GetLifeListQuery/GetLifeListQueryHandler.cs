@@ -43,7 +43,6 @@ namespace BirdAggregator.Application.LifeList.GetLifeListQuery
                     Name = item.Bird.EnglishName,
                     DateMet = firstOccurence.DateTaken,
                     Location = firstOccurence.Location.Description,
-                    LocationId = firstOccurence.Location.Id,
                     PhotoId = firstOccurence.Id,
                 });
             }

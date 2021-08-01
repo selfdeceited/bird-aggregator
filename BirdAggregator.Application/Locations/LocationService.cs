@@ -43,5 +43,22 @@ namespace BirdAggregator.Application.Locations
                 FirstPhotoUrl = _pictureHostingService.GetOriginal(photos.FirstOrDefault()?.PhotoInformation)
             };
         }
+
+        public MarkerDto GetMarker(Photo photo)
+        {
+            var location = photo.Location;
+            var firstPhotoUrl = _pictureHostingService.GetOriginal(photo.PhotoInformation);
+            return new MarkerDto
+            {
+                Id = location.Id,
+                X = location.Longitude,
+                Y = location.Latitude,
+                Birds = photo.Birds.Select(x=> new BirdMarkerDto {
+                    Id = x.Id,
+                    Name = x.EnglishName
+                }).ToArray(),
+                FirstPhotoUrl = firstPhotoUrl
+            };
+        }
     }
 }

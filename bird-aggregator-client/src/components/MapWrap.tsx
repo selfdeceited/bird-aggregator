@@ -13,11 +13,12 @@ const Map = ReactMapboxGl({
 	accessToken: 'pk.eyJ1IjoidG9ueXJ5emhpa292IiwiYSI6ImNpbHhvYTY0MDA4MTF0bWtyaW9xbjAyaWsifQ.ih-8rDMRiBmDPqdeyyrHNg',
 })
 
-interface IMapWrapProps {
-	asPopup: boolean
-	locationIdToShow?: number
+type InputUrlParameters = {
+	photoId?: number
 	birdId?: number
 }
+
+type IMapWrapProps = InputUrlParameters & { asPopup: boolean }
 
 interface IMapMarkerDto {
 	id: number
@@ -42,32 +43,34 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 	const [zoomLevel, setZoomLevel] = useState<[number]>([6])
 	const [selectedMarker, setSelectedMarker] = useState<IMapMarkerDto | undefined>()
 
-	const urlHandler = (propName: keyof IMapWrapProps) => {
-		const check = (url: string) => (props[propName] ? `${url}/${props[propName]}` : undefined)
+	const urlHandler = (propName: keyof InputUrlParameters) => {
+		const check = (url: string) => props[propName] ? `${url}/${props[propName]}` : ''
 
-		const dict: any = {
+		const dict: Record<keyof InputUrlParameters, string> = {
 			birdId: check('/api/map/bird'),
-			locationIdToShow: check('/api/map/markers'),
+			photoId: check('/api/map/markers'),
 		}
 
 		return dict[propName]
 	}
 
-	const fetchData = () => {
-		const urlsToFetch = ['birdId', 'locationIdToShow']
-			.map(_ => urlHandler(_ as keyof IMapWrapProps))
-			.filter(x => Boolean(x))
+	const fetchData = async () => {
+		const urlsToFetch = ['birdId', 'photoId']
+			.map(_ => urlHandler(_ as keyof InputUrlParameters))
+			.filter(x => !!x)
 
 		const urlToFetch = urlsToFetch.length > 0 ? urlsToFetch[0] : '/api/map/markers'
 
-		axios.get(urlToFetch).then(res => {
-			const { markers: fetchedMarkers } = res.data
-			setMarkers(fetchedMarkers)
-			if (props.locationIdToShow || props.birdId) {
-				setCenter([fetchedMarkers[0].x, fetchedMarkers[0].y])
-			}
-		})
+		const response = await axios.get(urlToFetch)
+		const { markers: fetchedMarkers } = response.data
+		
+		setMarkers(fetchedMarkers)
+
+		if (props.photoId || props.birdId) {
+			setCenter([fetchedMarkers[0].x, fetchedMarkers[0].y])
+		}
 	}
+	
 	useEffect(() => {
 		setMarkers([])
 		setSelectedMarker(undefined)
@@ -88,13 +91,16 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 		setZoomLevel([zoomLevel[0] + 1])
 	}
 
+
+	const key = (_: GeoJSON.Position) => `${_[0]}:${_[1]}`
 	const clusterMarker = (
 		coordinates: GeoJSON.Position,
 		pointCount: number,
 		getLeaves: (limit?: number, offset?: number) => React.ReactElement[],
 	) => (
+		
 		<Marker
-			key={coordinates.toString()}
+			key={key(coordinates)}
 			coordinates={coordinates}
 			style={styles.clusterMarker}
 			onClick={_ => clusterClick(coordinates)}
@@ -119,19 +125,20 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 				zoom={zoomLevel}
 				onZoomEnd={onZoom}
 			>
-				<>
+				
+				
+				<ZoomControl position='bottom-right'/>
 				<Cluster ClusterMarkerFactory={clusterMarker}>
-					{/* Array<React.Component<MarkerProps, {}>> */}
-					{markers.map(x => (
-						<Marker
-							key={x.id}
-							coordinates={[x.x, x.y] as GeoJSON.Position}
-							onClick={_ => markerClick(x)}
-							style={styles.marker}
-						/>
-					))}
+					{ markers.map(m => (
+							<Marker
+								key={key([m.x, m.y])}
+								coordinates={[m.x, m.y]}
+								onClick={_ => markerClick(m)}
+								style={styles.marker}
+							/>
+						))}
 				</Cluster>
-				{selectedMarker && !props.asPopup && (
+				{ (selectedMarker && !props.asPopup) ? (
 					<Popup key={selectedMarker.id} offset={[0, -50]} coordinates={[selectedMarker.x, selectedMarker.y]}>
 						<div className="map-popup">
 							<a
@@ -141,9 +148,7 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 							<BirdPopup birds={selectedMarker.birds} photoUrl={selectedMarker.firstPhotoUrl}></BirdPopup>
 						</div>
 					</Popup>
-				)}
-				<ZoomControl />
-				</>
+				): undefined }
 			</Map>
 		</div>
 	)

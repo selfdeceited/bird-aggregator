@@ -6,10 +6,8 @@ import { ItemPredicate, ItemRenderer, Select } from '@blueprintjs/labs'
 
 import { Link } from 'react-router-dom'
 
-const tempBird = { id: 42, name: 'some bird', latin: 'some latin text' }
-export type Bird = typeof tempBird
+export type Bird = { id: number, name: string, latin: string }
 
-export interface INavbarProps {}
 export interface INavbarState {
 	hostingLink: string
 	github: string
@@ -40,10 +38,10 @@ const renderBird: ItemRenderer<Bird> = (
 )
 
 export default class Navbar extends React.Component<
-  INavbarProps,
+  {},
   INavbarState
 > {
-	constructor(props: INavbarProps) {
+	constructor(props: {}) {
 		super(props)
 
 		this.state = {

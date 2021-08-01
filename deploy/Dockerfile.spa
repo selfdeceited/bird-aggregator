@@ -5,7 +5,6 @@ COPY bird-aggregator-client/package.json .
 COPY bird-aggregator-client/tsconfig.json .
 
 RUN npm install
-RUN npm rebuild node-sass
 
 COPY bird-aggregator-client/. .
 RUN npm run build

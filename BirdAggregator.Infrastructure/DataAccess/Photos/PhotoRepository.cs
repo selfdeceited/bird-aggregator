@@ -49,14 +49,12 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
 
         public async Task<Location[]> GetAllAsync()
         {
-            // todo: doesn't work. System.FormatException: Element 'Location' does not match any field or property of class 
-            var projection = Builders<PhotoResultModel>.Projection.Include(x => x.Location);
             var locations = await GetPhotoResultModelLookup()
-                .Project<LocationModel>(projection)
+                .Project(x => new { x.Location })
                 .ToListAsync();
 
             return locations
-                .Select(_locationMapper.ToDomain)
+                .Select(_ => _locationMapper.ToDomain(_.Location))
                 .ToArray();
         }
 
@@ -81,19 +79,6 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
                 .ToArray();
         }
 
-        async Task<Location[]> IPhotoRepository.GetByBirdIdAsync(int birdId)
-        {
-            // todo: doesn't work. System.FormatException: Element 'Location' does not match any field or property of class 
-            var projection = Builders<PhotoResultModel>.Projection.Include(x => x.Location);
-            var locations = await GetPhotoResultModelLookup()
-                .Match<PhotoResultModel>(x => x.BirdIds.Contains(birdId))
-                .Project<LocationModel>(projection)
-                .ToListAsync();
-
-            return locations
-                .Select(_locationMapper.ToDomain)
-                .ToArray();
-        }
 
         async Task<Photo> IPhotoRepository.GetById(int photoId)
         {

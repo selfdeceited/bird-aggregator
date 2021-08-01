@@ -1,6 +1,6 @@
-import * as React from 'react'
+import { CSSProperties } from 'react'
 
-const styles: { [key: string]: React.CSSProperties } = {
+const styles: { [key: string]: CSSProperties } = {
 	barWrap: {
 		marginTop: '5px',
 	},
@@ -12,9 +12,12 @@ const styles: { [key: string]: React.CSSProperties } = {
 		color: 'white',
 		cursor: 'pointer',
 		display: 'flex',
-		height: 30,
 		justifyContent: 'center',
+		height: 30,
 		width: 30,
+		left: 10,
+		top: 60,
+		position: 'absolute',
 	},
 	marker: {
 		alignItems: 'center',
@@ -25,8 +28,10 @@ const styles: { [key: string]: React.CSSProperties } = {
 		borderRadius: '50%',
 		display: 'flex',
 		height: 30,
-		justifyContent: 'center',
 		width: 30,
+		left: 10,
+		top: 60,
+		position: 'absolute',
 	},
 	seedPopover: {
 		padding: '10px',

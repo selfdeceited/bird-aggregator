@@ -1,18 +1,19 @@
 import * as Blueprint from '@blueprintjs/core'
-import { Button, Icon, Popover } from '@blueprintjs/core'
 import * as axios from '../http.adapter'
-import moment from 'moment'
+
+import { Button, Icon, Popover } from '@blueprintjs/core'
 import React, { useEffect, useState } from 'react'
+
 import { Link } from 'react-router-dom'
 import { MapWrap } from './MapWrap'
 import { YearlyLifeList } from './YearlyLifeList'
+import moment from 'moment'
 
 interface ILifeListDto {
 	birdId: number
 	name: string
 	dateMet: string
 	location: string
-	locationId: number
 	photoId: number
 }
 
@@ -28,10 +29,10 @@ export const LifeList: React.FC = () => {
 		fetchLifelist()
 	}, [])
 
-	const popover = (x: ILifeListDto) => (x.locationId > 0) ?
+	const popover = (x: ILifeListDto) => (x.photoId > 0) ?
 		(<Blueprint.Popover
 			target={<Blueprint.Button className="bp3-button bp3-minimal bp3-icon-map-marker display-block"/>}
-			content={<MapWrap asPopup={true} locationIdToShow={x.locationId}/>}/>) : <div></div>
+			content={<MapWrap asPopup={true} photoId={x.photoId}/>}/>) : <div></div>
 
 	return (
 		<article className="body lifelist-container">

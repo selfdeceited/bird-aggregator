@@ -26,7 +26,7 @@ namespace BirdAggregator.Host.Controllers
         }
 
         [HttpGet("markers/{id}")]
-        public async Task<IActionResult> GetMapMarkerByLocationId(int id)
+        public async Task<IActionResult> GetMapMarkerByPhoto(int id)
         {
             var markers = await _mediator.Send(new GetLocationsByIdQuery(id));
             return Ok(markers);

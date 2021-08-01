@@ -81,7 +81,7 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
 							photo={photo}
 							left={left}
 							top={top}
-							onMouseDown={this.onMouseDown}
+							onMouseDown={(e: any, o: any) => this.onMouseDown(e,o)}
 						/>
 					)
 

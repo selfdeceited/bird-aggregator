@@ -18,7 +18,6 @@ export interface Image {
 	caption: string
 	tags: ITag[]
 	dateTaken: string
-	locationId: number
 	birdIds: number[]
 	text: string
 }

@@ -1,16 +1,18 @@
 import * as axios from "../http.adapter"
-import moment from "moment"
-import { Link } from "react-router-dom"
-import { Image } from "./BirdImage"
-import { MapWrap } from "./MapWrap"
-import React, { useState, useEffect } from "react"
 
+import React, { useEffect, useState } from "react"
+
+import { Image } from "./BirdImage"
+import { Link } from "react-router-dom"
+import { MapWrap } from "./MapWrap"
+import moment from "moment"
 
 export const PhotoPage: React.FC<any> = props => {
     const [image, setImage] = useState<Image | null>(null)
+    const photoId = props.match.params.id
 
     useEffect(() => {
-        axios.get(`/api/gallery/photo/${props.match.params.id}`).then((res) => {
+        axios.get(`/api/gallery/photo/${photoId}`).then((res) => {
             const receivedImage = res.data.photo
             receivedImage.tags = [{title: receivedImage.caption, value: receivedImage.caption}]
             setImage(receivedImage)
@@ -34,7 +36,7 @@ export const PhotoPage: React.FC<any> = props => {
                         <img src={image.original} className="photo-page"></img>
                     </div>
                     <div className="flex-item">
-                        <MapWrap asPopup={true} locationIdToShow={image.locationId}/>
+                        <MapWrap asPopup={true} photoId={photoId}/>
                     </div>
                 </section>
             </div>)

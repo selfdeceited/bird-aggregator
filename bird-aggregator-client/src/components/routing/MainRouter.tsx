@@ -1,10 +1,12 @@
 import * as React from 'react'
+
 import { Route, Switch } from 'react-router-dom'
-import { PhotoPage } from '../PhotoPage'
+
 import { BirdGallery } from './../BirdGallery'
 import { GalleryWrap } from './../GalleryWrap'
 import { LifeList } from './../LifeList'
 import { MapWrap } from './../MapWrap'
+import { PhotoPage } from '../PhotoPage'
 import { TripList } from './../TripList'
 
 export const MainRouter: React.FC = () => {
@@ -24,7 +26,7 @@ export const MainRouter: React.FC = () => {
 	// fullGalleryRoute is wrapped in div as a workaround to avoid the situation in
 	// https://github.com/ReactTraining/react-router/issues/4105#issuecomment-310048346
 
-	const defaultMapWrap = (<MapWrap asPopup={false} locationIdToShow={undefined}/>)
+	const defaultMapWrap = (<MapWrap asPopup={false} />)
 
 	return (
 		<main>

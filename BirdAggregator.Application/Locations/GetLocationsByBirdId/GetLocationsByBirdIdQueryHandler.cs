@@ -22,8 +22,8 @@ namespace BirdAggregator.Application.Locations.GetLocationsByBirdId
 
         public async Task<LocationListDto> Handle(GetLocationsByBirdIdQuery request, CancellationToken cancellationToken)
         {
-            var locations = await _photoRepository.GetByBirdIdAsync(request.BirdId);
-            var markerDtos = await Task.WhenAll(locations.Select(_locationService.GetAsync));
+            var photos = await _photoRepository.GetGalleryForBirdAsync(request.BirdId);
+            var markerDtos = photos.Select(_locationService.GetMarker);
 
             return new LocationListDto
             {

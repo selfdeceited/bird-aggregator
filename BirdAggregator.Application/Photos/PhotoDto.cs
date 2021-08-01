@@ -9,7 +9,6 @@ namespace BirdAggregator.Application.Photos
         public string Caption { get; set; }
         public int Id { get; set; }
         public DateTime DateTaken { get; set; }
-        public int LocationId { get; set; }
         public int Height { get; set; }
         public double Width { get; set; }
         public string Original { get; set; }

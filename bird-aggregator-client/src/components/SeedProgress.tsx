@@ -1,11 +1,9 @@
-import { Button, Popover } from '@blueprintjs/core'
 import * as React from 'react'
-import styles from '../styles'
 import * as hubBuilder from '../http.adapter'
 
-interface ISeedProgressProps {
+import { Button, Popover } from '@blueprintjs/core'
 
-}
+import styles from '../styles'
 
 interface ISeedProgressState {
 	allPhotos: number
@@ -19,8 +17,8 @@ interface ISeedProgressState {
 	showPhotoBar: boolean
 }
 
-export class SeedProgress extends React.Component<ISeedProgressProps, ISeedProgressState> {
-	constructor(props: ISeedProgressProps) {
+export class SeedProgress extends React.Component<{}, ISeedProgressState> {
+	constructor(props: {}) {
 		super(props)
 		this.state = {
 			allPhotos: 1,

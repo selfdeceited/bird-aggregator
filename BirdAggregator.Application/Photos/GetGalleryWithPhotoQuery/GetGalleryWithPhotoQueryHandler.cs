@@ -27,7 +27,6 @@ namespace BirdAggregator.Application.Photos.GetGalleryWithPhotoQuery
                         Caption = photo.Caption,
                         Id = photo.Id,
                         DateTaken = photo.DateTaken,
-                        LocationId = photo.Location.Id,
                         BirdIds = photo.Birds.Select(x => x.Id),
                         Height = 1,
                         Width = photo.Ratio,
