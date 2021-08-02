@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react'
 
 import { BirdPopup } from './BirdPopup'
 import { Map as RootMap } from 'mapbox-gl'
-import console from 'console'
 
 const Map = ReactMapboxGl({
 	accessToken: 'pk.eyJ1IjoidG9ueXJ5emhpa292IiwiYSI6ImNpbHhvYTY0MDA4MTF0bWtyaW9xbjAyaWsifQ.ih-8rDMRiBmDPqdeyyrHNg',
@@ -77,7 +76,7 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 		setMarkers([])
 		setSelectedMarker(undefined)
 		fetchData()
-	}, [props])
+	}, [])
 
 	const markerClick = (marker: IMapMarkerDto) => {
 		setCenter([marker.x, marker.y])
@@ -186,7 +185,7 @@ function aggregatePhotosInSameLocation(fetchedMarkers: IMapMarkerDto[]): IMapMar
 	
 	const markerEqualityComparer = (marker: IMapMarkerDto) => (candidate: IMapMarkerDto) => {
 		const decimals = 3
-		const numberComparer = (a: number, b: number) => a.toFixed(decimals) == b.toFixed(decimals)
+		const numberComparer = (a: number, b: number) => a.toFixed(decimals) === b.toFixed(decimals)
 		return numberComparer(candidate.x, marker.x) && numberComparer(candidate.y, marker.y)
 	}
 

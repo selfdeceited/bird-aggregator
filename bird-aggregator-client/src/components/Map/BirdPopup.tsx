@@ -11,7 +11,10 @@ interface IBirdPopupProps {
 export const BirdPopup: React.FC<IBirdPopupProps> = props => {
 	const imagePreview = props.birds.length > 2 ? null : (
 		<div>
-			<img src={props.photoUrl} className="marker-thumbnail"/>
+			<img
+				src={props.photoUrl}
+				className="marker-thumbnail"
+				alt={props.birds.map(x => x.name).join(",")}/>
 		</div>)
 
 	return (<div>

@@ -17,7 +17,7 @@ export const PhotoPage: React.FC<any> = props => {
             receivedImage.tags = [{title: receivedImage.caption, value: receivedImage.caption}]
             setImage(receivedImage)
         })
-    }, [props])
+    }, [photoId])
 
     if (!image)
         return null
@@ -33,7 +33,7 @@ export const PhotoPage: React.FC<any> = props => {
             )}
                 <section className="photo-flex-container">
                     <div className="flex-item photo-flex-element">
-                        <img src={image.original} className="photo-page"></img>
+                        <img src={image.original} className="photo-page" alt={image.caption}></img>
                     </div>
                     <div className="flex-item">
                         <MapWrap embedded photoId={photoId}/>
