@@ -13,13 +13,15 @@ export const MainRouter: React.FC = () => {
 	const previewGalleryRoute = (
 		<GalleryWrap
 			seeFullGalleryLink={true}
-			urlToFetch={'/api/gallery/100'}/>)
+			urlToFetch={'/api/gallery/100'}
+			showImageCaptions/>)
 
 	const fullGalleryRoute = (
 		<div>
 			<GalleryWrap
 				seeFullGalleryLink={false}
-				urlToFetch={'/api/gallery/9000'}/>
+				urlToFetch={'/api/gallery/9000'}
+				showImageCaptions />
 		</div>
 	)
 

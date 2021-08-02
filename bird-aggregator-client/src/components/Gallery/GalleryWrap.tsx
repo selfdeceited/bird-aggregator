@@ -11,6 +11,7 @@ import Measure from 'react-measure'
 export interface IGalleryProps {
 	seeFullGalleryLink: boolean
 	urlToFetch: string
+	showImageCaptions: boolean
 }
 
 interface IGalleryState {
@@ -82,6 +83,7 @@ export class GalleryWrap extends React.Component<IGalleryProps, IGalleryState> {
 							left={left}
 							top={top}
 							onMouseDown={(e: any, o: any) => this.onMouseDown(e,o)}
+							showCaption={this.props.showImageCaptions}
 						/>
 					)
 

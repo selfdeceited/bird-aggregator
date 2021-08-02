@@ -7,6 +7,7 @@ interface IBirdProps {
 	margin: string
 	left: string
 	top: string
+	showCaption: boolean
 }
 
 export interface Image {
@@ -50,7 +51,7 @@ export const BirdImage: React.FC<IBirdProps> = props => {
 
 			<img style={{ ...imgStyle }} {...props.photo}
 				onMouseDown={e => props.onMouseDown(e, { index: props.index, photo: props.photo })} />
-			<span className="image-bird-name">{props.photo.caption}</span>
+			{ props.showCaption ? <span className="image-bird-name">{props.photo.caption}</span> : null }
 			<style>
 				{'.not-selected:hover{outline:2px solid #06befa}'}
 			</style>

@@ -63,6 +63,7 @@ export const BirdGallery: FC<any> = props => {
 				<GalleryWrap
 					seeFullGalleryLink={false}
 					urlToFetch={'/api/gallery/bird/' + props.match.params.id}
+					showImageCaptions={false}
 				/>
 			</BirdPageGalleryStyled>
 			<BirdInfoStyled>
