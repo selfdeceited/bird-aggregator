@@ -23,27 +23,6 @@ h1 {
   padding: 0;
 }
 
-.half-screen {
-  width: 60%;
-  display: inline-block;
-}
-
-.wiki-info {
-  margin: 10px;
-}
-
-a.new-window, a.new-window:visited, a.new-window:active {
-  color: #106ba3;
-  text-decoration: none;
-  border-bottom: 1px #106ba3 dotted;
-}
-
-a.new-window:hover {
-  color: #106ba3;
-  text-decoration: underline;
-  border: none;
-}
-
 nav {
   .small-space {
       display: inline-block;
@@ -109,11 +88,6 @@ div.body > table td {
   &span {
       display: inline
   }
-}
-
-.flex-container {
-  display: flex;
-  flex-direction: column;
 }
 
 @media screen and (max-width: 960px) {
@@ -286,12 +260,6 @@ img.photo-page {
 
 .lightbox-caption {
   color: #c8e6f9;
-}
-
-.fourty {
-  width: 40%;
-  display: inline-block !important;
-  vertical-align: top;
 }
 
 .image-bird-name {

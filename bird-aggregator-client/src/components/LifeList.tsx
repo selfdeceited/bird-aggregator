@@ -5,7 +5,7 @@ import { Button, Icon, Popover } from '@blueprintjs/core'
 import React, { useEffect, useState } from 'react'
 
 import { Link } from 'react-router-dom'
-import { MapWrap } from './MapWrap'
+import { MapWrap } from './Map/MapWrap'
 import { YearlyLifeList } from './YearlyLifeList'
 import moment from 'moment'
 

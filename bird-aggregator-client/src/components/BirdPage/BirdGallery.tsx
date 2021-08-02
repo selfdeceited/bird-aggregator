@@ -1,9 +1,12 @@
-import * as axios from '../http.adapter'
+import * as axios from '../../http.adapter'
 
+import { BirdInfoStyled, BirdPageGalleryStyled, BirdPageStyled } from './BirdPageStyled'
 import React, { FC, useEffect, useState } from 'react'
 
-import { GalleryWrap } from './GalleryWrap'
-import { MapWrap } from './MapWrap'
+import { GalleryWrap } from '../Gallery/GalleryWrap'
+import { MapWrap } from '../Map/MapWrap'
+import { WikiDescription } from './Wikipedia/WikiDescription'
+import { WikiImage } from './Wikipedia/WikiImage'
 
 interface IWikiData {
 	name: string
@@ -52,30 +55,22 @@ export const BirdGallery: FC<any> = props => {
 
 	useEffect(() => fetchWikiInfo(props, setWikiData), [props])
 
+
+	// todo: think how to show in better on mobile
 	return (
-		<div>
-			<div className="half-screen">
+		<BirdPageStyled>
+			<BirdPageGalleryStyled>
 				<GalleryWrap
 					seeFullGalleryLink={false}
 					urlToFetch={'/api/gallery/bird/' + props.match.params.id}
 				/>
-			</div>
-			<div className="flex-container body fourty">
+			</BirdPageGalleryStyled>
+			<BirdInfoStyled>
 				{
-					!wikiData ? null : (
-						<div className="wiki-info hide">
-							<img src={wikiData.imageUrl} width="80%"/>
-						</div>)
+					wikiData ? <WikiImage imageUrl={wikiData.imageUrl}/> : null
 				}
 				{
-					!wikiData ? null : (
-						<div className="wiki-info">
-							<h2>{wikiData.name}</h2>
-							<div dangerouslySetInnerHTML={{ __html: wikiData.wikiInfo }}></div>
-							<a className="new-window"
-								href={'https://en.wikipedia.org/wiki/' + wikiData.name}
-								target="_blank">more from Wikipedia...</a>
-						</div>)
+					wikiData ? <WikiDescription name={wikiData.name} wikiInfo={wikiData.wikiInfo}/> : null
 				}
 				<div className="wiki-info">
 					<h4>Occurences on map</h4>
@@ -89,7 +84,7 @@ export const BirdGallery: FC<any> = props => {
 					<p>(todo)</p>
 					<code>http://www.xeno-canto.org/article/153</code>
 				</div>
-			</div>
-		</div>
+			</BirdInfoStyled>
+		</BirdPageStyled>
 	)
 }

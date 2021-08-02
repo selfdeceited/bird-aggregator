@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom'
+
 import { IBirdDto } from './MapWrap'
+import { Link } from 'react-router-dom'
 
 interface IBirdPopupProps {
 	birds: IBirdDto[]

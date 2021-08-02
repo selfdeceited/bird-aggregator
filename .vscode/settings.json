@@ -9,6 +9,7 @@
         "Xunit",
         "blueprintjs",
         "lifelist",
+        "mapboxgl",
         "mediatr"
     ]
 }

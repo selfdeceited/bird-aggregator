@@ -2,10 +2,10 @@ import * as React from 'react'
 
 import { Route, Switch } from 'react-router-dom'
 
-import { BirdGallery } from './../BirdGallery'
-import { GalleryWrap } from './../GalleryWrap'
+import { BirdGallery } from '../BirdPage/BirdGallery'
+import { GalleryWrap } from '../Gallery/GalleryWrap'
 import { LifeList } from './../LifeList'
-import { MapWrap } from './../MapWrap'
+import { MapWrap } from '../Map/MapWrap'
 import { PhotoPage } from '../PhotoPage'
 import { TripList } from './../TripList'
 

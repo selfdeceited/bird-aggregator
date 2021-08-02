@@ -1,7 +1,8 @@
 import * as React from 'react'
+
+import { Image } from '../BirdImage'
 import Lightbox from 'react-image-lightbox'
 import { Link } from 'react-router-dom'
-import { Image } from './BirdImage'
 
 interface IBirdLightboxProps {
 	photos: Image[]

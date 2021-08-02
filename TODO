@@ -24,11 +24,14 @@ Bird-Aggregator 2.0 release-ready checklist
 
 [.] move to functional components and hooks
 left components:
-
 - GalleryWrap
-- MapWrap
 - SeedProgress
 - Navbar
+[ ] switch to flex positioning on bird page
+[ ] switch to styled components
+[ ] switch to effector
+[ ] remove lots of stuff to devDependencies
+[ ] switch to vite
 
 # INFRA
 

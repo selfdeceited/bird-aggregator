@@ -1,7 +1,7 @@
 import * as React from 'react'
-import * as axios from '../http.adapter'
+import * as axios from '../../http.adapter'
 
-import { BirdImage, Image } from './BirdImage'
+import { BirdImage, Image } from '../BirdImage'
 
 import { BirdLightbox } from './BirdLightbox'
 import Gallery from 'react-photo-gallery'

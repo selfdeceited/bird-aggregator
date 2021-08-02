@@ -1,13 +1,14 @@
 import * as GeoJSON from 'geojson'
 import * as React from 'react'
-import * as axios from '../http.adapter'
+import * as axios from '../../http.adapter'
 
 import ReactMapboxGl, { Cluster, Marker, Popup, ZoomControl } from 'react-mapbox-gl'
-import { absoluteMapStyles, mapStyles, popupStyles } from '../styles'
+import { absoluteMapStyles, mapStyles, popupStyles } from '../../styles'
 import { useEffect, useState } from 'react'
 
 import { BirdPopup } from './BirdPopup'
 import { Map as RootMap } from 'mapbox-gl'
+import console from 'console'
 
 const Map = ReactMapboxGl({
 	accessToken: 'pk.eyJ1IjoidG9ueXJ5emhpa292IiwiYSI6ImNpbHhvYTY0MDA4MTF0bWtyaW9xbjAyaWsifQ.ih-8rDMRiBmDPqdeyyrHNg',
@@ -65,7 +66,7 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 		let { markers: fetchedMarkers } = response.data
 
 		fetchedMarkers = aggregatePhotosInSameLocation(fetchedMarkers)
-		
+		global.console.log(fetchedMarkers.length)
 		setMarkers(fetchedMarkers)
 
 		if (props.photoId || props.birdId) {
@@ -139,8 +140,6 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 				zoom={zoomLevel}
 				onZoomEnd={onZoom}
 			>
-				
-				
 				<ZoomControl position='bottom-right'/>
 				<Cluster ClusterMarkerFactory={clusterMarker}>
 					{ markers.map(m => (
@@ -179,15 +178,22 @@ function aggregatePhotosInSameLocation(fetchedMarkers: IMapMarkerDto[]): IMapMar
 				birds.push(bird)
 				return birds
 			}
-			const existingBird = birds.filter(b => b.id == bird.id)[0]
+			const existingBird = birds.filter(b => b.id === bird.id)[0]
 			if (!existingBird)
 				birds.push(bird)
 			return birds
 		}, [] as IBirdDto[])
 
+	
+	const markerEqualityComparer = (marker: IMapMarkerDto) => (candidate: IMapMarkerDto) => {
+		const decimals = 3
+		const numberComparer = (a: number, b: number) => a.toFixed(decimals) == b.toFixed(decimals)
+		return numberComparer(candidate.x, marker.x) && numberComparer(candidate.y, marker.y)
+	}
+
 
 	return fetchedMarkers.reduce((acc, marker) => {
-		const candidate: IMapMarkerDto = acc.filter(c => c.x == marker.x && c.y == marker.y)[0]
+		const candidate: IMapMarkerDto = acc.filter(markerEqualityComparer(marker))[0]
 		if (candidate) {
 			candidate.birds = filterDuplicateBirds(candidate.birds.concat(marker.birds))
 		} else {
