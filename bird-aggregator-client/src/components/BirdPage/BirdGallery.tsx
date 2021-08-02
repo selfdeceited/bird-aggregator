@@ -1,6 +1,6 @@
 import * as axios from '../../http.adapter'
 
-import { BirdInfoStyled, BirdPageGalleryStyled, BirdPageStyled } from './BirdPageStyled'
+import { BirdGalleryMapStyled, BirdInfoStyled, BirdPageGalleryStyled, BirdPageStyled } from './BirdPageStyled'
 import React, { FC, useEffect, useState } from 'react'
 
 import { GalleryWrap } from '../Gallery/GalleryWrap'
@@ -14,22 +14,28 @@ interface IWikiData {
 	imageUrl: string
 }
 
-const fetchWikiInfo = (props: any, setWikiData: (data: IWikiData) => void) => {
-	axios.get('/api/birds/info/' + props.match.params.id).then(res => {
-		const wikiData = res.data
-		const extract = JSON.parse(wikiData.wikiInfo)
-		const html = extract.query.pages[Object.keys(extract.query.pages)[0]].extract
-
-		const div = document.createElement('div')
-		div.innerHTML = html
-
-		try {
-			const chapters = fillChapters(div)
-			setWikiData({ name: res.data.name, wikiInfo: chapters.outerHTML, imageUrl: res.data.imageUrl })
+interface ParamMatchedProps {
+	match: {
+		params: {
+			id: number
 		}
+	}
+}
+
+const fetchWikiInfo = async (birdId: number, setWikiData: (data: IWikiData) => void) => {
+	const { data: wikiData } = await axios.get('/api/birds/info/' + birdId)
+	const extract = JSON.parse(wikiData.wikiInfo)
+	const html = extract.query.pages[Object.keys(extract.query.pages)[0]].extract
+
+	const div = document.createElement('div')
+	div.innerHTML = html
+
+	try {
+		const chapters = fillChapters(div)
+		setWikiData({ name: wikiData.name, wikiInfo: chapters.outerHTML, imageUrl: wikiData.imageUrl })
+	} catch {
 		// tslint:disable-next-line: no-empty
-		catch { }
-	})
+	}
 }
 
 const fillChapters = (div: HTMLDivElement): HTMLDivElement => {
@@ -46,15 +52,21 @@ const fillChapters = (div: HTMLDivElement): HTMLDivElement => {
 	return finalContainer
 }
 
-export const BirdGallery: FC<any> = props => {
+export const BirdGallery: FC<ParamMatchedProps> = props => {
+	const {
+		match: {
+			params: { id: birdId },
+		},
+	} = props
 	const [wikiData, setWikiData] = useState<IWikiData>({
 		name: '',
 		wikiInfo: '',
 		imageUrl: '',
 	})
 
-	useEffect(() => fetchWikiInfo(props, setWikiData), [props])
-
+	useEffect(() => {
+		fetchWikiInfo(birdId, setWikiData)
+	}, [birdId])
 
 	// todo: think how to show in better on mobile
 	return (
@@ -62,23 +74,17 @@ export const BirdGallery: FC<any> = props => {
 			<BirdPageGalleryStyled>
 				<GalleryWrap
 					seeFullGalleryLink={false}
-					urlToFetch={'/api/gallery/bird/' + props.match.params.id}
+					urlToFetch={'/api/gallery/bird/' + birdId}
 					showImageCaptions={false}
 				/>
 			</BirdPageGalleryStyled>
 			<BirdInfoStyled>
-				{
-					wikiData ? <WikiImage imageUrl={wikiData.imageUrl}/> : null
-				}
-				{
-					wikiData ? <WikiDescription name={wikiData.name} wikiInfo={wikiData.wikiInfo}/> : null
-				}
-				<div className="wiki-info">
+				{wikiData ? <WikiImage imageUrl={wikiData.imageUrl} /> : null}
+				{wikiData ? <WikiDescription name={wikiData.name} wikiInfo={wikiData.wikiInfo} /> : null}
+				<BirdGalleryMapStyled>
 					<h4>Occurences on map</h4>
-					<MapWrap embedded
-						birdId={props.match.params.id}
-					/>
-				</div>
+					<MapWrap embedded birdId={birdId} />
+				</BirdGalleryMapStyled>
 
 				<div className="wiki-info hide">
 					<h4>Voice sample</h4>

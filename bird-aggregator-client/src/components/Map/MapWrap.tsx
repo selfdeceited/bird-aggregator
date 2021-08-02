@@ -66,7 +66,6 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 		let { markers: fetchedMarkers } = response.data
 
 		fetchedMarkers = aggregatePhotosInSameLocation(fetchedMarkers)
-		global.console.log(fetchedMarkers.length)
 		setMarkers(fetchedMarkers)
 
 		if (props.photoId || props.birdId) {

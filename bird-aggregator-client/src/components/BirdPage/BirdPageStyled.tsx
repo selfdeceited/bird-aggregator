@@ -7,11 +7,16 @@ export const BirdPageStyled = styled.div`
 `
 
 export const BirdPageGalleryStyled = styled.div`
-    min-width: 60vw
+    width: 60vw;
 `
 export const BirdInfoStyled = styled.div`
     display: flex;
     flex-direction: column;
     padding-top: 30px;
-    margin: 10px
+    margin: 10px;
+    width: 40vw;
+`
+
+export const BirdGalleryMapStyled = styled.div`
+    
 `
