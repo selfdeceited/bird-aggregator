@@ -4,7 +4,7 @@ import { BirdGalleryMapStyled, BirdInfoStyled, BirdPageGalleryStyled, BirdPageSt
 import React, { FC, useEffect, useState } from 'react'
 
 import { Gallery } from '../Gallery/Gallery'
-import { MapWrap } from '../Map/Map'
+import { MapContainer } from '../Map/Map'
 import { WikiDescription } from './Wikipedia/WikiDescription'
 import { WikiImage } from './Wikipedia/WikiImage'
 
@@ -22,8 +22,9 @@ interface ParamMatchedProps {
 	}
 }
 
-const fetchWikiInfo = async (birdId: number, setWikiData: (data: IWikiData) => void) => {
-	const { data: wikiData } = await axios.get('/api/birds/info/' + birdId)
+/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment*/
+const fetchWikiInfo = async (birdId: number, setWikiData: (data: IWikiData) => void): Promise<void> => {
+	const { data: wikiData } = await axios.get(`/api/birds/info/${birdId}`)
 	const extract = JSON.parse(wikiData.wikiInfo)
 	const html = extract.query.pages[Object.keys(extract.query.pages)[0]].extract
 
@@ -33,13 +34,15 @@ const fetchWikiInfo = async (birdId: number, setWikiData: (data: IWikiData) => v
 	try {
 		const chapters = fillChapters(div)
 		setWikiData({ name: wikiData.name, wikiInfo: chapters.outerHTML, imageUrl: wikiData.imageUrl })
-	} catch { }
+	} catch (e) {
+		console.error(e)
+	}
 }
 
 const fillChapters = (div: HTMLDivElement): HTMLDivElement => {
 	const finalContainer = document.createElement('div')
 	const paragraphs = Array.prototype.slice.call(div.getElementsByTagName('p')).filter(x => x.innerHTML.length > 2)
-	// tslint:disable-next-line: prefer-for-of
+	// eslint-disable -next-line: prefer-for-of
 	for (let i = 0; i < paragraphs.length; i++) {
 		finalContainer.append(paragraphs[i])
 		if (finalContainer.innerHTML.length > 1000) {
@@ -49,6 +52,7 @@ const fillChapters = (div: HTMLDivElement): HTMLDivElement => {
 
 	return finalContainer
 }
+/* eslint-enable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment*/
 
 export const BirdGallery: FC<ParamMatchedProps> = props => {
 	const {
@@ -63,6 +67,7 @@ export const BirdGallery: FC<ParamMatchedProps> = props => {
 	})
 
 	useEffect(() => {
+		// eslint-disable-next-line @typescript-eslint/no-floating-promises
 		fetchWikiInfo(birdId, setWikiData)
 	}, [birdId])
 
@@ -72,16 +77,16 @@ export const BirdGallery: FC<ParamMatchedProps> = props => {
 			<BirdPageGalleryStyled>
 				<Gallery
 					seeFullGalleryLink={false}
-					urlToFetch={'/api/gallery/bird/' + birdId}
+					urlToFetch={`/api/gallery/bird/${birdId}`}
 					showImageCaptions={false}
 				/>
 			</BirdPageGalleryStyled>
 			<BirdInfoStyled>
 				{wikiData ? <WikiImage imageUrl={wikiData.imageUrl} /> : null}
-				{wikiData ? <WikiDescription name={wikiData.name} wikiInfo={wikiData.wikiInfo} /> : null}
+				{wikiData ? <WikiDescription birdName={wikiData.name} wikiInfo={wikiData.wikiInfo} /> : null}
 				<BirdGalleryMapStyled>
 					<h4>Observations on map</h4>
-					<MapWrap embedded birdId={birdId} />
+					<MapContainer embedded birdId={birdId} />
 				</BirdGalleryMapStyled>
 
 				<div className="wiki-info hide">

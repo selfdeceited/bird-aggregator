@@ -1,21 +1,21 @@
 import * as Blueprint from '@blueprintjs/core'
 import * as React from 'react'
 
-import { ItemPredicate, ItemRenderer, Select } from "@blueprintjs/labs"
+import { ItemPredicate, ItemRenderer, Select } from '@blueprintjs/labs'
 
-import { Bird } from "./Navbar"
+import { Bird } from './Navbar'
 
 export const BirdSelect = Select.ofType<Bird>()
 
 export const filterBird: ItemPredicate<Bird> = (query: string, bird: Bird) => (
 	`${bird.name.toLowerCase()} ${bird.latin.toLowerCase()}`.includes(
-		query.toLowerCase()
+		query.toLowerCase(),
 	)
 )
 
 export const renderBird: ItemRenderer<Bird> = (
 	bird: Bird,
-	{ handleClick }
+	{ handleClick },
 ) => (
 	<Blueprint.MenuItem
 		className=""

@@ -24,7 +24,6 @@
 		"optimize-regex",
 		"sonarjs",
 		"@typescript-eslint",
-		"eslint-plugin-local-rules",
 		"jest"
 	],
 	"settings": {
@@ -137,7 +136,10 @@
 		"@typescript-eslint/prefer-function-type": "warn", // Use function types instead of interfaces with call signatures
 		"@typescript-eslint/prefer-readonly": "warn", // Requires that private members are marked as readonly if they're never modified outside of the constructor
 		"@typescript-eslint/no-explicit-any": "off",
-		"@typescript-eslint/camelcase": ["error", { "properties": "always" }],
+		"@typescript-eslint/naming-convention": [
+			"error",
+			{ "selector": "property", "format": ["camelCase"] }
+		  ],
 		"@typescript-eslint/explicit-function-return-type": ["error", { "allowExpressions": true }],
 		"@typescript-eslint/interface-name-prefix": "off",
 		"@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_$" }],
@@ -150,11 +152,7 @@
 			}
 		], // enforce consistent spacing before function definition opening parenthesis
 
-		// TODO: waiting for this rule to be fixed for TS
-		// "no-invalid-this": "error", // disallow this keywords outside of classes or class-like objects
-		// https://github.com/typescript-eslint/typescript-eslint/issues/491
-		// https://github.com/typescript-eslint/typescript-eslint/issues/604
-
+		"no-invalid-this": "error", 
 		"react/no-access-state-in-setstate": "error", // Prevent using this.state inside this.setState
 		"react/no-danger": "error", // Prevent usage of dangerous JSX properties
 		"react/no-this-in-sfc": "error", // Prevent using this in stateless functional components
@@ -169,12 +167,6 @@
 		"react-hooks/exhaustive-deps": "warn"
 	},
 	"overrides": [
-		{
-			"files": ["**/*.sagas.ts"],
-			"rules": {
-				"local-rules/no-yield-without-star": "error"
-			}
-		},
 		{
 			"files": ["**/*.ts", "**/*.tsx"],
 			"rules": {
@@ -200,12 +192,6 @@
 						"ignoreStatic": true
 					}
 				]
-			}
-		},
-		{
-			"files": ["**/*.tsx"],
-			"rules": {
-				"local-rules/no-onclick": "error"
 			}
 		},
 		{

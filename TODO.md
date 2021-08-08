@@ -20,6 +20,8 @@ Bird-Aggregator 2.0 release-ready checklist
  - [ ] Fix all `smth as any`
  - [ ] create a mock server
  - [ ] run tests in CI at github actions
+ - [ ] update blueprintjs
+ - [ ] normal icons
 
 
 # INFRA

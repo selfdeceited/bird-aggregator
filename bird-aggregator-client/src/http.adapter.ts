@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from 'axios'
 
 const backend_url = process.env.REACT_APP_BACKEND_URL
 
-const getUrl = (url: string) => `${backend_url}${url}`
+const getUrl = (url: string): string => `${backend_url!}${url}`
 
 function get(url: string): Promise<AxiosResponse> {
 	return axios.get(getUrl(url))

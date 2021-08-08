@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-bind */
+
 import * as React from 'react'
 
 import { PhotoProps } from 'react-photo-gallery'
@@ -11,22 +13,6 @@ interface IBirdProps {
 	top: number | undefined
 	showCaption: boolean
 	caption: string
-}
-
-export interface Image {
-	id: string
-	src: string
-	original: string
-	width: number
-	height: number
-	caption: string
-	tags: {
-		value: string
-		title: string
-	}[]
-	dateTaken: string
-	birdIds: number[]
-	text: string
 }
 
 export const BirdImage: React.FC<IBirdProps> = props => {
@@ -45,15 +31,14 @@ export const BirdImage: React.FC<IBirdProps> = props => {
 	}
 
 	return (
-		<div style={{
-			height: props.photo.height,
+		<div style={{ height: props.photo.height,
 			margin: props.margin,
 			width: props.photo.width,
 			...containerStyle }}>
 
 			<img
-				style={{ ...imgStyle }} {...props.photo as React.ImgHTMLAttributes<{}>}
-				onMouseDown={e => props.onMouseDown(props.index)}
+				style={imgStyle} {...props.photo as React.ImgHTMLAttributes<unknown>}
+				onMouseDown={_ => props.onMouseDown(props.index)}
 				alt={props.caption}
 			/>
 			{ props.showCaption ? <span className="image-bird-name">{props.caption}</span> : null }

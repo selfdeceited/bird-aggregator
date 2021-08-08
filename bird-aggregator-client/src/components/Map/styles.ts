@@ -37,11 +37,11 @@ export const absoluteMapStyles: { [key: string]: CSSProperties } = {
 		left: 10,
 		top: 60,
 		position: 'absolute',
-	}
+	},
 }
 
 export const popupStyles: CSSProperties = {
 	position: 'fixed',
-    left: 0,
-    top: 0,
+	left: 0,
+	top: 0,
 }

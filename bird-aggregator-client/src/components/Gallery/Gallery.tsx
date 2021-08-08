@@ -1,15 +1,16 @@
+/* eslint-disable react/jsx-no-bind */
 import * as React from 'react'
 import * as axios from '../../http.adapter'
 
-import { BirdImage, Image } from '../BirdImage'
-import Carousel, { CommonProps, Modal, ModalGateway, ViewType } from 'react-images'
-import { GalleryStyled, HeaderStyled } from './GalleryStyled'
+import Carousel, { Modal, ModalGateway } from 'react-images'
+import { LightboxEmptyFooter, LightboxHeader } from './LightboxHeader'
+import { default as ReactGallery, RenderImageProps } from 'react-photo-gallery'
 import { useCallback, useEffect, useState } from 'react'
 
-import { BirdLink } from './BirdLink'
+import { BirdImage } from './BirdImage'
+import { GalleryStyled } from './GalleryStyled'
+import { ImageProps } from './types'
 import { LatestPhotosLink } from './LatestPhotosLink'
-import { default as ReactGallery } from 'react-photo-gallery'
-import { RenderImageProps } from 'react-photo-gallery'
 
 interface Props {
 	seeFullGalleryLink: boolean
@@ -20,34 +21,38 @@ interface Props {
 export const Gallery: React.FC<Props> = props => {
 	const { seeFullGalleryLink, urlToFetch, showImageCaptions } = props
 	const [viewerIsOpen, setViewerIsOpen] = useState(false)
-	const [images, setImages] = useState([ ] as Image[])
-	const [selectedIndex, setSelectedIndex] = useState(undefined as number | undefined)
+	const [images, setImages] = useState([ ] as ImageProps[])
+	const [selectedIndex, setSelectedIndex] = useState(void 0 as number | undefined)
 
 	useEffect(() => {
+		// eslint-disable-next-line @typescript-eslint/no-floating-promises
 		fetchTheUrl(urlToFetch)
 	}, [urlToFetch])
 
-	const fetchTheUrl = (url: string) => {
-		axios.get(url).then(res => {
-			const images = res.data.photos.map((x: Image) => {
-				x.tags = [{ title: x.caption, value: x.caption }]
-				return x
-			})
-			setImages(images)
+	/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment*/
+	const fetchTheUrl = async (url: string): Promise<void> => {
+		const { data: { photos } } = await axios.get(url)
+		const typedPhotos = photos as ImageProps[]
+		const fetchedImages = typedPhotos.map(photo => {
+			photo.tags = [{ title: photo.caption, value: photo.caption }]
+			return photo
 		})
+		setImages(fetchedImages)
 	}
+	/* eslint-enable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment*/
 
-	const openLightbox = useCallback((event, { photo, index }) => {
+	const openLightbox = useCallback((_, { index }) => {
 		setSelectedIndex(index)
 		setViewerIsOpen(true)
 	}, [])
 
-	const closeLightbox = () => {
-		setSelectedIndex(undefined)
+	const closeLightbox: () => void = () => {
+		setSelectedIndex(void 0)
 		setViewerIsOpen(false)
 	}
 
-	const renderImage = ({ index, left, top, photo,  }: RenderImageProps<{}>) => (
+	/* eslint-disable no-shadow, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+	const renderImage: React.FC<RenderImageProps> = ({ index, left, top, photo }: RenderImageProps) => (
 		<BirdImage
 			key={photo.key}
 			margin={'2px'}
@@ -60,37 +65,21 @@ export const Gallery: React.FC<Props> = props => {
 				setViewerIsOpen(true)
 			}}
 			showCaption={showImageCaptions}
-			caption={(photo as any).caption}
+			caption={(photo as unknown as any).caption}
 		/>
 	)
+	/* eslint-enable no-shadow, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
-	type ViewTypeExtended = ViewType & {
-		birdIds: number[]
-		dateTaken: string
-		birdNames: string
-	}
-
-	const Header = (commonProps: CommonProps) => {
-		const view = commonProps.currentView as ViewTypeExtended
-		if (!view)
-			return null
-
-		return <HeaderStyled>
-			<BirdLink
-				birdIds={view.birdIds}
-				birdNames={view.birdNames}
-				dateTaken={view.dateTaken}/>
-		</HeaderStyled>
-	}
+	/* eslint-disable @typescript-eslint/naming-convention */
 	return (
-		<GalleryStyled> 
+		<GalleryStyled>
 			{seeFullGalleryLink ? <LatestPhotosLink /> : null}
 			<ReactGallery photos={images} onClick={openLightbox} renderImage={renderImage} />
 			<ModalGateway>
 				{viewerIsOpen ? (
 					<Modal onClose={closeLightbox}>
 						<Carousel
-							components={{Header}}
+							components={{ Header: LightboxHeader, Footer: LightboxEmptyFooter }}
 							currentIndex={selectedIndex}
 							views={images.map(x => ({
 								caption: x.caption,
@@ -99,7 +88,7 @@ export const Gallery: React.FC<Props> = props => {
 								id: x.id,
 								dateTaken: x.dateTaken,
 								birdNames: x.caption,
-								birdIds: x.birdIds
+								birdIds: x.birdIds,
 							}))}
 
 						/>
@@ -108,4 +97,5 @@ export const Gallery: React.FC<Props> = props => {
 			</ModalGateway>
 		</GalleryStyled>
 	)
+	/* eslint-enable @typescript-eslint/naming-convention */
 }

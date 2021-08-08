@@ -6,80 +6,77 @@ import { BirdLink, GithubLink, ImageHostingLink, LifeListLink, MapLink, RootPage
 import { BirdSelect, filterBird, renderBird } from './BirdSelect'
 import { useEffect, useState } from 'react'
 
-import { Link } from 'react-router-dom'
+export type Bird = { id: number; name: string; latin: string }
 
-export type Bird = { id: number, name: string, latin: string }
-
-export const Navbar: React.FC<{}> = () => {
+export const Navbar: React.FC = () => {
 	const [birds, setBirds] = useState([] as Bird[])
 	const [githubLink, setGithubLink] = useState('')
 	const [imageHostingLink, setImageHostingLink] = useState('')
 	const [userName, setUserName] = useState('')
-	const [selectedBird, setSelectedBird] = useState({ id: 0, name: '', latin: '' }  as Bird)
+	const [selectedBird, setSelectedBird] = useState({ id: 0, name: '', latin: '' } as Bird)
 
-
+	/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment*/
 	useEffect(() => {
-		axios.get('/api/links/github').then(res => {
-			setGithubLink(res.data)
-		})
+		const fetchEverything: () => Promise<void> = async () => {
+			const { data: fetchedGithubLink } = await axios.get('/api/links/github')
+			setGithubLink(fetchedGithubLink)
 
-		axios.get('/api/links/user').then(res => {
-			setUserName(res.data)
-		})
+			const { data: fetchedImageHostingLink } = await axios.get('/api/links/hosting')
+			setImageHostingLink(fetchedImageHostingLink)
 
-		axios.get('/api/links/hosting').then(res => {
-			setImageHostingLink(res.data)
-		})
+			const { data: fetchedUserName } = await axios.get('/api/links/user')
+			setUserName(fetchedUserName)
 
-		axios.get('/api/birds/').then(res => {
-			const { birds } = res.data
-			setBirds(birds)
+			const { data: { birds: fetchedBirds } } = await axios.get('/api/birds')
+			setBirds(fetchedBirds)
 
-			const selectedBird = birds[0]
-			setSelectedBird(selectedBird)
-		})
+			const [ initiallySelectedBird ] = fetchedBirds
+			setSelectedBird(initiallySelectedBird)
+		}
+		// eslint-disable-next-line @typescript-eslint/no-floating-promises
+		fetchEverything()
 	}, [])
 
-		return (
-			<nav className="bp3-navbar bp3-fixed-top">
-				<div className="bp3-navbar-group bp3-align-left">
-					<div className="logo"></div>
-					<RootPageLink userName={userName}/>
-					<span className="bp3-navbar-divider"></span>
-					<MapLink/>
-					<TripListLink/>
-					<LifeListLink/>
-					<span className="bp3-navbar-divider"></span>
-					<div className="bird-info-select">
-						<div className="inline-block">Find specific bird: &nbsp;</div>
-						<BirdSelect
-							items={birds}
-							noResults={<Blueprint.MenuItem disabled text="No results." />}
-							itemPredicate={filterBird}
-							itemRenderer={renderBird}
-							onItemSelect={setSelectedBird}
-						>
-							<Blueprint.Button
-								text={
-									selectedBird?.name ?? ''
-								}
-								rightIcon="double-caret-vertical"
-							/>
-						</BirdSelect>
-						{selectedBird ? (
-							<span>
-								<span className="small-space"></span>
-								<BirdLink birdId={selectedBird.id}/>
-							</span>
-						) : null}
-					</div>
+	/* eslint-enable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment*/
+
+	return (
+		<nav className="bp3-navbar bp3-fixed-top">
+			<div className="bp3-navbar-group bp3-align-left">
+				<div className="logo"></div>
+				<RootPageLink userName={userName}/>
+				<span className="bp3-navbar-divider"></span>
+				<MapLink/>
+				<TripListLink/>
+				<LifeListLink/>
+				<span className="bp3-navbar-divider"></span>
+				<div className="bird-info-select">
+					<div className="inline-block">Find specific bird: &nbsp;</div>
+					<BirdSelect
+						items={birds}
+						noResults={<Blueprint.MenuItem disabled text="No results." />}
+						itemPredicate={filterBird}
+						itemRenderer={renderBird}
+						onItemSelect={setSelectedBird}
+					>
+						<Blueprint.Button
+							text={
+								selectedBird?.name ?? ''
+							}
+							rightIcon="double-caret-vertical"
+						/>
+					</BirdSelect>
+					{selectedBird ? (
+						<span>
+							<span className="small-space"></span>
+							<BirdLink birdId={selectedBird.id}/>
+						</span>
+					) : null}
 				</div>
-				<div className="bp3-navbar-group bp3-align-right">
-					<>
-						<GithubLink githubLink={githubLink}/>
-						<ImageHostingLink imageHostingLink={imageHostingLink}/>
-					</>
-				</div>
-			</nav>
-		)
+			</div>
+			<div className="bp3-navbar-group bp3-align-right">
+				<GithubLink githubLink={githubLink}/>
+				<ImageHostingLink imageHostingLink={imageHostingLink}/>
+			</div>
+		</nav>
+	)
 }

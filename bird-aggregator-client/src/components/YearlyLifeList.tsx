@@ -10,10 +10,14 @@ interface IYearlyLifeListDto {
 export const YearlyLifeList: React.FC = () => {
 	const [lifelist, setLifelist] = useState<IYearlyLifeListDto[]>([])
 	useEffect(() => {
+
+		/* eslint-disable @typescript-eslint/no-unsafe-member-access*/
+		// eslint-disable-next-line @typescript-eslint/no-floating-promises
 		(async () => {
 			const res = await axios.get('/api/lifelist/peryear')
 			setLifelist(res.data.perYearCollection as IYearlyLifeListDto[])
 		})()
+		/* eslint-enable @typescript-eslint/no-unsafe-member-access*/
 	}, [])
 
 	return (
