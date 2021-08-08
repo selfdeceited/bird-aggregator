@@ -1,13 +1,16 @@
 import * as React from 'react'
 
+import { PhotoProps } from 'react-photo-gallery'
+
 interface IBirdProps {
 	index: number
-	onMouseDown: any
-	photo: Image
+	onMouseDown: (index: number) => void
+	photo: PhotoProps
 	margin: string
-	left: string
-	top: string
+	left: number | undefined
+	top: number | undefined
 	showCaption: boolean
+	caption: string
 }
 
 export interface Image {
@@ -42,17 +45,18 @@ export const BirdImage: React.FC<IBirdProps> = props => {
 	}
 
 	return (
-		<div style={{ height: props.photo.height,
+		<div style={{
+			height: props.photo.height,
 			margin: props.margin,
 			width: props.photo.width,
 			...containerStyle }}>
 
 			<img
-				style={{ ...imgStyle }} {...props.photo}
-				onMouseDown={e => props.onMouseDown(e, { index: props.index, photo: props.photo })}
-				alt={props.photo.caption}
+				style={{ ...imgStyle }} {...props.photo as React.ImgHTMLAttributes<{}>}
+				onMouseDown={e => props.onMouseDown(props.index)}
+				alt={props.caption}
 			/>
-			{ props.showCaption ? <span className="image-bird-name">{props.photo.caption}</span> : null }
+			{ props.showCaption ? <span className="image-bird-name">{props.caption}</span> : null }
 			<style>
 				{'.not-selected:hover{outline:2px solid #06befa}'}
 			</style>

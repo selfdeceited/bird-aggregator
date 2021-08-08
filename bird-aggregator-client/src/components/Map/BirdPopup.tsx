@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { IBirdDto } from './MapWrap'
+import { IBirdDto } from './Map'
 import { Link } from 'react-router-dom'
 
 interface IBirdPopupProps {

@@ -1,9 +1,6 @@
 import { CSSProperties } from 'react'
 
 export const mapStyles: { [key: string]: CSSProperties } = {
-	barWrap: {
-		marginTop: '5px',
-	},
 	clusterMarker: {
 		alignItems: 'center',
 		backgroundColor: '#51D5A0',
@@ -27,9 +24,6 @@ export const mapStyles: { [key: string]: CSSProperties } = {
 		justifyContent: 'center',
 		height: 30,
 		width: 30,
-	},
-	seedPopover: {
-		padding: '10px',
 	},
 }
 

@@ -3,12 +3,13 @@ import * as React from 'react'
 import * as axios from '../../http.adapter'
 
 import ReactMapboxGl, { Cluster, Marker, Popup, ZoomControl } from 'react-mapbox-gl'
-import { absoluteMapStyles, mapStyles, popupStyles } from '../../styles'
+import { absoluteMapStyles, mapStyles, popupStyles } from './styles'
 import { useEffect, useState } from 'react'
 
 import { BirdPopup } from './BirdPopup'
 import { Map as RootMap } from 'mapbox-gl'
 
+// todo: consider https://github.com/visgl/react-map-gl
 const Map = ReactMapboxGl({
 	accessToken: 'pk.eyJ1IjoidG9ueXJ5emhpa292IiwiYSI6ImNpbHhvYTY0MDA4MTF0bWtyaW9xbjAyaWsifQ.ih-8rDMRiBmDPqdeyyrHNg',
 })
@@ -34,7 +35,13 @@ export interface IBirdDto {
 }
 
 export const MapWrap: React.FC<IMapWrapProps> = props => {
-	const set = (_: string) => (props.embedded ? (props.birdId ? '400px' : '220px') : `100v${_}`)
+	const set = (_: string) => {
+		if (props.embedded ) {
+			if (!!props.birdId) return _ === 'w' ? '100%' : '400px'
+			else return '220px'
+		}
+		return `100v${_}`
+	}
 
 	const [center, setCenter] = useState<[number, number]>([35.5, 55.6])
 	const [mapHeight] = useState<string>(set('h'))
@@ -129,6 +136,7 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 	return (
 		<div className={props.embedded ? '' : 'body'}>
 			<Map
+				// eslint-disable-next-line react/style-prop-object
 				style="mapbox://styles/mapbox/outdoors-v10"
 				containerStyle={{
 					height: mapHeight,
@@ -138,7 +146,7 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 				zoom={zoomLevel}
 				onZoomEnd={onZoom}
 			>
-				<ZoomControl position='bottom-right'/>
+				<ZoomControl position={props.embedded ? '' : 'bottom-right'} />
 				<Cluster ClusterMarkerFactory={clusterMarker}>
 					{ markers.map(m => (
 							<Marker
@@ -156,10 +164,11 @@ export const MapWrap: React.FC<IMapWrapProps> = props => {
 						coordinates={[selectedMarker.x, selectedMarker.y]}
 						style={popupStyles}>
 						<div className="map-popup">
-							<a
+							<button
+								style={{ float: 'right' }}
 								className="bp3-button bp3-minimal small-reference bp3-icon-cross"
 								onMouseDown={() => removePopup()}
-							></a>
+							></button>
 							<BirdPopup birds={selectedMarker.birds} photoUrl={selectedMarker.firstPhotoUrl}/>
 						</div>
 					</Popup>

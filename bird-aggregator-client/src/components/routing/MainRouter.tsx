@@ -3,22 +3,22 @@ import * as React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
 import { BirdGallery } from '../BirdPage/BirdGallery'
-import { GalleryWrap } from '../Gallery/GalleryWrap'
+import { Gallery } from '../Gallery/Gallery'
 import { LifeList } from './../LifeList'
-import { MapWrap } from '../Map/MapWrap'
+import { MapWrap } from '../Map/Map'
 import { PhotoPage } from '../PhotoPage'
 import { TripList } from './../TripList'
 
 export const MainRouter: React.FC = () => {
 	const previewGalleryRoute = (
-		<GalleryWrap
+		<Gallery
 			seeFullGalleryLink={true}
 			urlToFetch={'/api/gallery/100'}
 			showImageCaptions/>)
 
 	const fullGalleryRoute = (
 		<div>
-			<GalleryWrap
+			<Gallery
 				seeFullGalleryLink={false}
 				urlToFetch={'/api/gallery/9000'}
 				showImageCaptions />

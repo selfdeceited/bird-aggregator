@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { MainRouter } from './routing/MainRouter'
-import Navbar from './Navbar'
+import {Navbar} from './Navbar/Navbar'
 
 export const App: React.FC = () => (<div>
 	<Navbar/>

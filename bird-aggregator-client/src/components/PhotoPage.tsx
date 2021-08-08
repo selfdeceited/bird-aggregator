@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react"
 
 import { Image } from "./BirdImage"
 import { Link } from "react-router-dom"
-import { MapWrap } from "./Map/MapWrap"
+import { MapWrap } from "./Map/Map"
 import moment from "moment"
 
 export const PhotoPage: React.FC<any> = props => {

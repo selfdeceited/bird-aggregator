@@ -3,8 +3,8 @@ import * as axios from '../../http.adapter'
 import { BirdGalleryMapStyled, BirdInfoStyled, BirdPageGalleryStyled, BirdPageStyled } from './BirdPageStyled'
 import React, { FC, useEffect, useState } from 'react'
 
-import { GalleryWrap } from '../Gallery/GalleryWrap'
-import { MapWrap } from '../Map/MapWrap'
+import { Gallery } from '../Gallery/Gallery'
+import { MapWrap } from '../Map/Map'
 import { WikiDescription } from './Wikipedia/WikiDescription'
 import { WikiImage } from './Wikipedia/WikiImage'
 
@@ -33,9 +33,7 @@ const fetchWikiInfo = async (birdId: number, setWikiData: (data: IWikiData) => v
 	try {
 		const chapters = fillChapters(div)
 		setWikiData({ name: wikiData.name, wikiInfo: chapters.outerHTML, imageUrl: wikiData.imageUrl })
-	} catch {
-		// tslint:disable-next-line: no-empty
-	}
+	} catch { }
 }
 
 const fillChapters = (div: HTMLDivElement): HTMLDivElement => {
@@ -72,7 +70,7 @@ export const BirdGallery: FC<ParamMatchedProps> = props => {
 	return (
 		<BirdPageStyled>
 			<BirdPageGalleryStyled>
-				<GalleryWrap
+				<Gallery
 					seeFullGalleryLink={false}
 					urlToFetch={'/api/gallery/bird/' + birdId}
 					showImageCaptions={false}
@@ -82,7 +80,7 @@ export const BirdGallery: FC<ParamMatchedProps> = props => {
 				{wikiData ? <WikiImage imageUrl={wikiData.imageUrl} /> : null}
 				{wikiData ? <WikiDescription name={wikiData.name} wikiInfo={wikiData.wikiInfo} /> : null}
 				<BirdGalleryMapStyled>
-					<h4>Occurences on map</h4>
+					<h4>Observations on map</h4>
 					<MapWrap embedded birdId={birdId} />
 				</BirdGalleryMapStyled>
 

@@ -1,55 +1,32 @@
 Bird-Aggregator 2.0 release-ready checklist
 
 # BACKEND
-
 [ ] swagger working with typedoc
 [ ] structured logging
 [ ] proper env values handling with secret storage
-[x] Move to MongoDB as a primary storage
-- [x] birds
-- [x] locations
-- [x] photos
-- [ ] switch to flat model (see PhotoRepository mess)
-
 [ ] Check at app start if all appSettings params has been set correctly
 [.] add health checks
-
-- Flickr
-- DB
-  [ ] scaleable small actor apps that auto-updates the database
-  [ ] update mechanism by implementing a saga?
-- and show it to the user
+[ ] console app as a sidecar that updates DB - manual launch by now
 
 # FRONTEND
 
-[.] move to functional components and hooks
-left components:
-- GalleryWrap
-- SeedProgress
-- Navbar
-[ ] switch to flex positioning on bird page
 [ ] switch to styled components
 [ ] switch to effector
 [ ] remove lots of stuff to devDependencies
 [ ] switch to vite
+[ ] fix map bug for photo and bird pages
+[ ] service layer (e.g. http calls)
+[ ] convert logic to hooks
+[ ] Fix all `smth as any`
+[ ] create a mock server
+[ ] run tests in CI
+[ ] styled components
+
 
 # INFRA
 
 [ ] Healthcheck in Dockerfile.api
 [ ] K U B E R N E T E S (:
 [ ] run tests in CI
-[ ] CD in Azure Functions
-[ ] IaC
+[ ] CD in Github Actions
 [.] integration tests
-
-# MIGRATION
-
-Commands
-[ ] Add Photo
-[ ] Edit Photo Metadata (new)
-[ ] Add Photo Location (new)
-[ ] Re-identify bird on photo (new)
-
-# OTHER
-
-[ ] https://github.com/dotnet/AspNetCore.Docs/issues/6199
