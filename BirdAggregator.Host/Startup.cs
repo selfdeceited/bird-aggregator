@@ -79,7 +79,7 @@ namespace BirdAggregator.Host
             );
 
             var appSettings = _configuration.GetSection(nameof(AppSettings)).Get<AppSettings>();
-            var sp = ApplicationStartup.Initialize(services, appSettings);
+            var sp = ApplicationStartup.Initialize(services, appSettings, new InitializeOptions());
 
             services.AddHealthChecks()
                 .AddCheck<FlickrHealthCheck>("flickr-access")

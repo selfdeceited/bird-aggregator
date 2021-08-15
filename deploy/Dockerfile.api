@@ -1,4 +1,6 @@
 # https://hub.docker.com/_/microsoft-dotnet-core
+
+# todo: check when 6.0 https://mcr.microsoft.com/v2/dotnet/core/sdk/tags/list appears
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /source
 
@@ -23,7 +25,8 @@ COPY ./data /app/data
 #RUN dotnet dev-certs https --trust
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 as runtime
+# todo: check when 6.0 https://mcr.microsoft.com/v2/dotnet/core/aspnet/tags/list appears
+FROM mcr.microsoft.com/dotnet/core/aspnet:6.0 as runtime
 WORKDIR /app
 COPY --from=build /app ./
 

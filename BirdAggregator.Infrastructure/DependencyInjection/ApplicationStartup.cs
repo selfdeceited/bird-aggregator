@@ -17,16 +17,20 @@ namespace BirdAggregator.Infrastructure.DependencyInjection
     {
         public static IServiceProvider Initialize(
             IServiceCollection services,
-            AppSettings appSettings)
+            AppSettings appSettings,
+            InitializeOptions options)
         {
             var serviceProvider = CreateServiceProvider(services, appSettings);
 
-            OnStartup(serviceProvider);
+            OnStartup(serviceProvider, options);
             return serviceProvider;
         }
 
-        private static void OnStartup(IServiceProvider serviceProvider)
+        private static void OnStartup(IServiceProvider serviceProvider, InitializeOptions options)
         {
+            if (!options.BootstrapDb)
+                return;
+
             var bootstrapTask = serviceProvider.GetService<IMongoConnection>().BootstrapDb();
             bootstrapTask.ConfigureAwait(false).GetAwaiter().GetResult();
         }
