@@ -21,25 +21,28 @@ const MapBox = ReactMapboxGl({
 type MapContainerProps = InputUrlParameters & { embedded: boolean }
 
 export const MapContainer: React.FC<MapContainerProps> = props => {
-	const set = (_: string): string => {
+	const initialWidth = (): string => {
 		if (props.embedded) {
-			if (props.birdId) {
-				return _ === 'w' ? '100%' : '400px'
-			}
-			return '220px'
+			return props.birdId ? '100%' : '220px'
 		}
-		return `100v${_}`
+		return '100vw'
+	}
+	const initialHeight = (): string => {
+		if (props.embedded) {
+			return props.birdId ? '400px' : '220px'
+		}
+		return 'calc(100vh - 50px)'
 	}
 
 	const [center, setCenter] = useState<[number, number]>([35.5, 55.6])
-	const [mapHeight] = useState<string>(set('h'))
-	const [mapWidth] = useState<string>(set('w'))
+	const [mapHeight] = useState<string>(initialHeight())
+	const [mapWidth] = useState<string>(initialWidth())
 	const [markers, setMarkers] = useState<MapMarker[]>([])
 	const [zoomLevel, setZoomLevel] = useState<[number]>([6])
-	const [selectedMarker, setSelectedMarker] = useState<MapMarker| undefined>()
+	const [selectedMarker, setSelectedMarker] = useState<MapMarker | undefined>()
 
 	const urlHandler = (propName: keyof InputUrlParameters): string => {
-		const check = (url: string): string => props[propName] ? `${url}/${props[propName] ?? ''}` : ''
+		const check = (url: string): string => (props[propName] ? `${url}/${props[propName] ?? ''}` : '')
 
 		const dict: Record<keyof InputUrlParameters, string> = {
 			birdId: check('/api/map/bird'),
@@ -90,7 +93,6 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 		setZoomLevel([zoomLevel[0] + 1])
 	}
 
-
 	const key = (_: GeoJSON.Position): string => `${_[0]}:${_[1]}`
 
 	const getStyles: () => Record<string, React.CSSProperties> = () => ({
@@ -98,7 +100,10 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 		marker: mapStyles.marker,
 	})
 
-	const clusterMarker: (coordinates: GeoJSON.Position, pointCount: number) => JSX.Element = (coordinates, pointCount) => (
+	const clusterMarker: (coordinates: GeoJSON.Position, pointCount: number) => JSX.Element = (
+		coordinates,
+		pointCount,
+	) => (
 		<Marker
 			key={key(coordinates)}
 			coordinates={coordinates}
@@ -113,14 +118,15 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 		setZoomLevel([map.getZoom()])
 	}
 
-	const markersMap = (): JSX.Element[] => markers.map(m => (
-		<Marker
-			key={key([m.x, m.y])}
-			coordinates={[m.x, m.y]}
-			onClick={_ => markerClick(m)}
-			style={getStyles().marker}
-		/>
-	))
+	const markersMap = (): JSX.Element[] =>
+		markers.map(m => (
+			<Marker
+				key={key([m.x, m.y])}
+				coordinates={[m.x, m.y]}
+				onClick={_ => markerClick(m)}
+				style={getStyles().marker}
+			/>
+		))
 
 	return (
 		<div className={props.embedded ? '' : 'body'}>
@@ -138,29 +144,31 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 			>
 				<ZoomControl position={props.embedded ? 'top-right' : 'bottom-right'} />
 
-				{
-					props.embedded ? <>{markersMap()}</> : (
-						<Cluster ClusterMarkerFactory={clusterMarker}>
-							{ markersMap() }
-						</Cluster>)
-				}
+				{props.embedded ? (
+					<>{markersMap()}</>
+				) : (
+					<Cluster ClusterMarkerFactory={clusterMarker}>{markersMap()}</Cluster>
+				)}
 
-				{ (selectedMarker && !props.embedded) ? (
+				{selectedMarker && !props.embedded ? (
 					<Popup
 						key={selectedMarker.id}
 						offset={[0, -50]}
 						coordinates={[selectedMarker.x, selectedMarker.y]}
-						style={popupStyles}>
+						style={popupStyles}
+					>
 						<div className="map-popup">
 							<button
 								style={{ float: 'right' }}
 								className="bp3-button bp3-minimal small-reference bp3-icon-cross"
 								onMouseDown={removePopup}
 							></button>
-							<BirdPopup birds={selectedMarker.birds} photoUrl={selectedMarker.firstPhotoUrl}/>
+							<BirdPopup birds={selectedMarker.birds} photoUrl={selectedMarker.firstPhotoUrl} />
 						</div>
 					</Popup>
-				) : void 0 }
+				) : (
+					void 0
+				)}
 			</MapBox>
 		</div>
 	)
