@@ -11,6 +11,7 @@ Bird-Aggregator 2.0 release-ready checklist
 
 
 # FRONTEND
+ - [ ] put wiki logic to wiki component
  - [ ] switch to styled components
  - [ ] switch to effector
  - [ ] switch to vite
@@ -21,7 +22,6 @@ Bird-Aggregator 2.0 release-ready checklist
  - [ ] run tests in CI at github actions
  - [ ] update blueprintjs
  - [ ] normal icons
-
 
 # INFRA
 

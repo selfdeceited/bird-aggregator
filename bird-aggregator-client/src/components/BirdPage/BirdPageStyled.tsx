@@ -15,6 +15,7 @@ export const BirdInfoStyled = styled.div`
     padding-top: 30px;
     margin: 10px;
     width: 40vw;
+    margin-top: 30px;
 `
 
 export const BirdGalleryMapStyled = styled.div`
