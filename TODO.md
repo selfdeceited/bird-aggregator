@@ -11,12 +11,11 @@ Bird-Aggregator 2.0 release-ready checklist
 
 
 # FRONTEND
- - [ ] fix map bug for photo and bird pages
  - [ ] switch to styled components
  - [ ] switch to effector
  - [ ] switch to vite
- - [ ] service layer (e.g. http calls)
- - [ ] convert logic to hooks
+ - [ ] service layer from http calls, add typegen and remove linter comments
+ - [ ] convert logic to hooks, write tests for hooks
  - [ ] Fix all `smth as any`
  - [ ] create a mock server
  - [ ] run tests in CI at github actions

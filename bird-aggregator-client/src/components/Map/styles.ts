@@ -1,5 +1,11 @@
 import { CSSProperties } from 'react'
 
+const defaultMarkerStyle: CSSProperties = {
+	left: 0,
+	top: 0,
+	position: 'absolute',
+}
+
 export const mapStyles: { [key: string]: CSSProperties } = {
 	clusterMarker: {
 		alignItems: 'center',
@@ -12,6 +18,7 @@ export const mapStyles: { [key: string]: CSSProperties } = {
 		justifyContent: 'center',
 		height: 30,
 		width: 30,
+		...defaultMarkerStyle,
 	},
 	marker: {
 		alignItems: 'center',
@@ -24,19 +31,7 @@ export const mapStyles: { [key: string]: CSSProperties } = {
 		justifyContent: 'center',
 		height: 30,
 		width: 30,
-	},
-}
-
-export const absoluteMapStyles: { [key: string]: CSSProperties } = {
-	clusterMarker: {
-		left: 10,
-		top: 60,
-		position: 'absolute',
-	},
-	marker: {
-		left: 10,
-		top: 60,
-		position: 'absolute',
+		...defaultMarkerStyle,
 	},
 }
 

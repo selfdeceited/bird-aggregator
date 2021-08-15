@@ -5,7 +5,7 @@ import * as axios from '../../http.adapter'
 
 import { InputUrlParameters, MapMarker } from './types'
 import ReactMapboxGl, { Cluster, Marker, Popup, ZoomControl } from 'react-mapbox-gl'
-import { absoluteMapStyles, mapStyles, popupStyles } from './styles'
+import { mapStyles, popupStyles } from './styles'
 import { useEffect, useState } from 'react'
 
 import { BirdPopup } from './BirdPopup'
@@ -74,7 +74,7 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 		setSelectedMarker(void 0)
 		// eslint-disable-next-line @typescript-eslint/no-floating-promises
 		fetchData()
-	}, [])
+	}, [props.embedded ? props.birdId : null])
 
 	const markerClick = (marker: MapMarker): void => {
 		setCenter([marker.x, marker.y])
@@ -94,14 +94,8 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 	const key = (_: GeoJSON.Position): string => `${_[0]}:${_[1]}`
 
 	const getStyles: () => Record<string, React.CSSProperties> = () => ({
-		clusterMarker: props.embedded ? mapStyles.clusterMarker : {
-			...mapStyles.clusterMarker,
-			...absoluteMapStyles.clusterMarker,
-		},
-		marker: props.embedded ? mapStyles.marker : {
-			...mapStyles.marker,
-			...absoluteMapStyles.marker,
-		},
+		clusterMarker: mapStyles.clusterMarker,
+		marker: mapStyles.marker,
 	})
 
 	const clusterMarker: (coordinates: GeoJSON.Position, pointCount: number) => JSX.Element = (coordinates, pointCount) => (
@@ -119,6 +113,15 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 		setZoomLevel([map.getZoom()])
 	}
 
+	const markersMap = (): JSX.Element[] => markers.map(m => (
+		<Marker
+			key={key([m.x, m.y])}
+			coordinates={[m.x, m.y]}
+			onClick={_ => markerClick(m)}
+			style={getStyles().marker}
+		/>
+	))
+
 	return (
 		<div className={props.embedded ? '' : 'body'}>
 			<MapBox
@@ -127,22 +130,21 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 				containerStyle={{
 					height: mapHeight,
 					width: mapWidth,
+					position: 'relative',
 				}}
 				center={center}
 				zoom={zoomLevel}
 				onZoomEnd={onZoom}
 			>
-				<ZoomControl position={props.embedded ? '' : 'bottom-right'} />
-				<Cluster ClusterMarkerFactory={clusterMarker}>
-					{ markers.map(m => (
-						<Marker
-							key={key([m.x, m.y])}
-							coordinates={[m.x, m.y]}
-							onClick={_ => markerClick(m)}
-							style={getStyles().marker}
-						/>
-					))}
-				</Cluster>
+				<ZoomControl position={props.embedded ? 'top-right' : 'bottom-right'} />
+
+				{
+					props.embedded ? <>{markersMap()}</> : (
+						<Cluster ClusterMarkerFactory={clusterMarker}>
+							{ markersMap() }
+						</Cluster>)
+				}
+
 				{ (selectedMarker && !props.embedded) ? (
 					<Popup
 						key={selectedMarker.id}
