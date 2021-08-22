@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using BirdAggregator.Application.Configuration;
 using BirdAggregator.Infrastructure.DataAccess.Photos;
@@ -19,13 +20,11 @@ namespace BirdAggregator.Infrastructure.Mongo
 
         private IMongoClient _client;
         private IMongoDatabase _database;
-        private AppSettings _appSettings;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly AppSettings _appSettings;
 
-        public MongoConnection(AppSettings appSettings, IHostingEnvironment hostingEnvironment)
+        public MongoConnection(AppSettings appSettings)
         {
             _appSettings = appSettings;
-            _hostingEnvironment = hostingEnvironment;
 
             _client = new MongoClient(appSettings.MongoConnectionString);
             _database = _client.GetDatabase(DatabaseName);
@@ -36,12 +35,10 @@ namespace BirdAggregator.Infrastructure.Mongo
             var collections = await _database.ListCollectionNamesAsync();
             var collectionsList = await collections.ToListAsync();
 
-            var dbCreationTasks = new[] { "birds", "photos" }.Select(_ =>
-            {
-                return collectionsList.Contains(_)
-                  ? Task.CompletedTask
-                  : _database.CreateCollectionAsync(_);
-            });
+            var dbCreationTasks = new[] { "birds", "photos" }
+                .Select(_ => collectionsList.Contains(_)
+                    ? Task.CompletedTask
+                    : _database.CreateCollectionAsync(_));
 
             await Task.WhenAll(dbCreationTasks);
 
@@ -74,7 +71,8 @@ namespace BirdAggregator.Infrastructure.Mongo
             if (await collection.AsQueryable().AnyAsync())
                 return;
 
-            var path = Path.Combine(_hostingEnvironment.ContentRootPath, fileName);
+            var path = Path.Combine(Assembly.GetEntryAssembly()?.Location ?? "", "../", fileName);
+            Console.WriteLine(path);
             var fileContent = await File.ReadAllTextAsync(path);
             var models = JsonConvert.DeserializeObject<List<T>>(fileContent);
             await collection.InsertManyAsync(models);

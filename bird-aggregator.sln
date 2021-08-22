@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdAggregator.Tests.Integr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdAggregator.Tests.Unit", "Tests\BirdAggregator.Tests.Unit\BirdAggregator.Tests.Unit.csproj", "{EF8A3061-EFDB-46DB-9B3F-0B1EA48A7EF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdAggregator.Migrator", "BirdAggregator.Migrator\BirdAggregator.Migrator.csproj", "{88E57727-9DF4-4D50-A634-8BC95AD06CF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +104,18 @@ Global
 		{EF8A3061-EFDB-46DB-9B3F-0B1EA48A7EF6}.Release|x64.Build.0 = Release|Any CPU
 		{EF8A3061-EFDB-46DB-9B3F-0B1EA48A7EF6}.Release|x86.ActiveCfg = Release|Any CPU
 		{EF8A3061-EFDB-46DB-9B3F-0B1EA48A7EF6}.Release|x86.Build.0 = Release|Any CPU
+		{88E57727-9DF4-4D50-A634-8BC95AD06CF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88E57727-9DF4-4D50-A634-8BC95AD06CF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88E57727-9DF4-4D50-A634-8BC95AD06CF6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{88E57727-9DF4-4D50-A634-8BC95AD06CF6}.Debug|x64.Build.0 = Debug|Any CPU
+		{88E57727-9DF4-4D50-A634-8BC95AD06CF6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{88E57727-9DF4-4D50-A634-8BC95AD06CF6}.Debug|x86.Build.0 = Debug|Any CPU
+		{88E57727-9DF4-4D50-A634-8BC95AD06CF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88E57727-9DF4-4D50-A634-8BC95AD06CF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88E57727-9DF4-4D50-A634-8BC95AD06CF6}.Release|x64.ActiveCfg = Release|Any CPU
+		{88E57727-9DF4-4D50-A634-8BC95AD06CF6}.Release|x64.Build.0 = Release|Any CPU
+		{88E57727-9DF4-4D50-A634-8BC95AD06CF6}.Release|x86.ActiveCfg = Release|Any CPU
+		{88E57727-9DF4-4D50-A634-8BC95AD06CF6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5F11C34F-3FD4-4A2F-869C-8BF74DB1363B} = {A2BA3DEE-A917-4496-A9CB-7D4285F9A453}

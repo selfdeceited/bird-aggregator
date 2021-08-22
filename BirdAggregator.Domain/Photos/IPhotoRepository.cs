@@ -10,5 +10,6 @@ namespace BirdAggregator.Domain.Photos
         Task<Photo[]> GetAllAsync(int count);
         Task<Photo> GetById(int photoId);
         Task<Photo[]> GetByLocationAsync(int id);
+        Task<Photo> GetByHostingId(string hostingId);
     }
 }

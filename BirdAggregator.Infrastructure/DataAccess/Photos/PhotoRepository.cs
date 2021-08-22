@@ -7,7 +7,6 @@ using BirdAggregator.Domain.Photos;
 using BirdAggregator.Infrastructure.DataAccess.Mappings;
 using BirdAggregator.Infrastructure.Mongo;
 using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 
 namespace BirdAggregator.Infrastructure.DataAccess.Photos
 {
@@ -20,7 +19,7 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
 
         private readonly BirdMapper _birdMapper = new BirdMapper();
         private readonly PhotoMapper _photoMapper = new PhotoMapper();
-         private readonly LocationMapper _locationMapper = new LocationMapper();
+        private readonly LocationMapper _locationMapper = new LocationMapper();
 
         public PhotoRepository(IMongoConnection mongoConnection)
         {
@@ -83,9 +82,9 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
         async Task<Photo> IPhotoRepository.GetById(int photoId)
         {
             var photoAggregate = await GetPhotoResultModelLookup()
-                .Match<PhotoResultModel>(x => x._id == photoId)
+                .Match(x => x._id == photoId)
                 .ToListAsync();
-            
+
 
             var photoResultModel = photoAggregate.Single();
             return _photoMapper.ToDomain(photoResultModel);
@@ -94,7 +93,7 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
         async Task<Photo[]> IPhotoRepository.GetGalleryForBirdAsync(int birdId)
         {
             var photoAggregate = await GetPhotoResultModelLookup()
-                .Match<PhotoResultModel>(x => x.BirdIds.Contains(birdId))
+                .Match(x => x.BirdIds.Contains(birdId))
                 .ToListAsync();
 
             return photoAggregate
@@ -102,11 +101,8 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
                 .ToArray();
         }
 
-        private IMongoQueryable<T> Query<T>(string name) =>
-            _mongoConnection.Database.GetCollection<T>(name).AsQueryable();
-
-
-        private IAggregateFluent<PhotoResultModel> GetPhotoResultModelLookup() {
+        private IAggregateFluent<PhotoResultModel> GetPhotoResultModelLookup()
+        {
             return _photos
                 .Aggregate()
                 .Lookup<PhotoModel, BirdModel, PhotoResultModel>(
@@ -125,6 +121,14 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
         Task<Photo[]> IPhotoRepository.GetByLocationAsync(int id)
         {
             throw new System.NotImplementedException();
+        }
+
+        public async Task<Photo> GetByHostingId(string hostingId)
+        {
+           var model = await GetPhotoResultModelLookup()
+                .Match(x => x.Flickr.Id == hostingId)
+                .FirstOrDefaultAsync();
+           return model == null ? null : _photoMapper.ToDomain(model);
         }
     }
 }
