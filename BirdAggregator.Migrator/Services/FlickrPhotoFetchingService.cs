@@ -46,6 +46,15 @@ namespace BirdAggregator.Migrator.Services
             return HandleExceptions(response);
         }
 
+        public async Task<SizeResponse> GetSize(string hostingId, CancellationToken ct)
+        {
+            var request = CreateDefaultRequest("flickr.photos.getSizes", Method.GET)
+                .AddParameter("photo_id", hostingId);
+
+            var response = await _client.ExecuteAsync<SizeResponse>(request, ct);
+            return HandleExceptions(response);
+        }
+
         private async Task<PhotosResponse> GetPhotos(CancellationToken cancellationToken, int page = 0)
         {
             var loadPerPage = _appSettings.IsTestRun ? 30 : 100;

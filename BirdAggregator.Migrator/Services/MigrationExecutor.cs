@@ -19,7 +19,7 @@ namespace BirdAggregator.Migrator.Services
             _photoRepository = photoRepository;
         }
         
-        public Task SavePhotoInformation(PhotoResponse.Photo photo, CancellationToken ct)
+        public Task SavePhotoInformation(PhotoResponse.Photo photo, Sizes sizes, CancellationToken ct)
         {
             Program.ColoredConsole.WriteLine($"        > data for photo {photo.title} ({photo.dates.taken}) saved", Colors.txtPrimary);
             // TODO!
@@ -62,6 +62,12 @@ namespace BirdAggregator.Migrator.Services
             var photoIds = await _pictureFetchingService.GetPhotoInfoForPage(pageNumber, ct);
             Program.ColoredConsole.WriteLine($"    > data from page {pageNumber} fetched", Colorify.Colors.txtMuted);
             return photoIds;
+        }
+
+        public async Task<Sizes> GetSizes(PhotoId photoId, CancellationToken ct)
+        {
+            var response = await _pictureFetchingService.GetSize(photoId.flickrId, ct);
+            return response.sizes;
         }
     }
 }

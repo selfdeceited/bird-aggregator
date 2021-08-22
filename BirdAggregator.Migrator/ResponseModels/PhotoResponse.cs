@@ -6,6 +6,8 @@ namespace BirdAggregator.Migrator.ResponseModels
 	{
 		public Photo photo { get; set; }
 		public string stat { get; set; }
+		public SizeResponse Size { get; set; }
+
 		public class Owner
 		{
 			public string nsid { get; set; }

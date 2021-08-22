@@ -7,6 +7,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using BirdAggregator.Application.Configuration;
 using System.Text.Json;
+using BirdAggregator.Migrator.Providers;
+using BirdAggregator.Migrator.Repositories;
 using BirdAggregator.Migrator.Services;
 
 namespace BirdAggregator.Migrator
@@ -48,7 +50,9 @@ namespace BirdAggregator.Migrator
                     logging.AddConsole();
                  })
                 .AddSingleton<IPictureFetchingService, FlickrPhotoFetchingService>()
-                .AddSingleton<IMigrationExecutor, FakeMigrationExecutor>()
+                .AddSingleton<IMigrationExecutor, MigrationExecutor>()
+                .AddSingleton<IMigratorObservableProvider, MigratorObservableProvider>()
+                .AddSingleton<IPhotoWriteRepository, PhotoWriteRepository>()
                 .AddSingleton<IMigrator, Migrator>();
 
             var builder = new ConfigurationBuilder()
