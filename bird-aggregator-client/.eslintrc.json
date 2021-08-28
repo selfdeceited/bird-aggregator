@@ -15,7 +15,7 @@
 	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
-		"project": "/bird-aggregator-client/tsconfig.json"
+		"project": "./tsconfig.json"
 	},
 	"plugins": [
 		"react",
@@ -209,7 +209,9 @@
 				"@typescript-eslint/no-non-null-assertion": "off",
 				"@typescript-eslint/no-empty-function": "off",
 				"sonarjs/no-duplicate-string": "off",
-				"sonarjs/no-identical-functions": "off"
+				"sonarjs/no-identical-functions": "off",
+				"@typescript-eslint/no-unsafe-member-access": "off",
+				"@typescript-eslint/no-unsafe-call": "off"
 			}
 		}
 	]

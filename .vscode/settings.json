@@ -12,5 +12,8 @@
         "lifelist",
         "mapboxgl",
         "mediatr"
-    ]
+    ],
+    "eslint.workingDirectories": [
+        "bird-aggregator-client"
+      ]
 }

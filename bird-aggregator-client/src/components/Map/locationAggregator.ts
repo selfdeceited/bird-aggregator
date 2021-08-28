@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call */
 import { MapMarker, ShortBirdInfo } from './types'
 
-export function aggregatePhotosInSameLocation(fetchedMarkers: MapMarker[]): MapMarker[] {
+export function aggregatePhotosInSameLocation(fetchedMarkers: MapMarker[], markerPrecisionComparer = 3): MapMarker[] {
 	const filterDuplicateBirds = (_: ShortBirdInfo[]): ShortBirdInfo[] => _
 		.reduce((birds, bird) => {
 			if (birds.length === 0) {
@@ -17,8 +17,7 @@ export function aggregatePhotosInSameLocation(fetchedMarkers: MapMarker[]): MapM
 
 
 	const markerEqualityComparer = (marker: MapMarker) => (candidate: MapMarker): boolean => {
-		const decimals = 3
-		const numberComparer = (a: number, b: number): boolean => a.toFixed(decimals) === b.toFixed(decimals)
+		const numberComparer = (a: number, b: number): boolean => a.toFixed(markerPrecisionComparer) === b.toFixed(markerPrecisionComparer)
 		return numberComparer(candidate.x, marker.x) && numberComparer(candidate.y, marker.y)
 	}
 
