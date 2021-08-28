@@ -1,4 +1,4 @@
-Bird-Aggregator 2.0 release-ready checklist
+**Bird-Aggregator 2.0 release-ready checklist**
 
 # BACKEND
  - [ ] add data migration console app
@@ -17,7 +17,6 @@ Bird-Aggregator 2.0 release-ready checklist
  - [ ] switch to vite
  - [ ] service layer from http calls, add typegen and remove linter comments
  - [ ] convert logic to hooks, write tests for hooks
- - [ ] Fix all `smth as any`
  - [ ] create a mock server
  - [ ] run tests in CI at github actions
  - [ ] update blueprintjs
@@ -27,7 +26,8 @@ Bird-Aggregator 2.0 release-ready checklist
 
  - [ ] CI pipeline at github actions
  - [ ] Healthcheck in Dockerfile.api
- - [ ] K U B E R N E T E S (:
+ - [ ] K8s infra
  - [ ] CD in Github Actions
  - [ ] integration tests
  - [ ] deploy data migration app as a sidecar
+ - [ ] vscode devcontainer
