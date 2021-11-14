@@ -11,13 +11,8 @@ namespace BirdAggregator.Migrator.Providers
 {
     public class FakeMigratorObservableProvider: IMigratorObservableProvider
     {
-        private Random _random;
-
-        public FakeMigratorObservableProvider()
-        {
-            _random = new Random();
-        }
-        
+        private readonly Random _random = new();
+       
         public IObservable<(PhotoResponse.Photo photo, Sizes sizes)> GetPhotoWithSizesByPhotoId(PhotoId x)
         {
             var sizes = new Sizes
@@ -50,7 +45,9 @@ namespace BirdAggregator.Migrator.Providers
             => Observable.FromAsync(() => Task.Delay(50));
 
         public IObservable<int> GetPages() =>
-            Observable.FromAsync(() => Task.Delay(50)).Select(_ => 10);
+            Observable
+                .FromAsync(() => Task.Delay(50))
+                .SelectMany(_ => Observable.Range(0, 10));
 
 
         private PhotoResponse.Photo GetPhotoInfo(PhotoId photoId, CancellationToken ct)

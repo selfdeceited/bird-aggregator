@@ -4,11 +4,11 @@ namespace BirdAggregator.Application.Locations.GetLocationsByBirdId
 {
     public class GetLocationsByBirdIdQuery: IQuery<LocationListDto>
     {
-        public GetLocationsByBirdIdQuery(int id)
+        public GetLocationsByBirdIdQuery(string id)
         {
             BirdId = id;
         }
 
-        public int BirdId { get; }
+        public string BirdId { get; }
     }
 }

@@ -7,7 +7,7 @@ namespace BirdAggregator.Infrastructure.DataAccess.Mappings
     internal class BirdMapper: DomainMapper<BirdModel, Bird>
     {
         public override Bird ToDomain(BirdModel model) {
-            return new Bird(model.Id, model.Latin, model.Name);
+            return new(model.Id.ToString(), model.Latin, model.Name);
         }
     }
 }

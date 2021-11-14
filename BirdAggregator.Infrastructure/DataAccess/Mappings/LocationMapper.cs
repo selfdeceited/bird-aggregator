@@ -7,7 +7,7 @@ namespace BirdAggregator.Infrastructure.DataAccess.Mappings
     {
         public override Location ToDomain(LocationModel model)
         {
-            return new Location(
+            return new(
                 model.Id,
                 model.Country,
                 model.Neighbourhood,

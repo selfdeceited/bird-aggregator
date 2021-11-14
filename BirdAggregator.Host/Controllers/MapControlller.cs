@@ -26,14 +26,14 @@ namespace BirdAggregator.Host.Controllers
         }
 
         [HttpGet("markers/{id}")]
-        public async Task<IActionResult> GetMapMarkerByPhoto(int id)
+        public async Task<IActionResult> GetMapMarkerByPhoto(string id)
         {
             var markers = await _mediator.Send(new GetLocationsByIdQuery(id));
             return Ok(markers);
         }
 
         [HttpGet("bird/{id}")]
-        public async Task<IActionResult> GetMapMarkersByBirdId(int id)
+        public async Task<IActionResult> GetMapMarkersByBirdId(string id)
         {
             var markers = await _mediator.Send(new GetLocationsByBirdIdQuery(id));
             return Ok(markers);

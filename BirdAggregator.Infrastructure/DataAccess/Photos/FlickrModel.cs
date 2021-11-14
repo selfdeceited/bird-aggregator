@@ -1,6 +1,6 @@
 namespace BirdAggregator.Infrastructure.DataAccess.Photos
 {
-    internal class FlickrModel
+    public class FlickrModel
     {
         public string Id { get; set; }
         public int FarmId { get; set; }

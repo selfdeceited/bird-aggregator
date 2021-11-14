@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
+
 namespace BirdAggregator.Migrator
 {
     public interface IMigrator
     {
-        void Run();
+        Task Run();
     }
 }

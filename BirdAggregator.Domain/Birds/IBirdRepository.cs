@@ -6,7 +6,7 @@ namespace BirdAggregator.Domain.Birds
     public interface IBirdRepository
     {
         Task<Bird[]> GetAll();
-        Task<Bird> Get(int birdId);
-        Task<Bird[]> GetBirdsByIds(IEnumerable<int> birdIds);
+        Task<Bird> Get(string birdId);
+        Task<Bird[]> GetBirdsByIds(IEnumerable<string> birdIds);
     }
 }

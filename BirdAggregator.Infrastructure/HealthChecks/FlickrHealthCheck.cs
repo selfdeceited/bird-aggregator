@@ -21,7 +21,8 @@ namespace BirdAggregator.Infrastructure.HealthChecks
         
         public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
         {
-            var firstPhoto = await _photoRepository.GetById(1);
+            // todo: fix
+            var firstPhoto = await _photoRepository.GetById("1");
             var websiteLink = _hostingService.GetWebsiteLink(firstPhoto.PhotoInformation);
 
             try

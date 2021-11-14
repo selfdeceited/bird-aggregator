@@ -7,8 +7,8 @@ namespace BirdAggregator.Infrastructure.DataAccess.Mappings
 {
     internal class PhotoMapper: DomainMapper<PhotoResultModel, Photo>
     {
-        private readonly BirdMapper _birdMapper = new BirdMapper();
-        private readonly LocationMapper _locationMapper = new LocationMapper();
+        private readonly BirdMapper _birdMapper = new();
+        private readonly LocationMapper _locationMapper = new();
         public override Photo ToDomain(PhotoResultModel model)
         {
             var birds = model.BirdModels.Select(_birdMapper.ToDomain);
@@ -22,7 +22,7 @@ namespace BirdAggregator.Infrastructure.DataAccess.Mappings
             );
 
             return new Photo(
-                model._id,
+                model.Id.ToString(),
                 location,
                 flickrPhotoInformation,
                 birds,

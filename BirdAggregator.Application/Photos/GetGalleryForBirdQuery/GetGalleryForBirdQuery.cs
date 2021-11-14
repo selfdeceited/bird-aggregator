@@ -2,8 +2,8 @@ namespace BirdAggregator.Application.Photos.GetGalleryForBirdQuery
 {
     public class GetGalleryForBirdQuery : IQuery<GetGalleryQueryDto>
     {
-        public int BirdId { get; }
-        public GetGalleryForBirdQuery(int id)
+        public string BirdId { get; }
+        public GetGalleryForBirdQuery(string id)
         {
             BirdId = id;
         }

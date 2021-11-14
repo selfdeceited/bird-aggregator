@@ -24,7 +24,7 @@ namespace BirdAggregator.Host.Controllers
         }
 
         [HttpGet("info/{id}")]
-        public async Task<IActionResult> GetInfo(int id)
+        public async Task<IActionResult> GetInfo(string id)
         {
             var info = await _mediator.Send(new GetBirdInfoQuery(id));
             return Ok(info);

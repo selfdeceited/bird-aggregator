@@ -6,9 +6,9 @@ namespace BirdAggregator.Domain.Photos
     public interface IPhotoRepository
     {
         Task<Photo[]> GetAllAsync();
-        Task<Photo[]> GetGalleryForBirdAsync(int birdId);
+        Task<Photo[]> GetGalleryForBirdAsync(string birdId);
         Task<Photo[]> GetAllAsync(int count);
-        Task<Photo> GetById(int photoId);
+        Task<Photo> GetById(string photoId);
         Task<Photo[]> GetByLocationAsync(int id);
         Task<Photo> GetByHostingId(string hostingId);
     }

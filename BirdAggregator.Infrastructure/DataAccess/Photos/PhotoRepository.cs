@@ -15,20 +15,19 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
         private readonly IMongoConnection _mongoConnection;
         private IMongoCollection<PhotoModel> _photos => _mongoConnection.Database.GetCollection<PhotoModel>("photos");
         private IMongoCollection<BirdModel> _birds => _mongoConnection.Database.GetCollection<BirdModel>("birds");
-        private IMongoCollection<LocationModel> _locations => _mongoConnection.Database.GetCollection<LocationModel>("locations");
 
-        private readonly BirdMapper _birdMapper = new BirdMapper();
-        private readonly PhotoMapper _photoMapper = new PhotoMapper();
-        private readonly LocationMapper _locationMapper = new LocationMapper();
+        private readonly BirdMapper _birdMapper = new();
+        private readonly PhotoMapper _photoMapper = new();
+        private readonly LocationMapper _locationMapper = new();
 
         public PhotoRepository(IMongoConnection mongoConnection)
         {
             _mongoConnection = mongoConnection;
         }
 
-        public async Task<Bird> Get(int birdId)
+        public async Task<Bird> Get(string birdId)
         {
-            var birdCursor = await _birds.FindAsync<BirdModel>(_ => _.Id == birdId);
+            var birdCursor = await _birds.FindAsync(_ => _.Id.ToString() == birdId);
             var birdModel = await birdCursor.SingleAsync();
             return _birdMapper.ToDomain(birdModel);
         }
@@ -39,9 +38,9 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
             var birdModels = await birdCursor.ToListAsync();
             return birdModels.Select(_birdMapper.ToDomain).ToArray();
         }
-        public async Task<Bird[]> GetBirdsByIds(IEnumerable<int> birdIds)
+        public async Task<Bird[]> GetBirdsByIds(IEnumerable<string> birdIds)
         {
-            var birdCursor = await _birds.FindAsync<BirdModel>(_ => birdIds.Contains(_.Id));
+            var birdCursor = await _birds.FindAsync(_ => birdIds.Contains(_.Id.ToString()));
             var birdModels = await birdCursor.ToListAsync();
             return birdModels.Select(_birdMapper.ToDomain).ToArray();
         }
@@ -79,10 +78,10 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
         }
 
 
-        async Task<Photo> IPhotoRepository.GetById(int photoId)
+        async Task<Photo> IPhotoRepository.GetById(string photoId)
         {
             var photoAggregate = await GetPhotoResultModelLookup()
-                .Match(x => x._id == photoId)
+                .Match(x => x.Id.ToString() == photoId)
                 .ToListAsync();
 
 
@@ -90,10 +89,10 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
             return _photoMapper.ToDomain(photoResultModel);
         }
 
-        async Task<Photo[]> IPhotoRepository.GetGalleryForBirdAsync(int birdId)
+        async Task<Photo[]> IPhotoRepository.GetGalleryForBirdAsync(string birdId)
         {
             var photoAggregate = await GetPhotoResultModelLookup()
-                .Match(x => x.BirdIds.Contains(birdId))
+                .Match(x => x.BirdIds.Select(o => o.ToString()).Contains(birdId))
                 .ToListAsync();
 
             return photoAggregate

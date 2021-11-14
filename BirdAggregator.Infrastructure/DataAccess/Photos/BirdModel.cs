@@ -1,11 +1,13 @@
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace BirdAggregator.Infrastructure.DataAccess.Photos
 {
-    internal class BirdModel
+    public class BirdModel
     {
-        [BsonId]
-        public int Id { get; set; }
+        [BsonId(IdGenerator = typeof(ObjectIdGenerator))]
+        public ObjectId Id { get; set; }
         public string Latin { get; set; }
         public string Name { get; set; }
     }

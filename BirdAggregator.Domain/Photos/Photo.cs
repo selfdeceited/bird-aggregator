@@ -12,7 +12,7 @@ namespace BirdAggregator.Domain.Photos
     ///</summary>
     public class Photo: IAggregateRoot
     {
-        public Photo(int id, Location location, IPhotoInformation photoInformation, IEnumerable<Bird> birds, DateTime dateTaken, double ratio, string description)
+        public Photo(string id, Location location, IPhotoInformation photoInformation, IEnumerable<Bird> birds, DateTime dateTaken, double ratio, string description)
         {
             Id = id;
             Location = location;
@@ -23,13 +23,13 @@ namespace BirdAggregator.Domain.Photos
             Birds = birds;
         }
 
-        public int Id { get; }
+        public string Id { get; }
         public string Description { get; }
         public double Ratio { get; } // todo: mb do not store and calculate?
         public DateTime DateTaken { get; }
         public Location Location { get; }
         public IPhotoInformation PhotoInformation { get; }
-        public IEnumerable<Bird> Birds { get; } // todo: to birdIds to handle them as separate aggregates?
+        public IEnumerable<Bird> Birds { get; }
         public string Caption => string.Join(", ", Birds.Select(x => x.EnglishName));
     }
 }

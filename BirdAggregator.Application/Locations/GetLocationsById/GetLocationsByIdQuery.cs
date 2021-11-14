@@ -4,9 +4,9 @@ namespace BirdAggregator.Application.Locations.GetLocationsById
 {
     public class GetLocationsByIdQuery: IQuery<LocationListDto>
     {
-        public int PhotoId { get;}
+        public string PhotoId { get;}
 
-        public GetLocationsByIdQuery(int id)
+        public GetLocationsByIdQuery(string id)
         {
             PhotoId = id;
         }
