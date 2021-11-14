@@ -6,7 +6,6 @@
  - [ ] structured logging
  - [ ] proper env values handling with secret storage
  - [ ] Check at app start if all appSettings params has been set correctly
- - [ ] add health checks
  - [ ] remove old service (`./bird-aggregator`)
 
 
@@ -31,3 +30,4 @@
  - [ ] integration tests
  - [ ] deploy data migration app as a sidecar
  - [ ] vscode devcontainer
+ - [ ] add health checks

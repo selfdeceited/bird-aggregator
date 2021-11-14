@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Colorify;
 using Colorify.UI;
 using BirdAggregator.Infrastructure.DependencyInjection;
@@ -27,6 +28,7 @@ namespace BirdAggregator.Migrator
             try
             {
                 migrator?.Run();
+                Thread.Sleep(10000);
             }
             catch (Exception e)
             {
@@ -34,10 +36,9 @@ namespace BirdAggregator.Migrator
             }
             finally
             {
-                ColoredConsole.ResetColor();
                 ColoredConsole.WriteLine("Run completed. Press any key to close the app.");
-            
                 Console.ReadKey();
+                ColoredConsole.ResetColor();
             }
         }
 
@@ -51,7 +52,7 @@ namespace BirdAggregator.Migrator
                  })
                 .AddSingleton<IPictureFetchingService, FlickrPhotoFetchingService>()
                 .AddSingleton<IMigrationExecutor, MigrationExecutor>()
-                .AddSingleton<IMigratorObservableProvider, MigratorObservableProvider>()
+                .AddSingleton<IMigratorObservableProvider, FakeMigratorObservableProvider>()
                 .AddSingleton<IPhotoWriteRepository, PhotoWriteRepository>()
                 .AddSingleton<IMigrator, Migrator>();
 

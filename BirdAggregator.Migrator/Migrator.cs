@@ -29,15 +29,16 @@ namespace BirdAggregator.Migrator
             // [x]: if id is not in the database - populate photo
             // [ ]: if photo has bird that is not in the database - populate bird info
 
-            var routine = _m.GetPages()
+
+           _m.GetPages()
                 .SelectMany(_m.GetPhotoId)
                 .Where(x => _m.ShouldUpdateDb(x).Wait())
                 .Do(LogEntitiesToAdd)
                 .SelectMany(_m.GetPhotoWithSizesByPhotoId)
                 .Do(x => _m.SavePhoto(x).Wait())
-                .Do(LogDataSaved);
-            
-            routine.Subscribe(OnProcessed);
+                .Do(LogDataSaved)
+                .TakeUntil(DateTimeOffset.Now.AddMinutes(5))
+                .Subscribe(OnProcessed);
         }
 
         private void LogEntitiesToAdd(PhotoId photoId) =>

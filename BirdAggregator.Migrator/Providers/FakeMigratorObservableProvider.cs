@@ -24,7 +24,7 @@ namespace BirdAggregator.Migrator.Providers
             {
                 size = new List<Size>
                 {
-                    new() {height = 100, width = 100}
+                    new() { height = 100, width = 100 }
                 }
             };
 
@@ -38,8 +38,8 @@ namespace BirdAggregator.Migrator.Providers
         public IObservable<PhotoId> GetPhotoId(int pageNumber)
         {
             return Observable
-                .FromAsync(ct=> GetPhotoInfoForPage(pageNumber, ct))
-                .SelectMany(x=> x);
+                .FromAsync(ct => GetPhotoInfoForPage(pageNumber, ct))
+                .SelectMany(x => x);
         }
 
         public IObservable<bool> ShouldUpdateDb(PhotoId photoId) =>

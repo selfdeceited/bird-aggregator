@@ -20,6 +20,7 @@ namespace BirdAggregator.Migrator.Providers
         
         public IObservable<Unit> SavePhoto((PhotoResponse.Photo photo, Sizes sizes) _)
             => Observable.FromAsync(ct => _m.SavePhotoInformation(_.photo, _.sizes, ct));
+
         public IObservable<bool> ShouldUpdateDb(PhotoId photoId)
             => Observable
                 .FromAsync(ct => _m.RequireDatabaseUpdate(photoId, ct));
