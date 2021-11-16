@@ -21,14 +21,14 @@ namespace BirdAggregator.Migrator.Repositories
             _mongoConnection = mongoConnection;
         }
         
-        public async Task SavePhoto(PhotoResponse.Photo photo, Size size, CancellationToken ct)
+        public async Task SavePhoto(PhotoResponse.Photo photo, Sizes sizes, CancellationToken ct)
         {
             var birds = await GetOrUpdateBirds(photo.title._content, ct);
             var photoModel = ToPhotoModel(photo, size, birds);
             await _photos.InsertOneAsync(photoModel, new InsertOneOptions(), ct);
         }
 
-        private PhotoModel ToPhotoModel(PhotoResponse.Photo photo, Size size, IEnumerable<BirdModel> birds)
+        private PhotoModel ToPhotoModel(PhotoResponse.Photo photo, Sizes sizes, IEnumerable<BirdModel> birds)
         {
             return new()
             {

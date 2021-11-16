@@ -6,6 +6,6 @@ namespace BirdAggregator.Migrator.Repositories
 {
     public interface IPhotoWriteRepository
     {
-        Task SavePhoto(PhotoResponse.Photo photo, Size size, CancellationToken ct);
+        Task SavePhoto(PhotoResponse.Photo photo, Sizes sizes, CancellationToken ct);
     }
 }

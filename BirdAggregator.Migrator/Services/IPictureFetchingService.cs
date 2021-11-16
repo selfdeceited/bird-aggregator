@@ -10,5 +10,6 @@ namespace BirdAggregator.Migrator.Services
         Task<PhotoId[]> GetPhotoInfoForPage(int pageNumber, CancellationToken cancellationToken);
         Task<PhotoResponse> GetPhotoInfo(string hostingId, CancellationToken cancellationToken);
         Task<SizeResponse> GetSize(string hostingId, CancellationToken ct);
+        Task<LocationResponse> GetLocation(string hostingId, CancellationToken ct);
     }
 }

@@ -46,6 +46,15 @@ namespace BirdAggregator.Migrator.Services
             return HandleExceptions(response);
         }
 
+        public async Task<LocationResponse> GetLocation(string hostingId, CancellationToken cancellationToken)
+        {
+            var request = CreateDefaultRequest("flickr.photos.geo.getLocation", Method.GET)
+                .AddParameter("photo_id", hostingId);
+
+            var response = _client.ExecuteAsync<LocationResponse>(request, cancellationToken);
+            return HandleExceptions(response);
+        }
+
         public async Task<SizeResponse> GetSize(string hostingId, CancellationToken ct)
         {
             var request = CreateDefaultRequest("flickr.photos.getSizes", Method.GET)
