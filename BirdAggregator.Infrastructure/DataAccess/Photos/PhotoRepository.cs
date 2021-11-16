@@ -7,6 +7,7 @@ using BirdAggregator.Domain.Photos;
 using BirdAggregator.Infrastructure.DataAccess.Mappings;
 using BirdAggregator.Infrastructure.Mongo;
 using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace BirdAggregator.Infrastructure.DataAccess.Photos
 {
@@ -27,7 +28,7 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
 
         public async Task<Bird> Get(string birdId)
         {
-            var birdCursor = await _birds.FindAsync(_ => _.Id.ToString() == birdId);
+            var birdCursor = await _birds.FindAsync(_ => _.Id == new ObjectId(birdId));
             var birdModel = await birdCursor.SingleAsync();
             return _birdMapper.ToDomain(birdModel);
         }
@@ -40,7 +41,8 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
         }
         public async Task<Bird[]> GetBirdsByIds(IEnumerable<string> birdIds)
         {
-            var birdCursor = await _birds.FindAsync(_ => birdIds.Contains(_.Id.ToString()));
+            var birds = birdIds.Select(x => new ObjectId(x));
+            var birdCursor = await _birds.FindAsync(_ => birds.Contains(_.Id));
             var birdModels = await birdCursor.ToListAsync();
             return birdModels.Select(_birdMapper.ToDomain).ToArray();
         }
@@ -81,7 +83,7 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
         async Task<Photo> IPhotoRepository.GetById(string photoId)
         {
             var photoAggregate = await GetPhotoResultModelLookup()
-                .Match(x => x.Id.ToString() == photoId)
+                .Match(x => x.Id == new ObjectId(photoId))
                 .ToListAsync();
 
 
@@ -92,7 +94,7 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
         async Task<Photo[]> IPhotoRepository.GetGalleryForBirdAsync(string birdId)
         {
             var photoAggregate = await GetPhotoResultModelLookup()
-                .Match(x => x.BirdIds.Select(o => o.ToString()).Contains(birdId))
+                .Match(x => x.BirdIds.Contains(new ObjectId(birdId)))
                 .ToListAsync();
 
             return photoAggregate
