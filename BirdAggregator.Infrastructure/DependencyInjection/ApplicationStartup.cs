@@ -1,5 +1,6 @@
 ﻿using BirdAggregator.Application.Configuration;
 using System;
+using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using BirdAggregator.Domain.Interfaces;
 using BirdAggregator.Infrastructure.Flickr;
@@ -31,7 +32,7 @@ namespace BirdAggregator.Infrastructure.DependencyInjection
             if (!options.BootstrapDb)
                 return;
 
-            var bootstrapTask = serviceProvider.GetService<IMongoConnection>().BootstrapDb();
+            var bootstrapTask = serviceProvider.GetService<IMongoConnection>().BootstrapDb(CancellationToken.None);
             bootstrapTask.ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
@@ -52,7 +53,7 @@ namespace BirdAggregator.Infrastructure.DependencyInjection
             // todo: move to different extension methods
             services.AddScoped<ILocationService, LocationService>();
 
-            services.AddSingleton<AppSettings>(appSettings);
+            services.AddSingleton(appSettings);
             var serviceProvider = services.BuildServiceProvider();
             return serviceProvider;
         }

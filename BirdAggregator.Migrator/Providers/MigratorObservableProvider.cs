@@ -1,7 +1,7 @@
 using System;
 using System.Reactive;
 using System.Reactive.Linq;
-using BirdAggregator.Migrator.ResponseModels;
+using System.Threading.Tasks;
 using BirdAggregator.Migrator.Services;
 
 namespace BirdAggregator.Migrator.Providers
@@ -14,12 +14,15 @@ namespace BirdAggregator.Migrator.Providers
         {
             _m = migrationExecutor;
         }
+
+        public IObservable<Unit> EnsureCollectionsExist() => Observable.FromAsync(_m.EnsureCollectionsExist);
+        
         public IObservable<int> GetPages() => Observable
             .FromAsync(_m.GetPages)
             .SelectMany(p => Observable.Range(0, p));
         
-        public IObservable<Unit> SavePhoto((PhotoResponse.Photo photo, Sizes sizes) _)
-            => Observable.FromAsync(ct => _m.SavePhotoInformation(_.photo, _.sizes, ct));
+        public IObservable<SavePhotoResult> SavePhoto(SavePhotoModel _)
+            => Observable.FromAsync(ct => _m.SavePhotoInformation(_, ct));
 
         public IObservable<bool> ShouldUpdateDb(PhotoId photoId)
             => Observable
@@ -29,14 +32,19 @@ namespace BirdAggregator.Migrator.Providers
             => Observable
                 .FromAsync(ct => _m.GetPhotoInfoForPage(pageNumber, ct))
                 .SelectMany(o => o);
-            
-        private IObservable<PhotoResponse.Photo> GetPhoto(PhotoId x)
-            => Observable.FromAsync(ct => _m.GetPhotoInfo(x, ct));
+        
 
-        private IObservable<Sizes> GetSizes(PhotoId x)
-            => Observable.FromAsync(ct => _m.GetSizes(x, ct));
-
-        public IObservable<(PhotoResponse.Photo photo, Sizes sizes)> GetPhotoWithSizesByPhotoId(PhotoId x)
-            => GetPhoto(x).Zip(GetSizes(x), (photo, size) => (photo, size));
+        public IObservable<SavePhotoModel> GetPhotoInfoForSave(PhotoId x)
+        {
+            return Observable.FromAsync(async (ct) =>
+            {
+                var photoTask = _m.GetPhotoInfo(x, ct);
+                var locationTask = _m.GetLocation(x, ct);
+                var sizesTask = _m.GetSizes(x, ct);
+                await Task.WhenAll(photoTask, locationTask, sizesTask);  
+                var model = new SavePhotoModel(photoTask.Result, locationTask.Result, sizesTask.Result);
+                return model;
+            });
+        }
     }
 }

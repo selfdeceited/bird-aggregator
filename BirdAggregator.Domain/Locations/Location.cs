@@ -8,36 +8,34 @@ namespace BirdAggregator.Domain.Locations
         Func<string, string> addComma = s => 
                     string.IsNullOrEmpty(s) ? string.Empty : s + ",";
                     
-        public string Description {
-            get {
-                if (!this.Specified)
-                    return "unspecified location";
-                return $"{addComma(this.Neighbourhood)} {addComma(this.Region)} {this.Country}";
-            }
-        }
+        public string Description 
+            => !Specified
+                ? "unspecified location"
+                : $"{addComma(Neighbourhood)} {addComma(Region)} {Country}";
 
         public Location()
         {
             Specified = false;
         }
 
-        public Location(int id, string country, string neighbourhood, string region, double x, double y)
+        public Location(string country, string neighbourhood, string region, double x, double y, string locality)
         {
-            Id = id;
             Country = country;
             Neighbourhood = neighbourhood;
             Region = region;
             Latitude = y;
             Longitude = x;
             Specified = true;
+            Locality = locality;
         }
 
-        public bool Specified { get; set; }
-        public int Id { get; }
-        public string Neighbourhood { get; private set; }
-        public string Region { get; private set; }
-        public string Country { get; private set; }
-        public double Latitude { get; private set; }
-        public double Longitude { get; private set; }
+        public string Locality { get; }
+
+        public bool Specified { get; }
+        public string Neighbourhood { get; }
+        public string Region { get; }
+        public string Country { get; }
+        public double Latitude { get; }
+        public double Longitude { get; }
     }
 }

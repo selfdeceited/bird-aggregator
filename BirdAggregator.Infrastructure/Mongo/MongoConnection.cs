@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using BirdAggregator.Application.Configuration;
 using BirdAggregator.Infrastructure.DataAccess.Photos;
-using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 
@@ -30,19 +30,33 @@ namespace BirdAggregator.Infrastructure.Mongo
             _database = _client.GetDatabase(DatabaseName);
         }
 
-        public async Task BootstrapDb()
+        public async Task BootstrapDb(CancellationToken ct)
         {
-            var collections = await _database.ListCollectionNamesAsync();
-            var collectionsList = await collections.ToListAsync();
+            var collections = await _database.ListCollectionNamesAsync(cancellationToken: ct);
+            var collectionsList = await collections.ToListAsync(cancellationToken: ct);
 
             var dbCreationTasks = new[] { "birds", "photos" }
                 .Select(_ => collectionsList.Contains(_)
                     ? Task.CompletedTask
-                    : _database.CreateCollectionAsync(_));
+                    : _database.CreateCollectionAsync(_, cancellationToken: ct));
 
             await Task.WhenAll(dbCreationTasks);
 
-            await InitTestDatabase();
+            // await InitTestDatabase();
+        }
+
+        /// <summary>
+        /// Warning! Do not use lightly in production, mostly for testing purposes.
+        /// </summary>
+        /// <param name="ct"></param>
+        public async Task TruncateAll(CancellationToken ct)
+        {
+            var collections = await _database.ListCollectionNamesAsync(cancellationToken: ct);
+            var collectionsList = await collections.ToListAsync(ct);
+            var dbDropTasks = collectionsList
+                .Select(_ => _database.DropCollectionAsync(_, ct));
+
+            await Task.WhenAll(dbDropTasks);
         }
 
         public void Dispose()
@@ -53,16 +67,15 @@ namespace BirdAggregator.Infrastructure.Mongo
 
         private Task InitTestDatabase()
         {
-            if (_appSettings.IsTestRun)
-            {
-                var initTasks = new Task[] {
-                    InitCollection<PhotoModel>(@"../data/data.photos.json", "photos"),
-                    InitCollection<BirdModel>(@"../data/data.birds.json", "birds")
-                };
+            if (!_appSettings.IsTestRun)
+                return Task.CompletedTask;
+            var initTasks = new[] {
+                InitCollection<PhotoModel>(@"../data/data.photos.json", "photos"),
+                InitCollection<BirdModel>(@"../data/data.birds.json", "birds")
+            };
 
-                return Task.WhenAll(initTasks);
-            }
-            else return Task.CompletedTask;
+            return Task.WhenAll(initTasks);
+
         }
 
         private async Task InitCollection<T>(string fileName, string collectionName)

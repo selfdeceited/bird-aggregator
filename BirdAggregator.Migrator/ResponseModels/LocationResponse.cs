@@ -38,17 +38,17 @@ namespace BirdAggregator.Migrator.ResponseModels
 
     public class Location
     {
-        public double latitude { get; set; }
-        public double longitude { get; set; }
-        public int accuracy { get; set; }
-        public int context { get; set; }
+        public string latitude { get; set; }
+        public string longitude { get; set; }
+        public string accuracy { get; set; }
+        public string context { get; set; }
         public Neighbourhood neighbourhood { get; set; }
         public Locality locality { get; set; }
         public County county { get; set; }
         public Region region { get; set; }
         public Country country { get; set; }
         public string place_id { get; set; }
-        public string woeid { get; set; }
+        public int? woeid { get; set; }
     }
 
     public class Photo

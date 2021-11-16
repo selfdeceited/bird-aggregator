@@ -21,16 +21,18 @@ namespace BirdAggregator.Migrator.Repositories
             _mongoConnection = mongoConnection;
         }
         
-        public async Task SavePhoto(PhotoResponse.Photo photo, Sizes sizes, CancellationToken ct)
+        public async Task SavePhoto(SavePhotoModel savePhotoModel, CancellationToken ct)
         {
+            var (photo, location, sizes) = savePhotoModel;
             var birds = await GetOrUpdateBirds(photo.title._content, ct);
-            var photoModel = ToPhotoModel(photo, size, birds);
+            var photoModel = ToPhotoModel(photo, sizes, location, birds);
             await _photos.InsertOneAsync(photoModel, new InsertOneOptions(), ct);
         }
 
-        private PhotoModel ToPhotoModel(PhotoResponse.Photo photo, Sizes sizes, IEnumerable<BirdModel> birds)
+        private PhotoModel ToPhotoModel(PhotoResponse.Photo photo, Sizes sizes, Location location, IEnumerable<BirdModel> birds)
         {
-            return new()
+            var largestSize = sizes.size.OrderByDescending(x => x.height).FirstOrDefault();
+            return new PhotoModel
             {
                 Description = photo.description._content,
                 BirdIds = birds.Select(x => x.Id),
@@ -41,10 +43,16 @@ namespace BirdAggregator.Migrator.Repositories
                     ServerId = photo.server,
                     Secret = photo.originalsecret
                 },
-                Ratio = size != null ? (double)size.width / size.height : 1,
+                Ratio = largestSize != null ? (double)largestSize.width / largestSize.height : 1,
                 Location = new LocationModel
                 {
-                    // todo: fill location, add new query
+                    Country = location.country._content,
+                    Neighbourhood = location.neighbourhood._content,
+                    Region = location.region._content,
+                    X = double.Parse(location.longitude),
+                    Y = double.Parse(location.latitude),
+                    GeoTag = location.place_id,
+                    Locality = location.locality._content
                 },
                 DateTaken = DateTime.Parse(photo.dates.taken),
             };
@@ -58,15 +66,24 @@ namespace BirdAggregator.Migrator.Repositories
                 .Select(ToBirdModel)
                 .ToList();
 
-            var birdsToAdd = await GetBirdsFromDb(inputBirdModels, ct);
+            var birdsFromDb = (await GetBirdsFromDb(inputBirdModels, ct)).ToArray();
+            
+            var toInsert = birdsFromDb
+                .Where(x => !x.exists)
+                .Select(x => x.inputModel)
+                .ToArray();
 
-            await _birds.InsertManyAsync(birdsToAdd
-                    .Where(x => !x.exists)
-                    .Select(x => x.inputModel),
-                cancellationToken: ct);
+            if (!toInsert.Any())
+            {
+                return birdsFromDb.Select(x => x.dbModel).ToList();
+            }
+
+            await _birds.InsertManyAsync(toInsert, cancellationToken: ct);
+
 
             var updatedModels = await GetBirdsFromDb(inputBirdModels, ct);
-            var dbModels = updatedModels.Select(x=>x.dbModel).ToList();
+
+            var dbModels = updatedModels.Select(x => x.dbModel).ToList();
             if (dbModels.Any(x => x == null))
             {
                 throw new Exception("some models are not saved to db");

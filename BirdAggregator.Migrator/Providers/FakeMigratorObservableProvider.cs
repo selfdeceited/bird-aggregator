@@ -13,7 +13,7 @@ namespace BirdAggregator.Migrator.Providers
     {
         private readonly Random _random = new();
        
-        public IObservable<(PhotoResponse.Photo photo, Sizes sizes)> GetPhotoWithSizesByPhotoId(PhotoId x)
+        public IObservable<SavePhotoModel> GetPhotoInfoForSave(PhotoId x)
         {
             var sizes = new Sizes
             {
@@ -24,9 +24,10 @@ namespace BirdAggregator.Migrator.Providers
             };
 
             var photo = GetPhotoInfo(x, CancellationToken.None);
+            var location = new Location();
 
             return Observable
-                .FromAsync(ct => Task.FromResult((photo, sizes)))
+                .FromAsync(ct => Task.FromResult(new SavePhotoModel(photo, location, sizes)))
                 .Delay(TimeSpan.FromMilliseconds(50));
         }
 
@@ -41,13 +42,18 @@ namespace BirdAggregator.Migrator.Providers
             Observable.FromAsync(() => Task.Delay(50))
                 .Select(_ => _random.NextDouble() > 0.5);
 
-        public IObservable<Unit> SavePhoto((PhotoResponse.Photo photo, Sizes sizes) _)
-            => Observable.FromAsync(() => Task.Delay(50));
+        public IObservable<SavePhotoResult> SavePhoto(SavePhotoModel model)
+            => Observable.FromAsync(() => Task.Delay(50)).Select(_ => new SavePhotoResult(model.photo.id));
 
         public IObservable<int> GetPages() =>
             Observable
                 .FromAsync(() => Task.Delay(50))
                 .SelectMany(_ => Observable.Range(0, 10));
+
+        public IObservable<Unit> EnsureCollectionsExist()
+        {
+            return Observable.Empty<Unit>();
+        }
 
 
         private PhotoResponse.Photo GetPhotoInfo(PhotoId photoId, CancellationToken ct)

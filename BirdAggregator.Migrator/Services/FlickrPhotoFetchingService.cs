@@ -51,7 +51,7 @@ namespace BirdAggregator.Migrator.Services
             var request = CreateDefaultRequest("flickr.photos.geo.getLocation", Method.GET)
                 .AddParameter("photo_id", hostingId);
 
-            var response = _client.ExecuteAsync<LocationResponse>(request, cancellationToken);
+            var response = await _client.ExecuteAsync<LocationResponse>(request, cancellationToken);
             return HandleExceptions(response);
         }
 
@@ -89,10 +89,11 @@ namespace BirdAggregator.Migrator.Services
 
         private T HandleExceptions<T>(IRestResponse<T> response) where T : class, IStateResponse
         {
-            if (response.ErrorException != null)
-                throw response.ErrorException;
-
-            return response.Data.stat == "ok" ? response.Data : null;
+            if (response.ErrorException == null)
+                return response.Data.stat == "ok" ? response.Data : null;
+            
+            Program.ColoredConsole.WriteLine(response.ErrorException.Message, Colorify.Colors.bgDanger);
+            throw response.ErrorException;
         }
     }
 }

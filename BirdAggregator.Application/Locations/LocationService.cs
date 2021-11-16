@@ -23,26 +23,6 @@ namespace BirdAggregator.Application.Locations
             _pictureHostingService = pictureHostingService;
         }
 
-        public async Task<MarkerDto> GetAsync(Location location)
-        {
-            var photos = await _photoRepository.GetByLocationAsync(location.Id);
-            var birds = photos
-                .SelectMany(x => x.Birds)
-                .GroupBy(x => x.Id)
-                .Select(x => x.First());
-                
-            return new MarkerDto
-            {
-                Id = location.Id,
-                X = location.Longitude,
-                Y = location.Latitude,
-                Birds = birds.Select(x=> new BirdMarkerDto {
-                    Id = x.Id,
-                    Name = x.EnglishName
-                }).ToArray(),
-                FirstPhotoUrl = _pictureHostingService.GetOriginal(photos.FirstOrDefault()?.PhotoInformation)
-            };
-        }
 
         public MarkerDto GetMarker(Photo photo)
         {
@@ -50,7 +30,6 @@ namespace BirdAggregator.Application.Locations
             var firstPhotoUrl = _pictureHostingService.GetOriginal(photo.PhotoInformation);
             return new MarkerDto
             {
-                Id = location.Id,
                 X = location.Longitude,
                 Y = location.Latitude,
                 Birds = photo.Birds.Select(x=> new BirdMarkerDto {
