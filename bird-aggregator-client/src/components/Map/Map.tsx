@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
+
 import * as GeoJSON from 'geojson'
 import * as React from 'react'
 import * as axios from '../../http.adapter'
@@ -66,7 +67,7 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 		fetchedMarkers = aggregatePhotosInSameLocation(fetchedMarkers)
 		setMarkers(fetchedMarkers)
 
-		if (props.photoId || props.birdId) {
+		if ((props.photoId || props.birdId) && fetchedMarkers.length > 0) {
 			setCenter([fetchedMarkers[0].x, fetchedMarkers[0].y])
 		}
 	}

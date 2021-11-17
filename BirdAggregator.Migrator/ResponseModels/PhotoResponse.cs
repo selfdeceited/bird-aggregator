@@ -40,9 +40,6 @@ namespace BirdAggregator.Migrator.ResponseModels
 		{
 			public string posted { get; set; }
 			public string taken { get; set; }
-			public string takengranularity { get; set; }
-			public string takenunknown { get; set; }
-			public string lastupdate { get; set; }
 		}
 
 		public class Editability

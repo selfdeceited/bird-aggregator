@@ -23,11 +23,13 @@ namespace BirdAggregator.Application.Locations.GetLocationsByBirdId
         public async Task<LocationListDto> Handle(GetLocationsByBirdIdQuery request, CancellationToken cancellationToken)
         {
             var photos = await _photoRepository.GetGalleryForBirdAsync(request.BirdId);
-            var markerDtos = photos.Select(_locationService.GetMarker);
+            var markers = photos
+                .Select(_locationService.GetMarker)
+                .Where(m => m != null);
 
             return new LocationListDto
             {
-                Markers = markerDtos.ToList()
+                Markers = markers.ToList()
             };
         }
     }

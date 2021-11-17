@@ -27,6 +27,7 @@ namespace BirdAggregator.Application.Locations
         public MarkerDto GetMarker(Photo photo)
         {
             var location = photo.Location;
+            if (location == null) return null;
             var firstPhotoUrl = _pictureHostingService.GetOriginal(photo.PhotoInformation);
             return new MarkerDto
             {

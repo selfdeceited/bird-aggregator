@@ -42,9 +42,6 @@ namespace BirdAggregator.Migrator.Providers
             Observable.FromAsync(() => Task.Delay(50))
                 .Select(_ => _random.NextDouble() > 0.5);
 
-        public IObservable<SavePhotoResult> SavePhoto(SavePhotoModel model)
-            => Observable.FromAsync(() => Task.Delay(50)).Select(_ => new SavePhotoResult(model.photo.id));
-
         public IObservable<int> GetPages() =>
             Observable
                 .FromAsync(() => Task.Delay(50))
@@ -55,6 +52,14 @@ namespace BirdAggregator.Migrator.Providers
             return Observable.Empty<Unit>();
         }
 
+        public IObservable<SavePhotoResult[]> SavePhotos(IList<SavePhotoModel> savePhotoModels)
+        {
+            return Observable.FromAsync(() => Task.Delay(50))
+                .Select(_ => savePhotoModels
+                    .Select(model => new SavePhotoResult(model.photo.id))
+                    .ToArray()
+                );
+        }
 
         private PhotoResponse.Photo GetPhotoInfo(PhotoId photoId, CancellationToken ct)
         {

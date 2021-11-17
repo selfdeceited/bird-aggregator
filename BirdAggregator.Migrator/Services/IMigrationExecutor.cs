@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Reactive;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace BirdAggregator.Migrator.Services
         Task<PhotoId[]> GetPhotoInfoForPage(int pageNumber, CancellationToken ct);
         Task<Sizes> GetSizes(PhotoId photoId, CancellationToken ct);
         Task<Location> GetLocation(PhotoId photoId, CancellationToken ct);
-        Task<SavePhotoResult> SavePhotoInformation(SavePhotoModel photo, CancellationToken ct);
         Task EnsureCollectionsExist(CancellationToken ct);
+        Task<SavePhotoResult[]> SavePhotosInformation(IList<SavePhotoModel> savePhotoModels, CancellationToken ct);
     }
 }

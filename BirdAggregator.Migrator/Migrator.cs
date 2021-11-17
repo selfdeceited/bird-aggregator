@@ -32,22 +32,29 @@ namespace BirdAggregator.Migrator
                 .Where(x => _m.ShouldUpdateDb(x).Wait())
                 .Do(LogEntitiesToAdd)
                 .SelectMany(_m.GetPhotoInfoForSave)
+                .DistinctUntilChanged()
+                .Buffer(TimeSpan.FromMilliseconds(1000))
                 .SelectMany(x => _m
-                    .SavePhoto(x)
+                    .SavePhotos(x)
                     .Retry(3)
                 )
-                .Catch<SavePhotoResult, Exception>(_ =>
+                .Catch<SavePhotoResult[], Exception>(_ =>
                 {
                     ColoredConsole.WriteLine($"exception occured: {_.Message} {_.StackTrace}", Colors.bgDanger);
-                    return Observable.Empty<SavePhotoResult>();
+                    return Observable.Empty<SavePhotoResult[]>();
                 })
                 .Do(LogDataSaved)
                 .DistinctUntilChanged()
                 .Subscribe();
+            
+            // todo: schedule duplicate photos fixes
+            CycleOnExit();
+        }
 
-
+        private void CycleOnExit() //todo: change in --watch mode + on ci call add timer duration.
+        {
             bool allSaved;
-            Thread.Sleep(7500);
+            Thread.Sleep(7500); // to bootstrap stuff
             do
             {
                 Thread.Sleep(500);
@@ -65,11 +72,13 @@ namespace BirdAggregator.Migrator
             _savedEntities.AddOrUpdate(photoId.flickrId, false, (_, _) => false);
         }
 
-
-        private void LogDataSaved(SavePhotoResult _)
+        private void LogDataSaved(SavePhotoResult[] results)
         {
-            ColoredConsole.WriteLine($"        > data for #{_.Id} saved", Colors.txtSuccess);
-            _savedEntities.AddOrUpdate(_.Id, true, (_, _) => true);
+            foreach (var result in results)
+            {
+                ColoredConsole.WriteLine($"        > data for #{result.Id} saved", Colors.txtSuccess);
+                _savedEntities.AddOrUpdate(result.Id, true, (_, _) => true);                
+            }
         }
     }
 }

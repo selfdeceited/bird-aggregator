@@ -22,9 +22,9 @@ namespace BirdAggregator.Application.Locations.GetLocationsById
             var photo = await _photoRepository.GetById(request.PhotoId);
             var mapMarker = _locationService.GetMarker(photo);
             return new LocationListDto {
-                Markers = new List<MarkerDto> {
+                Markers = mapMarker!= null ? new List<MarkerDto> {
                     mapMarker
-                }
+                }: new List<MarkerDto>()
             };
         }
     }

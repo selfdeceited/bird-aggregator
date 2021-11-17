@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading;
@@ -14,7 +15,7 @@ namespace BirdAggregator.Migrator.Services
 {
     public class MigrationExecutor : IMigrationExecutor
     {
-        private readonly bool testMode = true;
+        private readonly bool testMode = false;
         private readonly IPictureFetchingService _pictureFetchingService;
         private readonly IPhotoWriteRepository _photoWriteRepository;
         private readonly IPhotoRepository _photoRepository;
@@ -27,13 +28,6 @@ namespace BirdAggregator.Migrator.Services
             _photoRepository = photoRepository;
             _mongoConnection = mongoConnection;
         }
-        
-        public async Task<SavePhotoResult> SavePhotoInformation(SavePhotoModel savePhotoModel, CancellationToken ct)
-        {
-            await _photoWriteRepository.SavePhoto(savePhotoModel, ct);
-            ColoredConsole.WriteLine($"        > data for photo #{savePhotoModel.photo.id} ({savePhotoModel.photo.title._content} at {savePhotoModel.photo.dates.taken}) saved", Colors.txtInfo);
-            return new SavePhotoResult(savePhotoModel.photo.id);
-        }
 
         public async Task EnsureCollectionsExist(CancellationToken ct)
         {
@@ -42,6 +36,19 @@ namespace BirdAggregator.Migrator.Services
             
             await _mongoConnection.BootstrapDb(ct);
             ColoredConsole.WriteLine("collections exist in db", Colors.txtPrimary);
+        }
+
+        public async Task<SavePhotoResult[]> SavePhotosInformation(IList<SavePhotoModel> savePhotoModels, CancellationToken ct)
+        {
+            await _photoWriteRepository.SavePhotos(savePhotoModels, ct);
+            
+            return savePhotoModels.Select(savePhotoModel =>
+            {
+                ColoredConsole.WriteLine(
+                    $"        > data for photo #{savePhotoModel.photo.id} ({savePhotoModel.photo.title._content} at {savePhotoModel.photo.dates.taken}) saved",
+                    Colors.txtInfo);
+               return new SavePhotoResult(savePhotoModel.photo.id);
+            }).ToArray();
         }
 
         public async Task<Location> GetLocation(PhotoId photoId, CancellationToken ct)

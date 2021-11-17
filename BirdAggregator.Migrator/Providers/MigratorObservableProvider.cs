@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -16,13 +17,14 @@ namespace BirdAggregator.Migrator.Providers
         }
 
         public IObservable<Unit> EnsureCollectionsExist() => Observable.FromAsync(_m.EnsureCollectionsExist);
-        
+        public IObservable<SavePhotoResult[]> SavePhotos(IList<SavePhotoModel> savePhotoModels)
+        {
+            return Observable.FromAsync(ct => _m.SavePhotosInformation(savePhotoModels, ct));
+        }
+
         public IObservable<int> GetPages() => Observable
             .FromAsync(_m.GetPages)
             .SelectMany(p => Observable.Range(0, p));
-        
-        public IObservable<SavePhotoResult> SavePhoto(SavePhotoModel _)
-            => Observable.FromAsync(ct => _m.SavePhotoInformation(_, ct));
 
         public IObservable<bool> ShouldUpdateDb(PhotoId photoId)
             => Observable
