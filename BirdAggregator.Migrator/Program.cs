@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using Colorify;
 using Colorify.UI;
 using BirdAggregator.Infrastructure.DependencyInjection;
@@ -7,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using BirdAggregator.Application.Configuration;
-using System.Text.Json;
 using BirdAggregator.Migrator.Providers;
 using BirdAggregator.Migrator.Repositories;
 using BirdAggregator.Migrator.Services;
@@ -27,14 +25,14 @@ namespace BirdAggregator.Migrator
 
             try
             {
-                migrator?.Run().Wait();
+                migrator?.Run();
             }
             catch (Exception e)
             {
                 ColoredConsole.WriteLine(e.Message, Colors.bgDanger);
             }
             finally
-            {
+            { 
                 Console.ReadKey();
                 ColoredConsole.ResetColor();
             }
@@ -64,7 +62,6 @@ namespace BirdAggregator.Migrator
 
             var configuration = builder.Build();
             var appSettings = configuration.GetSection(nameof(AppSettings)).Get<AppSettings>();
-            ColoredConsole.WriteLine(JsonSerializer.Serialize(appSettings), Colors.txtWarning);
             var serviceProvider = ApplicationStartup.Initialize(
                 services, appSettings, new InitializeOptions { BootstrapDb = false });
 

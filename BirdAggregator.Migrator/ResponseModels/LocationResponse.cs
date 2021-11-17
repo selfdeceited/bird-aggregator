@@ -5,35 +5,35 @@ namespace BirdAggregator.Migrator.ResponseModels
     {
         public string _content { get; set; }
         public string place_id { get; set; }
-        public string woeid { get; set; }
+        public int? woeid { get; set; }
     }
 
     public class Locality
     {
         public string _content { get; set; }
         public string place_id { get; set; }
-        public string woeid { get; set; }
+        public int? woeid { get; set; }
     }
 
     public class County
     {
         public string _content { get; set; }
         public string place_id { get; set; }
-        public string woeid { get; set; }
+        public int? woeid { get; set; }
     }
 
     public class Region
     {
         public string _content { get; set; }
         public string place_id { get; set; }
-        public string woeid { get; set; }
+        public int? woeid { get; set; }
     }
 
     public class Country
     {
         public string _content { get; set; }
         public string place_id { get; set; }
-        public string woeid { get; set; }
+        public int? woeid { get; set; }
     }
 
     public class Location

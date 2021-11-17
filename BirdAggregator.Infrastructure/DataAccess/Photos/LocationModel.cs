@@ -1,6 +1,4 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-
-namespace BirdAggregator.Infrastructure.DataAccess.Photos
+﻿namespace BirdAggregator.Infrastructure.DataAccess.Photos
 {
     public class LocationModel
     {

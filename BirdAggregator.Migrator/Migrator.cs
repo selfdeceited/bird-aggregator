@@ -3,7 +3,8 @@ using System.Collections.Concurrent;
 using System.Linq;
 using static BirdAggregator.Migrator.Program;
 using System.Reactive.Linq;
-using System.Threading.Tasks;
+using System.Text.Json;
+using System.Threading;
 using BirdAggregator.Migrator.Providers;
 using Colorify;
 
@@ -20,40 +21,42 @@ namespace BirdAggregator.Migrator
             _m = migratorObservableProvider;
         }
 
-        public Task Run()
+        public void Run()
         {
-            var tcs = new TaskCompletionSource();
-            ColoredConsole.WriteLine("migrator started.", Colors.txtInfo);
+            ColoredConsole.WriteLine("Migrator started. Press any key to stop it.", Colors.txtInfo);
             // todo: if photo exists, but caption is changed - remove photo from the db
-            
+
             _m.EnsureCollectionsExist()
                 .SelectMany(_ => _m.GetPages())
                 .SelectMany(_m.GetPhotoId)
                 .Where(x => _m.ShouldUpdateDb(x).Wait())
                 .Do(LogEntitiesToAdd)
                 .SelectMany(_m.GetPhotoInfoForSave)
-                .SelectMany(x => _m.SavePhoto(x))
+                .SelectMany(x => _m
+                    .SavePhoto(x)
+                    .Retry(3)
+                )
                 .Catch<SavePhotoResult, Exception>(_ =>
                 {
                     ColoredConsole.WriteLine($"exception occured: {_.Message} {_.StackTrace}", Colors.bgDanger);
                     return Observable.Empty<SavePhotoResult>();
                 })
                 .Do(LogDataSaved)
-                .TakeUntil(DateTimeOffset.Now.AddMinutes(5))
-                .Throttle(TimeSpan.FromMilliseconds(1000))
                 .DistinctUntilChanged()
-                
-                .Subscribe(_ =>
+                .Subscribe();
+
+
+            bool allSaved;
+            Thread.Sleep(7500);
+            do
+            {
+                Thread.Sleep(500);
+                allSaved = _savedEntities.Any() && _savedEntities.All(x => x.Value);
+                if (allSaved)
                 {
-                    var allSaved = _savedEntities.All(x => true);
-                    if (!allSaved)
-                        return;
-                    
-                    ColoredConsole.WriteLine($"All photos saved. You may close this page", Colors.bgInfo);
-                    tcs.SetResult();
-                });
-           
-           return tcs.Task;
+                    ColoredConsole.WriteLine("All photos saved. You may press any key this page.", Colors.bgInfo);
+                }
+            } while (!allSaved);
         }
 
         private void LogEntitiesToAdd(PhotoId photoId)

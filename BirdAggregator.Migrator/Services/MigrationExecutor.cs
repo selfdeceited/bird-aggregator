@@ -47,6 +47,11 @@ namespace BirdAggregator.Migrator.Services
         public async Task<Location> GetLocation(PhotoId photoId, CancellationToken ct)
         {
             var locationResponse = await _pictureFetchingService.GetLocation(photoId.flickrId, ct);
+            if (locationResponse == null)
+            {
+                ColoredConsole.WriteLine($"empty location for photo #{photoId.flickrId}", Colors.txtWarning);
+                return null;
+            }
             ColoredConsole.WriteLine($"        > location for #{photoId.flickrId} fetched: {locationResponse.photo.location.place_id}", Colors.txtInfo);
             return locationResponse.photo.location;
         }
@@ -78,7 +83,7 @@ namespace BirdAggregator.Migrator.Services
 
         public async Task<int> GetPages(CancellationToken ct)
         {
-            if (testMode) return await Task.FromResult(5);
+            if (testMode) return await Task.FromResult(3);
             var pages = await _pictureFetchingService.GetPages(ct);
             ColoredConsole.WriteLine($"    > pages: {pages}", Colors.txtMuted);
             return pages;
@@ -89,7 +94,7 @@ namespace BirdAggregator.Migrator.Services
             var photoIds = await _pictureFetchingService.GetPhotoInfoForPage(pageNumber, ct);
             if (testMode)
             {
-                photoIds = photoIds.Take(5).ToArray();
+                photoIds = photoIds.ToArray();
             }
             ColoredConsole.WriteLine($"    > data from page {pageNumber} fetched", Colors.txtMuted);
             return photoIds;

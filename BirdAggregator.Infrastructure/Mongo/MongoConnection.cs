@@ -90,5 +90,23 @@ namespace BirdAggregator.Infrastructure.Mongo
             var models = JsonConvert.DeserializeObject<List<T>>(fileContent);
             await collection.InsertManyAsync(models);
         }
+
+        public async Task<T> ExecuteInTransaction<T>(Func<IClientSessionHandle, CancellationToken, Task<T>> execute,
+            CancellationToken cancellationToken)
+        {
+            using (var session = await _client.StartSessionAsync(new ClientSessionOptions(), cancellationToken))
+            {
+                var transactionOptions = new TransactionOptions(
+                    readPreference: ReadPreference.Primary,
+                    readConcern: ReadConcern.Majority,
+                    writeConcern: WriteConcern.W1);
+                
+                return await session.WithTransactionAsync(
+                    //async (s, ct) => await execute(s, ct),
+                    execute,
+                    transactionOptions,
+                    cancellationToken);    
+            }
+        }
     }
 }

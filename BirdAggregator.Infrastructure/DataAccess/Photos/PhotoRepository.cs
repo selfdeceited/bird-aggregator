@@ -35,7 +35,7 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
 
         public async Task<Bird[]> GetAll()
         {
-            var birdCursor = await _birds.FindAsync<BirdModel>(_ => true);
+            var birdCursor = await _birds.FindAsync(_ => true);
             var birdModels = await birdCursor.ToListAsync();
             return birdModels.Select(_birdMapper.ToDomain).ToArray();
         }
