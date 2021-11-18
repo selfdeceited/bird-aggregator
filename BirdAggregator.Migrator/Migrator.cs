@@ -25,7 +25,6 @@ namespace BirdAggregator.Migrator
         {
             ColoredConsole.WriteLine("Migrator started. Press any key to stop it.", Colors.txtInfo);
             // todo: if photo exists, but caption is changed - remove photo from the db
-
             _m.EnsureCollectionsExist()
                 .SelectMany(_ => _m.GetPages())
                 .SelectMany(_m.GetPhotoId)

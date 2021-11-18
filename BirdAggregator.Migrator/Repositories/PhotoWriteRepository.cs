@@ -61,7 +61,7 @@ namespace BirdAggregator.Migrator.Repositories
                     
                     var photoModels = savePhotoModels.Select(_ => ToPhotoModel(_.photo, _.sizes, _.location, BirdsForModel(_)));
 
-                    
+                    // todo: fix duplicate entries - upsert by flickr id?
                     await _photos.InsertManyAsync(s, photoModels, new InsertManyOptions {IsOrdered = false},
                         cancellationToken);
                     

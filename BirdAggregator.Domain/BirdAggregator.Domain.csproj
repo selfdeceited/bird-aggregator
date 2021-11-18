@@ -4,4 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BirdAggregator.SharedKernel\BirdAggregator.SharedKernel.csproj" />
+  </ItemGroup>
 </Project>

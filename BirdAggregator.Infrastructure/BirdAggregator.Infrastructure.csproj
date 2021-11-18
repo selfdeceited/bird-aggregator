@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BirdAggregator.Domain\BirdAggregator.Domain.csproj" />
     <ProjectReference Include="..\BirdAggregator.Application\BirdAggregator.Application.csproj" />
+    <ProjectReference Include="..\BirdAggregator.SharedKernel\BirdAggregator.SharedKernel.csproj" />
   </ItemGroup>
 
   <ItemGroup>

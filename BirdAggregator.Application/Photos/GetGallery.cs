@@ -3,10 +3,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using BirdAggregator.Domain.Interfaces;
 using BirdAggregator.Domain.Photos;
+using BirdAggregator.SharedKernel;
 
-namespace BirdAggregator.Application.Photos.GetGalleryQuery
+namespace BirdAggregator.Application.Photos
 {
-    public class GetGalleryQueryHandler: IQueryHandler<GetGalleryQuery, GetGalleryQueryDto>
+    public record GetGalleryQuery(int Count, SortDirection SortDirection) : IQuery<GetGalleryQueryResponse>;
+    public class GetGalleryQueryHandler: IQueryHandler<GetGalleryQuery, GetGalleryQueryResponse>
     {
         private readonly IPhotoRepository _photoRepository;
         private readonly IPictureHostingService _pictureHostingService;
@@ -16,10 +18,10 @@ namespace BirdAggregator.Application.Photos.GetGalleryQuery
             _pictureHostingService = pictureHostingService;
         }
 
-        public async Task<GetGalleryQueryDto> Handle(GetGalleryQuery request, CancellationToken cancellationToken)
+        public async Task<GetGalleryQueryResponse> Handle(GetGalleryQuery request, CancellationToken cancellationToken)
         {
-            var gallery = await _photoRepository.GetAllAsync(request.Count);
-            return new GetGalleryQueryDto {
+            var gallery = await _photoRepository.GetAllAsync(request.Count, request.SortDirection);
+            return new GetGalleryQueryResponse {
                 Photos = gallery.Select(_ => {
                     var links = _pictureHostingService.GetAllImageLinks(_.PhotoInformation);
                     return new PhotoDto {

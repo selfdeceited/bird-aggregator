@@ -8,6 +8,7 @@ using BirdAggregator.Infrastructure.DataAccess.Mappings;
 using BirdAggregator.Infrastructure.Mongo;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using SortDirection = BirdAggregator.SharedKernel.SortDirection;
 
 namespace BirdAggregator.Infrastructure.DataAccess.Photos
 {
@@ -68,13 +69,20 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
                 .ToArray();
         }
 
-        async Task<Photo[]> IPhotoRepository.GetAllAsync(int count)
+        async Task<Photo[]> IPhotoRepository.GetAllAsync(int count, SortDirection sortDirection)
         {
-            var photoAggregate = await GetPhotoResultModelLookup()
+            var lookup = GetPhotoResultModelLookup();
+
+            var sortedLookup = sortDirection switch {
+                SortDirection.Latest => lookup.SortByDescending<PhotoResultModel>(m => m.DateTaken),
+                SortDirection.Oldest => lookup.SortBy<PhotoResultModel>(m => m.DateTaken),
+            };
+
+            var photoResultModels = await sortedLookup
                 .Limit(count)
                 .ToListAsync();
 
-            return photoAggregate
+            return photoResultModels
                 .Select(_photoMapper.ToDomain)
                 .ToArray();
         }

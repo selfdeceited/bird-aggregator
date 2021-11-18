@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using BirdAggregator.Domain.Interfaces;
 using BirdAggregator.Domain.Photos;
 
-namespace BirdAggregator.Application.Photos.GetGalleryWithPhotoQuery
+namespace BirdAggregator.Application.Photos
 {
+    public record GetGalleryWithPhotoQuery (string PhotoId) : IQuery<GetGalleryWithPhotoDto>;
+    public record GetGalleryWithPhotoDto (PhotoDto Photo);
     public class GetGalleryWithPhotoQueryHandler: IQueryHandler<GetGalleryWithPhotoQuery, GetGalleryWithPhotoDto>
     {
         private readonly IPhotoRepository _photoRepository;
@@ -33,7 +35,7 @@ namespace BirdAggregator.Application.Photos.GetGalleryWithPhotoQuery
                         Text = photo.Description
             };
             
-            return new GetGalleryWithPhotoDto{ Photo = photoDto };
+            return new GetGalleryWithPhotoDto(photoDto);
         }
     }
 }

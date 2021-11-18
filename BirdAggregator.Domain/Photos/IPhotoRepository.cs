@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using BirdAggregator.Domain.Locations;
+using BirdAggregator.SharedKernel;
 
 namespace BirdAggregator.Domain.Photos
 {
@@ -7,7 +7,7 @@ namespace BirdAggregator.Domain.Photos
     {
         Task<Photo[]> GetAllAsync();
         Task<Photo[]> GetGalleryForBirdAsync(string birdId);
-        Task<Photo[]> GetAllAsync(int count);
+        Task<Photo[]> GetAllAsync(int count, SortDirection sortDirection);
         Task<Photo> GetById(string photoId);
         Task<Photo[]> GetByLocationAsync(int id);
         Task<Photo> GetByHostingId(string hostingId);
