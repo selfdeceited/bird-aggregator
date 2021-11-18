@@ -35,6 +35,7 @@ const fetchWikiInfo = async (birdId: number, setWikiData: (data: IWikiData) => v
 		const chapters = fillChapters(div)
 		setWikiData({ name: wikiData.name, wikiInfo: chapters.outerHTML, imageUrl: wikiData.imageUrl })
 	} catch (e) {
+		// eslint-disable-next-line no-console
 		console.error(e)
 	}
 }
@@ -42,9 +43,8 @@ const fetchWikiInfo = async (birdId: number, setWikiData: (data: IWikiData) => v
 const fillChapters = (div: HTMLDivElement): HTMLDivElement => {
 	const finalContainer = document.createElement('div')
 	const paragraphs = Array.prototype.slice.call(div.getElementsByTagName('p')).filter(x => x.innerHTML.length > 2)
-	// eslint-disable -next-line: prefer-for-of
-	for (let i = 0; i < paragraphs.length; i++) {
-		finalContainer.append(paragraphs[i])
+	for (const paragraph of paragraphs) {
+		finalContainer.append(paragraph)
 		if (finalContainer.innerHTML.length > 1000) {
 			break
 		}

@@ -9,6 +9,7 @@ using BirdAggregator.Infrastructure.Mongo;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using SortDirection = BirdAggregator.SharedKernel.SortDirection;
+using System;
 
 namespace BirdAggregator.Infrastructure.DataAccess.Photos
 {
@@ -76,6 +77,7 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
             var sortedLookup = sortDirection switch {
                 SortDirection.Latest => lookup.SortByDescending<PhotoResultModel>(m => m.DateTaken),
                 SortDirection.Oldest => lookup.SortBy<PhotoResultModel>(m => m.DateTaken),
+                _ => throw new ArgumentException(nameof(sortDirection))
             };
 
             var photoResultModels = await sortedLookup

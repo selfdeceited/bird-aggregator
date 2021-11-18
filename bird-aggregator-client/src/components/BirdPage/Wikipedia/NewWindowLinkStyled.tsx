@@ -22,5 +22,4 @@ export const NewWindowLinkStyled = styled.a`
         border: none;
       }
     }
-
 `

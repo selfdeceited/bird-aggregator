@@ -159,7 +159,7 @@
 		"react/prefer-stateless-function": "error", // Enforce stateless React Components to be written as a pure function
 		"react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
 		"react/jsx-no-bind": "error", // Prevent usage of .bind() and arrow functions in JSX props
-		"react/jsx-no-literals": "warn", //  Prevent usage of unwrapped JSX strings
+		"react/jsx-no-literals": "off", //  Prevent usage of unwrapped JSX strings
 		"react/jsx-no-useless-fragment": "error", // Disallow unnecessary fragments,
 		"react/jsx-pascal-case": "error", // Enforce PascalCase for user-defined JSX components
 

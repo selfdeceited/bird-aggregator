@@ -7,7 +7,6 @@ using RestSharp.Serializers.NewtonsoftJson;
 
 namespace BirdAggregator.Infrastructure.Wikipedia
 {
-    
     public class WikipediaService : IInformationService
     {
         public Task<IBirdInfo> Get(string englishName)
