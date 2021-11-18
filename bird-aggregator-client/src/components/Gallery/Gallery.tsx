@@ -33,8 +33,12 @@ export const Gallery: React.FC<Props> = props => {
 	const fetchTheUrl = async (url: string): Promise<void> => {
 		const { data: { photos } } = await axios.get(url)
 		const typedPhotos = photos as ImageProps[]
+
 		const fetchedImages = typedPhotos.map(photo => {
 			photo.tags = [{ title: photo.caption, value: photo.caption }]
+			if (typedPhotos.length < 3) {
+				photo.src = photo.original
+			}
 			return photo
 		})
 		setImages(fetchedImages)

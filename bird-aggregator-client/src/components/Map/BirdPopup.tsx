@@ -20,14 +20,16 @@ export const BirdPopup: React.FC<BirdPopupProps> = (props: BirdPopupProps) => {
 	return (<div>
 		<p>Birds found:</p>
 		{
-			props.birds.filter(x => x.id > 0).map(x => (<Link
-				key={x.id}
-				to={`/birds/${x.id}`}
-				role="button"
-				className="bp3-button bp3-minimal bp3-icon-arrow-right display-block small-reference">
-				{x.name}
-			</Link>
-			))
+			props.birds
+			// .filter(x => x.id > 0)
+				.map(x => (<Link
+					key={x.id}
+					to={`/birds/${x.id}`}
+					role="button"
+					className="bp3-button bp3-minimal bp3-icon-arrow-right display-block small-reference">
+					{x.name}
+				</Link>
+				))
 		}
 		{imagePreview}
 	</div>)
