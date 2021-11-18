@@ -33,7 +33,6 @@ I don't support subspecies by now, like  _Buteo Buteo vulpinus_
 ## Plans
 Right now the quality of the soffware is disturbing, so I'm occupied by tech debt. Also, it's my sandbox.I'm checking some stuff that I don't usually use (yet) in my everyday work, like `RX.NET` or `linaria`, or anything new that's on my tech radar I eager to access.
 
-`./bird-aggregator` folder is obsolete.
 
 More info on how to make it great again is here - [TODO.md](./TODO.md)
 

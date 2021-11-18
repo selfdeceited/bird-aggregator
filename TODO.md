@@ -1,13 +1,12 @@
 **Bird-Aggregator 2.0 release-ready checklist**
 
 # BACKEND
- - [ ] add data migration console app
+ - [ ] add workingdata migration console app
+    - [ ] fix duplicate entries
  - [ ] swagger working with typedoc
- - [ ] structured logging
+ - [ ] structured logging to time-based db - influx?
  - [ ] proper env values handling with secret storage
  - [ ] Check at app start if all appSettings params has been set correctly
- - [ ] remove old service (`./bird-aggregator`)
-
 
 # FRONTEND
  - [ ] put wiki logic to wiki component
