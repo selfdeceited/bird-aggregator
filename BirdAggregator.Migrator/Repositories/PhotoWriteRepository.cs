@@ -115,33 +115,43 @@ namespace BirdAggregator.Migrator.Repositories
 
         private PhotoModel ToPhotoModel(PhotoResponse.Photo photo, Sizes sizes, Location location, IEnumerable<BirdModel> birds)
         {
-            var largestSize = sizes.size.OrderByDescending(x => x.height).FirstOrDefault();
-            return new PhotoModel
-            {
-                Description = photo.description._content,
-                BirdIds = birds.Select(x => x.Id),
-                Flickr = new FlickrModel
+            try {
+                var largestSize = sizes.size.OrderByDescending(x => x.height).FirstOrDefault();
+                return new PhotoModel
                 {
-                    FarmId = photo.farm,
-                    Id = photo.id,
-                    ServerId = photo.server,
-                    Secret = photo.originalsecret
-                },
-                Ratio = largestSize != null ? (double) largestSize.width / largestSize.height : 1,
-                Location = location == null
-                    ? null
-                    : new LocationModel
+                    Description = photo.description._content,
+                    BirdIds = birds.Select(x => x.Id),
+                    Flickr = new FlickrModel
                     {
-                        Country = location.country._content,
-                        Neighbourhood = location.neighbourhood._content,
-                        Region = location.region._content,
-                        X = double.Parse(location.longitude),
-                        Y = double.Parse(location.latitude),
-                        GeoTag = location.place_id,
-                        Locality = location.locality?._content
+                        FarmId = photo.farm,
+                        Id = photo.id,
+                        ServerId = photo.server,
+                        Secret = photo.originalsecret
                     },
-                DateTaken = DateTime.Parse(photo.dates.taken),
-            };
+                    Ratio = largestSize != null ? (double) largestSize.width / largestSize.height : 1,
+                    Location = location == null
+                        ? null
+                        : new LocationModel
+                        {
+                            Country = location.country._content,
+                            Neighbourhood = location.neighbourhood._content,
+                            Region = location.region._content,
+                            X = double.Parse(location.longitude),
+                            Y = double.Parse(location.latitude),
+                            GeoTag = location.place_id,
+                            Locality = location.locality?._content
+                        },
+                    DateTaken = DateTime.Parse(photo.dates.taken),
+                };
+            } catch (Exception) {
+                System.IO.File.AppendAllText("out.txt", 
+                    JsonSerializer.Serialize(photo)
+                    + "\n"
+                    + JsonSerializer.Serialize(location)
+                    + "\n"
+                );
+                throw;
+            }
         }
 
         
@@ -181,6 +191,79 @@ namespace BirdAggregator.Migrator.Repositories
                 Name = name.Substring(0, indexOf("(") - 1),
                 Latin = name.Substring(indexOf("(") + 1, indexOf(")") - indexOf("(") - 1)
             };
+        }
+
+        public async Task TrackDuplicatePhotos()
+        {
+            Program.ColoredConsole.WriteLine("Tracking duplicates...", Colors.bgWarning);
+            try {
+                await FixDuplicateBirds();
+                await FixDuplicatePhotos();
+            } catch (Exception e) {
+                Program.ColoredConsole.WriteLine($"{e.Message}\n{e.StackTrace}", Colors.bgDanger);
+                throw;
+            }
+            
+        }
+
+        // todo: pass through the ct
+        private async Task FixDuplicateBirds()
+        {
+            var duplicateBirdsGroups = await _birds
+                .Aggregate()
+                .Group(x => x.Name, _ => new {
+                    ids = _.Select(b => b.Id),
+                    count = _.Count()
+                })
+                .Match(x => x.count > 1)
+                .Project(x => new { ids = x.ids })
+                .ToListAsync();
+
+            foreach (var group in duplicateBirdsGroups) {
+                if (group.ids.Count() < 2)
+                    throw new Exception("wat?!");
+
+                var firstId = group.ids.FirstOrDefault();
+                var others = group.ids.Except(new [] { firstId });
+                foreach (var other in others) {
+                    var photosOfOtherIds = await (await _photos.FindAsync(x => x.BirdIds.Contains(other))).ToListAsync();
+                    foreach (var photo in photosOfOtherIds) {
+                        var updateNameDefinition = Builders<PhotoModel>.Update
+                            .Set(u => u.BirdIds, photo.BirdIds
+                            .Except(new [] { other })
+                            .Union(new [] { firstId }));
+
+                        await _photos.UpdateManyAsync(
+                            x => x.Id == photo.Id, updateNameDefinition);
+                    }
+                }
+                await _birds.DeleteManyAsync(x => others.Contains(x.Id));
+                Program.ColoredConsole.WriteLine($"Birds with ids {JsonSerializer.Serialize(others)} removed as duplicates", Colors.bgWarning);
+            } 
+        }
+        private async Task FixDuplicatePhotos()
+        {
+             var duplicatePhotos = await _photos
+                .Aggregate()
+                .Group(x => x.Flickr.Id, _ => new {
+                    ids = _.Select(b => b.Id),
+                    count = _.Count()
+                })
+                .Match(x => x.count > 1)
+                .Project(x => new { ids = x.ids })
+                .ToListAsync();
+
+            Program.ColoredConsole.WriteLine($"duplicatePhotos: {JsonSerializer.Serialize(duplicatePhotos)}", Colors.bgWarning);
+
+            foreach (var group in duplicatePhotos) {
+                if (group.ids.Count() < 2)
+                    throw new Exception("wat?!");
+                
+                var firstId = group.ids.FirstOrDefault();
+                var others = group.ids.Except(new [] { firstId });
+                await _photos.DeleteManyAsync(x => others.Contains(x.Id));
+                Program.ColoredConsole.WriteLine($"Photos with ids {JsonSerializer.Serialize(others)} removed as duplicates", Colors.bgWarning);
+            }
         }
     }
 }

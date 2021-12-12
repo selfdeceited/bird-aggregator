@@ -87,5 +87,10 @@ namespace BirdAggregator.Migrator.Providers
                 .ToArray();
 
         }
+
+        public Task TrackDuplicatePhotos()
+        {
+            return Task.CompletedTask;
+        }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Linq;
 using static BirdAggregator.Migrator.Program;
 using System.Reactive.Linq;
-using System.Text.Json;
 using System.Threading;
 using BirdAggregator.Migrator.Providers;
 using Colorify;
@@ -24,7 +23,6 @@ namespace BirdAggregator.Migrator
         public void Run()
         {
             ColoredConsole.WriteLine("Migrator started. Press any key to stop it.", Colors.txtInfo);
-            // todo: if photo exists, but caption is changed - remove photo from the db
             _m.EnsureCollectionsExist()
                 .SelectMany(_ => _m.GetPages())
                 .SelectMany(_m.GetPhotoId)
@@ -45,8 +43,11 @@ namespace BirdAggregator.Migrator
                 .Do(LogDataSaved)
                 .DistinctUntilChanged()
                 .Subscribe();
+
+            Observable
+                .Interval(TimeSpan.FromSeconds(10))
+                .Subscribe(_ => _m.TrackDuplicatePhotos()); 
             
-            // todo: schedule duplicate photos fixes
             CycleOnExit();
         }
 
@@ -60,7 +61,7 @@ namespace BirdAggregator.Migrator
                 allSaved = _savedEntities.Any() && _savedEntities.All(x => x.Value);
                 if (allSaved)
                 {
-                    ColoredConsole.WriteLine("All photos saved. You may press any key this page.", Colors.bgInfo);
+                    ColoredConsole.WriteLine("All photos saved. You may press any key to close this page.", Colors.bgInfo);
                 }
             } while (!allSaved);
         }

@@ -1,8 +1,6 @@
 **Bird-Aggregator 2.0 release-ready checklist**
 
 # BACKEND
- - [ ] add workingdata migration console app
-    - [ ] fix duplicate entries
  - [ ] swagger working with typedoc
  - [ ] structured logging to time-based db - influx?
  - [ ] proper env values handling with secret storage

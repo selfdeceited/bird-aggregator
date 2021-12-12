@@ -48,5 +48,10 @@ namespace BirdAggregator.Migrator.Providers
                 return model;
             });
         }
+
+        public Task TrackDuplicatePhotos()
+        {
+            return _m.TrackDuplicatePhotos();
+        }
     }
 }

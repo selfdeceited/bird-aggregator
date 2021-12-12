@@ -16,5 +16,6 @@ namespace BirdAggregator.Migrator.Services
         Task<Location> GetLocation(PhotoId photoId, CancellationToken ct);
         Task EnsureCollectionsExist(CancellationToken ct);
         Task<SavePhotoResult[]> SavePhotosInformation(IList<SavePhotoModel> savePhotoModels, CancellationToken ct);
+        Task TrackDuplicatePhotos();
     }
 }

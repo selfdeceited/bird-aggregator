@@ -78,8 +78,13 @@ namespace BirdAggregator.Migrator.Services
                 var photo = await _photoRepository.GetByHostingId(flickrId);
                 if (photo == null)
                     return true;
-                ColoredConsole.WriteLine(JsonSerializer.Serialize(photo), Colors.txtWarning);
-                return photo.Caption != title;
+
+
+                ColoredConsole.WriteLine("already saved: " + JsonSerializer.Serialize(photo), Colors.txtWarning);
+
+                // todo: detect if caption is changed and the reupload is required.
+                return false;
+                
             }
             catch (Exception e)
             {
@@ -112,6 +117,11 @@ namespace BirdAggregator.Migrator.Services
             var response = await _pictureFetchingService.GetSize(photoId.flickrId, ct);
             ColoredConsole.WriteLine($"        > sizes for #{photoId.flickrId} fetched: {response.sizes.size.FirstOrDefault()?.url}", Colors.txtInfo);
             return response.sizes;
+        }
+
+        public async Task TrackDuplicatePhotos()
+        {
+            await _photoWriteRepository.TrackDuplicatePhotos();
         }
     }
 }
