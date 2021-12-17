@@ -1,5 +1,3 @@
-import * as axios from '../../http.adapter'
-
 import { BirdGalleryMapStyled, BirdInfoStyled, BirdPageGalleryStyled, BirdPageStyled } from './BirdPageStyled'
 import React, { FC, useEffect, useState } from 'react'
 
@@ -7,8 +5,9 @@ import { Gallery } from '../Gallery/Gallery'
 import { MapContainer } from '../Map/Map'
 import { WikiDescription } from './Wikipedia/WikiDescription'
 import { WikiImage } from './Wikipedia/WikiImage'
+import { fetchWikiData } from '../../clients/GalleryClient'
 
-interface IWikiData {
+export interface WikiData {
 	name: string
 	wikiInfo: string
 	imageUrl: string
@@ -17,14 +16,14 @@ interface IWikiData {
 interface ParamMatchedProps {
 	match: {
 		params: {
-			id: number
+			id: string
 		}
 	}
 }
 
 /* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment*/
-const fetchWikiInfo = async (birdId: number, setWikiData: (data: IWikiData) => void): Promise<void> => {
-	const { data: wikiData } = await axios.get(`/api/birds/info/${birdId}`)
+const fillWikiData = async (birdId: string, setWikiData: (data: WikiData) => void): Promise<void> => {
+	const wikiData = await fetchWikiData(birdId)
 	const extract = JSON.parse(wikiData.wikiInfo)
 	const html = extract.query.pages[Object.keys(extract.query.pages)[0]].extract
 
@@ -60,7 +59,7 @@ export const BirdGallery: FC<ParamMatchedProps> = props => {
 			params: { id: birdId },
 		},
 	} = props
-	const [wikiData, setWikiData] = useState<IWikiData>({
+	const [wikiData, setWikiData] = useState<WikiData>({
 		name: '',
 		wikiInfo: '',
 		imageUrl: '',
@@ -68,7 +67,7 @@ export const BirdGallery: FC<ParamMatchedProps> = props => {
 
 	useEffect(() => {
 		// eslint-disable-next-line @typescript-eslint/no-floating-promises
-		fetchWikiInfo(birdId, setWikiData)
+		fillWikiData(birdId, setWikiData)
 	}, [birdId])
 
 	// todo: think how to show in better on mobile

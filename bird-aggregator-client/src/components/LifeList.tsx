@@ -1,5 +1,4 @@
 import * as Blueprint from '@blueprintjs/core'
-import * as axios from '../http.adapter'
 
 import { Button, Icon, Popover } from '@blueprintjs/core'
 import React, { useEffect, useState } from 'react'
@@ -7,31 +6,31 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { MapContainer } from './Map/Map'
 import { YearlyLifeList } from './YearlyLifeList'
+import { fetchLifelist } from '../clients/LifeListClient'
 import moment from 'moment'
 
-interface ILifeListDto {
-	birdId: number
+export interface ILifeListDto {
+	birdId: string
 	name: string
 	dateMet: string
 	location: string
-	photoId: number
+	photoId: string
 }
 
 export const LifeList: React.FC = () => {
 	const [lifelist, setLifelist] = useState<ILifeListDto[]>([])
 
-	const fetchLifelist = async (): Promise<void> => {
-		const res = await axios.get('/api/lifelist')
+	const fillLifelist = async (): Promise<void> => {
+		const firstOccurences = await fetchLifelist()
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-		setLifelist(res.data.firstOccurences as ILifeListDto[])
+		setLifelist(firstOccurences)
 	}
 
 	useEffect(() => {
-		// eslint-disable-next-line @typescript-eslint/no-floating-promises
-		fetchLifelist()
+		void fillLifelist()
 	}, [])
 
-	const LifeListPopover: React.FC<{ photoId: number }> = ({ photoId }) => (photoId > 0) ?
+	const LifeListPopover: React.FC<{ photoId: string }> = ({ photoId }) => photoId ?
 		(<Blueprint.Popover
 			target={<Blueprint.Button className="bp3-button bp3-minimal bp3-icon-map-marker display-block"/>}
 			content={<MapContainer embedded photoId={photoId}/>}/>) : null

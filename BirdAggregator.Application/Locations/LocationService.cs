@@ -1,6 +1,4 @@
 using System.Linq;
-using System.Threading.Tasks;
-using BirdAggregator.Application.Locations.GetLocations;
 using BirdAggregator.Domain.Birds;
 using BirdAggregator.Domain.Interfaces;
 using BirdAggregator.Domain.Locations;
@@ -33,7 +31,7 @@ namespace BirdAggregator.Application.Locations
             {
                 X = location.Longitude,
                 Y = location.Latitude,
-                Birds = photo.Birds.Select(x=> new BirdMarkerDto {
+                Birds = photo.Birds.Select(x => new BirdMarkerDto {
                     Id = x.Id,
                     Name = x.EnglishName
                 }).ToArray(),

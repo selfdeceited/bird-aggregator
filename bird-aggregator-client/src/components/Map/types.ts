@@ -1,10 +1,9 @@
 export type InputUrlParameters = {
-	photoId?: number
-	birdId?: number
+	photoId?: string
+	birdId?: string
 }
 
 export interface MapMarker {
-	id: number
 	x: number
 	y: number
 	birds: ShortBirdInfo[]
@@ -12,6 +11,6 @@ export interface MapMarker {
 }
 
 export interface ShortBirdInfo {
-	id: number
+	id: string
 	name: string
 }

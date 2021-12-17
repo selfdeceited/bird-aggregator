@@ -1,8 +1,5 @@
-using System;
 using System.Threading.Tasks;
-using BirdAggregator.Application.Locations.GetLocations;
-using BirdAggregator.Application.Locations.GetLocationsByBirdId;
-using BirdAggregator.Application.Locations.GetLocationsById;
+using BirdAggregator.Application.Locations;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

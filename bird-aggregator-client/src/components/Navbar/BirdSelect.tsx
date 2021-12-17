@@ -3,7 +3,7 @@ import * as React from 'react'
 
 import { ItemPredicate, ItemRenderer, Select } from '@blueprintjs/labs'
 
-import { Bird } from './Navbar'
+import { Bird } from '../../clients/GalleryClient'
 
 export const BirdSelect = Select.ofType<Bird>()
 

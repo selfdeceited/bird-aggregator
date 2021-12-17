@@ -80,7 +80,7 @@ namespace BirdAggregator.Migrator.Services
                     return true;
 
 
-                ColoredConsole.WriteLine("already saved: " + JsonSerializer.Serialize(photo), Colors.txtWarning);
+                // ColoredConsole.WriteLine("already saved: " + JsonSerializer.Serialize(photo), Colors.txtWarning);
 
                 // todo: detect if caption is changed and the reupload is required.
                 return false;

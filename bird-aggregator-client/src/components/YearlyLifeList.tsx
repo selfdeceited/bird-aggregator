@@ -1,8 +1,8 @@
-import * as axios from '../http.adapter'
-
 import React, { useEffect, useState } from 'react'
 
-interface IYearlyLifeListDto {
+import { fetchYearlyLifelist } from '../clients/LifeListClient'
+
+export interface IYearlyLifeListDto {
 	key: number
 	count: number
 }
@@ -10,14 +10,10 @@ interface IYearlyLifeListDto {
 export const YearlyLifeList: React.FC = () => {
 	const [lifelist, setLifelist] = useState<IYearlyLifeListDto[]>([])
 	useEffect(() => {
-
-		/* eslint-disable @typescript-eslint/no-unsafe-member-access*/
-		// eslint-disable-next-line @typescript-eslint/no-floating-promises
-		(async () => {
-			const res = await axios.get('/api/lifelist/peryear')
-			setLifelist(res.data.perYearCollection as IYearlyLifeListDto[])
+		void (async () => {
+			const perYearCollection = await fetchYearlyLifelist()
+			setLifelist(perYearCollection)
 		})()
-		/* eslint-enable @typescript-eslint/no-unsafe-member-access*/
 	}, [])
 
 	return (

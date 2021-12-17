@@ -4,8 +4,9 @@ using System.Threading.Tasks;
 using BirdAggregator.Domain.Locations;
 using BirdAggregator.Domain.Photos;
 
-namespace BirdAggregator.Application.Locations.GetLocations
+namespace BirdAggregator.Application.Locations
 {
+    public record GetLocationsQuery : IQuery<LocationListDto>;
     public class GetLocationsQueryHandler : IQueryHandler<GetLocationsQuery, LocationListDto>
     {
         private readonly ILocationRepository _locationRepository;

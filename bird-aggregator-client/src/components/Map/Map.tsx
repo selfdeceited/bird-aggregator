@@ -3,7 +3,6 @@
 
 import * as GeoJSON from 'geojson'
 import * as React from 'react'
-import * as axios from '../../http.adapter'
 
 import { InputUrlParameters, MapMarker } from './types'
 import ReactMapboxGl, { Cluster, Marker, Popup, ZoomControl } from 'react-mapbox-gl'
@@ -13,6 +12,7 @@ import { useEffect, useState } from 'react'
 import { BirdPopup } from './BirdPopup'
 import { Map as RootMap } from 'mapbox-gl'
 import { aggregatePhotosInSameLocation } from './locationAggregator'
+import { fetchMarkersByProps } from '../../clients/MarkerClient'
 import { mapboxAccessToken } from '../../tokens'
 
 // todo: consider https://github.com/visgl/react-map-gl
@@ -20,7 +20,7 @@ const MapBox = ReactMapboxGl({
 	accessToken: mapboxAccessToken,
 })
 
-type MapContainerProps = InputUrlParameters & { embedded: boolean }
+export type MapContainerProps = InputUrlParameters & { embedded: boolean }
 
 export const MapContainer: React.FC<MapContainerProps> = props => {
 	const initialWidth = (): string => {
@@ -43,27 +43,9 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 	const [zoomLevel, setZoomLevel] = useState<[number]>([6])
 	const [selectedMarker, setSelectedMarker] = useState<MapMarker | undefined>()
 
-	const urlHandler = (propName: keyof InputUrlParameters): string => {
-		const check = (url: string): string => (props[propName] ? `${url}/${props[propName] ?? ''}` : '')
 
-		const dict: Record<keyof InputUrlParameters, string> = {
-			birdId: check('/api/map/bird'),
-			photoId: check('/api/map/markers'),
-		}
-
-		return dict[propName]
-	}
-
-	/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment*/
 	const fetchData = async (): Promise<void> => {
-		const urlsToFetch = ['birdId', 'photoId']
-			.map(_ => urlHandler(_ as keyof InputUrlParameters))
-			.filter(x => Boolean(x))
-
-		const urlToFetch = urlsToFetch.length > 0 ? urlsToFetch[0] : '/api/map/markers'
-
-		const response = await axios.get(urlToFetch)
-		let { markers: fetchedMarkers } = response.data
+		let fetchedMarkers = await fetchMarkersByProps(props)
 
 		fetchedMarkers = aggregatePhotosInSameLocation(fetchedMarkers)
 		setMarkers(fetchedMarkers)
@@ -77,8 +59,8 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 	useEffect(() => {
 		setMarkers([])
 		setSelectedMarker(void 0)
-		// eslint-disable-next-line @typescript-eslint/no-floating-promises
-		fetchData()
+		void fetchData()
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.embedded ? props.birdId : null])
 
 	const markerClick = (marker: MapMarker): void => {
@@ -154,7 +136,6 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 
 				{selectedMarker && !props.embedded ? (
 					<Popup
-						key={selectedMarker.id}
 						offset={[0, -50]}
 						coordinates={[selectedMarker.x, selectedMarker.y]}
 						style={popupStyles}

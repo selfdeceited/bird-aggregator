@@ -1,12 +1,12 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using BirdAggregator.Application.Locations.GetLocations;
 using BirdAggregator.Domain.Locations;
 using BirdAggregator.Domain.Photos;
 
-namespace BirdAggregator.Application.Locations.GetLocationsByBirdId
+namespace BirdAggregator.Application.Locations
 {
+    public record GetLocationsByBirdIdQuery(string BirdId): IQuery<LocationListDto>;
     public class GetLocationsByBirdIdQueryHandler : IQueryHandler<GetLocationsByBirdIdQuery, LocationListDto>
     {
         private readonly ILocationRepository _locationRepository;

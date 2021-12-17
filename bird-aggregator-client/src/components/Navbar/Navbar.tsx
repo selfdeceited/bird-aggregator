@@ -1,43 +1,38 @@
 import * as Blueprint from '@blueprintjs/core'
 import * as React from 'react'
-import * as axios from '../../http.adapter'
 
+import { Bird, fetchAllBirds } from '../../clients/GalleryClient'
 import { BirdLink, GithubLink, ImageHostingLink, LifeListLink, MapLink, RootPageLink, TripListLink } from './links/'
 import { BirdSelect, filterBird, renderBird } from './BirdSelect'
+import { LinkResponse, fetchAs } from '../../clients'
 import { useEffect, useState } from 'react'
 
-export type Bird = { id: number; name: string; latin: string }
-
 export const Navbar: React.FC = () => {
-	const [birds, setBirds] = useState([] as Bird[])
+	const [birds, setBirds] = useState<Bird[]>([])
 	const [githubLink, setGithubLink] = useState('')
 	const [imageHostingLink, setImageHostingLink] = useState('')
 	const [userName, setUserName] = useState('')
-	const [selectedBird, setSelectedBird] = useState({ id: 0, name: '', latin: '' } as Bird)
+	const [selectedBird, setSelectedBird] = useState<Bird>({ id: 0, name: '', latin: '' })
 
-	/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment*/
 	useEffect(() => {
 		const fetchEverything: () => Promise<void> = async () => {
-			const { data: fetchedGithubLink } = await axios.get('/api/links/github')
+			const fetchedGithubLink = await fetchAs<LinkResponse>('/api/links/github')
 			setGithubLink(fetchedGithubLink)
 
-			const { data: fetchedImageHostingLink } = await axios.get('/api/links/hosting')
+			const fetchedImageHostingLink = await fetchAs<LinkResponse>('/api/links/hosting')
 			setImageHostingLink(fetchedImageHostingLink)
 
-			const { data: fetchedUserName } = await axios.get('/api/links/user')
+			const fetchedUserName = await fetchAs<LinkResponse>('/api/links/user')
 			setUserName(fetchedUserName)
 
-			const { data: { birds: fetchedBirds } } = await axios.get('/api/birds')
+			const fetchedBirds = await fetchAllBirds()
 			setBirds(fetchedBirds)
 
 			const [ initiallySelectedBird ] = fetchedBirds
 			setSelectedBird(initiallySelectedBird)
 		}
-		// eslint-disable-next-line @typescript-eslint/no-floating-promises
-		fetchEverything()
+		void fetchEverything()
 	}, [])
-
-	/* eslint-enable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment*/
 
 	return (
 		<nav className="bp3-navbar bp3-fixed-top">
