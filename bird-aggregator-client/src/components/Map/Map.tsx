@@ -22,23 +22,24 @@ const MapBox = ReactMapboxGl({
 
 export type MapContainerProps = InputUrlParameters & { embedded: boolean }
 
-export const MapContainer: React.FC<MapContainerProps> = props => {
-	const initialWidth = (): string => {
-		if (props.embedded) {
-			return props.birdId ? '100%' : '220px'
-		}
-		return '100vw'
+const initialWidth = (props: MapContainerProps): string => {
+	if (props.embedded) {
+		return props.birdId ? '100%' : '220px'
 	}
-	const initialHeight = (): string => {
-		if (props.embedded) {
-			return props.birdId ? '400px' : '220px'
-		}
-		return 'calc(100vh - 50px)'
-	}
+	return '100vw'
+}
 
+const initialHeight = (props: MapContainerProps): string => {
+	if (props.embedded) {
+		return props.birdId ? '400px' : '220px'
+	}
+	return 'calc(100vh - 50px)'
+}
+
+export const MapContainer: React.FC<MapContainerProps> = props => {
 	const [center, setCenter] = useState<[number, number]>([35.5, 55.6])
-	const [mapHeight] = useState<string>(initialHeight())
-	const [mapWidth] = useState<string>(initialWidth())
+	const [mapHeight] = useState<string>(initialHeight(props))
+	const [mapWidth] = useState<string>(initialWidth(props))
 	const [markers, setMarkers] = useState<MapMarker[]>([])
 	const [zoomLevel, setZoomLevel] = useState<[number]>([6])
 	const [selectedMarker, setSelectedMarker] = useState<MapMarker | undefined>()
@@ -54,7 +55,6 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 			setCenter([fetchedMarkers[0].x, fetchedMarkers[0].y])
 		}
 	}
-	/* eslint-enable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment*/
 
 	useEffect(() => {
 		setMarkers([])

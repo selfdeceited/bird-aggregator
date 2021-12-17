@@ -4,6 +4,10 @@ const defaultMarkerStyle: CSSProperties = {
 	left: 0,
 	top: 0,
 	position: 'absolute',
+	display: 'flex',
+	justifyContent: 'center',
+	height: 30,
+	width: 30,
 }
 
 export const mapStyles: { [key: string]: CSSProperties } = {
@@ -14,10 +18,6 @@ export const mapStyles: { [key: string]: CSSProperties } = {
 		borderRadius: '50%',
 		color: 'white',
 		cursor: 'pointer',
-		display: 'flex',
-		justifyContent: 'center',
-		height: 30,
-		width: 30,
 		...defaultMarkerStyle,
 	},
 	marker: {
@@ -27,10 +27,6 @@ export const mapStyles: { [key: string]: CSSProperties } = {
 		backgroundSize: 'contain',
 		border: '2px solid rgba(255, 255, 255, 0)',
 		borderRadius: '50%',
-		display: 'flex',
-		justifyContent: 'center',
-		height: 30,
-		width: 30,
 		...defaultMarkerStyle,
 	},
 }

@@ -7,13 +7,13 @@ type MapMarkersResponse = {
 }
 
 async function fetchMarkersForBird(birdId: string): Promise<MapMarker[]> {
-	const url = `/api/map/bird${birdId}`
+	const url = `/api/map/bird/${birdId}`
 	const { markers } = await fetchAs<MapMarkersResponse>(url)
 	return markers
 }
 
 async function fetchMarkersForPhoto(photoId: string): Promise<MapMarker[]> {
-	const url = `/api/map/photo${photoId}`
+	const url = `/api/map/photo/${photoId}`
 	const { markers } = await fetchAs<MapMarkersResponse>(url)
 	return markers
 }
