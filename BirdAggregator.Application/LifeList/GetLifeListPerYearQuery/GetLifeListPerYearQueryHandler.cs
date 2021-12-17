@@ -24,8 +24,14 @@ namespace BirdAggregator.Application.LifeList.GetLifeListPerYearQuery
                 PerYearCollection = yearsGrouping.Select(x => new PerYearInfo
                 {
                     Key = x.Key,
-                    Count = x.SelectMany(_ => _.Birds).GroupBy(x => x.Id).Select(x => x.First()).Count()
-                }).ToList()
+                    Count = x
+                        .SelectMany(_ => _.Birds)
+                        .GroupBy(x => x.Id)
+                        .Select(x => x.First())
+                        .Count()
+                })
+                .OrderByDescending(x => x.Key)
+                .ToList()
             };
         }
     }

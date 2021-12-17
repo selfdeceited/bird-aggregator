@@ -12,8 +12,7 @@ export async function fetchLifelist(): Promise<ILifeListDto[]> {
 }
 
 export async function fetchYearlyLifelist(): Promise<IYearlyLifeListDto[]> {
-	const url = '/api/lifelist'
+	const url = '/api/lifelist/peryear'
 	const { perYearCollection } = await fetchAs<YearlyLifeListResponse>(url)
 	return perYearCollection
 }
-

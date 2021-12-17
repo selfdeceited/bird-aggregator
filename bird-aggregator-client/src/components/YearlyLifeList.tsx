@@ -10,10 +10,11 @@ export interface IYearlyLifeListDto {
 export const YearlyLifeList: React.FC = () => {
 	const [lifelist, setLifelist] = useState<IYearlyLifeListDto[]>([])
 	useEffect(() => {
-		void (async () => {
+		const fillLifeList = async function(): Promise<void> {
 			const perYearCollection = await fetchYearlyLifelist()
 			setLifelist(perYearCollection)
-		})()
+		}
+		void fillLifeList()
 	}, [])
 
 	return (
