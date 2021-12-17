@@ -2,9 +2,9 @@ import { MapMarker, ShortBirdInfo } from './types'
 
 import { aggregatePhotosInSameLocation } from './locationAggregator'
 
-const duck: ShortBirdInfo = { id: 1, name: 'duck' }
-const owl: ShortBirdInfo = { id: 2, name: 'owl' }
-const eagle: ShortBirdInfo = { id: 3, name: 'eagle' }
+const duck: ShortBirdInfo = { id: '1', name: 'duck' }
+const owl: ShortBirdInfo = { id: '2', name: 'owl' }
+const eagle: ShortBirdInfo = { id: '3', name: 'eagle' }
 
 describe('should correctly aggregate locations', () => {
 	it("when there's none", () => {
@@ -16,14 +16,12 @@ describe('should correctly aggregate locations', () => {
 	it("when there's literally same location", () => {
 		const rawMarkers: MapMarker[] = [
 			{
-				id: 1,
 				x: 5,
 				y: 5,
 				birds: [duck],
 				firstPhotoUrl: 'string',
 			},
 			{
-				id: 2,
 				x: 5,
 				y: 5,
 				birds: [owl],
@@ -36,7 +34,6 @@ describe('should correctly aggregate locations', () => {
 			expect.objectContaining<Partial<MapMarker>>({
 				x: 5,
 				y: 5,
-				id: 1,
 				birds: [duck, owl],
 			}),
 		)
@@ -44,21 +41,19 @@ describe('should correctly aggregate locations', () => {
 
 	it.each`
 		precision | expectedMarkers
-		${0}      | ${[{ x: 5, y: 5, id: 1, birds: [duck, owl, eagle] }]}
-		${1}      | ${[{ x: 5, y: 5, id: 1, birds: [duck, owl] }, { x: 5.1, y: 4.6, id: 2, birds: [eagle, owl] }]}
+		${0}      | ${[{ x: 5, y: 5, birds: [duck, owl, eagle] }]}
+		${1}      | ${[{ x: 5, y: 5, birds: [duck, owl] }, { x: 5.1, y: 4.6, birds: [eagle, owl] }]}
 	`(
 		"when there's not the same location, but with precision $precision it either merges markers or not",
 		({ precision, expectedMarkers }) => {
 			const rawMarkers: MapMarker[] = [
 				{
-					id: 1,
 					x: 5,
 					y: 5,
 					birds: [duck, owl],
 					firstPhotoUrl: 'string',
 				},
 				{
-					id: 2,
 					x: 5.1,
 					y: 4.6,
 					birds: [eagle, owl],
