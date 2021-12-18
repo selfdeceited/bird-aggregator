@@ -15,5 +15,11 @@
     ],
     "eslint.workingDirectories": [
         "bird-aggregator-client"
-      ]
+    ],
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+    ]
 }

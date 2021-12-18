@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using BirdAggregator.Application.Configuration;
-using BirdAggregator.Infrastructure.DataAccess.Photos;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 
@@ -41,8 +40,6 @@ namespace BirdAggregator.Infrastructure.Mongo
                     : _database.CreateCollectionAsync(_, cancellationToken: ct));
 
             await Task.WhenAll(dbCreationTasks);
-
-            // await InitTestDatabase();
         }
 
         /// <summary>
@@ -63,19 +60,6 @@ namespace BirdAggregator.Infrastructure.Mongo
         {
             _client = null;
             _database = null;
-        }
-
-        private Task InitTestDatabase()
-        {
-            if (!_appSettings.IsTestRun)
-                return Task.CompletedTask;
-            var initTasks = new[] {
-                InitCollection<PhotoModel>(@"../data/data.photos.json", "photos"),
-                InitCollection<BirdModel>(@"../data/data.birds.json", "birds")
-            };
-
-            return Task.WhenAll(initTasks);
-
         }
 
         private async Task InitCollection<T>(string fileName, string collectionName)
@@ -102,7 +86,6 @@ namespace BirdAggregator.Infrastructure.Mongo
                     writeConcern: WriteConcern.W1);
                 
                 return await session.WithTransactionAsync(
-                    //async (s, ct) => await execute(s, ct),
                     execute,
                     transactionOptions,
                     cancellationToken);    
