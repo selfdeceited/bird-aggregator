@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using BirdAggregator.Application.Configuration;
 using MongoDB.Driver;
-using Newtonsoft.Json;
 
 namespace BirdAggregator.Infrastructure.Mongo
 {
@@ -71,7 +71,7 @@ namespace BirdAggregator.Infrastructure.Mongo
             var path = Path.Combine(Assembly.GetEntryAssembly()?.Location ?? "", "../", fileName);
             Console.WriteLine(path);
             var fileContent = await File.ReadAllTextAsync(path);
-            var models = JsonConvert.DeserializeObject<List<T>>(fileContent);
+            var models = JsonSerializer.Deserialize<List<T>>(fileContent);
             await collection.InsertManyAsync(models);
         }
 

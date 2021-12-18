@@ -5,6 +5,9 @@ dist
 .DS_Store
 log*
 
+## I know it's not recommended, but i already commit yarn.lock
+package-lock.json 
+
 ## for debug
 out.txt
 

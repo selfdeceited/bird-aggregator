@@ -7,7 +7,6 @@
 		"eslint:recommended",
 		"plugin:react/recommended",
 		"plugin:promise/recommended",
-		"plugin:sonarjs/recommended",
 		"plugin:@typescript-eslint/eslint-recommended",
 		"plugin:@typescript-eslint/recommended",
 		"plugin:@typescript-eslint/recommended-requiring-type-checking",
@@ -22,7 +21,6 @@
 		"react-hooks",
 		"promise",
 		"optimize-regex",
-		"sonarjs",
 		"@typescript-eslint",
 		"jest"
 	],
@@ -184,7 +182,6 @@
 				],
 				"array-bracket-newline": "off",
 				"id-match": "off",
-				"sonarjs/cognitive-complexity": "warn",
 				"no-confusing-arrow": "off",
 				"@typescript-eslint/unbound-method": [
 					"error",
@@ -208,8 +205,6 @@
 				"@typescript-eslint/member-ordering": "off",
 				"@typescript-eslint/no-non-null-assertion": "off",
 				"@typescript-eslint/no-empty-function": "off",
-				"sonarjs/no-duplicate-string": "off",
-				"sonarjs/no-identical-functions": "off",
 				"@typescript-eslint/no-unsafe-member-access": "off",
 				"@typescript-eslint/no-unsafe-call": "off"
 			}

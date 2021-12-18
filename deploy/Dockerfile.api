@@ -7,8 +7,12 @@ COPY BirdAggregator.Host/*.csproj ./BirdAggregator.Host/
 COPY BirdAggregator.Domain/*.csproj ./BirdAggregator.Domain/
 COPY BirdAggregator.Application/*.csproj ./BirdAggregator.Application/
 COPY BirdAggregator.Infrastructure/*.csproj ./BirdAggregator.Infrastructure/
+COPY BirdAggregator.Migrator/*.csproj ./BirdAggregator.Migrator/
+COPY BirdAggregator.SharedKernel/*.csproj ./BirdAggregator.SharedKernel/
+
 COPY Tests/BirdAggregator.Tests.Unit/*.csproj ./Tests/BirdAggregator.Tests.Unit/
 COPY Tests/BirdAggregator.Tests.Integration/*.csproj ./Tests/BirdAggregator.Tests.Integration/
+
 
 RUN dotnet restore
 
@@ -16,13 +20,12 @@ RUN dotnet restore
 COPY . .
 WORKDIR /source/BirdAggregator.Host
 RUN dotnet publish -c release -o /app --no-restore
-COPY ./data /app/data
 
 # trust local dev cert
 RUN dotnet dev-certs https --trust
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/core/aspnet:6.0 as runtime
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 as runtime
 WORKDIR /app
 COPY --from=build /app ./
 
