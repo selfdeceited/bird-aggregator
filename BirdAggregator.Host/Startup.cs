@@ -12,11 +12,10 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
-//[assembly: UserSecretsId("c10e1a7d-8e00-44f5-a9ff-1a86af9e068a")]
 namespace BirdAggregator.Host
 {
     public class Startup
@@ -30,7 +29,6 @@ namespace BirdAggregator.Host
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
                 .AddJsonFile($"hosting.{env.EnvironmentName}.json")
-                //.AddUserSecrets<Startup>()
                 .Build();
         }
 
@@ -38,10 +36,11 @@ namespace BirdAggregator.Host
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            /*services
-               .AddHealthChecksUI()
-               .AddInMemoryStorage();*/
+            services.AddLogging(logging => {
+                logging.ClearProviders();
+                logging.AddConsole();
+                logging.AddDebug();
+            });
 
             services.AddControllers();
 
@@ -63,8 +62,6 @@ namespace BirdAggregator.Host
 
                 options.AddPolicy(CorsPolicy, builder.Build());
             });
-
-            //services.AddSignalR();
 
             services.Configure<GzipCompressionProviderOptions>(options =>
                 options.Level = CompressionLevel.Optimal);
@@ -111,25 +108,15 @@ namespace BirdAggregator.Host
                     pattern: "{controller}/{action=Index}/{id?}");
 
                 endpoints.MapHealthChecks("/health");
-                //endpoints.MapHealthChecksUI();
             });
-
-            //app.UseEndpoints(r => r.MapHub<SeedHub>("seed"));
 
 
             app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 c.RoutePrefix = string.Empty;
-                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                //c.IncludeXmlComments(xmlPath);
             });
-
         }
     }
 }

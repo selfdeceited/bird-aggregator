@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using BirdAggregator.Domain.Interfaces;
 using BirdAggregator.Domain.Photos;
 using RestSharp;
-using RestSharp.Serializers.NewtonsoftJson;
+using RestSharp.Serializers.SystemTextJson;
 
 namespace BirdAggregator.Infrastructure.Wikipedia
 {
@@ -40,10 +40,10 @@ namespace BirdAggregator.Infrastructure.Wikipedia
         }
 
         private string CallWikipedia(string requestUrl){
-	        var client = new RestClient { BaseUrl = new Uri("https://en.wikipedia.org") };
-            client.UseNewtonsoftJson();
-	        var request = new RestRequest { Resource = requestUrl };
-	        var response = client.Execute(request);
+        var client = new RestClient { BaseUrl = new Uri("https://en.wikipedia.org") };
+            client.UseSystemTextJson();
+            var request = new RestRequest { Resource = requestUrl };
+            var response = client.Execute(request);
             return response.Content;
         }
     }
