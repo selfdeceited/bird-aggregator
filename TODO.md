@@ -11,7 +11,6 @@
  - [ ] switch to styled components
  - [ ] switch to effector
  - [ ] switch to vite
- - [ ] service layer from http calls, add typegen and remove linter comments
  - [ ] convert logic to hooks, write tests for hooks
  - [ ] create a mock server
  - [ ] run tests in CI at github actions
@@ -20,11 +19,10 @@
 
 # INFRA
 
- - [ ] CI pipeline at github actions
+ - [ ] Robust CI & CD pipeline at github actions
  - [ ] Healthcheck in Dockerfile.api
  - [ ] K8s infra
- - [ ] CD in Github Actions
  - [ ] integration tests
- - [ ] deploy data migration app as a sidecar
- - [ ] vscode devcontainer
+ - [ ] deploy data migration app as a sidecar, run it as a cron job
+ - [ ] check out vscode devcontainer
  - [ ] add health checks
