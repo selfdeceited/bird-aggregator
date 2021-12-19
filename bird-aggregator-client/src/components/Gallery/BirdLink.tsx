@@ -1,5 +1,6 @@
 import { BirdLinkStyled, TimestampStyled } from './GalleryStyled'
 
+import { FlickrLinkStyled } from './FlickrLinkStyled'
 import { Link } from 'react-router-dom'
 import React from 'react'
 import moment from 'moment'
@@ -8,13 +9,15 @@ type Props = {
 	birdIds: number[]
 	birdNames: string
 	dateTaken: string
+	hostingLink: string
 }
 
 function zip<T, U>(listT: T[], listU: U[]): ([T, U])[] {
 	return listT.map((t: T, i: number) => [t, listU[i]])
 }
 
-export const BirdLink: React.FC<Props> = ({ birdIds, birdNames, dateTaken }) => {
+export const BirdLink: React.FC<Props> = (
+	{ birdIds, birdNames, dateTaken, hostingLink }) => {
 	const photoTitles = zip(birdNames.split(','), birdIds)
 	return <BirdLinkStyled>
 		{
@@ -26,6 +29,9 @@ export const BirdLink: React.FC<Props> = ({ birdIds, birdNames, dateTaken }) => 
 				>{birdName}{i === photoTitles.length - 1 ? '' : ','}</Link>
 			})
 		}
+		<FlickrLinkStyled href={hostingLink} target="_blank">
+			show source...
+		</FlickrLinkStyled>
 		<TimestampStyled>
 			{moment(dateTaken).format('LLLL')}
 		</TimestampStyled>

@@ -14,5 +14,6 @@ namespace BirdAggregator.Application.Photos
         public string Original { get; set; }
         public string Text { get; set; }
         public IEnumerable<string> BirdIds { get; set; }
+        public string HostingLink { get; set; }
     }
 }

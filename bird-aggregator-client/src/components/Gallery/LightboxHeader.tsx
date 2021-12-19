@@ -9,6 +9,7 @@ export type ViewTypeExtended = ViewType & {
 	birdIds: number[]
 	dateTaken: string
 	birdNames: string
+	hostingLink: string
 }
 
 export const LightboxHeader: React.FC<CommonProps> = (commonProps: CommonProps) => {
@@ -19,7 +20,12 @@ export const LightboxHeader: React.FC<CommonProps> = (commonProps: CommonProps) 
 
 	return (
 		<HeaderStyled>
-			<BirdLink birdIds={view.birdIds} birdNames={view.birdNames} dateTaken={view.dateTaken} />
+			<BirdLink
+				birdIds={view.birdIds}
+				birdNames={view.birdNames}
+				dateTaken={view.dateTaken}
+				hostingLink={view.hostingLink}
+			/>
 		</HeaderStyled>
 	)
 }

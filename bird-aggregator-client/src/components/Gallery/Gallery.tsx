@@ -93,6 +93,7 @@ export const Gallery: React.FC<Props> = props => {
 								dateTaken: x.dateTaken,
 								birdNames: x.caption,
 								birdIds: x.birdIds,
+								hostingLink: x.hostingLink,
 							}))}
 
 						/>

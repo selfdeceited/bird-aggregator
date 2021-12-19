@@ -33,7 +33,8 @@ namespace BirdAggregator.Application.Photos
                         BirdIds = _.Birds.Select(x => x.Id),
                         Height = 1,
                         Width = _.Ratio,
-                        Text = _.Description
+                        Text = _.Description,
+                        HostingLink = links.WebsiteLink,
                     };
                 }).ToList()
             };

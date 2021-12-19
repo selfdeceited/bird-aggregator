@@ -32,7 +32,8 @@ namespace BirdAggregator.Application.Photos
                         BirdIds = photo.Birds.Select(x => x.Id),
                         Height = 1,
                         Width = photo.Ratio,
-                        Text = photo.Description
+                        Text = photo.Description,
+                        HostingLink = links.WebsiteLink,
             };
             
             return new GetGalleryWithPhotoDto(photoDto);

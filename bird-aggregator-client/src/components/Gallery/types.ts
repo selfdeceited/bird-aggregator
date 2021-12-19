@@ -12,4 +12,5 @@ export interface ImageProps {
 	dateTaken: string
 	birdIds: number[]
 	text: string
+	hostingLink: string
 }
