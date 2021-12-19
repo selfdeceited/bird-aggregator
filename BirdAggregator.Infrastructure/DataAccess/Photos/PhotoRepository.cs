@@ -70,14 +70,14 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
                 .ToArray();
         }
 
-        async Task<Photo[]> IPhotoRepository.GetAllAsync(int count, SortDirection sortDirection)
+        public async Task<Photo[]> GetAllAsync(int count, SortDirection sortDirection)
         {
             var lookup = GetPhotoResultModelLookup();
 
             var sortedLookup = sortDirection switch {
-                SortDirection.Latest => lookup.SortByDescending<PhotoResultModel>(m => m.DateTaken),
+                SortDirection.Latest => lookup.SortByDescending(m => m.DateTaken),
                 SortDirection.Oldest => lookup.SortBy<PhotoResultModel>(m => m.DateTaken),
-                _ => throw new ArgumentException(nameof(sortDirection))
+                _ => throw new ArgumentException(null, nameof(sortDirection))
             };
 
             var photoResultModels = await sortedLookup
@@ -126,12 +126,12 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
         // todo: consider switching to /map/photo/{id}
         public Task<Location> GetByIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         Task<Photo[]> IPhotoRepository.GetByLocationAsync(int id)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public async Task<Photo> GetByHostingId(string hostingId)

@@ -22,6 +22,8 @@ namespace BirdAggregator.Migrator
 
         public void Run()
         {
+            var cts = new CancellationTokenSource();
+            
             ColoredConsole.WriteLine("Migrator started. Press any key to stop it.", Colors.txtInfo);
             _m.EnsureCollectionsExist()
                 .SelectMany(_ => _m.GetPages())
@@ -43,15 +45,15 @@ namespace BirdAggregator.Migrator
                 .Do(LogDataSaved)
                 .DistinctUntilChanged()
                 .Subscribe();
-
+            
             Observable
                 .Interval(TimeSpan.FromSeconds(10))
-                .Subscribe(_ => _m.TrackDuplicatePhotos()); 
-            
+                .Subscribe(_ => _m.TrackDuplicatePhotos(cts.Token));
+
             CycleOnExit();
         }
 
-        private void CycleOnExit() //todo: change in --watch mode + on ci call add timer duration.
+        private void CycleOnExit() // todo: change in --watch mode + on ci call add timer duration.
         {
             bool allSaved;
             Thread.Sleep(7500); // to bootstrap stuff

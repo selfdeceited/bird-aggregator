@@ -2,13 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <!--<UserSecretsId>c10e1a7d-8e00-44f5-a9ff-1a86af9e068a</UserSecretsId>-->
-    <LangVersion>6</LangVersion>
-    <IsPackable>false</IsPackable>
+    <AssemblyName>BirdAggregator.Host</AssemblyName>
+    <UserSecretsId>c10e1a7d-8e00-44f5-a9ff-1a86af9e068a</UserSecretsId>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.HealthChecks.System" Version="5.0.1" />
+    <PackageReference Include="AspNetCore.HealthChecks.System" Version="6.0.1-rc2.2" />
     <PackageReference Include="AspNetCore.HealthChecks.Uris" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
@@ -29,5 +30,9 @@
     <ProjectReference Include="..\BirdAggregator.Application\BirdAggregator.Application.csproj" />
     <ProjectReference Include="..\BirdAggregator.Domain\BirdAggregator.Domain.csproj" />
     <ProjectReference Include="..\BirdAggregator.SharedKernel\BirdAggregator.SharedKernel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Tests\BirdAggregator.Tests.Integration\BirdAggregator.Tests.Integration.csproj" />
   </ItemGroup>
 </Project>

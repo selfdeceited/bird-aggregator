@@ -1,6 +1,9 @@
-﻿namespace BirdAggregator.SharedKernel;
-public enum SortDirection
+﻿namespace BirdAggregator.SharedKernel
 {
-    Latest = 0,
-    Oldest = 1
+    public enum SortDirection
+    {
+        Latest = 0,
+        Oldest = 1
+    }    
 }
+

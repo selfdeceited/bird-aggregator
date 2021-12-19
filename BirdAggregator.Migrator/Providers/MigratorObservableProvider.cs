@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using BirdAggregator.Migrator.Services;
 
@@ -49,9 +50,9 @@ namespace BirdAggregator.Migrator.Providers
             });
         }
 
-        public Task TrackDuplicatePhotos()
+        public Task TrackDuplicatePhotos(CancellationToken ct)
         {
-            return _m.TrackDuplicatePhotos();
+            return _m.TrackDuplicatePhotos(ct);
         }
     }
 }

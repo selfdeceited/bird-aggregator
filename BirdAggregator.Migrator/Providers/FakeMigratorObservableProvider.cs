@@ -61,6 +61,11 @@ namespace BirdAggregator.Migrator.Providers
                 );
         }
 
+        public Task TrackDuplicatePhotos(CancellationToken ct)
+        {
+            return Task.CompletedTask;
+        }
+
         private PhotoResponse.Photo GetPhotoInfo(PhotoId photoId, CancellationToken ct)
         {
             return new()
@@ -86,11 +91,6 @@ namespace BirdAggregator.Migrator.Providers
                 .Select(x => new PhotoId($"{pageNumber}_{x}__", $"B: bird_{x}_{pageNumber}"))
                 .ToArray();
 
-        }
-
-        public Task TrackDuplicatePhotos()
-        {
-            return Task.CompletedTask;
         }
     }
 }

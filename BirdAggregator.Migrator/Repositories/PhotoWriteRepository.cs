@@ -193,12 +193,12 @@ namespace BirdAggregator.Migrator.Repositories
             };
         }
 
-        public async Task TrackDuplicatePhotos()
+        public async Task TrackDuplicatePhotos(CancellationToken ct)
         {
             Program.ColoredConsole.WriteLine("Tracking duplicates...", Colors.bgWarning);
             try {
-                await FixDuplicateBirds();
-                await FixDuplicatePhotos();
+                await FixDuplicateBirds(ct);
+                await FixDuplicatePhotos(ct);
             } catch (Exception e) {
                 Program.ColoredConsole.WriteLine($"{e.Message}\n{e.StackTrace}", Colors.bgDanger);
                 throw;
@@ -206,8 +206,7 @@ namespace BirdAggregator.Migrator.Repositories
             
         }
 
-        // todo: pass through the ct
-        private async Task FixDuplicateBirds()
+        private async Task FixDuplicateBirds(CancellationToken ct)
         {
             var duplicateBirdsGroups = await _birds
                 .Aggregate()
@@ -217,16 +216,18 @@ namespace BirdAggregator.Migrator.Repositories
                 })
                 .Match(x => x.count > 1)
                 .Project(x => new { ids = x.ids })
-                .ToListAsync();
+                .ToListAsync(ct);
 
             foreach (var group in duplicateBirdsGroups) {
                 if (group.ids.Count() < 2)
                     throw new Exception("wat?!");
 
                 var firstId = group.ids.FirstOrDefault();
-                var others = group.ids.Except(new [] { firstId });
-                foreach (var other in others) {
-                    var photosOfOtherIds = await (await _photos.FindAsync(x => x.BirdIds.Contains(other))).ToListAsync();
+                var others = group.ids.Except(new [] { firstId }).ToArray();
+                foreach (var other in others)
+                {
+                    var findCursor = await _photos.FindAsync(x => x.BirdIds.Contains(other), cancellationToken: ct);
+                    var photosOfOtherIds = await findCursor.ToListAsync(ct);
                     foreach (var photo in photosOfOtherIds) {
                         var updateNameDefinition = Builders<PhotoModel>.Update
                             .Set(u => u.BirdIds, photo.BirdIds
@@ -234,14 +235,14 @@ namespace BirdAggregator.Migrator.Repositories
                             .Union(new [] { firstId }));
 
                         await _photos.UpdateManyAsync(
-                            x => x.Id == photo.Id, updateNameDefinition);
+                            x => x.Id == photo.Id, updateNameDefinition, cancellationToken: ct);
                     }
                 }
-                await _birds.DeleteManyAsync(x => others.Contains(x.Id));
+                await _birds.DeleteManyAsync(x => others.Contains(x.Id), cancellationToken: ct);
                 Program.ColoredConsole.WriteLine($"Birds with ids {JsonSerializer.Serialize(others)} removed as duplicates", Colors.bgWarning);
             } 
         }
-        private async Task FixDuplicatePhotos()
+        private async Task FixDuplicatePhotos(CancellationToken ct)
         {
              var duplicatePhotos = await _photos
                 .Aggregate()
@@ -251,7 +252,7 @@ namespace BirdAggregator.Migrator.Repositories
                 })
                 .Match(x => x.count > 1)
                 .Project(x => new { ids = x.ids })
-                .ToListAsync();
+                .ToListAsync(ct);
 
             Program.ColoredConsole.WriteLine($"duplicatePhotos: {JsonSerializer.Serialize(duplicatePhotos)}", Colors.bgWarning);
 
@@ -261,7 +262,7 @@ namespace BirdAggregator.Migrator.Repositories
                 
                 var firstId = group.ids.FirstOrDefault();
                 var others = group.ids.Except(new [] { firstId });
-                await _photos.DeleteManyAsync(x => others.Contains(x.Id));
+                await _photos.DeleteManyAsync(x => others.Contains(x.Id), ct);
                 Program.ColoredConsole.WriteLine($"Photos with ids {JsonSerializer.Serialize(others)} removed as duplicates", Colors.bgWarning);
             }
         }

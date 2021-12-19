@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using BirdAggregator.Application.Configuration;
 using BirdAggregator.Migrator.ResponseModels;
 using RestSharp;
-using RestSharp.Serializers.SystemTextJson;
+using RestSharp.Serializers.Json;
 
 namespace BirdAggregator.Migrator.Services
 {
@@ -39,7 +39,7 @@ namespace BirdAggregator.Migrator.Services
         
         public async Task<PhotoResponse> GetPhotoInfo(string hostingId, CancellationToken cancellationToken)
         {
-            var request = CreateDefaultRequest("flickr.photos.getInfo", Method.GET)
+            var request = CreateDefaultRequest("flickr.photos.getInfo", Method.Get)
                 .AddParameter("photo_id", hostingId);
 
             var response = await _client.ExecuteAsync<PhotoResponse>(request, cancellationToken);
@@ -48,7 +48,7 @@ namespace BirdAggregator.Migrator.Services
 
         public async Task<LocationResponse> GetLocation(string hostingId, CancellationToken cancellationToken)
         {
-            var request = CreateDefaultRequest("flickr.photos.geo.getLocation", Method.GET)
+            var request = CreateDefaultRequest("flickr.photos.geo.getLocation", Method.Get)
                 .AddParameter("photo_id", hostingId);
 
             var response = await _client.ExecuteAsync<LocationResponse>(request, cancellationToken);
@@ -57,7 +57,7 @@ namespace BirdAggregator.Migrator.Services
 
         public async Task<SizeResponse> GetSize(string hostingId, CancellationToken ct)
         {
-            var request = CreateDefaultRequest("flickr.photos.getSizes", Method.GET)
+            var request = CreateDefaultRequest("flickr.photos.getSizes", Method.Get)
                 .AddParameter("photo_id", hostingId);
 
             var response = await _client.ExecuteAsync<SizeResponse>(request, ct);
@@ -67,7 +67,7 @@ namespace BirdAggregator.Migrator.Services
         private async Task<PhotosResponse> GetPhotos(CancellationToken cancellationToken, int page = 0)
         {
             var loadPerPage = _appSettings.IsTestRun ? 30 : 100;
-            var request = CreateDefaultRequest("flickr.people.getPhotos", Method.GET)
+            var request = CreateDefaultRequest("flickr.people.getPhotos", Method.Get)
                 .AddParameter("user_id", _appSettings.FlickrUserId)
                 .AddParameter("per_page", loadPerPage);
 
@@ -77,7 +77,7 @@ namespace BirdAggregator.Migrator.Services
             return HandleExceptions(response);
         }
 
-        private IRestRequest CreateDefaultRequest(string method, Method verb)
+        private RestRequest CreateDefaultRequest(string method, Method verb)
         {
             return new RestRequest("services/rest", verb)
                 .AddParameter("method", method)
@@ -87,10 +87,10 @@ namespace BirdAggregator.Migrator.Services
                 .AddHeader("Cache-Control", "no-cache");
         }
 
-        private T HandleExceptions<T>(IRestResponse<T> response) where T : class, IStateResponse
+        private T HandleExceptions<T>(RestResponse<T> response) where T : class, IStateResponse
         {
             if (response.ErrorException == null)
-                return response.Data.stat == "ok" ? response.Data : null;
+                return response.Data?.stat == "ok" ? response.Data : null;
             
             Program.ColoredConsole.WriteLine(response.ErrorException.Message, Colorify.Colors.bgDanger);
             throw response.ErrorException;

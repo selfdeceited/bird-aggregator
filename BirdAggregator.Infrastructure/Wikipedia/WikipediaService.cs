@@ -3,49 +3,49 @@ using System.Threading.Tasks;
 using BirdAggregator.Domain.Interfaces;
 using BirdAggregator.Domain.Photos;
 using RestSharp;
-using RestSharp.Serializers.SystemTextJson;
+using RestSharp.Serializers.Json;
 
 namespace BirdAggregator.Infrastructure.Wikipedia
 {
     public class WikipediaService : IInformationService
     {
-        public Task<IBirdInfo> Get(string englishName)
+        public async Task<IBirdInfo> Get(string englishName)
         {
-            var extract = CallWikipediaExtract(englishName);
+            var extract = await CallWikipediaExtract(englishName);
             if (extract.Contains("may refer to")){
-                extract = CallWikipediaExtract(englishName + "_(bird)");
+                extract = await CallWikipediaExtract(englishName + "_(bird)");
             }
 
-            return Task.FromResult(new BirdInfo {
+            return new BirdInfo
+            {
                 Description = extract,
-                ImageLink = CallWikipediaImages(englishName)
-            } as IBirdInfo);
+                ImageLink = await CallWikipediaImages(englishName)
+            };
         }
 
-        private string CallWikipediaExtract(string englishName)
+        private Task<string> CallWikipediaExtract(string englishName)
         {
             return QueryWikipedia(englishName, "extracts");
         }
 
-        private string CallWikipediaImages(string englishName)
+        private Task<string> CallWikipediaImages(string englishName)
         {
             return QueryWikipedia(englishName, "images");
         }
 
-        private string QueryWikipedia(string englishName, string propertyName)
+        private async Task<string> QueryWikipedia(string englishName, string propertyName)
         {
             var name = englishName.Replace(" ", "%20");
             var requestUrl = $"w/api.php?format=json&action=query&prop={propertyName}&titles={name}&redirects=true";
-            return CallWikipedia(requestUrl);
+            return await CallWikipedia(requestUrl);
         }
 
-        private string CallWikipedia(string requestUrl){
-        var client = new RestClient { BaseUrl = new Uri("https://en.wikipedia.org") };
+        private async Task<string> CallWikipedia(string requestUrl){
+	        var client = new RestClient(new Uri("https://en.wikipedia.org"));
             client.UseSystemTextJson();
-            var request = new RestRequest { Resource = requestUrl };
-            var response = client.Execute(request);
+	        var request = new RestRequest { Resource = requestUrl };
+	        var response = await client.ExecuteAsync(request);
             return response.Content;
         }
     }
 }
-

@@ -119,9 +119,9 @@ namespace BirdAggregator.Migrator.Services
             return response.sizes;
         }
 
-        public async Task TrackDuplicatePhotos()
+        public async Task TrackDuplicatePhotos(CancellationToken ct)
         {
-            await _photoWriteRepository.TrackDuplicatePhotos();
+            await _photoWriteRepository.TrackDuplicatePhotos(ct);
         }
     }
 }

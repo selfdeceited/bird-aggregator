@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reactive;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BirdAggregator.Migrator.Providers
@@ -13,7 +14,6 @@ namespace BirdAggregator.Migrator.Providers
         IObservable<int> GetPages();
         IObservable<Unit> EnsureCollectionsExist();
         IObservable<SavePhotoResult[]> SavePhotos(IList<SavePhotoModel> savePhotoModels);
-        Task TrackDuplicatePhotos();
-        // IObservable<Unit> RemoveDuplicateBirds(IEnumerable<string> birdNames);
+        Task TrackDuplicatePhotos(CancellationToken ct);
     }
 }
