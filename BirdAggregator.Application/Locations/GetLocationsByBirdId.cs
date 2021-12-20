@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BirdAggregator.Domain.Locations;
 using BirdAggregator.Domain.Photos;
+using BirdAggregator.SharedKernel;
 
 namespace BirdAggregator.Application.Locations
 {
@@ -22,7 +23,7 @@ namespace BirdAggregator.Application.Locations
 
         public async Task<LocationListDto> Handle(GetLocationsByBirdIdQuery request, CancellationToken cancellationToken)
         {
-            var photos = await _photoRepository.GetGalleryForBirdAsync(request.BirdId);
+            var photos = await _photoRepository.GetGalleryForBirdAsync(request.BirdId, SortDirection.Latest);
             var markers = photos
                 .Select(_locationService.GetMarker)
                 .Where(m => m != null);

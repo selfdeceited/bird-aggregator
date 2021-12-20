@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using BirdAggregator.Application.Photos;
-using BirdAggregator.Application.Photos.GetWebsiteLinkForPhotoQuery;
 using BirdAggregator.SharedKernel;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

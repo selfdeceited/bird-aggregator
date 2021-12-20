@@ -101,11 +101,19 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
             return _photoMapper.ToDomain(photoResultModel);
         }
 
-        async Task<Photo[]> IPhotoRepository.GetGalleryForBirdAsync(string birdId)
+        async Task<Photo[]> IPhotoRepository.GetGalleryForBirdAsync(string birdId, SortDirection sortDirection)
         {
-            var photoAggregate = await GetPhotoResultModelLookup()
-                .Match(x => x.BirdIds.Contains(new ObjectId(birdId)))
-                .ToListAsync();
+            var photoLookup = GetPhotoResultModelLookup()
+                .Match(x => x.BirdIds.Contains(new ObjectId(birdId)));
+                
+
+            var sortedLookup = sortDirection switch {
+                SortDirection.Latest => photoLookup.SortByDescending(m => m.DateTaken),
+                SortDirection.Oldest => photoLookup.SortBy<PhotoResultModel>(m => m.DateTaken),
+                _ => throw new ArgumentException(null, nameof(sortDirection))
+            };
+
+            var photoAggregate = await sortedLookup.ToListAsync();
 
             return photoAggregate
                 .Select(_photoMapper.ToDomain)

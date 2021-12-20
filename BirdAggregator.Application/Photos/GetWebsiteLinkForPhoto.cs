@@ -3,9 +3,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using BirdAggregator.Domain.Interfaces;
 using BirdAggregator.Domain.Photos;
+using System.Collections.Generic;
+using BirdAggregator.SharedKernel;
 
-namespace BirdAggregator.Application.Photos.GetWebsiteLinkForPhotoQuery
+namespace BirdAggregator.Application.Photos
 {
+    public record GetWebsiteLinkForPhotoQuery(string BirdId) : IQuery<GetWebsiteLinkForPhotoDto>;
+    public record GetWebsiteLinkForPhotoDto (List<string> Links);
     public class GetWebsiteLinkForPhotoQueryHandler: IQueryHandler<GetWebsiteLinkForPhotoQuery, GetWebsiteLinkForPhotoDto>
     {
         private readonly IPhotoRepository _photoRepository;
@@ -18,13 +22,13 @@ namespace BirdAggregator.Application.Photos.GetWebsiteLinkForPhotoQuery
 
         public async Task<GetWebsiteLinkForPhotoDto> Handle(GetWebsiteLinkForPhotoQuery request, CancellationToken cancellationToken)
         {
-            var gallery = await _photoRepository.GetGalleryForBirdAsync(request.BirdId);
+            var gallery = await _photoRepository.GetGalleryForBirdAsync(request.BirdId, SortDirection.Latest);
             
-            return new GetWebsiteLinkForPhotoDto {
-                Links = gallery
-                    .Select(_ => _pictureHostingService.GetAllImageLinks(_.PhotoInformation).WebsiteLink)
-                    .ToList()
-             };
+            var links = gallery
+                .Select(_ => _pictureHostingService.GetAllImageLinks(_.PhotoInformation).WebsiteLink)
+                .ToList();
+
+            return new GetWebsiteLinkForPhotoDto(links);
         }
     }
 }

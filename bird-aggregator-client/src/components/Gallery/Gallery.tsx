@@ -3,7 +3,7 @@ import * as React from 'react'
 import * as axios from '../../http.adapter'
 
 import Carousel, { Modal, ModalGateway } from 'react-images'
-import { LightboxEmptyFooter, LightboxHeader } from './LightboxHeader'
+import { LightboxFooter, LightboxHeader } from './LightboxHeader'
 import { default as ReactGallery, RenderImageProps } from 'react-photo-gallery'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -21,7 +21,7 @@ interface Props {
 export const Gallery: React.FC<Props> = props => {
 	const { seeFullGalleryLink, urlToFetch, showImageCaptions } = props
 	const [viewerIsOpen, setViewerIsOpen] = useState(false)
-	const [images, setImages] = useState([ ] as ImageProps[])
+	const [images, setImages] = useState([] as ImageProps[])
 	const [selectedIndex, setSelectedIndex] = useState(void 0 as number | undefined)
 
 	useEffect(() => {
@@ -58,7 +58,7 @@ export const Gallery: React.FC<Props> = props => {
 	/* eslint-disable no-shadow, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 	const renderImage: React.FC<RenderImageProps> = ({ index, left, top, photo }: RenderImageProps) => (
 		<BirdImage
-			key={photo.key}
+			key={index}
 			margin={'2px'}
 			index={index}
 			photo={photo}
@@ -72,9 +72,7 @@ export const Gallery: React.FC<Props> = props => {
 			caption={(photo as unknown as any).caption}
 		/>
 	)
-	/* eslint-enable no-shadow, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
-	/* eslint-disable @typescript-eslint/naming-convention */
 	return (
 		<GalleryStyled>
 			{seeFullGalleryLink ? <LatestPhotosLink /> : null}
@@ -83,17 +81,20 @@ export const Gallery: React.FC<Props> = props => {
 				{viewerIsOpen ? (
 					<Modal onClose={closeLightbox}>
 						<Carousel
-							components={{ Header: LightboxHeader, Footer: LightboxEmptyFooter }}
+							// eslint-disable-next-line @typescript-eslint/naming-convention
+							components={{ Header: LightboxHeader, Footer: LightboxFooter }}
 							currentIndex={selectedIndex}
 							views={images.map(x => ({
 								caption: x.caption,
 								alt: x.caption,
 								source: x.original,
 								id: x.id,
+								key: x.id,
 								dateTaken: x.dateTaken,
 								birdNames: x.caption,
 								birdIds: x.birdIds,
 								hostingLink: x.hostingLink,
+								text: x.text,
 							}))}
 
 						/>

@@ -44,6 +44,7 @@ namespace BirdAggregator.Host
 
             services.AddControllers();
 
+            services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
             // todo: configure as env params!
@@ -99,6 +100,7 @@ namespace BirdAggregator.Host
             app.UseCors(CorsPolicy);
             app.UseHttpsRedirection();
 
+            app.UseHttpLogging();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

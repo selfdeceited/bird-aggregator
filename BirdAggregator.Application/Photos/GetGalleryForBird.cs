@@ -21,7 +21,7 @@ namespace BirdAggregator.Application.Photos
 
         public async Task<GetGalleryQueryResponse> Handle(GetGalleryForBirdQuery request, CancellationToken cancellationToken)
         {
-            var gallery = await _photoRepository.GetGalleryForBirdAsync(request.BirdId);
+            var gallery = await _photoRepository.GetGalleryForBirdAsync(request.BirdId, SortDirection.Latest);
             
             return new GetGalleryQueryResponse {
                 Photos = gallery.Select(_ => {
