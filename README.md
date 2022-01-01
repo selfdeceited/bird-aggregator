@@ -25,11 +25,11 @@ I don't support subspecies by now, like  _Buteo Buteo vulpinus_.
 
 ## Development
 
-- Start locally: `./utils/run-back.sh` && `./utils/run-front.sh`
-- Start locally in containers: `docker-compose --env-file ./deploy/config.env.development up`
+- Start locally: `./utils/run-back.sh` && `./utils/run-front.sh` && `http://localhost:3000/#/`
+- Start locally in containers: `docker-compose --env-file ./deploy/config.env.development up` && `http://localhost:10003/#/`
 
 ## Plans
-Right now the quality of the soffware is disturbing, so I'm occupied by tech debt. Also, it's my sandbox.I'm checking some stuff that I don't usually use (yet) in my everyday work, like `RX.NET` or `linaria`, or anything new that's on my tech radar I eager to access.
+Right now the quality of the software is disturbing, so I'm occupied by tech debt. Also, it's my sandbox.I'm checking some stuff that I don't usually use (yet) in my everyday work, like `RX.NET` or `linaria`, or anything new that's on my tech radar I eager to access.
 
 More info on how to make it great again is here - [TODO.md](./TODO.md)
 
