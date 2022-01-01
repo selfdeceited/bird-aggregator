@@ -1,16 +1,42 @@
 version: "3.6"
+networks:
+  mongodb_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      # Change this subnet range if it conflicts with your personal/work network
+        - subnet: 192.168.213.0/24
+          gateway: 192.168.213.1
 services:
     birds-api:
         build:
             context: .
             dockerfile: ./deploy/Dockerfile.api
         ports:
-            - "10001:80"
+            - 10001:80
+        depends_on:
+            - birds-db
     birds-spa:
         build:
             context: .
             dockerfile: ./deploy/Dockerfile.spa
         ports:
-            - "10003:80"
+            - 10003:80
         depends_on:
             - birds-api
+    birds-db:
+        image: mongo:latest
+        networks:
+            - mongodb_net
+        ports:
+            - 27017:27017
+    mongoclient:
+        image: mongoclient/mongoclient:latest
+        depends_on:
+            - birds-db
+        ports:
+            - 3300:3000
+        networks:
+            - mongodb_net
+

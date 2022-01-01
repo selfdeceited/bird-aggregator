@@ -103,5 +103,4 @@ export const Gallery: React.FC<Props> = props => {
 			</ModalGateway>
 		</GalleryStyled>
 	)
-	/* eslint-enable @typescript-eslint/naming-convention */
 }

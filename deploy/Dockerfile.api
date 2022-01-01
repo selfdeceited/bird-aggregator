@@ -1,3 +1,5 @@
+# https://github.com/dotnet/dotnet-docker/blob/main/samples/aspnetapp/Dockerfile.debian-arm64
+
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /source
 
@@ -18,11 +20,10 @@ RUN dotnet restore
 
 # copy everything else and build app
 COPY . .
-WORKDIR /source/BirdAggregator.Host
-RUN dotnet publish -c release -o /app --no-restore
+RUN dotnet publish --no-restore --configuration release --output /app /source/BirdAggregator.Host/BirdAggregator.Host.csproj
 
 # trust local dev cert
-RUN dotnet dev-certs https --trust
+# RUN dotnet dev-certs https --trust
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 as runtime

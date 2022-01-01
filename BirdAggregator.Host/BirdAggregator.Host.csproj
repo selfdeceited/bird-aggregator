@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <AssemblyName>BirdAggregator.Host</AssemblyName>
     <UserSecretsId>c10e1a7d-8e00-44f5-a9ff-1a86af9e068a</UserSecretsId>
     <LangVersion>latest</LangVersion>
-    <IsPackable>true</IsPackable>
-  </PropertyGroup>
+ </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.System" Version="6.0.1-rc2.2" />

@@ -29,6 +29,7 @@ namespace BirdAggregator.Host
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
                 .AddJsonFile($"hosting.{env.EnvironmentName}.json")
+                .AddEnvironmentVariables()
                 .Build();
         }
 

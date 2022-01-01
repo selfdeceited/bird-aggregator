@@ -4,6 +4,7 @@ publish
 dist
 .DS_Store
 log*
+config.env.production
 
 ## I know it's not recommended, but i already commit yarn.lock
 package-lock.json 

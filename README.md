@@ -26,7 +26,7 @@ I don't support subspecies by now, like  _Buteo Buteo vulpinus_.
 ## Development
 
 - Start locally: `./utils/run-back.sh` && `./utils/run-front.sh`
-- Start locally in containers: `docker-compose up`
+- Start locally in containers: `docker-compose --env-file ./deploy/config.env.development up`
 
 ## Plans
 Right now the quality of the soffware is disturbing, so I'm occupied by tech debt. Also, it's my sandbox.I'm checking some stuff that I don't usually use (yet) in my everyday work, like `RX.NET` or `linaria`, or anything new that's on my tech radar I eager to access.
