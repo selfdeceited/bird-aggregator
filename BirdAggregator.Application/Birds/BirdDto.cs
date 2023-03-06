@@ -1,6 +1,6 @@
 namespace BirdAggregator.Application.Birds
 {
-    public class BirdDto 
+    public class BirdDto
     {
         public string Id { get; set; }
         public string Name { get; set; }

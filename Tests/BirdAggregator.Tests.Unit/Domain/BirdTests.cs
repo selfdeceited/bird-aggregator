@@ -15,7 +15,7 @@ namespace BirdAggregator.Tests.Unit.Domain
 
             // Assert
             Assert.Equal(bird.EnglishName, englishName);
-            Assert.Equal(bird.LatinName, latinName);            
+            Assert.Equal(bird.LatinName, latinName);
         }
 
         public static IEnumerable<object[]> CorrectApiNames =>

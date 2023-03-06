@@ -7,7 +7,7 @@ using BirdAggregator.SharedKernel;
 
 namespace BirdAggregator.Application.Photos
 {
-    public record GetGalleryForBirdQuery (string BirdId, SortDirection SortDirection) : IQuery<GetGalleryQueryResponse>;
+    public record GetGalleryForBirdQuery(string BirdId, SortDirection SortDirection) : IQuery<GetGalleryQueryResponse>;
 
     public class GetGalleryForBirdQueryHandler : IQueryHandler<GetGalleryForBirdQuery, GetGalleryQueryResponse>
     {
@@ -22,11 +22,14 @@ namespace BirdAggregator.Application.Photos
         public async Task<GetGalleryQueryResponse> Handle(GetGalleryForBirdQuery request, CancellationToken cancellationToken)
         {
             var gallery = await _photoRepository.GetGalleryForBirdAsync(request.BirdId, SortDirection.Latest);
-            
-            return new GetGalleryQueryResponse {
-                Photos = gallery.Select(_ => {
+
+            return new GetGalleryQueryResponse
+            {
+                Photos = gallery.Select(_ =>
+                {
                     var links = _pictureHostingService.GetAllImageLinks(_.PhotoInformation);
-                    return new PhotoDto {
+                    return new PhotoDto
+                    {
                         Original = links.OriginalLink,
                         Src = links.ThumbnailLink,
                         Caption = _.Caption,

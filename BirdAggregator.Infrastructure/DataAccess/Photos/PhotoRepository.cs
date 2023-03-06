@@ -74,7 +74,8 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
         {
             var lookup = GetPhotoResultModelLookup();
 
-            var sortedLookup = sortDirection switch {
+            var sortedLookup = sortDirection switch
+            {
                 SortDirection.Latest => lookup.SortByDescending(m => m.DateTaken),
                 SortDirection.Oldest => lookup.SortBy<PhotoResultModel>(m => m.DateTaken),
                 _ => throw new ArgumentException(null, nameof(sortDirection))
@@ -105,9 +106,10 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
         {
             var photoLookup = GetPhotoResultModelLookup()
                 .Match(x => x.BirdIds.Contains(new ObjectId(birdId)));
-                
 
-            var sortedLookup = sortDirection switch {
+
+            var sortedLookup = sortDirection switch
+            {
                 SortDirection.Latest => photoLookup.SortByDescending(m => m.DateTaken),
                 SortDirection.Oldest => photoLookup.SortBy<PhotoResultModel>(m => m.DateTaken),
                 _ => throw new ArgumentException(null, nameof(sortDirection))
@@ -144,10 +146,10 @@ namespace BirdAggregator.Infrastructure.DataAccess.Photos
 
         public async Task<Photo> GetByHostingId(string hostingId)
         {
-           var model = await GetPhotoResultModelLookup()
-                .Match(x => x.Flickr.Id == hostingId)
-                .FirstOrDefaultAsync();
-           return model == null ? null : _photoMapper.ToDomain(model);
+            var model = await GetPhotoResultModelLookup()
+                 .Match(x => x.Flickr.Id == hostingId)
+                 .FirstOrDefaultAsync();
+            return model == null ? null : _photoMapper.ToDomain(model);
         }
     }
 }

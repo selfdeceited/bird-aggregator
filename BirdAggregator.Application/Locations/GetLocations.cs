@@ -29,7 +29,7 @@ namespace BirdAggregator.Application.Locations
             var markers = photos
                 .Select(_locationService.GetMarker)
                 .Where(m => m != null);
-            
+
             return new LocationListDto
             {
                 Markers = markers.ToList()

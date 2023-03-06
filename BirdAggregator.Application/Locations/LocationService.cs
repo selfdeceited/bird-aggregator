@@ -31,7 +31,8 @@ namespace BirdAggregator.Application.Locations
             {
                 X = location.Longitude,
                 Y = location.Latitude,
-                Birds = photo.Birds.Select(x => new BirdMarkerDto {
+                Birds = photo.Birds.Select(x => new BirdMarkerDto
+                {
                     Id = x.Id,
                     Name = x.EnglishName
                 }).ToArray(),

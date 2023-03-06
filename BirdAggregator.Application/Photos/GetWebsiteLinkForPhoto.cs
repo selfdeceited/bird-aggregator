@@ -9,8 +9,8 @@ using BirdAggregator.SharedKernel;
 namespace BirdAggregator.Application.Photos
 {
     public record GetWebsiteLinkForPhotoQuery(string BirdId) : IQuery<GetWebsiteLinkForPhotoDto>;
-    public record GetWebsiteLinkForPhotoDto (List<string> Links);
-    public class GetWebsiteLinkForPhotoQueryHandler: IQueryHandler<GetWebsiteLinkForPhotoQuery, GetWebsiteLinkForPhotoDto>
+    public record GetWebsiteLinkForPhotoDto(List<string> Links);
+    public class GetWebsiteLinkForPhotoQueryHandler : IQueryHandler<GetWebsiteLinkForPhotoQuery, GetWebsiteLinkForPhotoDto>
     {
         private readonly IPhotoRepository _photoRepository;
         private readonly IPictureHostingService _pictureHostingService;
@@ -23,7 +23,7 @@ namespace BirdAggregator.Application.Photos
         public async Task<GetWebsiteLinkForPhotoDto> Handle(GetWebsiteLinkForPhotoQuery request, CancellationToken cancellationToken)
         {
             var gallery = await _photoRepository.GetGalleryForBirdAsync(request.BirdId, SortDirection.Latest);
-            
+
             var links = gallery
                 .Select(_ => _pictureHostingService.GetAllImageLinks(_.PhotoInformation).WebsiteLink)
                 .ToList();

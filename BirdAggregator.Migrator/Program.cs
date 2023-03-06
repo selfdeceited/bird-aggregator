@@ -32,7 +32,7 @@ namespace BirdAggregator.Migrator
                 ColoredConsole.WriteLine(e.Message, Colors.bgDanger);
             }
             finally
-            { 
+            {
                 Console.ReadKey();
                 ColoredConsole.ResetColor();
             }
@@ -45,7 +45,7 @@ namespace BirdAggregator.Migrator
                 {
                     logging.ClearProviders();
                     logging.AddConsole();
-                 })
+                })
                 .AddSingleton<IPictureFetchingService, FlickrPhotoFetchingService>()
                 .AddSingleton<IMigrationExecutor, MigrationExecutor>()
                 .AddSingleton<IMigratorObservableProvider, MigratorObservableProvider>()
@@ -58,7 +58,7 @@ namespace BirdAggregator.Migrator
                 //.AddJsonFile($"appsettings.{(args[0] == "-dev" ? "Development": "Production")}.json");
                 .AddJsonFile($"hosting.json")
                 .AddJsonFile($"hosting.Development.json");
-                //.AddJsonFile($"hosting.{(firstArg == "-dev" ? "Development" : "Production")}.json");
+            //.AddJsonFile($"hosting.{(firstArg == "-dev" ? "Development" : "Production")}.json");
 
             var configuration = builder.Build();
             var appSettings = configuration.GetSection(nameof(AppSettings)).Get<AppSettings>();

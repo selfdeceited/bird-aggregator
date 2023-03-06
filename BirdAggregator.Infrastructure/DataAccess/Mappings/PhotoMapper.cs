@@ -5,7 +5,7 @@ using BirdAggregator.Infrastructure.Flickr;
 
 namespace BirdAggregator.Infrastructure.DataAccess.Mappings
 {
-    internal class PhotoMapper: DomainMapper<PhotoResultModel, Photo>
+    internal class PhotoMapper : DomainMapper<PhotoResultModel, Photo>
     {
         private readonly BirdMapper _birdMapper = new();
         private readonly LocationMapper _locationMapper = new();

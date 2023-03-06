@@ -7,7 +7,7 @@ using BirdAggregator.SharedKernel;
 
 namespace BirdAggregator.Application.Locations
 {
-    public record GetLocationsByBirdIdQuery(string BirdId): IQuery<LocationListDto>;
+    public record GetLocationsByBirdIdQuery(string BirdId) : IQuery<LocationListDto>;
     public class GetLocationsByBirdIdQueryHandler : IQueryHandler<GetLocationsByBirdIdQuery, LocationListDto>
     {
         private readonly ILocationRepository _locationRepository;

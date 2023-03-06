@@ -4,6 +4,6 @@
     {
         Latest = 0,
         Oldest = 1
-    }    
+    }
 }
 

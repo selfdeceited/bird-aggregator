@@ -3,7 +3,7 @@ using BirdAggregator.Infrastructure.DataAccess.Photos;
 
 namespace BirdAggregator.Infrastructure.DataAccess.Mappings
 {
-    internal class LocationMapper: DomainMapper<LocationModel, Location>
+    internal class LocationMapper : DomainMapper<LocationModel, Location>
     {
         public override Location ToDomain(LocationModel model)
         {

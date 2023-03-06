@@ -3,7 +3,7 @@ using BirdAggregator.Domain.Photos;
 
 namespace BirdAggregator.Infrastructure.Flickr
 {
-    public class FlickrPhotoInformation: IPhotoInformation
+    public class FlickrPhotoInformation : IPhotoInformation
     {
         private readonly string _id;
         private readonly Dictionary<string, string> _metadata;
@@ -18,6 +18,6 @@ namespace BirdAggregator.Infrastructure.Flickr
         }
 
         public string Id => _id;
-        public Dictionary<string, string> Metadata => _metadata;   
+        public Dictionary<string, string> Metadata => _metadata;
     }
 }

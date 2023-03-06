@@ -10,7 +10,7 @@ namespace BirdAggregator.Domain.Photos
     ///<summary>
     /// Photo root aggregate domain object
     ///</summary>
-    public class Photo: IAggregateRoot
+    public class Photo : IAggregateRoot
     {
         public Photo(string id, Location location, IPhotoInformation photoInformation, IEnumerable<Bird> birds, DateTime dateTaken, double ratio, string description)
         {

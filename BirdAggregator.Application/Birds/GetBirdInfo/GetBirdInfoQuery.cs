@@ -6,6 +6,6 @@ namespace BirdAggregator.Application.Birds.GetBirdInfo
         public GetBirdInfoQuery(string id)
         {
             BirdId = id;
-        }     
+        }
     }
 }

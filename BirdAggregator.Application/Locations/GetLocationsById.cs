@@ -5,7 +5,7 @@ using BirdAggregator.Domain.Photos;
 
 namespace BirdAggregator.Application.Locations
 {
-    public record GetLocationsByIdQuery(string PhotoId): IQuery<LocationListDto>;
+    public record GetLocationsByIdQuery(string PhotoId) : IQuery<LocationListDto>;
     public class GetLocationsByIdQueryHandler : IQueryHandler<GetLocationsByIdQuery, LocationListDto>
     {
         private readonly IPhotoRepository _photoRepository;
@@ -21,10 +21,11 @@ namespace BirdAggregator.Application.Locations
         {
             var photo = await _photoRepository.GetById(request.PhotoId);
             var mapMarker = _locationService.GetMarker(photo);
-            return new LocationListDto {
+            return new LocationListDto
+            {
                 Markers = mapMarker != null ? new List<MarkerDto> {
                     mapMarker
-                }: new List<MarkerDto>()
+                } : new List<MarkerDto>()
             };
         }
     }

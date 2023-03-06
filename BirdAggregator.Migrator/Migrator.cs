@@ -14,7 +14,7 @@ namespace BirdAggregator.Migrator
         private readonly IMigratorObservableProvider _m;
 
         private readonly ConcurrentDictionary<string, bool> _savedEntities = new();
-        
+
         public Migrator(IMigratorObservableProvider migratorObservableProvider)
         {
             _m = migratorObservableProvider;
@@ -23,7 +23,7 @@ namespace BirdAggregator.Migrator
         public void Run()
         {
             var cts = new CancellationTokenSource();
-            
+
             ColoredConsole.WriteLine("Migrator started. Press any key to stop it.", Colors.txtInfo);
             _m.EnsureCollectionsExist()
                 .SelectMany(_ => _m.GetPages())
@@ -45,7 +45,7 @@ namespace BirdAggregator.Migrator
                 .Do(LogDataSaved)
                 .DistinctUntilChanged()
                 .Subscribe();
-            
+
             Observable
                 .Interval(TimeSpan.FromSeconds(10))
                 .Subscribe(_ => _m.TrackDuplicatePhotos(cts.Token));
@@ -79,7 +79,7 @@ namespace BirdAggregator.Migrator
             foreach (var result in results)
             {
                 ColoredConsole.WriteLine($"        > data for #{result.Id} saved", Colors.txtSuccess);
-                _savedEntities.AddOrUpdate(result.Id, true, (_, _) => true);                
+                _savedEntities.AddOrUpdate(result.Id, true, (_, _) => true);
             }
         }
     }

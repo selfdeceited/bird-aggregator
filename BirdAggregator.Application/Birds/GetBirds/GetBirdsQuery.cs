@@ -4,7 +4,7 @@ namespace BirdAggregator.Application.Birds.GetBirds
     {
         public GetBirdsQuery()
         {
-            
+
         }
     }
 }

@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace BirdAggregator.Host.Controllers
 {
     [Route("api/[controller]")]
-    public class LifeListController: Controller
+    public class LifeListController : Controller
     {
         private readonly IMediator _mediator;
 
         public LifeListController(IMediator mediator)
         {
-	        _mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpGet]

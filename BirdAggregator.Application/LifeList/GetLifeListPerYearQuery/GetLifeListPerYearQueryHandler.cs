@@ -16,9 +16,9 @@ namespace BirdAggregator.Application.LifeList.GetLifeListPerYearQuery
         public async Task<GetLifeListPerYearDto> Handle(GetLifeListPerYearQuery request, CancellationToken cancellationToken)
         {
             var allPhotos = await _photoRepository.GetAllAsync();
-            
+
             var yearsGrouping = allPhotos.GroupBy(x => x.DateTaken.Year);
-                      
+
             return new GetLifeListPerYearDto
             {
                 PerYearCollection = yearsGrouping.Select(x => new PerYearInfo

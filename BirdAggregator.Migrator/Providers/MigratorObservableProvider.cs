@@ -30,12 +30,12 @@ namespace BirdAggregator.Migrator.Providers
         public IObservable<bool> ShouldUpdateDb(PhotoId photoId)
             => Observable
                 .FromAsync(ct => _m.RequireDatabaseUpdate(photoId, ct));
-        
+
         public IObservable<PhotoId> GetPhotoId(int pageNumber)
             => Observable
                 .FromAsync(ct => _m.GetPhotoInfoForPage(pageNumber, ct))
                 .SelectMany(o => o);
-        
+
 
         public IObservable<SavePhotoModel> GetPhotoInfoForSave(PhotoId x)
         {
@@ -44,7 +44,7 @@ namespace BirdAggregator.Migrator.Providers
                 var photoTask = _m.GetPhotoInfo(x, ct);
                 var locationTask = _m.GetLocation(x, ct);
                 var sizesTask = _m.GetSizes(x, ct);
-                await Task.WhenAll(photoTask, locationTask, sizesTask);  
+                await Task.WhenAll(photoTask, locationTask, sizesTask);
                 var model = new SavePhotoModel(photoTask.Result, locationTask.Result, sizesTask.Result);
                 return model;
             });

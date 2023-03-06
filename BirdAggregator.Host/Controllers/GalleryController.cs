@@ -13,7 +13,7 @@ namespace BirdAggregator.Host.Controllers
 
         public GalleryController(IMediator mediator)
         {
-	        _mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpGet("bird/{id}")]
@@ -22,7 +22,7 @@ namespace BirdAggregator.Host.Controllers
             var gallery = await _mediator.Send(new GetGalleryForBirdQuery(id, SortDirection.Latest));
             return Ok(gallery);
         }
-        
+
         [HttpGet("{count}")]
         public async Task<IActionResult> GetGallery(int count)
         {

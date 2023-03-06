@@ -10,18 +10,19 @@ using RestSharp.Serializers.Json;
 
 namespace BirdAggregator.Migrator.Services
 {
-    public class FlickrPhotoFetchingService: IPictureFetchingService
+    public class FlickrPhotoFetchingService : IPictureFetchingService
     {
         private readonly RestClient _client;
         private readonly AppSettings _appSettings;
-        
-        public FlickrPhotoFetchingService(AppSettings appSettings) {
+
+        public FlickrPhotoFetchingService(AppSettings appSettings)
+        {
             _appSettings = appSettings;
             Console.WriteLine(JsonSerializer.Serialize(_appSettings));
             _client = new RestClient("https://api.flickr.com");
             _client.UseSystemTextJson();
         }
-        
+
         public async Task<int> GetPages(CancellationToken cancellationToken)
         {
             var photosResponse = await GetPhotos(cancellationToken);
@@ -36,7 +37,7 @@ namespace BirdAggregator.Migrator.Services
                 .Select(_ => new PhotoId(_.id, _.title))
                 .ToArray();
         }
-        
+
         public async Task<PhotoResponse> GetPhotoInfo(string hostingId, CancellationToken cancellationToken)
         {
             var request = CreateDefaultRequest("flickr.photos.getInfo", Method.Get)
@@ -91,7 +92,7 @@ namespace BirdAggregator.Migrator.Services
         {
             if (response.ErrorException == null)
                 return response.Data?.stat == "ok" ? response.Data : null;
-            
+
             Program.ColoredConsole.WriteLine(response.ErrorException.Message, Colorify.Colors.bgDanger);
             throw response.ErrorException;
         }

@@ -12,13 +12,13 @@ namespace BirdAggregator.Host.Controllers
 
         public MapController(IMediator mediator)
         {
-	        _mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpGet("markers")]
         public async Task<IActionResult> GetMapMarkers()
         {
-	        var markers = await _mediator.Send(new GetLocationsQuery());
+            var markers = await _mediator.Send(new GetLocationsQuery());
             return Ok(markers);
         }
 
@@ -35,6 +35,6 @@ namespace BirdAggregator.Host.Controllers
             var markers = await _mediator.Send(new GetLocationsByBirdIdQuery(id));
             return Ok(markers);
         }
-        
+
     }
 }

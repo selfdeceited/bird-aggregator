@@ -25,3 +25,7 @@
  - [ ] deploy data migration app as a sidecar, run it as a cron job
  - [ ] check out vscode devcontainer
  - [ ] add health checks
+
+
+ # GENERAL
+  - [ ] add .editorconfig

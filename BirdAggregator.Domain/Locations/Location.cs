@@ -3,12 +3,12 @@ using BirdAggregator.Domain.Interfaces;
 
 namespace BirdAggregator.Domain.Locations
 {
-    public class Location: IAggregateRoot
+    public class Location : IAggregateRoot
     {
-        private readonly Func<string, string> _addComma = s => 
+        private readonly Func<string, string> _addComma = s =>
                     string.IsNullOrEmpty(s) ? string.Empty : s + ",";
-                    
-        public string Description 
+
+        public string Description
             => !Specified
                 ? "unspecified location"
                 : $"{_addComma(Neighbourhood)} {_addComma(Region)} {Country}";

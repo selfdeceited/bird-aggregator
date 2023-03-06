@@ -12,7 +12,8 @@ namespace BirdAggregator.Infrastructure.Wikipedia
         public async Task<IBirdInfo> Get(string englishName)
         {
             var extract = await CallWikipediaExtract(englishName);
-            if (extract.Contains("may refer to")){
+            if (extract.Contains("may refer to"))
+            {
                 extract = await CallWikipediaExtract(englishName + "_(bird)");
             }
 
@@ -40,11 +41,12 @@ namespace BirdAggregator.Infrastructure.Wikipedia
             return await CallWikipedia(requestUrl);
         }
 
-        private async Task<string> CallWikipedia(string requestUrl){
-	        var client = new RestClient(new Uri("https://en.wikipedia.org"));
+        private async Task<string> CallWikipedia(string requestUrl)
+        {
+            var client = new RestClient(new Uri("https://en.wikipedia.org"));
             client.UseSystemTextJson();
-	        var request = new RestRequest { Resource = requestUrl };
-	        var response = await client.ExecuteAsync(request);
+            var request = new RestRequest { Resource = requestUrl };
+            var response = await client.ExecuteAsync(request);
             return response.Content;
         }
     }

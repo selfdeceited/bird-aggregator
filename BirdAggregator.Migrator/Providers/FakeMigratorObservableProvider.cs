@@ -9,10 +9,10 @@ using BirdAggregator.Migrator.ResponseModels;
 
 namespace BirdAggregator.Migrator.Providers
 {
-    public class FakeMigratorObservableProvider: IMigratorObservableProvider
+    public class FakeMigratorObservableProvider : IMigratorObservableProvider
     {
         private readonly Random _random = new();
-       
+
         public IObservable<SavePhotoModel> GetPhotoInfoForSave(PhotoId x)
         {
             var sizes = new Sizes

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace BirdAggregator.Migrator.ResponseModels
 {
-    public class SizeResponse: IStateResponse
+    public class SizeResponse : IStateResponse
     {
         public Sizes sizes { get; set; }
         public string stat { get; set; }

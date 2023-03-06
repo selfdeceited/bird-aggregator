@@ -14,7 +14,8 @@ namespace BirdAggregator.Tests.Integration
         public BasicTests(TestingWebAppFactory<Startup> factory)
         {
             _factory = factory;
-            _options = new WebApplicationFactoryClientOptions {
+            _options = new WebApplicationFactoryClientOptions
+            {
                 BaseAddress = new Uri("https://localhost:5001"),
                 AllowAutoRedirect = true
             };

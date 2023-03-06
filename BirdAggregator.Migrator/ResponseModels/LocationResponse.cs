@@ -57,7 +57,7 @@ namespace BirdAggregator.Migrator.ResponseModels
         public Location location { get; set; }
     }
 
-    public class LocationResponse: IStateResponse
+    public class LocationResponse : IStateResponse
     {
         public Photo photo { get; set; }
         public string stat { get; set; }

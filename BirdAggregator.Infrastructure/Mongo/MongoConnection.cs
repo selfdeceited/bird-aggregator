@@ -83,7 +83,7 @@ namespace BirdAggregator.Infrastructure.Mongo
                 readPreference: ReadPreference.Primary,
                 readConcern: ReadConcern.Majority,
                 writeConcern: WriteConcern.W1);
-                
+
             return await session.WithTransactionAsync(
                 execute,
                 transactionOptions,

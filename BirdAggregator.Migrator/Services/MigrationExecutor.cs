@@ -33,7 +33,7 @@ namespace BirdAggregator.Migrator.Services
         {
             if (testMode)
                 await _mongoConnection.TruncateAll(ct);
-            
+
             await _mongoConnection.BootstrapDb(ct);
             ColoredConsole.WriteLine("collections exist in db", Colors.txtPrimary);
         }
@@ -41,13 +41,13 @@ namespace BirdAggregator.Migrator.Services
         public async Task<SavePhotoResult[]> SavePhotosInformation(IList<SavePhotoModel> savePhotoModels, CancellationToken ct)
         {
             await _photoWriteRepository.SavePhotos(savePhotoModels, ct);
-            
+
             return savePhotoModels.Select(savePhotoModel =>
             {
                 ColoredConsole.WriteLine(
                     $"        > data for photo #{savePhotoModel.photo.id} ({savePhotoModel.photo.title._content} at {savePhotoModel.photo.dates.taken}) saved",
                     Colors.txtInfo);
-               return new SavePhotoResult(savePhotoModel.photo.id);
+                return new SavePhotoResult(savePhotoModel.photo.id);
             }).ToArray();
         }
 
@@ -84,7 +84,7 @@ namespace BirdAggregator.Migrator.Services
 
                 // todo: detect if caption is changed and the reupload is required.
                 return false;
-                
+
             }
             catch (Exception e)
             {
@@ -100,7 +100,7 @@ namespace BirdAggregator.Migrator.Services
             ColoredConsole.WriteLine($"    > pages: {pages}", Colors.txtMuted);
             return pages;
         }
-        
+
         public async Task<PhotoId[]> GetPhotoInfoForPage(int pageNumber, CancellationToken ct)
         {
             var photoIds = await _pictureFetchingService.GetPhotoInfoForPage(pageNumber, ct);

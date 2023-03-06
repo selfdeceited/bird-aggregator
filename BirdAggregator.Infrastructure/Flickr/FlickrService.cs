@@ -40,7 +40,7 @@ namespace BirdAggregator.Infrastructure.Flickr
         {
             if (photoInformation == null)
                 return string.Empty;
-                
+
             var farmId = photoInformation.Metadata["FarmId"];
             var serverId = photoInformation.Metadata["ServerId"];
             var secret = photoInformation.Metadata["Secret"];

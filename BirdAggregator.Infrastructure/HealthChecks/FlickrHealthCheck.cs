@@ -18,7 +18,7 @@ namespace BirdAggregator.Infrastructure.HealthChecks
             _photoRepository = photoRepository;
             _hostingService = hostingService;
         }
-        
+
         public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
         {
             // todo: fix
@@ -33,7 +33,9 @@ namespace BirdAggregator.Infrastructure.HealthChecks
                 return response.IsSuccessStatusCode
                     ? new HealthCheckResult(HealthStatus.Healthy)
                     : new HealthCheckResult(HealthStatus.Unhealthy);
-            } catch (Exception) {
+            }
+            catch (Exception)
+            {
                 return new HealthCheckResult(HealthStatus.Unhealthy);
             }
         }

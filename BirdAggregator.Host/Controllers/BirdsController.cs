@@ -13,7 +13,7 @@ namespace BirdAggregator.Host.Controllers
 
         public BirdsController(IMediator mediator)
         {
-	        _mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpGet]
