@@ -5,13 +5,13 @@ namespace BirdAggregator.Domain.Locations
 {
     public class Location: IAggregateRoot
     {
-        Func<string, string> addComma = s => 
+        private readonly Func<string, string> _addComma = s => 
                     string.IsNullOrEmpty(s) ? string.Empty : s + ",";
                     
         public string Description 
             => !Specified
                 ? "unspecified location"
-                : $"{addComma(Neighbourhood)} {addComma(Region)} {Country}";
+                : $"{_addComma(Neighbourhood)} {_addComma(Region)} {Country}";
 
         public Location()
         {

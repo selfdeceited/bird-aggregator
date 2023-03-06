@@ -116,7 +116,7 @@ namespace BirdAggregator.Migrator.Repositories
         private PhotoModel ToPhotoModel(PhotoResponse.Photo photo, Sizes sizes, Location location, IEnumerable<BirdModel> birds)
         {
             try {
-                var largestSize = sizes.size.OrderByDescending(x => x.height).FirstOrDefault();
+                var largestSize = sizes.size.MaxBy(x => x.height);
                 return new PhotoModel
                 {
                     Description = photo.description._content,

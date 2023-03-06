@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <AssemblyName>BirdAggregator.Host</AssemblyName>
     <UserSecretsId>c10e1a7d-8e00-44f5-a9ff-1a86af9e068a</UserSecretsId>

@@ -21,11 +21,11 @@ namespace BirdAggregator.Host
     public class Startup
     {
         private readonly IConfiguration _configuration;
-        private readonly string CorsPolicy = "_myAllowSpecificOrigins";
+        private const string CorsPolicy = "_myAllowSpecificOrigins";
 
         public Startup(IWebHostEnvironment env)
         {
-            this._configuration = new ConfigurationBuilder()
+            _configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
                 .AddJsonFile($"hosting.{env.EnvironmentName}.json")
@@ -49,7 +49,7 @@ namespace BirdAggregator.Host
             services.AddSwaggerGen();
 
             // todo: configure as env params!
-            var allowedAddresses = new string[] {
+            var allowedAddresses = new[] {
                 "http://localhost:3000",
                 "http://localhost:10003",
             };

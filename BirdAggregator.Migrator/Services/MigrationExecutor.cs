@@ -72,7 +72,7 @@ namespace BirdAggregator.Migrator.Services
 
         public async Task<bool> RequireDatabaseUpdate(PhotoId photoId, CancellationToken ct)
         {
-            var (flickrId, title) = photoId;
+            var (flickrId, _) = photoId;
             try
             {
                 var photo = await _photoRepository.GetByHostingId(flickrId);

@@ -12,8 +12,8 @@ namespace BirdAggregator.Infrastructure.Flickr
             _id = flickrId;
             _metadata = new Dictionary<string, string> {
                 {"FarmId", farmId.ToString()},
-                {"ServerId", serverId.ToString()},
-                {"Secret", secret.ToString()},
+                {"ServerId", serverId},
+                {"Secret", secret},
             };
         }
 

@@ -6,7 +6,7 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceRoot}/BirdAggregator.Host/bin/Debug/net6.0/BirdAggregator.Host.dll",
+      "program": "${workspaceRoot}/BirdAggregator.Host/bin/Debug/net7.0/BirdAggregator.Host.dll",
       "args": [],
       "cwd": "${workspaceRoot}/BirdAggregator.Host",
       "console": "internalConsole",

@@ -9,8 +9,7 @@
 # FRONTEND
  - [ ] put wiki logic to wiki component
  - [ ] switch to styled components
- - [ ] switch to effector
- - [ ] switch to vite
+ - [ ] switch to vite + vitest
  - [ ] convert logic to hooks, write tests for hooks
  - [ ] create a mock server
  - [ ] run tests in CI at github actions

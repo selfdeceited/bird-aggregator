@@ -78,18 +78,16 @@ namespace BirdAggregator.Infrastructure.Mongo
         public async Task<T> ExecuteInTransaction<T>(Func<IClientSessionHandle, CancellationToken, Task<T>> execute,
             CancellationToken cancellationToken)
         {
-            using (var session = await _client.StartSessionAsync(new ClientSessionOptions(), cancellationToken))
-            {
-                var transactionOptions = new TransactionOptions(
-                    readPreference: ReadPreference.Primary,
-                    readConcern: ReadConcern.Majority,
-                    writeConcern: WriteConcern.W1);
+            using var session = await _client.StartSessionAsync(new ClientSessionOptions(), cancellationToken);
+            var transactionOptions = new TransactionOptions(
+                readPreference: ReadPreference.Primary,
+                readConcern: ReadConcern.Majority,
+                writeConcern: WriteConcern.W1);
                 
-                return await session.WithTransactionAsync(
-                    execute,
-                    transactionOptions,
-                    cancellationToken);    
-            }
+            return await session.WithTransactionAsync(
+                execute,
+                transactionOptions,
+                cancellationToken);
         }
     }
 }
