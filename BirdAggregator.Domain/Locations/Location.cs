@@ -13,11 +13,6 @@ namespace BirdAggregator.Domain.Locations
                 ? "unspecified location"
                 : $"{_addComma(Neighbourhood)} {_addComma(Region)} {Country}";
 
-        public Location()
-        {
-            Specified = false;
-        }
-
         public Location(string country, string neighbourhood, string region, double x, double y, string locality)
         {
             Country = country;

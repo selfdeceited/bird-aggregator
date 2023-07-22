@@ -15,12 +15,11 @@ namespace BirdAggregator.Infrastructure.Flickr
 
         public PictureInfo GetAllImageLinks(IPhotoInformation photoInformation)
         {
-            return new()
-            {
-                OriginalLink = GetOriginal(photoInformation),
-                ThumbnailLink = GetThumbnail(photoInformation),
-                WebsiteLink = GetWebsiteLink(photoInformation)
-            };
+            return new PictureInfo(
+                OriginalLink : GetOriginal(photoInformation),
+                ThumbnailLink : GetThumbnail(photoInformation),
+                WebsiteLink : GetWebsiteLink(photoInformation)
+            );
         }
 
         public string GetOriginal(IPhotoInformation photoInformation) => GetFlickrImageUrl(photoInformation, "_h");

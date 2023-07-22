@@ -1,13 +1,12 @@
 using System;
 
-namespace BirdAggregator.Application.LifeList.GetLifeListQuery
-{
-    public class Occurence
-    {
-        public string BirdId { get; set; }
-        public string Name { get; set; }
-        public DateTime DateMet { get; set; }
-        public string Location { get; set; }
-        public string PhotoId { get; set; }
-    }
-}
+namespace BirdAggregator.Application.LifeList.GetLifeListQuery;
+
+public record Occurrence
+(
+    string BirdId,
+    string Name,
+    DateTime DateMet,
+    string Location,
+    string PhotoId
+);

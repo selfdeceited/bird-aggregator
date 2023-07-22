@@ -21,9 +21,9 @@ export const LifeList: React.FC = () => {
 	const [lifelist, setLifelist] = useState<ILifeListDto[]>([])
 
 	const fillLifelist = async (): Promise<void> => {
-		const firstOccurences = await fetchLifelist()
+		const firstOccurrences = await fetchLifelist()
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-		setLifelist(firstOccurences)
+		setLifelist(firstOccurrences)
 	}
 
 	useEffect(() => {

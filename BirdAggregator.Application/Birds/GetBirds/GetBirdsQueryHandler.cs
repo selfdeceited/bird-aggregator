@@ -19,13 +19,7 @@ namespace BirdAggregator.Application.Birds.GetBirds
 
             return new BirdListDto
             {
-                Birds = allBirds.Select(bird => new BirdDto
-                {
-                    Id = bird.Id,
-                    Latin = bird.LatinName,
-                    Name = bird.EnglishName
-                }).ToList()
-                // TODO: add Automapper!
+                Birds = allBirds.Select(bird => new BirdDto(bird.Id, bird.LatinName, bird.EnglishName)).ToList()
             };
         }
     }

@@ -3,9 +3,10 @@ import * as React from 'react'
 
 import { Bird, fetchAllBirds } from '../../clients/GalleryClient'
 import { BirdLink, GithubLink, ImageHostingLink, LifeListLink, MapLink, RootPageLink, TripListLink } from './links/'
-import { BirdSelect, filterBird, renderBird } from './BirdSelect'
 import { LinkResponse, fetchAs } from '../../clients'
+import { filterBird, renderBird } from './BirdSelect'
 import { useEffect, useState } from 'react'
+import { Select } from '@blueprintjs/labs'
 
 export const Navbar: React.FC = () => {
 	const [birds, setBirds] = useState<Bird[]>([])
@@ -46,20 +47,21 @@ export const Navbar: React.FC = () => {
 				<span className="bp3-navbar-divider"></span>
 				<div className="bird-info-select">
 					<div className="inline-block">Find specific bird: &nbsp;</div>
-					<BirdSelect
+					<Select<Bird>
 						items={birds}
 						noResults={<Blueprint.MenuItem disabled text="No results." />}
 						itemPredicate={filterBird}
 						itemRenderer={renderBird}
 						onItemSelect={setSelectedBird}
-					>
-						<Blueprint.Button
-							text={
-								selectedBird?.name ?? ''
-							}
-							rightIcon="double-caret-vertical"
-						/>
-					</BirdSelect>
+					></Select>
+
+					<Blueprint.Button
+						text={
+							selectedBird?.name ?? ''
+						}
+						rightIcon="double-caret-vertical"
+					/>
+
 					{selectedBird ? (
 						<span>
 							<span className="small-space"></span>

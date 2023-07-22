@@ -37,7 +37,10 @@ export const BirdImage: React.FC<IBirdProps> = props => {
 			...containerStyle }}>
 
 			<img
-				style={imgStyle} {...props.photo as React.ImgHTMLAttributes<unknown>}
+				style={imgStyle}
+				src={props.photo.src}
+				width={props.photo.width}
+				height={props.photo.height}
 				onMouseDown={_ => props.onMouseDown(props.index)}
 				alt={props.caption}
 			/>

@@ -1,13 +1,12 @@
-namespace BirdAggregator.Application.Configuration
-{
-    public class AppSettings
-    {
-        public string FlickrUserId { get; set; }
-        public string FlickrApiKey { get; set; }
-        public string Github { get; set; }
-        public string UserName { get; set; }
-        public bool IsTestRun { get; set; }
+namespace BirdAggregator.Application.Configuration;
 
-        public string MongoConnectionString { get; set; }
-    }
+public class AppSettings
+{
+    public string FlickrUserId { get; set; } = null!;
+    public string FlickrApiKey { get; set; } = null!;
+    public string Github { get; set; } = null!;
+    public string UserName { get; set; } = null!;
+    public bool IsTestRun { get; set; } = false;
+
+    public string MongoConnectionString { get; set; } = null!;
 }

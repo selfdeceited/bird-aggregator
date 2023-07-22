@@ -6,6 +6,7 @@ import { MapContainer } from '../Map/Map'
 import { WikiDescription } from './Wikipedia/WikiDescription'
 import { WikiImage } from './Wikipedia/WikiImage'
 import { fetchWikiData } from '../../clients/GalleryClient'
+import { useParamsTyped } from '../../hacks/useParamsHack'
 
 export interface WikiData {
 	name: string
@@ -13,19 +14,12 @@ export interface WikiData {
 	imageUrl: string
 }
 
-interface ParamMatchedProps {
-	match: {
-		params: {
-			id: string
-		}
-	}
-}
 
 /* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment*/
 const fillWikiData = async (birdId: string, setWikiData: (data: WikiData) => void): Promise<void> => {
 	const wikiData = await fetchWikiData(birdId)
 	const extract = JSON.parse(wikiData.wikiInfo)
-	const html = extract.query.pages[Object.keys(extract.query.pages)[0]].extract
+	const html = extract.query.pages[Object.keys(extract.query.pages as object)[0]].extract
 
 	const div = document.createElement('div')
 	div.innerHTML = html
@@ -41,7 +35,10 @@ const fillWikiData = async (birdId: string, setWikiData: (data: WikiData) => voi
 
 const fillChapters = (div: HTMLDivElement): HTMLDivElement => {
 	const finalContainer = document.createElement('div')
-	const paragraphs = Array.prototype.slice.call(div.getElementsByTagName('p')).filter(x => x.innerHTML.length > 2)
+	const paragraphs: string[] = Array.prototype.slice
+		.call(div.getElementsByTagName('p'))
+		.filter(x => x.innerHTML.length > 2)
+
 	for (const paragraph of paragraphs) {
 		finalContainer.append(paragraph)
 		if (finalContainer.innerHTML.length > 1000) {
@@ -53,12 +50,9 @@ const fillChapters = (div: HTMLDivElement): HTMLDivElement => {
 }
 /* eslint-enable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment*/
 
-export const BirdGallery: FC<ParamMatchedProps> = props => {
-	const {
-		match: {
-			params: { id: birdId },
-		},
-	} = props
+export const BirdGallery: FC = () => {
+	const { id: birdId } = useParamsTyped<'id', string>()
+
 	const [wikiData, setWikiData] = useState<WikiData>({
 		name: '',
 		wikiInfo: '',

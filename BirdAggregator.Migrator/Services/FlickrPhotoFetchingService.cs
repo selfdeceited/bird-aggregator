@@ -1,26 +1,29 @@
 using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Text.Json;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using BirdAggregator.Application.Configuration;
+using BirdAggregator.Infrastructure.HttpClients;
 using BirdAggregator.Migrator.ResponseModels;
-using RestSharp;
-using RestSharp.Serializers.Json;
+using Colorify;
 
 namespace BirdAggregator.Migrator.Services
 {
     public class FlickrPhotoFetchingService : IPictureFetchingService
     {
-        private readonly RestClient _client;
         private readonly AppSettings _appSettings;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public FlickrPhotoFetchingService(AppSettings appSettings)
+        public FlickrPhotoFetchingService(AppSettings appSettings, IHttpClientFactory httpClientFactory)
         {
             _appSettings = appSettings;
-            Console.WriteLine(JsonSerializer.Serialize(_appSettings));
-            _client = new RestClient("https://api.flickr.com");
-            _client.UseSystemTextJson();
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<int> GetPages(CancellationToken cancellationToken)
@@ -40,61 +43,85 @@ namespace BirdAggregator.Migrator.Services
 
         public async Task<PhotoResponse> GetPhotoInfo(string hostingId, CancellationToken cancellationToken)
         {
-            var request = CreateDefaultRequest("flickr.photos.getInfo", Method.Get)
-                .AddParameter("photo_id", hostingId);
+            var request = CreateDefaultRequest("flickr.photos.getInfo", HttpMethod.Get,
+            new Dictionary<string, string> { { "photo_id", hostingId } });
 
-            var response = await _client.ExecuteAsync<PhotoResponse>(request, cancellationToken);
-            return HandleExceptions(response);
+            var httpClient = _httpClientFactory.CreateClient(HttpClientNames.Flickr);
+            var response = await httpClient.SendAsync(request, cancellationToken);
+            return await HandleExceptions<PhotoResponse>(response);
         }
 
         public async Task<LocationResponse> GetLocation(string hostingId, CancellationToken cancellationToken)
         {
-            var request = CreateDefaultRequest("flickr.photos.geo.getLocation", Method.Get)
-                .AddParameter("photo_id", hostingId);
+            var httpClient = _httpClientFactory.CreateClient(HttpClientNames.Flickr);
+            var request = CreateDefaultRequest("flickr.photos.geo.getLocation", HttpMethod.Get,
+                new Dictionary<string, string> { { "photo_id", hostingId } });
 
-            var response = await _client.ExecuteAsync<LocationResponse>(request, cancellationToken);
-            return HandleExceptions(response);
+            var response = await httpClient.SendAsync(request, cancellationToken);
+            return await HandleExceptions<LocationResponse>(response);
         }
 
         public async Task<SizeResponse> GetSize(string hostingId, CancellationToken ct)
         {
-            var request = CreateDefaultRequest("flickr.photos.getSizes", Method.Get)
-                .AddParameter("photo_id", hostingId);
+            var httpClient = _httpClientFactory.CreateClient(HttpClientNames.Flickr);
+            var request = CreateDefaultRequest("flickr.photos.getSizes", HttpMethod.Get,
+                new Dictionary<string, string> { { "photo_id", hostingId } });
 
-            var response = await _client.ExecuteAsync<SizeResponse>(request, ct);
-            return HandleExceptions(response);
+            var response = await httpClient.SendAsync(request, ct);
+            return await HandleExceptions<SizeResponse>(response);
         }
 
         private async Task<PhotosResponse> GetPhotos(CancellationToken cancellationToken, int page = 0)
         {
+            var httpClient = _httpClientFactory.CreateClient(HttpClientNames.Flickr);
             var loadPerPage = _appSettings.IsTestRun ? 30 : 100;
-            var request = CreateDefaultRequest("flickr.people.getPhotos", Method.Get)
-                .AddParameter("user_id", _appSettings.FlickrUserId)
-                .AddParameter("per_page", loadPerPage);
+            var request = CreateDefaultRequest("flickr.people.getPhotos", HttpMethod.Get,
+            new Dictionary<string, string>
+            {
+                { "user_id", _appSettings.FlickrUserId },
+                { "per_page", loadPerPage.ToString() },
+                { "page", page > 0 ? page.ToString() : null },
+            });
 
-            if (page > 0)
-                request.AddParameter("page", page.ToString());
-            var response = await _client.ExecuteAsync<PhotosResponse>(request, cancellationToken);
-            return HandleExceptions(response);
+            var response = await httpClient.SendAsync(request, cancellationToken);
+            return await HandleExceptions<PhotosResponse>(response);
         }
 
-        private RestRequest CreateDefaultRequest(string method, Method verb)
+        private HttpRequestMessage CreateDefaultRequest(string method, HttpMethod httpMethod,
+            Dictionary<string, string> onAddParams)
         {
-            return new RestRequest("services/rest", verb)
-                .AddParameter("method", method)
-                .AddParameter("api_key", _appSettings.FlickrApiKey)
-                .AddParameter("format", "json")
-                .AddParameter("nojsoncallback", "1")
-                .AddHeader("Cache-Control", "no-cache");
+            var queryParams = new Dictionary<string, string>
+            {
+                { "api_key", _appSettings.FlickrApiKey },
+                { "method", method },
+                { "format", "json" },
+                { "nojsoncallback", "1" }
+            };
+
+            var query = string.Join('&', queryParams
+                .Concat(onAddParams)
+                .Where(_ => _.Value != null)
+                .Select(_ => $"{_.Key}={_.Value}"));
+
+            return new HttpRequestMessage
+            {
+                RequestUri = new Uri($"services/rest?{query}", UriKind.Relative),
+                Method = httpMethod,
+                Headers = { CacheControl = new CacheControlHeaderValue { NoCache = true } }
+            };
         }
 
-        private T HandleExceptions<T>(RestResponse<T> response) where T : class, IStateResponse
+        private async Task<T> HandleExceptions<T>(HttpResponseMessage response) where T : class, IStateResponse
         {
-            if (response.ErrorException == null)
-                return response.Data?.stat == "ok" ? response.Data : null;
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                Program.ColoredConsole.WriteLine(error, Colors.bgDanger);
+                throw new HttpRequestException(error);
+            }
+            var content = await response.Content.ReadFromJsonAsync<T>();
 
-            Program.ColoredConsole.WriteLine(response.ErrorException.Message, Colorify.Colors.bgDanger);
-            throw response.ErrorException;
+            return content.stat == "ok" ? content : null;
         }
     }
 }

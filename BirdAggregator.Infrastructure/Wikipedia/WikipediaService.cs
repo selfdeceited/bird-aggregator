@@ -1,14 +1,21 @@
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using BirdAggregator.Domain.Interfaces;
 using BirdAggregator.Domain.Photos;
-using RestSharp;
-using RestSharp.Serializers.Json;
+using BirdAggregator.Infrastructure.HttpClients;
 
 namespace BirdAggregator.Infrastructure.Wikipedia
 {
     public class WikipediaService : IInformationService
     {
+        private readonly IHttpClientFactory _httpClientFactory;
+
+        public WikipediaService(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
+
         public async Task<IBirdInfo> Get(string englishName)
         {
             var extract = await CallWikipediaExtract(englishName);
@@ -43,11 +50,9 @@ namespace BirdAggregator.Infrastructure.Wikipedia
 
         private async Task<string> CallWikipedia(string requestUrl)
         {
-            var client = new RestClient(new Uri("https://en.wikipedia.org"));
-            client.UseSystemTextJson();
-            var request = new RestRequest { Resource = requestUrl };
-            var response = await client.ExecuteAsync(request);
-            return response.Content;
+            var httpClient = _httpClientFactory.CreateClient(HttpClientNames.Wikipedia);
+            httpClient.BaseAddress = new Uri("https://en.wikipedia.org");
+            return await httpClient.GetStringAsync(requestUrl);
         }
     }
 }

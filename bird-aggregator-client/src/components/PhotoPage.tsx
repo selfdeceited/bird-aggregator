@@ -5,14 +5,12 @@ import { Link } from 'react-router-dom'
 import { MapContainer } from './Map/Map'
 import { fetchPhoto } from '../clients/PhotoClient'
 import moment from 'moment'
+import { useParamsTyped } from '../hacks/useParamsHack'
 
-type PhotoProps = {match: {params:{id: string}}}
 
-export const PhotoPage: React.FC<PhotoProps> = props => {
-	const [image, setImage] = useState<ImageProps | undefined>(void 0)
-
-	const photoId = props.match.params.id
-
+export const PhotoPage: React.FC = () => {
+	const { id: photoId } = useParamsTyped<'id', string>()
+	const [image, setImage] = useState<ImageProps | undefined>(undefined)
 
 	const fillPhoto = async (id: string): Promise<void> => {
 		const receivedImage = await fetchPhoto(id)

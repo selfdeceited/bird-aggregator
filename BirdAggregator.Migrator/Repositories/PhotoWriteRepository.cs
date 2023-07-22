@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.Json;
 using System.Threading;
@@ -137,8 +138,8 @@ namespace BirdAggregator.Migrator.Repositories
                             Country = location.country._content,
                             Neighbourhood = location.neighbourhood._content,
                             Region = location.region._content,
-                            X = double.Parse(location.longitude),
-                            Y = double.Parse(location.latitude),
+                            X = double.Parse(location.longitude, CultureInfo.InvariantCulture),
+                            Y = double.Parse(location.latitude, CultureInfo.InvariantCulture),
                             GeoTag = location.place_id,
                             Locality = location.locality?._content
                         },

@@ -1,24 +1,19 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 /* eslint-disable react/jsx-no-bind */
 
 import * as GeoJSON from 'geojson'
 import * as React from 'react'
-
 import { InputUrlParameters, MapMarker } from './types'
-import ReactMapboxGl, { Cluster, Marker, Popup, ZoomControl } from 'react-mapbox-gl'
-import { mapStyles, popupStyles } from './styles'
+
+import { Marker, Map as ReactMapGl, ScaleControl } from 'react-map-gl'
 import { useEffect, useState } from 'react'
-
-import { BirdPopup } from './BirdPopup'
-import { Map as RootMap } from 'mapbox-gl'
+import { Pin } from './Pin'
 import { aggregatePhotosInSameLocation } from './locationAggregator'
-import { fetchMarkersByProps } from '../../clients/MarkerClient'
-import { mapboxAccessToken } from '../../tokens'
 
-// todo: consider https://github.com/visgl/react-map-gl
-const MapBox = ReactMapboxGl({
-	accessToken: mapboxAccessToken,
-})
+import { fetchMarkersByProps } from '../../clients/MarkerClient'
+import { mapStyles } from './styles'
+import { mapboxAccessToken } from '../../tokens'
 
 export type MapContainerProps = InputUrlParameters & { embedded: boolean }
 
@@ -41,9 +36,6 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 	const [mapHeight] = useState<string>(initialHeight(props))
 	const [mapWidth] = useState<string>(initialWidth(props))
 	const [markers, setMarkers] = useState<MapMarker[]>([])
-	const [zoomLevel, setZoomLevel] = useState<[number]>([6])
-	const [selectedMarker, setSelectedMarker] = useState<MapMarker | undefined>()
-
 
 	const fetchData = async (): Promise<void> => {
 		let fetchedMarkers = await fetchMarkersByProps(props)
@@ -58,101 +50,74 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 
 	useEffect(() => {
 		setMarkers([])
-		setSelectedMarker(void 0)
 		void fetchData()
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.embedded ? props.birdId : null])
 
 	const markerClick = (marker: MapMarker): void => {
 		setCenter([marker.x, marker.y])
-		setSelectedMarker(marker)
 	}
 
-	const removePopup = (): void => {
-		setSelectedMarker(void 0)
-	}
-
-	const clusterClick = (coordinates: GeoJSON.Position): void => {
+	/* const clusterClick = (coordinates: GeoJSON.Position): void => {
 		setCenter([coordinates[0], coordinates[1]])
 		setZoomLevel([zoomLevel[0] + 1])
-	}
+	}*/
 
 	const key = (_: GeoJSON.Position): string => `${_[0]}:${_[1]}`
 
-	const getStyles: () => Record<string, React.CSSProperties> = () => ({
+	const styles: Record<string, React.CSSProperties> = {
 		clusterMarker: mapStyles.clusterMarker,
 		marker: mapStyles.marker,
-	})
+	}
 
-	const clusterMarker: (coordinates: GeoJSON.Position, pointCount: number) => JSX.Element = (
+	/* const clusterMarker: (coordinates: GeoJSON.Position, pointCount: number) => JSX.Element = (
 		coordinates,
 		pointCount,
 	) => (
 		<Marker
 			key={key(coordinates)}
-			coordinates={coordinates}
+			latitude={coordinates[0]}
+			longitude={coordinates[1]}
 			style={getStyles().clusterMarker}
-			onClick={_ => clusterClick(coordinates)}
+			onClick={() => clusterClick(coordinates)}
 		>
 			<div>{pointCount}</div>
 		</Marker>
-	)
-
-	const onZoom = (map: RootMap, _: React.SyntheticEvent<any>): void => {
-		setZoomLevel([map.getZoom()])
-	}
-
-	const markersMap = (): JSX.Element[] =>
-		markers.map(m => (
-			<Marker
-				key={key([m.x, m.y])}
-				coordinates={[m.x, m.y]}
-				onClick={_ => markerClick(m)}
-				style={getStyles().marker}
-			/>
-		))
+	)*/
 
 	return (
 		<div className={props.embedded ? '' : 'body'}>
-			<MapBox
-				// eslint-disable-next-line react/style-prop-object
-				style="mapbox://styles/mapbox/outdoors-v10"
-				containerStyle={{
+			<ReactMapGl
+				accessToken={mapboxAccessToken}
+				mapStyle="mapbox://styles/mapbox/outdoors-v10"
+				style={{
 					height: mapHeight,
 					width: mapWidth,
 					position: 'relative',
 				}}
-				center={center}
-				zoom={zoomLevel}
-				onZoomEnd={onZoom}
+				initialViewState={{
+					longitude: center[0],
+					latitude: center[1],
+					zoom: 6,
+				}}
 			>
-				<ZoomControl position={props.embedded ? 'top-right' : 'bottom-right'} />
-
-				{props.embedded ? (
-					<>{markersMap()}</>
-				) : (
-					<Cluster ClusterMarkerFactory={clusterMarker}>{markersMap()}</Cluster>
-				)}
-
-				{selectedMarker && !props.embedded ? (
-					<Popup
-						offset={[0, -50]}
-						coordinates={[selectedMarker.x, selectedMarker.y]}
-						style={popupStyles}
+				<ScaleControl />
+				<>{
+					props.embedded ? markers.map(m => (<Marker
+						key={key([m.x, m.y])}
+						longitude={m.x}
+						latitude={m.y}
+						onClick={() => markerClick(m)}
+						style={styles.marker}
 					>
-						<div className="map-popup">
-							<button
-								style={{ float: 'right' }}
-								className="bp3-button bp3-minimal small-reference bp3-icon-cross"
-								onMouseDown={removePopup}
-							></button>
-							<BirdPopup birds={selectedMarker.birds} photoUrl={selectedMarker.firstPhotoUrl} />
-						</div>
-					</Popup>
-				) : (
-					void 0
-				)}
-			</MapBox>
+						<Pin marker={m} />
+					</Marker>)) : null
+				}
+				</>
+				{
+				// <Cluster ClusterMarkerFactory={clusterMarker}>{markersMap()}</Cluster>
+				}
+			</ReactMapGl>
 		</div>
 	)
 }
