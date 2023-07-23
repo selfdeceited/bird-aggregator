@@ -4,7 +4,7 @@ import React from 'react'
 export const GalleryLink: React.FC = () => <Link
 	to={'/'}
 	role="button"
-	className="bp3-button bp3-minimal bp3-icon-camera"
+	className="bp5-button bp5-minimal bp5-icon-camera"
 >
     Gallery
 </Link>

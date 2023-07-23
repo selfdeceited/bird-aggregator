@@ -1,14 +1,16 @@
 import * as Blueprint from '@blueprintjs/core'
 import * as React from 'react'
 
+import { Alignment, Navbar } from '@blueprintjs/core'
+
 import { Bird, fetchAllBirds } from '../../clients/GalleryClient'
-import { BirdLink, GithubLink, ImageHostingLink, LifeListLink, MapLink, RootPageLink, TripListLink } from './links/'
+import { BirdLink, GithubLink, ImageHostingLink, LifeListLink, MapLink, RootPageLink, TripListLink } from './links'
 import { LinkResponse, fetchAs } from '../../clients'
 import { filterBird, renderBird } from './BirdSelect'
 import { useEffect, useState } from 'react'
 import { Select } from '@blueprintjs/labs'
 
-export const Navbar: React.FC = () => {
+export const Navigation: React.FC = () => {
 	const [birds, setBirds] = useState<Bird[]>([])
 	const [githubLink, setGithubLink] = useState('')
 	const [imageHostingLink, setImageHostingLink] = useState('')
@@ -36,15 +38,15 @@ export const Navbar: React.FC = () => {
 	}, [])
 
 	return (
-		<nav className="bp3-navbar bp3-fixed-top">
-			<div className="bp3-navbar-group bp3-align-left">
+		<Navbar>
+			<Navbar.Group align={Alignment.LEFT}>
 				<div className="logo"></div>
 				<RootPageLink userName={userName}/>
-				<span className="bp3-navbar-divider"></span>
+				<Navbar.Divider />
 				<MapLink/>
 				<TripListLink/>
 				<LifeListLink/>
-				<span className="bp3-navbar-divider"></span>
+				<Navbar.Divider />
 				<div className="bird-info-select">
 					<div className="inline-block">Find specific bird: &nbsp;</div>
 					<Select<Bird>
@@ -69,11 +71,11 @@ export const Navbar: React.FC = () => {
 						</span>
 					) : null}
 				</div>
-			</div>
-			<div className="bp3-navbar-group bp3-align-right">
+			</Navbar.Group>
+			<Navbar.Group align={Alignment.RIGHT}>
 				<GithubLink githubLink={githubLink}/>
 				<ImageHostingLink imageHostingLink={imageHostingLink}/>
-			</div>
-		</nav>
+			</Navbar.Group>
+		</Navbar>
 	)
 }

@@ -1,4 +1,6 @@
-export interface ImageProps {
+import { Image as ReactGridImage } from 'react-grid-gallery'
+
+export interface ImageProps extends ReactGridImage {
 	id: string
 	src: string
 	original: string

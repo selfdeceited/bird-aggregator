@@ -1,53 +1,27 @@
 /* eslint-disable react/jsx-no-bind */
 
 import * as React from 'react'
-
-import { PhotoProps } from 'react-photo-gallery'
+import { ThumbnailImageProps } from 'react-grid-gallery'
 
 interface IBirdProps {
-	index: number
 	onMouseDown: (index: number) => void
-	photo: PhotoProps
-	margin: string
-	left: number | undefined
-	top: number | undefined
-	showCaption: boolean
-	caption: string
+	thumbnail: ThumbnailImageProps
 }
 
-export const BirdImage: React.FC<IBirdProps> = props => {
-	const containerStyle: React.CSSProperties = {
-		backgroundColor: '#eee',
-		cursor: 'pointer',
-		float: 'left',
-		overflow: 'hidden',
-		position: 'relative',
-	}
 
-	const imgStyle: React.CSSProperties = {
-		borderRadius: '2px',
-		display: 'block',
-		transition: 'transform .135s cubic-bezier(0.0,0.0,0.2,1),opacity linear .15s',
-	}
-
-	return (
-		<div style={{ height: props.photo.height,
-			margin: props.margin,
-			width: props.photo.width,
-			...containerStyle }}>
-
-			<img
-				style={imgStyle}
-				src={props.photo.src}
-				width={props.photo.width}
-				height={props.photo.height}
-				onMouseDown={_ => props.onMouseDown(props.index)}
-				alt={props.caption}
-			/>
-			{ props.showCaption ? <span className="image-bird-name">{props.caption}</span> : null }
-			<style>
-				{'.not-selected:hover{outline:2px solid #06befa}'}
-			</style>
-		</div>
-	)
+const imgStyle: React.CSSProperties = {
+	borderRadius: '2px',
+	display: 'block',
+	width: '100%',
+	height: '100%',
+	transition: 'transform .135s cubic-bezier(0.0,0.0,0.2,1),opacity linear .15s',
 }
+
+export const BirdImage: React.FC<IBirdProps> = ({ thumbnail, onMouseDown }) => (
+	<img
+		style={imgStyle}
+		src={thumbnail.imageProps.src}
+		onMouseDown={_ => onMouseDown(thumbnail.index)}
+		alt={thumbnail.imageProps.title ?? 'no title found'}
+	/>
+)

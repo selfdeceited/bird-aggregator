@@ -1,10 +1,10 @@
 import * as React from 'react'
 
 import { MainRouter } from './MainRouter'
-import { Navbar } from './Navbar/Navbar'
+import { Navigation } from './Navigation/Navigation'
 
 export const App: React.FC = () => (<div>
-	<Navbar/>
+	<Navigation/>
 	<MainRouter />
 </div>)
 

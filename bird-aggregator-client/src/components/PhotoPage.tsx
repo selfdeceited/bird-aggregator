@@ -28,7 +28,6 @@ export const PhotoPage: React.FC = () => {
 
 	return (
 		<div className="body">
-
 			{image.birdIds.map(id => <Link
 				key={id}
 				className="big-link" to={`/birds/${id}`}>
@@ -36,10 +35,10 @@ export const PhotoPage: React.FC = () => {
 			</Link>,
 			)}
 			<section className="photo-flex-container">
-				<div className="flex-item photo-flex-element">
+				<div className="photo-flex-item photo-flex-element">
 					<img src={image.original} className="photo-page" alt={image.caption}></img>
 				</div>
-				<div className="flex-item">
+				<div className="photo-flex-item">
 					<MapContainer embedded photoId={photoId}/>
 				</div>
 			</section>

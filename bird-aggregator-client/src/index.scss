@@ -3,6 +3,8 @@
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
 @import "~@blueprintjs/core/lib/scss/variables";
 @import "@blueprintjs/select/lib/css/blueprint-select.css";
+@import "yet-another-react-lightbox/styles.css";
+@import "yet-another-react-lightbox/plugins/captions.css";
 
 .hide {
   display: none;
@@ -17,7 +19,7 @@ h1 {
   height: 100vh;
 }
 
-.bp3-select-popover .bp3-menu {
+.bp5-select-popover .bp5-menu {
   max-width: 400px;
   max-height: 300px;
   overflow: auto;
@@ -34,9 +36,6 @@ nav {
           display: inline-block;
       }
   }
-}
-.latest-shots {
-  margin: 15px;
 }
 
 .small-margin {
@@ -226,12 +225,12 @@ div.body > table td {
   margin: 10px;
 }
 
-.photo-flex-container{
+.photo-flex-container {
   margin: 0 auto;
   display: flex;
 }
 
-.flex-item {
+.photo-flex-item {
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 0;
@@ -253,26 +252,6 @@ img.photo-page {
   z-index: 9 !important;
 }
 
-.lightbox-photo-link {
-  color: white !important;
-  background-color: rgba(109, 119, 117, 0.4);
-  margin-left: 30px;
-}
-
-.lightbox-caption {
-  color: #c8e6f9;
-}
-
-.image-bird-name {
-  color: #f6fb5e;
-  background-color:rgba(0, 0, 0, 0.45);
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 3px;
-  margin-left: 10px;
-  position: relative;
-  top: -20px;
-}
 
 .lifelist-container {
   margin-top: 10px;

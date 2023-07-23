@@ -2757,10 +2757,12 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@blueprintjs/colors@^4.1.19":
-  version "4.1.19"
-  resolved "https://registry.yarnpkg.com/@blueprintjs/colors/-/colors-4.1.19.tgz#364d4d5d23ecee48002d6b29c71a8a24af5512ae"
-  integrity sha512-x5mDo4Ue9rAdbMHvOm0dNru9MSZqgs9Dd/l/2rgjzottthjsq1XjkiVae6evX4EGNM0I/bZKjTT8ccvqCqn4yw==
+"@blueprintjs/colors@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/colors/-/colors-5.0.1.tgz#d8dae32b6335a7b3c0521e1f28422f4c8c380da1"
+  integrity sha512-Lz3TSHJBL7+Ar/pQS15ewbNMMZc9p0CyBTPvICx4sWVH2STIJrvh05f+rdOBsKyx+FdTGTBoISyw67ZOSXvWVA==
+  dependencies:
+    tslib "~2.5.0"
 
 "@blueprintjs/core@^3.12.0", "@blueprintjs/core@^3.47.0":
   version "3.47.0"
@@ -2779,22 +2781,19 @@
     resize-observer-polyfill "^1.5.1"
     tslib "~1.13.0"
 
-"@blueprintjs/core@^4.17.4":
-  version "4.17.4"
-  resolved "https://registry.yarnpkg.com/@blueprintjs/core/-/core-4.17.4.tgz#c1af38e4dea60a85ed574111f883d4d76eb4165f"
-  integrity sha512-pGz5XIZAb8ngmD+KgEGODE5sbo3No1DLhx5J3DDJFRf7MOnQDwsURI/Qr+yZWjgaUXLr7ZqdNHGSVaynwavTHA==
+"@blueprintjs/core@^5.1.5":
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/core/-/core-5.1.5.tgz#c79beba44a3385c8c4a8d5281387b864050c8bc8"
+  integrity sha512-eyPTQZUVFE1ZO/4g+JWAybbdTvZu8isZh7MFxBegrMvXvhS8i8qNv0lnEwYcWTkNkBOiVRhnE1fn1LVNUoFL/g==
   dependencies:
-    "@blueprintjs/colors" "^4.1.19"
-    "@blueprintjs/icons" "^4.14.3"
-    "@juggle/resize-observer" "^3.4.0"
-    "@types/dom4" "^2.0.2"
+    "@blueprintjs/colors" "^5.0.1"
+    "@blueprintjs/icons" "^5.1.4"
+    "@popperjs/core" "^2.11.7"
     classnames "^2.3.1"
-    dom4 "^2.1.5"
     normalize.css "^8.0.1"
-    popper.js "^1.16.1"
-    react-popper "^1.3.11"
+    react-popper "^2.3.0"
     react-transition-group "^4.4.5"
-    tslib "~2.3.1"
+    tslib "~2.5.0"
 
 "@blueprintjs/icons@^3.27.0":
   version "3.27.0"
@@ -2804,14 +2803,14 @@
     classnames "^2.2"
     tslib "~1.13.0"
 
-"@blueprintjs/icons@^4.14.3":
-  version "4.14.3"
-  resolved "https://registry.yarnpkg.com/@blueprintjs/icons/-/icons-4.14.3.tgz#adbad0d47b94f8c737d9e14b36fe70bf484ce482"
-  integrity sha512-2X5VXYCfybcax+tPVFl6WDngdxEk6AS7gflRjI9iuiJvkgjnkYeHBXZGRMhCzZb/B6+cBuMyvvAxmD2WVtlQsg==
+"@blueprintjs/icons@^5.1.4":
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/icons/-/icons-5.1.4.tgz#50429c720785f4c50547d277601f441ef503d8d6"
+  integrity sha512-2Vb8kneLZkKkH0VAkFbWHUixvI1UgFeDolev/TnyKHIaAPdGSmhoktmYsZNtcPiznZRrpb2PE03lU8fmBTi2KA==
   dependencies:
     change-case "^4.1.2"
     classnames "^2.3.1"
-    tslib "~2.3.1"
+    tslib "~2.5.0"
 
 "@blueprintjs/labs@^0.16.3":
   version "0.16.3"
@@ -3337,11 +3336,6 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@juggle/resize-observer@^3.4.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.4.0.tgz#08d6c5e20cf7e4cc02fd181c4b0c225cd31dbb60"
-  integrity sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==
-
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
@@ -3446,6 +3440,11 @@
     loader-utils "^2.0.4"
     schema-utils "^3.0.0"
     source-map "^0.7.3"
+
+"@popperjs/core@^2.11.7":
+  version "2.11.8"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
+  integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
 "@remix-run/router@1.3.3":
   version "1.3.3"
@@ -3763,7 +3762,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/dom4@^2.0.1", "@types/dom4@^2.0.2":
+"@types/dom4@^2.0.1":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@types/dom4/-/dom4-2.0.2.tgz#6495303f049689ce936ed328a3e5ede9c51408ee"
   integrity sha512-Rt4IC1T7xkCWa0OG1oSsPa0iqnxlDeQqKXZAHrQGLb7wFGncWm85MaxKUjAGejOrUynOgWlFi4c6S6IyJwoK4g==
@@ -10354,7 +10353,7 @@ prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@~15.7.2:
+prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -10523,6 +10522,11 @@ react-error-overlay@^6.0.11:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.11.tgz#92835de5841c5cf08ba00ddd2d677b6d17ff9adb"
   integrity sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==
 
+react-fast-compare@^3.0.1:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.2.tgz#929a97a532304ce9fee4bcae44234f1ce2c21d49"
+  integrity sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==
+
 react-focus-lock@^2.5.0:
   version "2.5.2"
   resolved "https://registry.npmjs.org/react-focus-lock/-/react-focus-lock-2.5.2.tgz"
@@ -10553,6 +10557,11 @@ react-full-screen@^1.0.1:
   integrity sha512-ivL/HrcfHhEUJWmgoiDKP7Xfy127LGz9x3VnwVxljJ0ky1D1YqJmXjhxnuEhfqT3yociJy/HCk9/yyJ3HEAjaw==
   dependencies:
     fscreen "^1.0.2"
+
+react-grid-gallery@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-grid-gallery/-/react-grid-gallery-1.0.0.tgz#31604b9488dfa75a899aa39bc8884138f0409a12"
+  integrity sha512-S1gr6WXBlPFVrE0x2BHuu7jhyaB61mabcMQyx+8KCgAyKzGza0WF67AfAnS9Q00aurFEq4IP8eqb2Bk5F4RAmQ==
 
 react-image-lightbox@^5.1.4:
   version "5.1.4"
@@ -10634,15 +10643,7 @@ react-motion@^0.5.0:
     prop-types "^15.5.8"
     raf "^3.1.0"
 
-react-photo-gallery@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.npmjs.org/react-photo-gallery/-/react-photo-gallery-8.0.0.tgz"
-  integrity sha512-Y9458yygEB9cIZAWlBWuenlR+ghin1RopmmU3Vice8BeJl0Se7hzfxGDq8W1armB/ic/kphGg+G1jq5fOEd0sw==
-  dependencies:
-    prop-types "~15.7.2"
-    resize-observer-polyfill "^1.5.0"
-
-react-popper@^1.3.11, react-popper@^1.3.7:
+react-popper@^1.3.7:
   version "1.3.11"
   resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-1.3.11.tgz#a2cc3f0a67b75b66cfa62d2c409f9dd1fcc71ffd"
   integrity sha512-VSA/bS+pSndSF2fiasHK/PTEEAyOpX60+H5EPAjoArr8JGm+oihu4UbrqcEBpQibJxBVCpYyjAX7abJ+7DoYVg==
@@ -10653,6 +10654,14 @@ react-popper@^1.3.11, react-popper@^1.3.7:
     popper.js "^1.14.4"
     prop-types "^15.6.1"
     typed-styles "^0.0.7"
+    warning "^4.0.2"
+
+react-popper@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-2.3.0.tgz#17891c620e1320dce318bad9fede46a5f71c70ba"
+  integrity sha512-e1hj8lL3uM+sgSR4Lxzn5h1GxBlpa4CQz0XLF8kx4MDrDRWY0Ena4c97PUeSX9i5W3UAfDP0z0FXCTQkoXUl3Q==
+  dependencies:
+    react-fast-compare "^3.0.1"
     warning "^4.0.2"
 
 react-property@1.0.1:
@@ -12079,10 +12088,10 @@ tslib@~1.13.0:
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.13.0.tgz"
   integrity sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
 
-tslib@~2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
-  integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
+tslib@~2.5.0:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.5.3.tgz#24944ba2d990940e6e982c4bea147aba80209913"
+  integrity sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w==
 
 tsutils@^3.21.0:
   version "3.21.0"
@@ -12898,6 +12907,11 @@ yargs@^16.2.0:
     string-width "^4.2.0"
     y18n "^5.0.5"
     yargs-parser "^20.2.2"
+
+yet-another-react-lightbox@^3.11.4:
+  version "3.11.4"
+  resolved "https://registry.yarnpkg.com/yet-another-react-lightbox/-/yet-another-react-lightbox-3.11.4.tgz#74266d37a025fa25af2daeb431a421b6ed199120"
+  integrity sha512-h7JFRKnjlmsPEsBgdUyzFDZCLdPG6jv2YDAGoIxCOr3qVttzyPU2T9AgtMwUZv+soLrneeQOTJ+F89Rm6TPQrQ==
 
 yocto-queue@^0.1.0:
   version "0.1.0"

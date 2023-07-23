@@ -1,17 +1,13 @@
 /* eslint-disable react/jsx-no-bind */
 import * as React from 'react'
-
-import Carousel, { Modal } from 'react-images'
-import { LightboxFooter, LightboxHeader } from './LightboxHeader'
-import { default as ReactGallery, RenderImageProps } from 'react-photo-gallery'
+import { Gallery as ReactGallery, ThumbnailImageProps } from 'react-grid-gallery'
 import { useCallback, useEffect, useState } from 'react'
-
 import { BirdImage } from './BirdImage'
+import { GalleryLightbox } from './GalleryLightbox'
 import { GalleryStyled } from './GalleryStyled'
 import { ImageProps } from './types'
 import { LatestPhotosLink } from './LatestPhotosLink'
 import { fetchGalleryPhotos } from '../../clients/GalleryClient'
-
 
 interface Props {
 	seeFullGalleryLink: boolean
@@ -45,8 +41,8 @@ export const Gallery: React.FC<Props> = ({ seeFullGalleryLink, urlToFetch, showI
 	}
 	/* eslint-enable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment*/
 
-	const openLightbox = useCallback((_: React.MouseEvent, props: { index:number }) => {
-		setSelectedIndex(props.index)
+	const openLightbox = useCallback((index: number, _: ImageProps) => {
+		setSelectedIndex(index)
 		setViewerIsOpen(true)
 	}, [])
 
@@ -56,48 +52,31 @@ export const Gallery: React.FC<Props> = ({ seeFullGalleryLink, urlToFetch, showI
 	}
 
 	/* eslint-disable no-shadow, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
-	const renderImage: React.FC<RenderImageProps> = ({ index, left, top, photo }: RenderImageProps) => (
+	const renderImage: React.FC<ThumbnailImageProps> = (thumbnail: ThumbnailImageProps) => (
 		<BirdImage
-			key={index}
-			margin={'2px'}
-			index={index}
-			photo={photo}
-			left={left}
-			top={top}
+			thumbnail={thumbnail}
 			onMouseDown={i => {
 				setSelectedIndex(i)
 				setViewerIsOpen(true)
-			}}
-			showCaption={showImageCaptions}
-			caption={(photo as unknown as any).caption}
-		/>
+			} }/>
 	)
 
 	return (
 		<GalleryStyled>
 			{seeFullGalleryLink ? <LatestPhotosLink /> : null}
-			<ReactGallery photos={images} onClick={openLightbox} renderImage={renderImage} />
+			<ReactGallery
+				images={images}
+				onClick={openLightbox}
+				thumbnailImageComponent={renderImage}
+				enableImageSelection={false}
+				tagStyle={showImageCaptions ? undefined : { display: 'none' }} />
 
 			{viewerIsOpen ? (
-				<Modal onClose={closeLightbox}>
-					<Carousel
-						// eslint-disable-next-line @typescript-eslint/naming-convention
-						components={{ Header: LightboxHeader, Footer: LightboxFooter }}
-						currentIndex={selectedIndex}
-						views={images.map(x => ({
-							caption: x.caption,
-							alt: x.caption,
-							source: x.original,
-							id: x.id,
-							key: x.id,
-							dateTaken: x.dateTaken,
-							birdNames: x.caption,
-							birdIds: x.birdIds,
-							hostingLink: x.hostingLink,
-							text: x.text,
-						}))}
-					/>
-				</Modal>
+				<GalleryLightbox
+					isOpened={viewerIsOpen}
+					onClose={closeLightbox}
+					images={images}
+					selectedIndex={selectedIndex} />
 			) : null}
 		</GalleryStyled>
 	)

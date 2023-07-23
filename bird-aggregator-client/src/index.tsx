@@ -1,5 +1,4 @@
 import './index.scss'
-import 'react-image-lightbox/style.css'
 
 import * as serviceWorker from './serviceWorker'
 

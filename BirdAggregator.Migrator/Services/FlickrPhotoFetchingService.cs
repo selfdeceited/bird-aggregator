@@ -111,7 +111,7 @@ namespace BirdAggregator.Migrator.Services
             };
         }
 
-        private async Task<T> HandleExceptions<T>(HttpResponseMessage response) where T : class, IStateResponse
+        private static async Task<T> HandleExceptions<T>(HttpResponseMessage response) where T : class, IStateResponse
         {
             if (response.StatusCode != HttpStatusCode.OK)
             {
