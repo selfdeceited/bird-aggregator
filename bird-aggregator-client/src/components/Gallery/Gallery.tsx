@@ -65,11 +65,26 @@ export const Gallery: React.FC<Props> = ({ seeFullGalleryLink, urlToFetch, showI
 		<GalleryStyled>
 			{seeFullGalleryLink ? <LatestPhotosLink /> : null}
 			<ReactGallery
+				rowHeight={300}
 				images={images}
 				onClick={openLightbox}
 				thumbnailImageComponent={renderImage}
 				enableImageSelection={false}
-				tagStyle={showImageCaptions ? undefined : { display: 'none' }} />
+				tagStyle={showImageCaptions ? {
+					fontSize: '1.1em',
+					display: 'inline',
+					padding: '0.2em 0.6em 0.3em',
+					fontWeight: 400,
+					lineHeight: '1',
+					color: 'yellow',
+					background: 'rgba(0, 0, 0, 0.55)',
+					textAlign: 'center',
+					whiteSpace: 'nowrap',
+					verticalAlign: 'baseline',
+					borderRadius: '0.25em',
+					overflow: 'hidden',
+					textOverflow: 'ellipsis',
+				} : { display: 'none' }} />
 
 			{viewerIsOpen ? (
 				<GalleryLightbox

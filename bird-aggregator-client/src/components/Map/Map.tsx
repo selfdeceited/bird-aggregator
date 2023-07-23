@@ -4,11 +4,12 @@
 
 import * as GeoJSON from 'geojson'
 import * as React from 'react'
-import { InputUrlParameters, MapMarker } from './types'
 
-import { Marker, Map as ReactMapGl, ScaleControl } from 'react-map-gl'
+import { FullscreenControl, GeolocateControl, Marker, NavigationControl, Map as ReactMapGl, ScaleControl } from 'react-map-gl'
+
+import { InputUrlParameters, MapMarker } from './types'
 import { useEffect, useState } from 'react'
-import { Pin } from './Pin'
+import { PinPopup } from './PinPopup'
 import { aggregatePhotosInSameLocation } from './locationAggregator'
 
 import { fetchMarkersByProps } from '../../clients/MarkerClient'
@@ -70,6 +71,10 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 		marker: mapStyles.marker,
 	}
 
+	function markerSelected(_: MapMarker): boolean {
+		return false
+	}
+
 	/* const clusterMarker: (coordinates: GeoJSON.Position, pointCount: number) => JSX.Element = (
 		coordinates,
 		pointCount,
@@ -86,9 +91,10 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 	)*/
 
 	return (
-		<div className={props.embedded ? '' : 'body'}>
+		<div className={props.embedded ? '' : ''}>
 			<ReactMapGl
-				accessToken={mapboxAccessToken}
+				// mapLib={import('mapbox-gl')}
+				mapboxAccessToken={mapboxAccessToken}
 				mapStyle="mapbox://styles/mapbox/outdoors-v10"
 				style={{
 					height: mapHeight,
@@ -101,17 +107,20 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 					zoom: 6,
 				}}
 			>
+				<GeolocateControl position="top-left" />
+				<FullscreenControl position="top-left" />
+				<NavigationControl position="top-left" />
 				<ScaleControl />
 				<>{
-					props.embedded ? markers.map(m => (<Marker
+					markers.map(m => (<Marker
 						key={key([m.x, m.y])}
 						longitude={m.x}
 						latitude={m.y}
 						onClick={() => markerClick(m)}
 						style={styles.marker}
 					>
-						<Pin marker={m} />
-					</Marker>)) : null
+						{markerSelected(m) && <PinPopup marker={m} />}
+					</Marker>))
 				}
 				</>
 				{

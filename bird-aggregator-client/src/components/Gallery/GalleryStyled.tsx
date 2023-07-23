@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-// todo: to gaps
 export const HeaderStyled = styled.header`
     top: var(--yarl__slide_title_container_top, 0);
     background: var(--yarl__slide_captions_container_background, rgba(0, 0, 0, 0.5));
@@ -9,6 +8,7 @@ export const HeaderStyled = styled.header`
     position: absolute;
     right: var(--yarl__slide_captions_container_right, 0);
     -webkit-transform: translateZ(0);
+    transform: translateZ(0);
     color: white;
     font-size: 1.3em;
 `
@@ -27,7 +27,6 @@ export const TimestampStyled = styled.span`
 export const GalleryStyled = styled.div`
     margin: 5px;
     margin-top: 20px;
-
 `
 
 export const FooterStyled = styled.footer`
