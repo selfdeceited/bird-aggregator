@@ -1,33 +1,24 @@
-using System.Threading.Tasks;
-using BirdAggregator.Application.Birds.GetBirdInfo;
+using BirdAggregator.Application.Birds;
 using BirdAggregator.Application.Birds.GetBirds;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BirdAggregator.Host.Controllers
+namespace BirdAggregator.Host.Controllers;
+
+[Route("api/[controller]")]
+public class BirdsController(IMediator mediator) : Controller
 {
-    [Route("api/[controller]")]
-    public class BirdsController : Controller
+    [HttpGet]
+    public async Task<IActionResult> Get()
     {
-        private readonly IMediator _mediator;
+        var orders = await mediator.Send(new GetBirdsQuery());
+        return Ok(orders);
+    }
 
-        public BirdsController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            var orders = await _mediator.Send(new GetBirdsQuery());
-            return Ok(orders);
-        }
-
-        [HttpGet("info/{id}")]
-        public async Task<IActionResult> GetInfo(string id)
-        {
-            var info = await _mediator.Send(new GetBirdInfoQuery(id));
-            return Ok(info);
-        }
+    [HttpGet("info/{id}")]
+    public async Task<IActionResult> GetInfo(string id)
+    {
+        var info = await mediator.Send(new GetBirdInfoQuery(id));
+        return Ok(info);
     }
 }

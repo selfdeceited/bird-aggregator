@@ -1,5 +1,3 @@
-using System;
-
 namespace BirdAggregator.Application.LifeList.GetLifeListQuery;
 
 public record Occurrence

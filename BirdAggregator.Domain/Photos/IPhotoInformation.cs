@@ -1,10 +1,7 @@
-using System.Collections.Generic;
+namespace BirdAggregator.Domain.Photos;
 
-namespace BirdAggregator.Domain.Photos
+public interface IPhotoInformation
 {
-    public interface IPhotoInformation
-    {
-        string Id { get; }
-        Dictionary<string, string> Metadata { get; }
-    }
+    string Id { get; }
+    Dictionary<string, string> Metadata { get; }
 }

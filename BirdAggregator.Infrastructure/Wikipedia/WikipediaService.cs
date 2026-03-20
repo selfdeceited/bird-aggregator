@@ -1,56 +1,46 @@
-using System.Net.Http;
-using System.Threading.Tasks;
 using BirdAggregator.Domain.Interfaces;
 using BirdAggregator.Domain.Photos;
 using BirdAggregator.Infrastructure.HttpClients;
 
-namespace BirdAggregator.Infrastructure.Wikipedia
+namespace BirdAggregator.Infrastructure.Wikipedia;
+
+public class WikipediaService(IHttpClientFactory httpClientFactory) : IInformationService
 {
-    public class WikipediaService : IInformationService
+    public async Task<IBirdInfo> Get(string englishName)
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-
-        public WikipediaService(IHttpClientFactory httpClientFactory)
+        var extract = await CallWikipediaExtract(englishName);
+        if (extract.Contains("may refer to"))
         {
-            _httpClientFactory = httpClientFactory;
+            extract = await CallWikipediaExtract(englishName + "_(bird)");
         }
 
-        public async Task<IBirdInfo> Get(string englishName)
+        return new BirdInfo
         {
-            var extract = await CallWikipediaExtract(englishName);
-            if (extract.Contains("may refer to"))
-            {
-                extract = await CallWikipediaExtract(englishName + "_(bird)");
-            }
+            Description = extract,
+            ImageLink = await CallWikipediaImages(englishName)
+        };
+    }
 
-            return new BirdInfo
-            {
-                Description = extract,
-                ImageLink = await CallWikipediaImages(englishName)
-            };
-        }
+    private Task<string> CallWikipediaExtract(string englishName)
+    {
+        return QueryWikipedia(englishName, "extracts");
+    }
 
-        private Task<string> CallWikipediaExtract(string englishName)
-        {
-            return QueryWikipedia(englishName, "extracts");
-        }
+    private Task<string> CallWikipediaImages(string englishName)
+    {
+        return QueryWikipedia(englishName, "images");
+    }
 
-        private Task<string> CallWikipediaImages(string englishName)
-        {
-            return QueryWikipedia(englishName, "images");
-        }
+    private async Task<string> QueryWikipedia(string englishName, string propertyName)
+    {
+        var name = englishName.Replace(" ", "%20");
+        var requestUrl = $"w/api.php?format=json&action=query&prop={propertyName}&titles={name}&redirects=true";
+        return await CallWikipedia(requestUrl);
+    }
 
-        private async Task<string> QueryWikipedia(string englishName, string propertyName)
-        {
-            var name = englishName.Replace(" ", "%20");
-            var requestUrl = $"w/api.php?format=json&action=query&prop={propertyName}&titles={name}&redirects=true";
-            return await CallWikipedia(requestUrl);
-        }
-
-        private async Task<string> CallWikipedia(string requestUrl)
-        {
-            var httpClient = _httpClientFactory.CreateClient(HttpClientNames.Wikipedia);
-            return await httpClient.GetStringAsync(requestUrl);
-        }
+    private async Task<string> CallWikipedia(string requestUrl)
+    {
+        var httpClient = httpClientFactory.CreateClient(HttpClientNames.Wikipedia);
+        return await httpClient.GetStringAsync(requestUrl);
     }
 }

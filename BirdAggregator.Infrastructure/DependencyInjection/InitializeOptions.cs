@@ -1,7 +1,6 @@
-namespace BirdAggregator.Infrastructure.DependencyInjection
+namespace BirdAggregator.Infrastructure.DependencyInjection;
+
+public class InitializeOptions
 {
-    public class InitializeOptions
-    {
-        public bool BootstrapDb { get; set; } = true;
-    }
+    public bool BootstrapDb { get; set; } = true;
 }

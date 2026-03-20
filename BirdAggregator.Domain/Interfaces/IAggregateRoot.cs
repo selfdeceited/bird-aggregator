@@ -1,7 +1,6 @@
-namespace BirdAggregator.Domain.Interfaces
-{
-    public interface IAggregateRoot
-    {
+namespace BirdAggregator.Domain.Interfaces;
 
-    }
+public interface IAggregateRoot
+{
+
 }

@@ -1,26 +1,18 @@
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using BirdAggregator.Domain.Birds;
 
-namespace BirdAggregator.Application.Birds.GetBirds
+namespace BirdAggregator.Application.Birds.GetBirds;
+
+public class GetBirdsQueryHandler(IBirdRepository birdRepository) : IQueryHandler<GetBirdsQuery, BirdListDto>
 {
-    public class GetBirdsQueryHandler : IQueryHandler<GetBirdsQuery, BirdListDto>
+    private readonly IBirdRepository _birdRepository = birdRepository;
+
+    public async Task<BirdListDto> Handle(GetBirdsQuery request, CancellationToken cancellationToken)
     {
-        private readonly IBirdRepository _birdRepository;
-        public GetBirdsQueryHandler(IBirdRepository birdRepository)
-        {
-            _birdRepository = birdRepository;
-        }
+        var allBirds = await _birdRepository.GetAll();
 
-        public async Task<BirdListDto> Handle(GetBirdsQuery request, CancellationToken cancellationToken)
+        return new BirdListDto
         {
-            var allBirds = await _birdRepository.GetAll();
-
-            return new BirdListDto
-            {
-                Birds = allBirds.Select(bird => new BirdDto(bird.Id, bird.LatinName, bird.EnglishName)).ToList()
-            };
-        }
+            Birds = [.. allBirds.Select(bird => new BirdDto(bird.Id, bird.LatinName, bird.EnglishName))]
+        };
     }
 }

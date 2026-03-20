@@ -1,12 +1,7 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+namespace BirdAggregator.Migrator.Repositories;
 
-namespace BirdAggregator.Migrator.Repositories
+public interface IPhotoWriteRepository
 {
-    public interface IPhotoWriteRepository
-    {
-        Task SavePhotos(IList<SavePhotoModel> savePhotoModels, CancellationToken ct);
-        Task TrackDuplicatePhotos(CancellationToken ct);
-    }
+    Task SavePhotos(IList<SavePhotoModel> savePhotoModels, CancellationToken ct);
+    Task TrackDuplicatePhotos(CancellationToken ct);
 }

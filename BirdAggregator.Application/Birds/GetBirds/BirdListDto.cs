@@ -1,9 +1,6 @@
-using System.Collections.Generic;
+namespace BirdAggregator.Application.Birds.GetBirds;
 
-namespace BirdAggregator.Application.Birds.GetBirds
+public class BirdListDto
 {
-    public class BirdListDto
-    {
-        public List<BirdDto> Birds { get; set; }
-    }
+    public List<BirdDto> Birds { get; set; }
 }

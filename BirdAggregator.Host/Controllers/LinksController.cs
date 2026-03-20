@@ -1,38 +1,29 @@
-using System.Threading.Tasks;
 using BirdAggregator.Application.Configuration;
 using BirdAggregator.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BirdAggregator.Host.Controllers
+namespace BirdAggregator.Host.Controllers;
+
+[Route("api/[controller]")]
+public class LinksController(
+    AppSettings appSettings,
+    IPictureHostingService pictureHostingService) : Controller
 {
-    [Route("api/[controller]")]
-    public class LinksController : Controller
+    [HttpGet("github")]
+    public IActionResult Github()
     {
-        private readonly AppSettings _appSettings;
-        private readonly IPictureHostingService _pictureHostingService;
+        return Ok($"https://github.com/{appSettings.Github}");
+    }
 
-        public LinksController(AppSettings appSettings, IPictureHostingService pictureHostingService)
-        {
-            _appSettings = appSettings;
-            _pictureHostingService = pictureHostingService;
-        }
+    [HttpGet("user")]
+    public new IActionResult User()
+    {
+        return Ok(appSettings.UserName);
+    }
 
-        [HttpGet("github")]
-        public IActionResult Github()
-        {
-            return Ok($"https://github.com/{_appSettings.Github}");
-        }
-
-        [HttpGet("user")]
-        public new IActionResult User()
-        {
-            return Ok(_appSettings.UserName);
-        }
-
-        [HttpGet("hosting")]
-        public IActionResult Hosting()
-        {
-            return Ok(_pictureHostingService.GetUserLink());
-        }
+    [HttpGet("hosting")]
+    public IActionResult Hosting()
+    {
+        return Ok(pictureHostingService.GetUserLink());
     }
 }

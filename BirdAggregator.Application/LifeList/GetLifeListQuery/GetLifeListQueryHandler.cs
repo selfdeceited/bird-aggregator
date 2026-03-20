@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using BirdAggregator.Domain.Birds;
 using BirdAggregator.Domain.Photos;
 
@@ -10,22 +6,16 @@ namespace BirdAggregator.Application.LifeList.GetLifeListQuery;
 public record GetLifeListDto(List<Occurrence> FirstOccurences);
 public class GetLifeListQuery : IQuery<GetLifeListDto> { }
 
-public class GetLifeListQueryHandler : IQueryHandler<GetLifeListQuery, GetLifeListDto>
+public class GetLifeListQueryHandler(
+    IBirdRepository birdRepository,
+    IPhotoRepository photoRepository)
+    : IQueryHandler<GetLifeListQuery, GetLifeListDto>
 {
-    private readonly IBirdRepository _birdRepository;
-    private readonly IPhotoRepository _photoRepository;
-
-    public GetLifeListQueryHandler(IBirdRepository birdRepository, IPhotoRepository photoRepository)
-    {
-        _birdRepository = birdRepository;
-        _photoRepository = photoRepository;
-    }
-
     public async Task<GetLifeListDto> Handle(GetLifeListQuery request, CancellationToken cancellationToken)
     {
         // todo: move as much to domain logic as possible
-        var allBirds = await _birdRepository.GetAll();
-        var allPhotos = await _photoRepository.GetAllAsync();
+        var allBirds = await birdRepository.GetAll();
+        var allPhotos = await photoRepository.GetAllAsync();
 
         var grouping = allBirds.Select(x => new LifeListGrouping
         {
@@ -49,7 +39,7 @@ public class GetLifeListQueryHandler : IQueryHandler<GetLifeListQuery, GetLifeLi
             ));
         }
 
-        return new GetLifeListDto(localList.OrderByDescending(x => x.DateMet).ToList());
+        return new GetLifeListDto([.. localList.OrderByDescending(x => x.DateMet)]);
     }
 
     private class LifeListGrouping

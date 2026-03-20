@@ -1,9 +1,8 @@
 using BirdAggregator.Domain.Photos;
 
-namespace BirdAggregator.Application.Locations
+namespace BirdAggregator.Application.Locations;
+
+public interface ILocationService
 {
-    public interface ILocationService
-    {
-        MarkerDto GetMarker(Photo photo);
-    }
+    MarkerDto GetMarker(Photo photo);
 }

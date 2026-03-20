@@ -1,10 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿namespace BirdAggregator.Domain.Locations;
 
-namespace BirdAggregator.Domain.Locations
+public interface ILocationRepository
 {
-    public interface ILocationRepository
-    {
-        Task<Location[]> GetAllAsync();
-        Task<Location> GetByIdAsync(int id);
-    }
+    Task<Location[]> GetAllAsync();
+    Task<Location> GetByIdAsync(int id);
 }

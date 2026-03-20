@@ -1,7 +1,6 @@
-namespace BirdAggregator.Migrator
+namespace BirdAggregator.Migrator;
+
+public interface IMigrator
 {
-    public interface IMigrator
-    {
-        void Run();
-    }
+    void Run();
 }

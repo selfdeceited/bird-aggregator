@@ -1,8 +1,7 @@
-namespace BirdAggregator.Domain.Photos
+namespace BirdAggregator.Domain.Photos;
+
+public interface IBirdInfo
 {
-    public interface IBirdInfo
-    {
-        string Description { get; set; }
-        string ImageLink { get; set; }
-    }
+    string Description { get; set; }
+    string ImageLink { get; set; }
 }

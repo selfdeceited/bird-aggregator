@@ -2,49 +2,41 @@ using BirdAggregator.Application.Configuration;
 using BirdAggregator.Domain.Interfaces;
 using BirdAggregator.Domain.Photos;
 
-namespace BirdAggregator.Infrastructure.Flickr
+namespace BirdAggregator.Infrastructure.Flickr;
+
+public class FlickrService(AppSettings appSettings) : IPictureHostingService
 {
-    public class FlickrService : IPictureHostingService
+    public PictureInfo GetAllImageLinks(IPhotoInformation photoInformation)
     {
-        private readonly AppSettings _appSettings;
+        return new PictureInfo(
+            OriginalLink: GetOriginal(photoInformation),
+            ThumbnailLink: GetThumbnail(photoInformation),
+            WebsiteLink: GetWebsiteLink(photoInformation)
+        );
+    }
 
-        public FlickrService(AppSettings appSettings)
-        {
-            _appSettings = appSettings;
-        }
+    public string GetOriginal(IPhotoInformation photoInformation) => GetFlickrImageUrl(photoInformation, "_h");
+    public string GetThumbnail(IPhotoInformation photoInformation) => GetFlickrImageUrl(photoInformation, "_n");
 
-        public PictureInfo GetAllImageLinks(IPhotoInformation photoInformation)
-        {
-            return new PictureInfo(
-                OriginalLink : GetOriginal(photoInformation),
-                ThumbnailLink : GetThumbnail(photoInformation),
-                WebsiteLink : GetWebsiteLink(photoInformation)
-            );
-        }
+    public string GetUserLink()
+    {
+        return $"https://www.flickr.com/photos/{appSettings.FlickrUserId}/";
+    }
 
-        public string GetOriginal(IPhotoInformation photoInformation) => GetFlickrImageUrl(photoInformation, "_h");
-        public string GetThumbnail(IPhotoInformation photoInformation) => GetFlickrImageUrl(photoInformation, "_n");
+    public string GetWebsiteLink(IPhotoInformation photoInformation)
+    {
+        return $"https://www.flickr.com/photos/{appSettings.FlickrUserId}/{photoInformation.Id}";
+    }
 
-        public string GetUserLink()
-        {
-            return $"https://www.flickr.com/photos/{_appSettings.FlickrUserId}/";
-        }
+    private static string GetFlickrImageUrl(IPhotoInformation photoInformation, string postfix)
+    {
+        if (photoInformation == null)
+            return string.Empty;
 
-        public string GetWebsiteLink(IPhotoInformation photoInformation)
-        {
-            return $"https://www.flickr.com/photos/{_appSettings.FlickrUserId}/{photoInformation.Id}";
-        }
+        var farmId = photoInformation.Metadata["FarmId"];
+        var serverId = photoInformation.Metadata["ServerId"];
+        var secret = photoInformation.Metadata["Secret"];
 
-        private string GetFlickrImageUrl(IPhotoInformation photoInformation, string postfix)
-        {
-            if (photoInformation == null)
-                return string.Empty;
-
-            var farmId = photoInformation.Metadata["FarmId"];
-            var serverId = photoInformation.Metadata["ServerId"];
-            var secret = photoInformation.Metadata["Secret"];
-
-            return $"https://farm{farmId}.staticflickr.com/{serverId}/{photoInformation.Id}_{secret}{postfix}.jpg";
-        }
+        return $"https://farm{farmId}.staticflickr.com/{serverId}/{photoInformation.Id}_{secret}{postfix}.jpg";
     }
 }

@@ -1,37 +1,24 @@
-using System;
 using System.IO.Compression;
 using BirdAggregator.Application.Birds.GetBirds;
 using BirdAggregator.Application.Configuration;
 using BirdAggregator.Domain.Birds;
 using BirdAggregator.Infrastructure.DependencyInjection;
 using BirdAggregator.Infrastructure.HealthChecks;
-using BirdAggregator.Infrastructure.HttpClients;
 using BirdAggregator.Infrastructure.Mongo;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace BirdAggregator.Host;
 
-public class Startup
+public class Startup(IWebHostEnvironment env)
 {
-    private readonly IConfiguration _configuration;
-    private const string CorsPolicy = "_myAllowSpecificOrigins";
-
-    public Startup(IWebHostEnvironment env)
-    {
-        _configuration = new ConfigurationBuilder()
+    private readonly IConfiguration _configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
             .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
             .AddJsonFile($"hosting.{env.EnvironmentName}.json")
             .AddEnvironmentVariables()
             .Build();
-    }
+    private const string CorsPolicy = "_myAllowSpecificOrigins";
 
 
     // This method gets called by the runtime. Use this method to add services to the container.
@@ -84,7 +71,7 @@ public class Startup
         var appSettings = _configuration.GetSection(nameof(AppSettings)).Get<AppSettings>();
         var sp = ApplicationStartup.Initialize(services, appSettings, new InitializeOptions());
 
-        
+
         services.AddHealthChecks()
             .AddCheck<FlickrHealthCheck>("flickr-access")
             .AddProcessAllocatedMemoryHealthCheck(200 * 1000 * 1000);

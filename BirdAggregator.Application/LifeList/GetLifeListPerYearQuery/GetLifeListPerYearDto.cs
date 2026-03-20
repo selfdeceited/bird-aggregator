@@ -1,9 +1,6 @@
-using System.Collections.Generic;
+namespace BirdAggregator.Application.LifeList.GetLifeListPerYearQuery;
 
-namespace BirdAggregator.Application.LifeList.GetLifeListPerYearQuery
+public class GetLifeListPerYearDto
 {
-    public class GetLifeListPerYearDto
-    {
-        public List<PerYearInfo> PerYearCollection { get; set; }
-    }
+    public List<PerYearInfo> PerYearCollection { get; set; }
 }

@@ -1,6 +1,4 @@
 ﻿using BirdAggregator.Application.Configuration;
-using System;
-using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using BirdAggregator.Domain.Interfaces;
 using BirdAggregator.Infrastructure.Flickr;
@@ -37,7 +35,7 @@ public class ApplicationStartup
         bootstrapTask.ConfigureAwait(false).GetAwaiter().GetResult();
     }
 
-    private static IServiceProvider CreateServiceProvider(
+    private static ServiceProvider CreateServiceProvider(
         IServiceCollection services,
         AppSettings appSettings)
     {
@@ -55,7 +53,7 @@ public class ApplicationStartup
         services.AddScoped<ILocationService, LocationService>();
 
         services.AddSingleton(appSettings);
-        
+
         services.AddHttpClient(HttpClientNames.Flickr, c =>
         {
             c.BaseAddress = new Uri("https://api.flickr.com");
@@ -65,7 +63,7 @@ public class ApplicationStartup
             c.BaseAddress = new Uri("https://en.wikipedia.org");
             c.DefaultRequestHeaders.UserAgent.ParseAdd("BirdAggregator/1.0 (https://github.com)");
         });
-        
+
         var serviceProvider = services.BuildServiceProvider();
         return serviceProvider;
     }

@@ -1,7 +1,6 @@
-namespace BirdAggregator.Migrator.ResponseModels
+namespace BirdAggregator.Migrator.ResponseModels;
+
+public interface IStateResponse
 {
-    public interface IStateResponse
-    {
-        string stat { get; set; }
-    }
+    string stat { get; set; }
 }

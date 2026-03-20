@@ -1,39 +1,23 @@
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using BirdAggregator.Domain.Locations;
 using BirdAggregator.Domain.Photos;
 
-namespace BirdAggregator.Application.Locations
+namespace BirdAggregator.Application.Locations;
+
+public record GetLocationsQuery : IQuery<LocationListDto>;
+public class GetLocationsQueryHandler(
+    IPhotoRepository photoRepository,
+    ILocationService locationService)
+    : IQueryHandler<GetLocationsQuery, LocationListDto>
 {
-    public record GetLocationsQuery : IQuery<LocationListDto>;
-    public class GetLocationsQueryHandler : IQueryHandler<GetLocationsQuery, LocationListDto>
+    public async Task<LocationListDto> Handle(GetLocationsQuery request, CancellationToken cancellationToken)
     {
-        private readonly ILocationRepository _locationRepository;
-        private readonly IPhotoRepository _photoRepository;
-        private readonly ILocationService _locationService;
+        var photos = await photoRepository.GetAllAsync();
+        var markers = photos
+            .Select(locationService.GetMarker)
+            .Where(m => m != null);
 
-        public GetLocationsQueryHandler(
-            ILocationRepository locationRepository,
-            IPhotoRepository photoRepository,
-            ILocationService locationService)
+        return new LocationListDto
         {
-            _locationRepository = locationRepository;
-            _locationService = locationService;
-            _photoRepository = photoRepository;
-        }
-
-        public async Task<LocationListDto> Handle(GetLocationsQuery request, CancellationToken cancellationToken)
-        {
-            var photos = await _photoRepository.GetAllAsync();
-            var markers = photos
-                .Select(_locationService.GetMarker)
-                .Where(m => m != null);
-
-            return new LocationListDto
-            {
-                Markers = markers.ToList()
-            };
-        }
+            Markers = [.. markers]
+        };
     }
 }

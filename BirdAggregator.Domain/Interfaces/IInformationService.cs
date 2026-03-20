@@ -1,10 +1,8 @@
-﻿using System.Threading.Tasks;
-using BirdAggregator.Domain.Photos;
+﻿using BirdAggregator.Domain.Photos;
 
-namespace BirdAggregator.Domain.Interfaces
+namespace BirdAggregator.Domain.Interfaces;
+
+public interface IInformationService
 {
-    public interface IInformationService
-    {
-        Task<IBirdInfo> Get(string englishName);
-    }
+    Task<IBirdInfo> Get(string englishName);
 }

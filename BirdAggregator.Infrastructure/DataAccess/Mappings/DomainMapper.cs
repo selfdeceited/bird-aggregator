@@ -1,7 +1,6 @@
-namespace BirdAggregator.Infrastructure.DataAccess.Mappings
+namespace BirdAggregator.Infrastructure.DataAccess.Mappings;
+
+internal abstract class DomainMapper<TModel, TDomain>
 {
-    internal abstract class DomainMapper<TModel, TDomain>
-    {
-        public abstract TDomain ToDomain(TModel model);
-    }
+    public abstract TDomain ToDomain(TModel model);
 }

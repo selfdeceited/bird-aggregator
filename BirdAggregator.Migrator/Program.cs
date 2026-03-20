@@ -1,5 +1,4 @@
-﻿using System;
-using Colorify;
+﻿using Colorify;
 using Colorify.UI;
 using BirdAggregator.Infrastructure.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,62 +9,61 @@ using BirdAggregator.Migrator.Providers;
 using BirdAggregator.Migrator.Repositories;
 using BirdAggregator.Migrator.Services;
 
-namespace BirdAggregator.Migrator
+namespace BirdAggregator.Migrator;
+
+public static class Program
 {
-    public static class Program
+    public static readonly Format ColoredConsole = new(Theme.Dark);
+
+    public static void Main(string[] args)
     {
-        public static readonly Format ColoredConsole = new(Theme.Dark);
+        ColoredConsole.Clear();
 
-        public static void Main(string[] args)
+        var serviceProvider = SetupDi();
+        var migrator = serviceProvider.GetService<IMigrator>();
+
+        try
         {
-            ColoredConsole.Clear();
-
-            var serviceProvider = SetupDi();
-            var migrator = serviceProvider.GetService<IMigrator>();
-
-            try
-            {
-                migrator?.Run();
-            }
-            catch (Exception e)
-            {
-                ColoredConsole.WriteLine(e.Message, Colors.bgDanger);
-            }
-            finally
-            {
-                Console.ReadKey();
-                ColoredConsole.ResetColor();
-            }
+            migrator?.Run();
         }
-
-        private static IServiceProvider SetupDi()
+        catch (Exception e)
         {
-            var services = new ServiceCollection()
-                .AddLogging(logging =>
-                {
-                    logging.ClearProviders();
-                    logging.AddConsole();
-                })
-                .AddSingleton<IPictureFetchingService, FlickrPhotoFetchingService>()
-                .AddSingleton<IMigrationExecutor, MigrationExecutor>()
-                .AddSingleton<IMigratorObservableProvider, MigratorObservableProvider>()
-                .AddSingleton<IPhotoWriteRepository, PhotoWriteRepository>()
-                .AddSingleton<IMigrator, Migrator>();
-
-            var builder = new ConfigurationBuilder()
-                .AddJsonFile($"appsettings.json")
-                .AddJsonFile($"appsettings.Development.json")
-                //.AddJsonFile($"appsettings.{(args[0] == "-dev" ? "Development": "Production")}.json");
-                .AddJsonFile($"hosting.json")
-                .AddJsonFile($"hosting.Development.json");
-            //.AddJsonFile($"hosting.{(firstArg == "-dev" ? "Development" : "Production")}.json");
-
-            var configuration = builder.Build();
-            var appSettings = configuration.GetSection(nameof(AppSettings)).Get<AppSettings>();
-            var serviceProvider = ApplicationStartup.Initialize(
-                services, appSettings, new InitializeOptions { BootstrapDb = false });
-
-            return serviceProvider;
+            ColoredConsole.WriteLine(e.Message, Colors.bgDanger);
         }
+        finally
+        {
+            Console.ReadKey();
+            ColoredConsole.ResetColor();
+        }
+    }
+
+    private static IServiceProvider SetupDi()
+    {
+        var services = new ServiceCollection()
+            .AddLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.AddConsole();
+            })
+            .AddSingleton<IPictureFetchingService, FlickrPhotoFetchingService>()
+            .AddSingleton<IMigrationExecutor, MigrationExecutor>()
+            .AddSingleton<IMigratorObservableProvider, MigratorObservableProvider>()
+            .AddSingleton<IPhotoWriteRepository, PhotoWriteRepository>()
+            .AddSingleton<IMigrator, Migrator>();
+
+        var builder = new ConfigurationBuilder()
+            .AddJsonFile($"appsettings.json")
+            .AddJsonFile($"appsettings.Development.json")
+            //.AddJsonFile($"appsettings.{(args[0] == "-dev" ? "Development": "Production")}.json");
+            .AddJsonFile($"hosting.json")
+            .AddJsonFile($"hosting.Development.json");
+        //.AddJsonFile($"hosting.{(firstArg == "-dev" ? "Development" : "Production")}.json");
+
+        var configuration = builder.Build();
+        var appSettings = configuration.GetSection(nameof(AppSettings)).Get<AppSettings>();
+        var serviceProvider = ApplicationStartup.Initialize(
+            services, appSettings, new InitializeOptions { BootstrapDb = false });
+
+        return serviceProvider;
     }
 }

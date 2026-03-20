@@ -1,282 +1,269 @@
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using BirdAggregator.Infrastructure.DataAccess.Photos;
 using BirdAggregator.Infrastructure.Mongo;
 using BirdAggregator.Migrator.ResponseModels;
 using Colorify;
 using MongoDB.Driver;
 
-namespace BirdAggregator.Migrator.Repositories
+namespace BirdAggregator.Migrator.Repositories;
+
+public class PhotoWriteRepository(IMongoConnection mongoConnection) : IPhotoWriteRepository
 {
-    public class PhotoWriteRepository : IPhotoWriteRepository
-    {
-        private readonly IMongoConnection _mongoConnection;
-
-        private IMongoCollection<PhotoModel> _photos => _mongoConnection.Database
-            .GetCollection<PhotoModel>("photos")
-            .WithWriteConcern(WriteConcern.WMajority);
-
-        private IMongoCollection<BirdModel> _birds => _mongoConnection.Database
-            .GetCollection<BirdModel>("birds")
+    private IMongoCollection<PhotoModel> Photos => mongoConnection.Database
+        .GetCollection<PhotoModel>("photos")
         .WithWriteConcern(WriteConcern.WMajority);
 
-        public PhotoWriteRepository(IMongoConnection mongoConnection)
+    private IMongoCollection<BirdModel> Birds => mongoConnection.Database
+        .GetCollection<BirdModel>("birds")
+    .WithWriteConcern(WriteConcern.WMajority);
+
+    public async Task SavePhotos(IList<SavePhotoModel> savePhotoModels, CancellationToken ct)
+    {
+        if (!savePhotoModels.Any()) return;
+
+        var birdNames = savePhotoModels
+            .Select(x => x.photo.title._content)
+            .SelectMany(ExtractBirdNames);
+
+        var batchHash = savePhotoModels
+            .Select(x => x.photo.id)
+            .Aggregate(0, (current, t) => current ^ t.GetHashCode())
+            .ToString();
+
+        Program.ColoredConsole.WriteLine($"            > #{batchHash} for ids: ${string.Join(", ", savePhotoModels.Select(x => x.photo.id))}", Colors.txtMuted);
+        try
         {
-            _mongoConnection = mongoConnection;
-        }
-
-        public async Task SavePhotos(IList<SavePhotoModel> savePhotoModels, CancellationToken ct)
-        {
-            if (!savePhotoModels.Any()) return;
-
-            var birdNames = savePhotoModels
-                .Select(x => x.photo.title._content)
-                .SelectMany(ExtractBirdNames);
-
-            var batchHash = savePhotoModels
-                .Select(x => x.photo.id)
-                .Aggregate(0, (current, t) => current ^ t.GetHashCode())
-                .ToString();
-
-            Program.ColoredConsole.WriteLine($"            > #{batchHash} for ids: ${string.Join(", ", savePhotoModels.Select(x => x.photo.id))}", Colors.txtMuted);
-            try
+            var result = await mongoConnection.ExecuteInTransaction(async (s, cancellationToken) =>
             {
-                var result = await _mongoConnection.ExecuteInTransaction(async (s, cancellationToken) =>
+                var birdsInBatch = await GetOrUpdateBirds(birdNames, s, batchHash, cancellationToken);
+
+                IEnumerable<BirdModel> BirdsForModel(SavePhotoModel _)
                 {
-                    var birdsInBatch = await GetOrUpdateBirds(birdNames, s, batchHash, cancellationToken);
+                    var birdNamesForModel = ExtractBirdNames(_.photo.title._content)
+                        .Where(name => name != "undefined")
+                        .Select(x => ToBirdModel(x).Name)
+                        .Distinct()
+                        .ToArray();
+                    return birdsInBatch.Where(b => birdNamesForModel.Contains(b.Name));
+                }
 
-                    IEnumerable<BirdModel> BirdsForModel(SavePhotoModel _)
-                    {
-                        var birdNamesForModel = ExtractBirdNames(_.photo.title._content)
-                            .Where(name => name != "undefined")
-                            .Select(x => ToBirdModel(x).Name)
-                            .Distinct()
-                            .ToArray();
-                        return birdsInBatch.Where(b => birdNamesForModel.Contains(b.Name));
-                    }
+                var photoModels = savePhotoModels.Select(_ => ToPhotoModel(_.photo, _.sizes, _.location, BirdsForModel(_)));
 
-                    var photoModels = savePhotoModels.Select(_ => ToPhotoModel(_.photo, _.sizes, _.location, BirdsForModel(_)));
+                // todo: fix duplicate entries - upsert by flickr id?
+                await Photos.InsertManyAsync(s, photoModels, new InsertManyOptions { IsOrdered = false },
+                    cancellationToken);
 
-                    // todo: fix duplicate entries - upsert by flickr id?
-                    await _photos.InsertManyAsync(s, photoModels, new InsertManyOptions { IsOrdered = false },
-                        cancellationToken);
+                return 1; // todo: return duplicates to schedule its fixes
+            }, ct);
+        }
+        catch (Exception e)
+        {
+            Program.ColoredConsole.WriteLine($"{e.Message}\n{e.StackTrace}", Colors.txtWarning);
+            Program.ColoredConsole.WriteLine($"#{batchHash}: insert has failed", Colors.bgWarning);
+            Program.ColoredConsole.WriteLine(JsonSerializer.Serialize(savePhotoModels), Colors.txtMuted);
+            throw;
+        }
+    }
 
-                    return 1; // todo: return duplicates to schedule its fixes
-                }, ct);
-            }
-            catch (Exception e)
-            {
-                Program.ColoredConsole.WriteLine($"{e.Message}\n{e.StackTrace}", Colors.txtWarning);
-                Program.ColoredConsole.WriteLine($"#{batchHash}: insert has failed", Colors.bgWarning);
-                Program.ColoredConsole.WriteLine(JsonSerializer.Serialize(savePhotoModels), Colors.txtMuted);
-                throw;
-            }
+    private async Task<IEnumerable<BirdModel>> GetOrUpdateBirds(IEnumerable<string> birdNames, IClientSessionHandle clientSessionHandle, string batchId, CancellationToken ct)
+    {
+        var inputBirdModels = birdNames
+            .Where(name => name != "undefined")
+            .Distinct()
+            .Select(ToBirdModel)
+            .ToArray();
+
+        Program.ColoredConsole.WriteLine($"            > # #{batchId} local: ${string.Join(", ", inputBirdModels.Select(x => $"{x.Name}"))}", Colors.txtMuted);
+        var birdsFromDb = (await GetBirdsFromDb(clientSessionHandle, inputBirdModels, ct)).ToArray();
+        Program.ColoredConsole.WriteLine($"            > # #{batchId} db: ${string.Join(", ", birdsFromDb.Select(x => $"{x.dbModel?.Name} {x.dbModel?.Id}"))}", Colors.txtMuted);
+        var toInsert = birdsFromDb
+            .Where(x => x.dbModel == null)
+            .Select(x => x.inputModel)
+            .ToArray();
+
+        if (toInsert.Length == 0)
+        {
+            Program.ColoredConsole.WriteLine($"            > #{batchId} nothing to insert", Colors.txtMuted);
+            return birdsFromDb.Select(x => x.dbModel).ToList();
         }
 
-        private async Task<IEnumerable<BirdModel>> GetOrUpdateBirds(IEnumerable<string> birdNames, IClientSessionHandle clientSessionHandle, string batchId, CancellationToken ct)
+        await Birds.InsertManyAsync(clientSessionHandle, toInsert, cancellationToken: ct);
+
+        var updatedModels = (await GetBirdsFromDb(clientSessionHandle, inputBirdModels, ct)).ToArray();
+        Program.ColoredConsole.WriteLine($"            > #{batchId} updated: ${string.Join(", ", updatedModels.Select(x => $"{x.dbModel?.Name} {x.dbModel?.Id}"))}", Colors.txtMuted);
+
+        var dbModels = updatedModels.Select(x => x.dbModel).ToList();
+        if (dbModels.Any(x => x == null))
         {
-            var inputBirdModels = birdNames
-                .Where(name => name != "undefined")
-                .Distinct()
-                .Select(ToBirdModel)
-                .ToArray();
-
-            Program.ColoredConsole.WriteLine($"            > # #{batchId} local: ${string.Join(", ", inputBirdModels.Select(x => $"{x.Name}"))}", Colors.txtMuted);
-            var birdsFromDb = (await GetBirdsFromDb(clientSessionHandle, inputBirdModels, ct)).ToArray();
-            Program.ColoredConsole.WriteLine($"            > # #{batchId} db: ${string.Join(", ", birdsFromDb.Select(x => $"{x.dbModel?.Name} {x.dbModel?.Id}"))}", Colors.txtMuted);
-            var toInsert = birdsFromDb
-                .Where(x => x.dbModel == null)
-                .Select(x => x.inputModel)
-                .ToArray();
-
-            if (!toInsert.Any())
-            {
-                Program.ColoredConsole.WriteLine($"            > #{batchId} nothing to insert", Colors.txtMuted);
-                return birdsFromDb.Select(x => x.dbModel).ToList();
-            }
-
-            await _birds.InsertManyAsync(clientSessionHandle, toInsert, cancellationToken: ct);
-
-            var updatedModels = (await GetBirdsFromDb(clientSessionHandle, inputBirdModels, ct)).ToArray();
-            Program.ColoredConsole.WriteLine($"            > #{batchId} updated: ${string.Join(", ", updatedModels.Select(x => $"{x.dbModel?.Name} {x.dbModel?.Id}"))}", Colors.txtMuted);
-
-            var dbModels = updatedModels.Select(x => x.dbModel).ToList();
-            if (dbModels.Any(x => x == null))
-            {
-                throw new Exception("some models are not saved to db");
-            }
-
-            return dbModels;
+            throw new Exception("some models are not saved to db");
         }
 
-        private PhotoModel ToPhotoModel(PhotoResponse.Photo photo, Sizes sizes, Location location, IEnumerable<BirdModel> birds)
+        return dbModels;
+    }
+
+    private static PhotoModel ToPhotoModel(PhotoResponse.Photo photo, Sizes sizes, Location location, IEnumerable<BirdModel> birds)
+    {
+        try
         {
-            try
+            var largestSize = sizes.size.MaxBy(x => x.height);
+            return new PhotoModel
             {
-                var largestSize = sizes.size.MaxBy(x => x.height);
-                return new PhotoModel
+                Description = photo.description._content,
+                BirdIds = birds.Select(x => x.Id),
+                Flickr = new FlickrModel
                 {
-                    Description = photo.description._content,
-                    BirdIds = birds.Select(x => x.Id),
-                    Flickr = new FlickrModel
+                    FarmId = photo.farm,
+                    Id = photo.id,
+                    ServerId = photo.server,
+                    Secret = photo.originalsecret
+                },
+                Ratio = largestSize != null ? (double)largestSize.width / largestSize.height : 1,
+                Location = location == null
+                    ? null
+                    : new LocationModel
                     {
-                        FarmId = photo.farm,
-                        Id = photo.id,
-                        ServerId = photo.server,
-                        Secret = photo.originalsecret
+                        Country = location.country._content,
+                        Neighbourhood = location.neighbourhood._content,
+                        Region = location.region._content,
+                        X = double.Parse(location.longitude, CultureInfo.InvariantCulture),
+                        Y = double.Parse(location.latitude, CultureInfo.InvariantCulture),
+                        GeoTag = location.place_id,
+                        Locality = location.locality?._content
                     },
-                    Ratio = largestSize != null ? (double)largestSize.width / largestSize.height : 1,
-                    Location = location == null
-                        ? null
-                        : new LocationModel
-                        {
-                            Country = location.country._content,
-                            Neighbourhood = location.neighbourhood._content,
-                            Region = location.region._content,
-                            X = double.Parse(location.longitude, CultureInfo.InvariantCulture),
-                            Y = double.Parse(location.latitude, CultureInfo.InvariantCulture),
-                            GeoTag = location.place_id,
-                            Locality = location.locality?._content
-                        },
-                    DateTaken = DateTime.Parse(photo.dates.taken),
-                };
-            }
-            catch (Exception)
-            {
-                System.IO.File.AppendAllText("out.txt",
-                    JsonSerializer.Serialize(photo)
-                    + "\n"
-                    + JsonSerializer.Serialize(location)
-                    + "\n"
-                );
-                throw;
-            }
-        }
-
-
-        private async Task<IEnumerable<(BirdModel dbModel, BirdModel inputModel)>> GetBirdsFromDb(
-            IClientSessionHandle clientSessionHandle, BirdModel[] birdModels, CancellationToken ct)
-        {
-            var names = birdModels.Select(x => x.Name).ToArray();
-            var birdsToSearch = await _birds.FindAsync(clientSessionHandle, x => names.Contains(x.Name), cancellationToken: ct);
-            var birdsDbList = await birdsToSearch.ToListAsync(ct);
-
-            var duplicateEntries = birdsDbList.GroupBy(x => x.Name).Where(x => x.Count() > 1).ToArray();
-            if (duplicateEntries.Any())
-            {
-                throw new Exception($"duplicate entry exists: {JsonSerializer.Serialize(duplicateEntries)}");
-            }
-
-            var mergedList = birdModels.Select(x => (
-                birdsDbList
-                    .OrderByDescending(m => m.Id.CreationTime)
-                    .SingleOrDefault(dm => dm.Name == x.Name), x));
-            return mergedList;
-        }
-
-        private IEnumerable<string> ExtractBirdNames(string title)
-        {
-            if (title.StartsWith("B: "))
-                title = title["B: ".Length..];
-            return title.Contains(", ") ? title.Split(", ").Distinct() : new[] { title };
-        }
-
-        private BirdModel ToBirdModel(string name)
-        {
-            Func<string, int> indexOf = name.IndexOf;
-
-            return new BirdModel
-            {
-                Name = name.Substring(0, indexOf("(") - 1),
-                Latin = name.Substring(indexOf("(") + 1, indexOf(")") - indexOf("(") - 1)
+                DateTaken = DateTime.Parse(photo.dates.taken),
             };
         }
-
-        public async Task TrackDuplicatePhotos(CancellationToken ct)
+        catch (Exception)
         {
-            Program.ColoredConsole.WriteLine("Tracking duplicates...", Colors.bgWarning);
-            try
-            {
-                await FixDuplicateBirds(ct);
-                await FixDuplicatePhotos(ct);
-            }
-            catch (Exception e)
-            {
-                Program.ColoredConsole.WriteLine($"{e.Message}\n{e.StackTrace}", Colors.bgDanger);
-                throw;
-            }
+            File.AppendAllText("out.txt",
+                JsonSerializer.Serialize(photo)
+                + "\n"
+                + JsonSerializer.Serialize(location)
+                + "\n"
+            );
+            throw;
+        }
+    }
 
+
+    private async Task<IEnumerable<(BirdModel dbModel, BirdModel inputModel)>> GetBirdsFromDb(
+        IClientSessionHandle clientSessionHandle, BirdModel[] birdModels, CancellationToken ct)
+    {
+        var names = birdModels.Select(x => x.Name).ToArray();
+        var birdsToSearch = await Birds.FindAsync(clientSessionHandle, x => names.Contains(x.Name), cancellationToken: ct);
+        var birdsDbList = await birdsToSearch.ToListAsync(ct);
+
+        var duplicateEntries = birdsDbList.GroupBy(x => x.Name).Where(x => x.Count() > 1).ToArray();
+        if (duplicateEntries.Length != 0)
+        {
+            throw new Exception($"duplicate entry exists: {JsonSerializer.Serialize(duplicateEntries)}");
         }
 
-        private async Task FixDuplicateBirds(CancellationToken ct)
+        var mergedList = birdModels.Select(x => (
+            birdsDbList
+                .OrderByDescending(m => m.Id.CreationTime)
+                .SingleOrDefault(dm => dm.Name == x.Name), x));
+        return mergedList;
+    }
+
+    private IEnumerable<string> ExtractBirdNames(string title)
+    {
+        if (title.StartsWith("B: "))
+            title = title["B: ".Length..];
+        return title.Contains(", ") ? title.Split(", ").Distinct() : new[] { title };
+    }
+
+    private BirdModel ToBirdModel(string name)
+    {
+        Func<string, int> indexOf = name.IndexOf;
+
+        return new BirdModel
         {
-            var duplicateBirdsGroups = await _birds
-                .Aggregate()
-                .Group(x => x.Name, _ => new
-                {
-                    ids = _.Select(b => b.Id),
-                    count = _.Count()
-                })
-                .Match(x => x.count > 1)
-                .Project(x => new { ids = x.ids })
-                .ToListAsync(ct);
+            Name = name[..(indexOf("(") - 1)],
+            Latin = name.Substring(indexOf("(") + 1, indexOf(")") - indexOf("(") - 1)
+        };
+    }
 
-            foreach (var group in duplicateBirdsGroups)
+    public async Task TrackDuplicatePhotos(CancellationToken ct)
+    {
+        Program.ColoredConsole.WriteLine("Tracking duplicates...", Colors.bgWarning);
+        try
+        {
+            await FixDuplicateBirds(ct);
+            await FixDuplicatePhotos(ct);
+        }
+        catch (Exception e)
+        {
+            Program.ColoredConsole.WriteLine($"{e.Message}\n{e.StackTrace}", Colors.bgDanger);
+            throw;
+        }
+
+    }
+
+    private async Task FixDuplicateBirds(CancellationToken ct)
+    {
+        var duplicateBirdsGroups = await Birds
+            .Aggregate()
+            .Group(x => x.Name, _ => new
             {
-                if (group.ids.Count() < 2)
-                    throw new Exception("wat?!");
+                ids = _.Select(b => b.Id),
+                count = _.Count()
+            })
+            .Match(x => x.count > 1)
+            .Project(x => new { x.ids })
+            .ToListAsync(ct);
 
-                var firstId = group.ids.FirstOrDefault();
-                var others = group.ids.Except(new[] { firstId }).ToArray();
-                foreach (var other in others)
+        foreach (var group in duplicateBirdsGroups)
+        {
+            if (group.ids.Count() < 2)
+                throw new Exception("wat?!");
+
+            var firstId = group.ids.FirstOrDefault();
+            var others = group.ids.Except([firstId]).ToArray();
+            foreach (var other in others)
+            {
+                var findCursor = await Photos.FindAsync(x => x.BirdIds.Contains(other), cancellationToken: ct);
+                var photosOfOtherIds = await findCursor.ToListAsync(ct);
+                foreach (var photo in photosOfOtherIds)
                 {
-                    var findCursor = await _photos.FindAsync(x => x.BirdIds.Contains(other), cancellationToken: ct);
-                    var photosOfOtherIds = await findCursor.ToListAsync(ct);
-                    foreach (var photo in photosOfOtherIds)
-                    {
-                        var updateNameDefinition = Builders<PhotoModel>.Update
-                            .Set(u => u.BirdIds, photo.BirdIds
-                            .Except(new[] { other })
-                            .Union(new[] { firstId }));
+                    var updateNameDefinition = Builders<PhotoModel>.Update
+                        .Set(u => u.BirdIds, photo.BirdIds
+                        .Except([other])
+                        .Union([firstId]));
 
-                        await _photos.UpdateManyAsync(
-                            x => x.Id == photo.Id, updateNameDefinition, cancellationToken: ct);
-                    }
+                    await Photos.UpdateManyAsync(
+                        x => x.Id == photo.Id, updateNameDefinition, cancellationToken: ct);
                 }
-                await _birds.DeleteManyAsync(x => others.Contains(x.Id), cancellationToken: ct);
-                Program.ColoredConsole.WriteLine($"Birds with ids {JsonSerializer.Serialize(others)} removed as duplicates", Colors.bgWarning);
             }
+            await Birds.DeleteManyAsync(x => others.Contains(x.Id), cancellationToken: ct);
+            Program.ColoredConsole.WriteLine($"Birds with ids {JsonSerializer.Serialize(others)} removed as duplicates", Colors.bgWarning);
         }
-        private async Task FixDuplicatePhotos(CancellationToken ct)
+    }
+    private async Task FixDuplicatePhotos(CancellationToken ct)
+    {
+        var duplicatePhotos = await Photos
+           .Aggregate()
+           .Group(x => x.Flickr.Id, _ => new
+           {
+               ids = _.Select(b => b.Id),
+               count = _.Count()
+           })
+           .Match(x => x.count > 1)
+           .Project(x => new { x.ids })
+           .ToListAsync(ct);
+
+        Program.ColoredConsole.WriteLine($"duplicatePhotos: {JsonSerializer.Serialize(duplicatePhotos)}", Colors.bgWarning);
+
+        foreach (var group in duplicatePhotos)
         {
-            var duplicatePhotos = await _photos
-               .Aggregate()
-               .Group(x => x.Flickr.Id, _ => new
-               {
-                   ids = _.Select(b => b.Id),
-                   count = _.Count()
-               })
-               .Match(x => x.count > 1)
-               .Project(x => new { ids = x.ids })
-               .ToListAsync(ct);
+            if (group.ids.Count() < 2)
+                throw new Exception("wat?!");
 
-            Program.ColoredConsole.WriteLine($"duplicatePhotos: {JsonSerializer.Serialize(duplicatePhotos)}", Colors.bgWarning);
-
-            foreach (var group in duplicatePhotos)
-            {
-                if (group.ids.Count() < 2)
-                    throw new Exception("wat?!");
-
-                var firstId = group.ids.FirstOrDefault();
-                var others = group.ids.Except(new[] { firstId });
-                await _photos.DeleteManyAsync(x => others.Contains(x.Id), ct);
-                Program.ColoredConsole.WriteLine($"Photos with ids {JsonSerializer.Serialize(others)} removed as duplicates", Colors.bgWarning);
-            }
+            var firstId = group.ids.FirstOrDefault();
+            var others = group.ids.Except([firstId]);
+            await Photos.DeleteManyAsync(x => others.Contains(x.Id), ct);
+            Program.ColoredConsole.WriteLine($"Photos with ids {JsonSerializer.Serialize(others)} removed as duplicates", Colors.bgWarning);
         }
     }
 }

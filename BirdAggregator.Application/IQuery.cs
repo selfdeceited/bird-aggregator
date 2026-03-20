@@ -1,9 +1,8 @@
 using MediatR;
 
-namespace BirdAggregator.Application
-{
-    public interface IQuery<out TResult> : IRequest<TResult>
-    {
+namespace BirdAggregator.Application;
 
-    }
+public interface IQuery<out TResult> : IRequest<TResult>
+{
+
 }

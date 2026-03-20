@@ -1,15 +1,13 @@
-﻿using System;
-using MediatR;
+﻿using MediatR;
 
-namespace BirdAggregator.Application
+namespace BirdAggregator.Application;
+
+public interface ICommand : IRequest
 {
-    public interface ICommand : IRequest
-    {
-        Guid Id { get; }
-    }
+    Guid Id { get; }
+}
 
-    public interface ICommand<out TResult> : IRequest<TResult>
-    {
-        Guid Id { get; }
-    }
+public interface ICommand<out TResult> : IRequest<TResult>
+{
+    Guid Id { get; }
 }
