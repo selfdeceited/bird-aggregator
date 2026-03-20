@@ -65,7 +65,7 @@ namespace BirdAggregator.Infrastructure.Mongo
         private async Task InitCollection<T>(string fileName, string collectionName)
         {
             var collection = Database.GetCollection<T>(collectionName);
-            if (await collection.AsQueryable().AnyAsync())
+            if (await collection.CountDocumentsAsync(Builders<T>.Filter.Empty) > 0)
                 return;
 
             var path = Path.Combine(Assembly.GetEntryAssembly()?.Location ?? "", "../", fileName);
