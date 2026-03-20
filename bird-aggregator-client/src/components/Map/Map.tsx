@@ -45,6 +45,40 @@ const Spinner = styled.div`
 	animation: ${spin} 0.7s linear infinite;
 `
 
+const PopupCard = styled.div`
+	position: absolute;
+	bottom: 30px;
+	left: 20px;
+	background: #fff;
+	border-radius: 6px;
+	box-shadow: 0 2px 14px rgba(0, 0, 0, 0.22);
+	z-index: 5;
+	min-width: 190px;
+	max-width: 250px;
+`
+
+const PopupHeader = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	padding: 4px 6px 0;
+`
+
+const CloseButton = styled.button`
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 16px;
+	color: #5c7080;
+	line-height: 1;
+	padding: 2px 4px;
+	border-radius: 3px;
+	&:hover { background: #f0f4f8; }
+`
+
+const PopupBody = styled.div`
+	padding: 0 10px 10px;
+`
+
 export type MapContainerProps = InputUrlParameters & { embedded: boolean }
 
 const initialWidth = (props: MapContainerProps): string => {
@@ -67,9 +101,11 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 	const [mapWidth] = useState<string>(initialWidth(props))
 	const [markers, setMarkers] = useState<MapMarker[]>([])
 	const [loading, setLoading] = useState(true)
+	const [selectedMarker, setSelectedMarker] = useState<MapMarker | null>(null)
 
 	useEffect(() => {
 		setMarkers([])
+		setSelectedMarker(null)
 		setLoading(true)
 		const fetchData = async (): Promise<void> => {
 			let fetchedMarkers = await fetchMarkersByProps(props)
@@ -104,6 +140,9 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 
 	const markerClick = (marker: MapMarker): void => {
 		mapRef.current?.flyTo({ center: [marker.x, marker.y] })
+		if (!props.embedded) {
+			setSelectedMarker(marker)
+		}
 	}
 
 	const key = (_: GeoJSON.Position): string => `${_[0]}:${_[1]}`
@@ -111,10 +150,6 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 	const styles: Record<string, React.CSSProperties> = {
 		clusterMarker: mapStyles.clusterMarker,
 		marker: mapStyles.marker,
-	}
-
-	function markerSelected(_: MapMarker): boolean {
-		return false
 	}
 
 	return (
@@ -151,13 +186,21 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 							latitude={m.y}
 							onClick={() => markerClick(m)}
 							style={styles.marker}
-						>
-							{markerSelected(m) && <PinPopup marker={m} />}
-						</Marker>
+						/>
 					))}
 				</>
 				{}
 			</ReactMapGl>
+			{selectedMarker && (
+				<PopupCard>
+					<PopupHeader>
+						<CloseButton onClick={() => setSelectedMarker(null)}>×</CloseButton>
+					</PopupHeader>
+					<PopupBody>
+						<PinPopup marker={selectedMarker} />
+					</PopupBody>
+				</PopupCard>
+			)}
 		</div>
 	)
 }
