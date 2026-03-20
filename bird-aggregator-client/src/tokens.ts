@@ -1,1 +1,1 @@
-export const mapboxAccessToken = 'pk.eyJ1IjoidG9ueXJ5emhpa292IiwiYSI6ImNsa2Y0eXYzbDAzM3oza21lcmQzYTIxem0ifQ.cssZDajjFNkDRVH_Vb53cQ'
+export const mapboxAccessToken = process.env.MAPBOX_TOKEN

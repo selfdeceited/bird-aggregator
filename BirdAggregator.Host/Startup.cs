@@ -71,6 +71,8 @@ public class Startup
 
         services.AddResponseCompression();
 
+        services.AddHttpLogging(_ => { });
+
         // todo: MediaTr IoC to infra layer!
         services.AddMediatR(c =>
         {
