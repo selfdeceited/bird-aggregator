@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 
-const backend_url = process.env.REACT_APP_BACKEND_URL
+const backend_url = import.meta.env.VITE_BACKEND_URL
 if (!backend_url) {
 	throw new Error('empty backend url!')
 }
