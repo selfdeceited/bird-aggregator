@@ -1,4 +1,3 @@
-using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using BirdAggregator.Domain.Interfaces;
@@ -51,7 +50,6 @@ namespace BirdAggregator.Infrastructure.Wikipedia
         private async Task<string> CallWikipedia(string requestUrl)
         {
             var httpClient = _httpClientFactory.CreateClient(HttpClientNames.Wikipedia);
-            httpClient.BaseAddress = new Uri("https://en.wikipedia.org");
             return await httpClient.GetStringAsync(requestUrl);
         }
     }
