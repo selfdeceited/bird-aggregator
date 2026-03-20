@@ -5,16 +5,40 @@
 import * as GeoJSON from 'geojson'
 import * as React from 'react'
 
-import { FullscreenControl, GeolocateControl, Marker, NavigationControl, Map as ReactMapGl, ScaleControl } from 'react-map-gl'
+import { FullscreenControl, GeolocateControl, MapRef, Marker, NavigationControl, Map as ReactMapGl, ScaleControl } from 'react-map-gl'
 
 import { InputUrlParameters, MapMarker } from './types'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { PinPopup } from './PinPopup'
 import { aggregatePhotosInSameLocation } from './locationAggregator'
 
 import { fetchMarkersByProps } from '../../clients/MarkerClient'
 import { mapStyles } from './styles'
 import { mapboxAccessToken } from '../../tokens'
+import styled, { keyframes } from 'styled-components'
+
+const spin = keyframes`
+  to { transform: rotate(360deg); }
+`
+
+const SpinnerOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 10;
+`
+
+const Spinner = styled.div`
+  width: 36px;
+  height: 36px;
+  border: 3px solid #d0d0d0;
+  border-top-color: #555;
+  border-radius: 50%;
+  animation: ${spin} 0.7s linear infinite;
+`
 
 export type MapContainerProps = InputUrlParameters & { embedded: boolean }
 
@@ -33,30 +57,42 @@ const initialHeight = (props: MapContainerProps): string => {
 }
 
 export const MapContainer: React.FC<MapContainerProps> = props => {
-	const [center, setCenter] = useState<[number, number]>([35.5, 55.6])
+	const mapRef = useRef<MapRef>(null)
 	const [mapHeight] = useState<string>(initialHeight(props))
 	const [mapWidth] = useState<string>(initialWidth(props))
 	const [markers, setMarkers] = useState<MapMarker[]>([])
-
-	const fetchData = async (): Promise<void> => {
-		let fetchedMarkers = await fetchMarkersByProps(props)
-
-		fetchedMarkers = aggregatePhotosInSameLocation(fetchedMarkers)
-		setMarkers(fetchedMarkers)
-
-		if ((props.photoId || props.birdId) && fetchedMarkers.length > 0) {
-			setCenter([fetchedMarkers[0].x, fetchedMarkers[0].y])
-		}
-	}
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		setMarkers([])
+		setLoading(true)
+		const fetchData = async () => {
+			let fetchedMarkers = await fetchMarkersByProps(props)
+			fetchedMarkers = aggregatePhotosInSameLocation(fetchedMarkers)
+			setMarkers(fetchedMarkers)
+			setLoading(false)
+		}
 		void fetchData()
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.embedded ? props.birdId : null])
 
+	useEffect(() => {
+		if (markers.length === 0 || !mapRef.current) return
+
+		if (props.photoId || props.birdId) {
+			mapRef.current.flyTo({ center: [markers[0].x, markers[0].y], zoom: 10 })
+		} else {
+			const lons = markers.map(m => m.x)
+			const lats = markers.map(m => m.y)
+			mapRef.current.fitBounds(
+				[[Math.min(...lons), Math.min(...lats)], [Math.max(...lons), Math.max(...lats)]],
+				{ padding: 60 }
+			)
+		}
+	}, [markers])
+
 	const markerClick = (marker: MapMarker): void => {
-		setCenter([marker.x, marker.y])
+		mapRef.current?.flyTo({ center: [marker.x, marker.y] })
 	}
 
 	/* const clusterClick = (coordinates: GeoJSON.Position): void => {
@@ -91,9 +127,10 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 	)*/
 
 	return (
-		<div className={props.embedded ? '' : ''}>
+		<div style={{ overflow: 'hidden', position: 'relative' }}>
+			{loading && <SpinnerOverlay><Spinner/></SpinnerOverlay>}
 			<ReactMapGl
-				// mapLib={import('mapbox-gl')}
+				ref={mapRef}
 				mapboxAccessToken={mapboxAccessToken}
 				mapStyle="mapbox://styles/mapbox/outdoors-v10"
 				style={{
@@ -102,9 +139,9 @@ export const MapContainer: React.FC<MapContainerProps> = props => {
 					position: 'relative',
 				}}
 				initialViewState={{
-					longitude: center[0],
-					latitude: center[1],
-					zoom: 6,
+					longitude: 35.5,
+					latitude: 55.6,
+					zoom: 4,
 				}}
 			>
 				<GeolocateControl position="top-left" />
