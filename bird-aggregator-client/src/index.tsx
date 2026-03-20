@@ -1,3 +1,5 @@
+import 'yet-another-react-lightbox/styles.css'
+import 'yet-another-react-lightbox/plugins/captions.css'
 import './index.scss'
 
 import * as serviceWorker from './serviceWorker'

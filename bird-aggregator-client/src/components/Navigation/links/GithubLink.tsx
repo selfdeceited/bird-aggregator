@@ -1,9 +1,9 @@
 import React from 'react'
+import { Github } from 'lucide-react'
+import { NavAButton } from '../NavStyled'
 
-export const GithubLink: React.FC<{githubLink: string}> = ({ githubLink }) => <a
-	role="button"
-	className="bp5-button bp5-minimal bp5-icon-git-repo"
-	href={githubLink}
->
-            GitHub
-</a>
+export const GithubLink: React.FC<{ githubLink: string }> = ({ githubLink }) => (
+	<NavAButton href={githubLink}>
+		<Github size={14}/> GitHub
+	</NavAButton>
+)

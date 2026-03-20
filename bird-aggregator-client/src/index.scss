@@ -1,65 +1,10 @@
-@import "normalize.css";
-@import "@blueprintjs/core/lib/css/blueprint.css";
-@import "@blueprintjs/icons/lib/css/blueprint-icons.css";
-@import "@blueprintjs/core/lib/scss/variables";
-@import "@blueprintjs/select/lib/css/blueprint-select.css";
-@import "yet-another-react-lightbox/styles.css";
-@import "yet-another-react-lightbox/plugins/captions.css";
-
 .hide {
   display: none;
 }
 
-h1 {
-  color: $pt-heading-color;
-}
-
-.body{
-  padding-top: $pt-navbar-height;  
+.body {
+  padding-top: 50px;
   height: 100vh;
-}
-
-.bp5-select-popover .bp5-menu {
-  max-width: 400px;
-  max-height: 300px;
-  overflow: auto;
-  padding: 0;
-}
-
-nav {
-  .small-space {
-      display: inline-block;
-      width: 4px;
-  }
-  .bird-info-select {
-      div.inline-block {
-          display: inline-block;
-      }
-  }
-}
-
-.small-margin {
-  margin: 1px;
-}
-
-.bird-column {
-  width: 320px;
-}
-
-.map-popup {
-  background: white;
-  color: #3F618C;
-  font-weight: 400;
-  padding: 5px;
-  border-radius: 2px;
-
-  a {
-      font-size: 13px;
-  }
-  
-  a.bp3-icon-cross{
-      float: right;
-  }
 }
 
 .display-block {
@@ -73,115 +18,57 @@ nav {
   text-align: left !important;
 }
 
-div.body > table td {
-  line-height: 30px;
+.small-margin {
+  margin: 1px;
 }
 
-.show-mobile{
+.bird-column {
+  width: 320px;
+}
+
+.date-column {
+  width: 160px;
+}
+
+.map-popup {
+  background: white;
+  color: #3F618C;
+  font-weight: 400;
+  padding: 5px;
+  border-radius: 2px;
+
+  a {
+    font-size: 13px;
+  }
+}
+
+.show-mobile {
   display: none;
 }
 
 .hide-mobile {
-  &div {
-      display: block;
-  }
-  &span {
-      display: inline
-  }
-}
-
-@media screen and (max-width: 960px) {
-  #root {
-      nav > div.bp3-navbar-group > a.bp3-button.bp3-minimal.bp3-icon-arrow-right{
-          line-height: 0;
-          font-size: 0;
-          color: transparent;
-          margin-top: 15px;
-      }
-  }
-}
-
-@mixin hide-text-for-icon {
-  line-height: 0;
-  font-size: 0;
-  color: transparent;
-  padding-top: 6px;
-}
-
-
-@media screen and (max-width: 960px) {
-  #root {
-      nav > div.bp3-navbar-group.bp3-align-right > a.bp3-button.bp3-minimal{
-          @include hide-text-for-icon;
-      }
-  }
-}
-
-@media screen and (max-width: 880px) {
-  #root {
-      nav > div.bp3-navbar-group.bp3-align-left > a.bp3-button.bp3-minimal{
-          @include hide-text-for-icon;
-      }
-  }
+  &div { display: block; }
+  &span { display: inline; }
 }
 
 @media screen and (max-width: 780px) {
-  #root {
-      nav .bird-info-select{
-          display: none;
-      }
-      .bird-column{
-          width: 300px;
-      }
-      .date-column {
-          width: 160px;
-      }
-      .marker-thumbnail{
-          display: none;
-      }
-      .photo-flex-container{
-          display: block
-      }
-  }
+  .bird-info-select { display: none; }
+  .bird-column { width: 300px; }
+  .date-column { width: 120px; }
+  .marker-thumbnail { display: none; }
+  .photo-flex-container { display: block; }
 }
+
 @media screen and (max-width: 460px) {
-  #root {
-      nav {
-          div.bp3-navbar-group.bp3-align-right > a.bp3-button.bp3-minimal{
-              display: none;
-          }
-          .bp3-navbar-heading
-          {
-              font-size: 12px;
-              margin-right: 0
-          }
-      }
-  }
-
   .show-mobile {
-      &h2 {
-          display: block;
-          padding-left: 10px;
-          padding-top: 10px;
-      }
-      &div {
-          display: block;
-      }
-      &span {
-          display: inline
-      }
+    &h2 { display: block; padding-left: 10px; padding-top: 10px; }
+    &div { display: block; }
+    &span { display: inline; }
   }
-  .hide-mobile {
-      display: none;
-  }
-
-  tbody.life-list-table{
-      font-size: 11px;
-  }
+  .hide-mobile { display: none; }
 }
 
-.marker-thumbnail
-{
+.marker-thumbnail {
   margin-top: 10px;
   border-radius: 5px;
   max-height: 300px;
@@ -206,10 +93,10 @@ div.body > table td {
   height: 20px;
   width: 500px;
   span {
-      margin: 10px;
-      z-index: 99;
-      opacity: .99;
-      color: white;
+    margin: 10px;
+    z-index: 99;
+    opacity: .99;
+    color: white;
   }
 }
 
@@ -252,10 +139,9 @@ img.photo-page {
   z-index: 9 !important;
 }
 
-
 .lifelist-container {
   margin-top: 10px;
-  margin-left: 20px
+  margin-left: 20px;
 }
 
 .yearly-lifelist-container {

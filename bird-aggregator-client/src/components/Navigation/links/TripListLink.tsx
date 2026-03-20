@@ -1,11 +1,9 @@
-import { Link } from 'react-router-dom'
 import React from 'react'
+import { Flame } from 'lucide-react'
+import { NavLinkButton } from '../NavStyled'
 
-export const TripListLink: React.FC = () => <Link
-	to="/triplist"
-	title="Trips"
-	role="button"
-	className="bp5-button bp5-minimal bp5-icon-torch small-margin"
->
-    Trips
-</Link>
+export const TripListLink: React.FC = () => (
+	<NavLinkButton to="/triplist" title="Trips">
+		<Flame size={14}/> Trips
+	</NavLinkButton>
+)

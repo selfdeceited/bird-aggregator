@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom'
 import React from 'react'
+import { NavHeading } from '../NavStyled'
 
-export const RootPageLink: React.FC<{userName: string}> = ({ userName }) => (
-	<Link
-		to="/" title="Main page" className="bp5-navbar-heading">
+export const RootPageLink: React.FC<{ userName: string }> = ({ userName }) => (
+	<NavHeading to="/" title="Main page">
 		<b>{userName}</b>
-	</Link>)
+	</NavHeading>
+)

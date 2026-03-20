@@ -1,11 +1,9 @@
-import { Link } from 'react-router-dom'
 import React from 'react'
+import { Map } from 'lucide-react'
+import { NavLinkButton } from '../NavStyled'
 
-export const MapLink: React.FC = () => <Link
-	to="/map"
-	title="Map"
-	role="button"
-	className="bp5-button bp5-minimal bp5-icon-map small-margin"
->
-    Map
-</Link>
+export const MapLink: React.FC = () => (
+	<NavLinkButton to="/map" title="Map">
+		<Map size={14}/> Map
+	</NavLinkButton>
+)

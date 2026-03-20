@@ -1,9 +1,9 @@
 import React from 'react'
+import { Images } from 'lucide-react'
+import { NavAButton } from '../NavStyled'
 
-export const ImageHostingLink: React.FC<{imageHostingLink: string}> = ({ imageHostingLink }) => <a
-	role="button"
-	className="bp5-button bp5-minimal bp5-icon-group-objects"
-	href={imageHostingLink}
->
-            Flickr
-</a>
+export const ImageHostingLink: React.FC<{ imageHostingLink: string }> = ({ imageHostingLink }) => (
+	<NavAButton href={imageHostingLink}>
+		<Images size={14}/> Flickr
+	</NavAButton>
+)
