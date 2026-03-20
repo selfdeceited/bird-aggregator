@@ -1,3 +1,14 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #182026;
+  margin: 0;
+}
+
 .hide {
   display: none;
 }
