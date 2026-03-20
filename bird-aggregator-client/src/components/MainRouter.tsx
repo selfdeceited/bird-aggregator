@@ -22,7 +22,7 @@ export const MainRouter: React.FC = () =>
 					showImageCaptions/>}/>
 				<Route path="/lifelist" element={<LifeList/>}/>
 				<Route path="/map" element={<MapContainer embedded={false} />}/>
-		<Route path="/gallery" element={<Gallery
+				<Route path="/gallery" element={<Gallery
 					seeFullGalleryLink={false}
 					urlToFetch={'/api/gallery/9000'}
 					showImageCaptions />}/>

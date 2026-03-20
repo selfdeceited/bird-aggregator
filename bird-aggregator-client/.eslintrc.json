@@ -10,7 +10,7 @@
 		"plugin:@typescript-eslint/eslint-recommended",
 		"plugin:@typescript-eslint/recommended",
 		"plugin:@typescript-eslint/recommended-requiring-type-checking",
-		"plugin:jest/recommended"
+		"plugin:@typescript-eslint/recommended"
 	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
@@ -21,8 +21,7 @@
 		"react-hooks",
 		"promise",
 		"optimize-regex",
-		"@typescript-eslint",
-		"jest"
+		"@typescript-eslint"
 	],
 	"settings": {
 		"react": {
@@ -80,7 +79,7 @@
 		"space-in-parens": "error", // enforce consistent spacing inside parentheses
 		"space-infix-ops": "error", // require spacing around infix operators
 		"space-unary-ops": "error", // enforce consistent spacing before or after unary operators
-		"spaced-comment": ["error", "always"], // enforce consistent spacing after the // or /* in a comment
+		"spaced-comment": ["error", "always", { "markers": ["/"] }], // enforce consistent spacing after the // or /* in a comment
 		"switch-colon-spacing": "error", // enforce spacing around colons of switch statements
 		"arrow-body-style": ["error", "as-needed"], // require braces around arrow function bodies
 		"arrow-parens": ["error", "as-needed"], // require parentheses around arrow function arguments
@@ -193,9 +192,6 @@
 		{
 			"files": ["**/*.spec.ts", "**/*.spec.tsx", "**/dsl/**"],
 			"rules": {
-				"jest/no-focused-tests": "error",
-				"jest/no-identical-title": "error",
-
 				"no-shadow": "off",
 				"max-classes-per-file": "off",
 				"@typescript-eslint/no-magic-numbers": "off",
@@ -205,7 +201,8 @@
 				"@typescript-eslint/no-non-null-assertion": "off",
 				"@typescript-eslint/no-empty-function": "off",
 				"@typescript-eslint/no-unsafe-member-access": "off",
-				"@typescript-eslint/no-unsafe-call": "off"
+				"@typescript-eslint/no-unsafe-call": "off",
+				"@typescript-eslint/no-unsafe-argument": "off"
 			}
 		}
 	]

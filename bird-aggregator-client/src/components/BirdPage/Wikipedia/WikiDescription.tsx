@@ -2,9 +2,8 @@
 
 import * as Collapsible from '@radix-ui/react-collapsible'
 import React, { useState } from 'react'
-import styled from 'styled-components'
-
 import { NewWindowLinkStyled } from './NewWindowLinkStyled'
+import styled from 'styled-components'
 
 const ToggleButton = styled.button`
   display: inline-flex;
@@ -23,14 +22,14 @@ const WikiContent = styled.div`
 `
 
 export const WikiDescription: React.FC<{ birdName: string; wikiInfo: string }> = ({ birdName, wikiInfo }) => {
-	const [open, setOpen] = useState(false)
+	const [isOpen, setIsOpen] = useState(false)
 
 	return (
 		<div>
 			<h2>{birdName}</h2>
-			<Collapsible.Root open={open} onOpenChange={setOpen}>
+			<Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
 				<Collapsible.Trigger asChild>
-					<ToggleButton>{open ? 'Hide' : 'Show'} wiki info</ToggleButton>
+					<ToggleButton>{isOpen ? 'Hide' : 'Show'} wiki info</ToggleButton>
 				</Collapsible.Trigger>
 				<Collapsible.Content>
 					<WikiContent dangerouslySetInnerHTML={{ __html: wikiInfo }}/>

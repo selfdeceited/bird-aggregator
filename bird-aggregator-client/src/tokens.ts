@@ -1,1 +1,1 @@
-export const mapboxAccessToken = import.meta.env.VITE_MAPBOX_TOKEN
+export const mapboxAccessToken = import.meta.env.VITE_MAPBOX_TOKEN as string

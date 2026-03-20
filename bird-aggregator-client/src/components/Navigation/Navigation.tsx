@@ -1,14 +1,13 @@
-import * as React from 'react'
 import * as Popover from '@radix-ui/react-popover'
-import { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import { ChevronsUpDown } from 'lucide-react'
-
+import * as React from 'react'
 import { Bird, fetchAllBirds } from '../../clients/GalleryClient'
-import { LinkResponse, fetchAs } from '../../clients'
-import { filterBird } from './BirdSelect'
 import { BirdLink, GithubLink, ImageHostingLink, LifeListLink, MapLink, RootPageLink } from './links'
-import { NavBar, NavGroup, NavDivider, NavButton } from './NavStyled'
+import { LinkResponse, fetchAs } from '../../clients'
+import { NavBar, NavButton, NavDivider, NavGroup } from './NavStyled'
+import { useCallback, useEffect, useState } from 'react'
+import { ChevronsUpDown } from 'lucide-react'
+import { filterBird } from './BirdSelect'
+import styled from 'styled-components'
 
 const ComboboxContent = styled(Popover.Content)`
   background: #fff;
@@ -47,17 +46,31 @@ const ComboboxItemLatin = styled.span`
   font-style: italic;
 `
 
+type BirdItemProps = { bird: Bird; onSelect: (b: Bird) => void }
+
+const BirdItem: React.FC<BirdItemProps> = ({ bird, onSelect }) => {
+	const handleMouseDown = useCallback((): void => {
+		onSelect(bird)
+	}, [onSelect, bird])
+	return (
+		<ComboboxItem onMouseDown={handleMouseDown}>
+			<span>{bird.name}</span>
+			<ComboboxItemLatin>{bird.latin}</ComboboxItemLatin>
+		</ComboboxItem>
+	)
+}
+
 export const Navigation: React.FC = () => {
 	const [birds, setBirds] = useState<Bird[]>([])
 	const [githubLink, setGithubLink] = useState('')
 	const [imageHostingLink, setImageHostingLink] = useState('')
 	const [userName, setUserName] = useState('')
 	const [selectedBird, setSelectedBird] = useState<Bird>({ id: 0, name: '', latin: '' })
-	const [open, setOpen] = useState(false)
+	const [isOpen, setIsOpen] = useState(false)
 	const [query, setQuery] = useState('')
 
 	useEffect(() => {
-		const fetchEverything = async () => {
+		const fetchEverything = async (): Promise<void> => {
 			const fetchedGithubLink = await fetchAs<LinkResponse>('/api/links/github')
 			setGithubLink(fetchedGithubLink)
 
@@ -77,11 +90,15 @@ export const Navigation: React.FC = () => {
 
 	const filteredBirds = query ? birds.filter(b => filterBird(query, b)) : birds
 
-	const handleSelect = (bird: Bird) => {
+	const handleSelect = useCallback((bird: Bird): void => {
 		setSelectedBird(bird)
-		setOpen(false)
+		setIsOpen(false)
 		setQuery('')
-	}
+	}, [])
+
+	const handleQueryChange = useCallback((e: React.ChangeEvent<HTMLInputElement>): void => {
+		setQuery(e.target.value)
+	}, [])
 
 	return (
 		<NavBar>
@@ -94,7 +111,7 @@ export const Navigation: React.FC = () => {
 				<NavDivider/>
 				<div className="bird-info-select">
 					<span>Find specific bird: &nbsp;</span>
-					<Popover.Root open={open} onOpenChange={setOpen}>
+					<Popover.Root open={isOpen} onOpenChange={setIsOpen}>
 						<Popover.Trigger asChild>
 							<NavButton>
 								{selectedBird?.name || 'Select bird'} <ChevronsUpDown size={13}/>
@@ -106,14 +123,11 @@ export const Navigation: React.FC = () => {
 									autoFocus
 									placeholder="Search birds..."
 									value={query}
-									onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+									onChange={handleQueryChange}
 								/>
 								<ComboboxList>
 									{filteredBirds.map(bird => (
-										<ComboboxItem key={bird.id} onMouseDown={() => handleSelect(bird)}>
-											<span>{bird.name}</span>
-											<ComboboxItemLatin>{bird.latin}</ComboboxItemLatin>
-										</ComboboxItem>
+										<BirdItem key={bird.id} bird={bird} onSelect={handleSelect} />
 									))}
 								</ComboboxList>
 							</ComboboxContent>

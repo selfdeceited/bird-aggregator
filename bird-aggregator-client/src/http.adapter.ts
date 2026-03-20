@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 
-const backend_url = import.meta.env.VITE_BACKEND_URL
+const backend_url = import.meta.env.VITE_BACKEND_URL as string
 if (!backend_url) {
 	throw new Error('empty backend url!')
 }

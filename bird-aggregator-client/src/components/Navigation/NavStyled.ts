@@ -1,5 +1,5 @@
-import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 export const NavBar = styled.nav`
   position: fixed;
@@ -15,10 +15,12 @@ export const NavBar = styled.nav`
   z-index: 10;
 `
 
-export const NavGroup = styled.div<{ $align?: 'left' | 'right' }>`
+type NavGroupProps = { $align?: 'left' | 'right' }
+
+export const NavGroup = styled.div<NavGroupProps>`
   display: flex;
   align-items: center;
-  flex: ${p => p.$align === 'right' ? '0 0 auto' : '1'};
+  flex: ${(p: NavGroupProps) => p.$align === 'right' ? '0 0 auto' : '1'};
   gap: 2px;
 `
 

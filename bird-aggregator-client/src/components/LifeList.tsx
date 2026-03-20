@@ -1,13 +1,12 @@
 import * as Popover from '@radix-ui/react-popover'
+import { ArrowRight, Calendar, MapPin } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { Calendar, MapPin, ArrowRight } from 'lucide-react'
-
 import { MapContainer } from './Map/Map'
 import { YearlyLifeList } from './YearlyLifeList'
 import { fetchLifelist } from '../clients/LifeListClient'
 import moment from 'moment'
+import styled from 'styled-components'
 
 export interface ILifeListDto {
 	birdId: string
@@ -82,7 +81,7 @@ export const LifeList: React.FC = () => {
 	const [yearlyOpen, setYearlyOpen] = useState(false)
 
 	useEffect(() => {
-		const fillLifelist = async () => {
+		const fillLifelist = async (): Promise<void> => {
 			const firstOccurrences = await fetchLifelist()
 			setLifelist(firstOccurrences)
 		}
