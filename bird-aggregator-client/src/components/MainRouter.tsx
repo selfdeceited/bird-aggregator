@@ -8,7 +8,6 @@ import { Gallery } from './Gallery/Gallery'
 import { LifeList } from './LifeList'
 import { MapContainer } from './Map/Map'
 import { PhotoPage } from './PhotoPage'
-import { TripList } from './TripList'
 
 export const MainRouter: React.FC = () =>
 
@@ -23,8 +22,7 @@ export const MainRouter: React.FC = () =>
 					showImageCaptions/>}/>
 				<Route path="/lifelist" element={<LifeList/>}/>
 				<Route path="/map" element={<MapContainer embedded={false} />}/>
-				<Route path="/triplist" element={<TripList/>}/>
-				<Route path="/gallery" element={<Gallery
+		<Route path="/gallery" element={<Gallery
 					seeFullGalleryLink={false}
 					urlToFetch={'/api/gallery/9000'}
 					showImageCaptions />}/>

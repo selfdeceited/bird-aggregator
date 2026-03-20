@@ -7,7 +7,7 @@ import { ChevronsUpDown } from 'lucide-react'
 import { Bird, fetchAllBirds } from '../../clients/GalleryClient'
 import { LinkResponse, fetchAs } from '../../clients'
 import { filterBird } from './BirdSelect'
-import { BirdLink, GithubLink, ImageHostingLink, LifeListLink, MapLink, RootPageLink, TripListLink } from './links'
+import { BirdLink, GithubLink, ImageHostingLink, LifeListLink, MapLink, RootPageLink } from './links'
 import { NavBar, NavGroup, NavDivider, NavButton } from './NavStyled'
 
 const ComboboxContent = styled(Popover.Content)`
@@ -90,7 +90,6 @@ export const Navigation: React.FC = () => {
 				<RootPageLink userName={userName}/>
 				<NavDivider/>
 				<MapLink/>
-				<TripListLink/>
 				<LifeListLink/>
 				<NavDivider/>
 				<div className="bird-info-select">
