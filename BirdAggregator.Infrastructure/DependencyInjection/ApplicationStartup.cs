@@ -63,6 +63,7 @@ public class ApplicationStartup
         services.AddHttpClient(HttpClientNames.Wikipedia, c =>
         {
             c.BaseAddress = new Uri("https://en.wikipedia.org");
+            c.DefaultRequestHeaders.UserAgent.ParseAdd("BirdAggregator/1.0 (https://github.com)");
         });
         
         var serviceProvider = services.BuildServiceProvider();
