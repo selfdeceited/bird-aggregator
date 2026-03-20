@@ -1,1 +1,1 @@
-dotnet run --project ./BirdAggregator.Host/BirdAggregator.Host.csproj
+dotnet watch --project ./BirdAggregator.Host/BirdAggregator.Host.csproj
